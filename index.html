@@ -1,22 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>DeskXP — CX Operations & Systems</title>
   <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
 
-  <!-- Open Graph -->
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="./" />
   <meta property="og:title" content="DeskXP — CX Operations & Systems" />
   <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
   <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://jdsc.deskxp.com" />
+  <meta property="og:url" content="https://jdsc.deskxp.com/" />
+  <meta name="theme-color" content="#111111" />
 
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Fonts (graceful if blocked) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=99" />
-  <noscript><style>section,.card{opacity:1!important;transform:none!important}</style></noscript>
+
+  <!-- CRITICAL SAFETY NET: text always visible even if CSS/JS borks -->
+  <style>
+    /* Base: readable by default */
+    :root { --bg:#ffffff; --fg:#111111; --accent:#4c8bf5; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0b0b0b; --fg:#f2f2f2; }
+    }
+    html { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* If JS is off or broken, kill any opacity/transform tricks */
+    .no-js * {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      visibility: visible !important;
+    }
+
+    /* Guard against “transparent text” bugs from bad CSS */
+    * { text-shadow: none; }
+    :where(h1,h2,h3,h4,h5,h6,p,li,a,span,div,small,strong,em) { -webkit-text-fill-color: currentColor; }
+
+    /* Minimal layout safety so page isn’t naked without site.css */
+    .nav-wrap { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid #eaeaea22; z-index: 50; }
+    .nav { max-width: 1100px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.2px; }
+    .brand img { width: 24px; height: 24px; }
+    .hamburger { display: none; }
+    .menu a { margin-left: 14px; }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .banner { padding: 72px 16px 48px; text-align: center; }
+    .banner .inner { max-width: 900px; margin: 0 auto; }
+    .headline { font-size: clamp(28px, 4vw, 44px); line-height: 1.15; margin: 0 0 12px; }
+    .subhead { font-size: clamp(16px, 2vw, 20px); color: #666; margin: 0; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 16px; }
+    section { margin-block: 32px; }
+    h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 16px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card { display: block; border: 1px solid #eaeaea55; border-radius: 12px; overflow: hidden; background: #fff08; }
+    .card-img { width: 100%; height: 160px; object-fit: cover; display:block; }
+    .card-body { padding: 14px; }
+    .card h3 { margin: 0 0 6px; font-size: 18px; }
+    .card p { margin: 0; color: #666; }
+
+    .success-slider { padding: 24px 16px 40px; background: #f8f8f8; }
+    .success-head { max-width: 1100px; margin: 0 auto 12px; }
+    .success-track { max-width: 1100px; margin: 0 auto; display: grid; gap: 12px; grid-template-columns: 1fr; }
+    .success-slide { border: 1px solid #eaeaea55; border-radius: 12px; padding: 16px; background: #fff; }
+    .success-logo { height: 28px; width: auto; }
+    .success-title { margin: 10px 0 8px; font-size: 18px; }
+    .success-body { margin: 0; color: #666; }
+    .success-nav, .success-dots { display: none; } /* Progressive enhancement only */
+
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .proj { border: 1px solid #eaeaea55; border-radius: 12px; padding: 16px; background: #fff; }
+    .muted { color: #666; margin-top: -6px; }
+
+    .btn-accent { display: inline-block; margin-top: 10px; padding: 10px 14px; border-radius: 10px; border: 1px solid #eaeaea55; background: #fff; }
+    .btn-accent:hover { text-decoration: none; }
+
+    footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #eaeaea55; text-align: center; }
+
+    /* Respect users who hate motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    /* Mobile menu (progressive enhancement in main.css/main.js later) */
+    @media (max-width: 720px) {
+      .hamburger { display: inline-flex; flex-direction: column; gap: 4px; background: transparent; border: 0; padding: 8px; }
+      .hamburger span { width: 22px; height: 2px; background: currentColor; display: block; }
+      .menu { display: none; }
+      .menu[data-open="true"] { display: block; }
+      .menu a { display: block; padding: 8px 0; margin: 0; }
+    }
+  </style>
+
+  <!-- Your site stylesheet (can animate things, but content is already visible) -->
+  <link rel="stylesheet" href="css/site.css?v=100" />
+
+  <!-- If JS is completely disabled, keep everything visible -->
+  <noscript><style>section,.card,.success-slide,.proj,.banner,.menu{opacity:1!important;transform:none!important;visibility:visible!important}</style></noscript>
+
+  <!-- Flip .no-js to .js ASAP -->
+  <script>
+    document.documentElement.classList.replace('no-js','js');
+  </script>
 </head>
 <body>
 
@@ -30,31 +139,30 @@
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
         <span></span><span></span><span></span>
       </button>
-      <div class="menu" id="menu">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#about">About Us</a>
+      <div class="menu" id="menu" data-open="false" role="menu">
+        <a href="#home" role="menuitem">Home</a>
+        <a href="#services" role="menuitem">Services</a>
+        <a href="#pricing" role="menuitem">Pricing</a>
+        <a href="#about" role="menuitem">About Us</a>
       </div>
     </nav>
   </div>
 
   <!-- Banner -->
-  <div class="banner" id="home">
+  <header class="banner" id="home">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
       <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
     </div>
-  </div>
+  </header>
 
-  <div class="container">
-
+  <main id="main" class="container" tabindex="-1">
     <!-- Services -->
-    <section id="services">
-      <h2>Services</h2>
+    <section id="services" aria-labelledby="services-h">
+      <h2 id="services-h">Services</h2>
 
       <div class="card-grid">
-        <a class="card" href="/services/?s=operations-design" aria-label="Operations Design">
+        <a class="card" href="services/index.html?s=operations-design" aria-label="Operations Design">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
           <div class="card-body">
             <h3>Operations Design</h3>
@@ -62,7 +170,7 @@
           </div>
         </a>
 
-        <a class="card" href="/services/?s=systems-architecture" aria-label="Systems Architecture">
+        <a class="card" href="services/index.html?s=systems-architecture" aria-label="Systems Architecture">
           <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
           <div class="card-body">
             <h3>Systems Architecture</h3>
@@ -70,23 +178,23 @@
           </div>
         </a>
 
-        <a class="card" href="/services/?s=automation-ai" aria-label="Automation & AI">
-          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy">
+        <a class="card" href="services/index.html?s=automation-ai" aria-label="Automation &amp; AI">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation &amp; AI" loading="lazy">
           <div class="card-body">
-            <h3>Automation & AI</h3>
+            <h3>Automation &amp; AI</h3>
             <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
           </div>
         </a>
 
-        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting & Analytics">
-          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
+        <a class="card" href="services/index.html?s=reporting-analytics" aria-label="Reporting &amp; Analytics">
+          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting &amp; Analytics" loading="lazy">
           <div class="card-body">
-            <h3>Reporting & Analytics</h3>
+            <h3>Reporting &amp; Analytics</h3>
             <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
           </div>
         </a>
 
-        <a class="card" href="/services/?s=ecommerce-integrations" aria-label="eCommerce Integrations">
+        <a class="card" href="services/index.html?s=ecommerce-integrations" aria-label="eCommerce Integrations">
           <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
           <div class="card-body">
             <h3>eCommerce Integrations</h3>
@@ -94,23 +202,22 @@
           </div>
         </a>
 
-        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience & Servicing">
-          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing" loading="lazy">
+        <a class="card" href="services/index.html?s=customer-experience-servicing" aria-label="Customer Experience &amp; Servicing">
+          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience &amp; Servicing" loading="lazy">
           <div class="card-body">
-            <h3>Customer Experience & Servicing</h3>
+            <h3>Customer Experience &amp; Servicing</h3>
             <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
           </div>
         </a>
       </div>
     </section>
+  </main>
 
-  </div><!-- /container -->
+  <!-- Success Stories (kept outside .container for full-bleed bg) -->
+  <section id="success" class="success-slider" aria-labelledby="success-h">
+    <div class="success-head"><h2 id="success-h">Success Stories</h2></div>
 
-  <!-- Success Stories -->
-  <section id="success" class="success-slider">
-    <div class="success-head"><h2>Success Stories</h2></div>
-
-    <div class="success-track" id="successTrack">
+    <div class="success-track" id="successTrack" aria-live="polite">
       <article class="success-slide">
         <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay">
         <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
@@ -124,21 +231,22 @@
       </article>
     </div>
 
-    <button class="success-nav prev" id="prevBtn">‹</button>
-    <button class="success-nav next" id="nextBtn">›</button>
-    <div class="success-dots" id="successDots"></div>
+    <!-- Nav/dots are progressive; content is readable with no JS -->
+    <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
+    <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
+    <div class="success-dots" id="successDots" role="tablist" aria-label="Slides"></div>
   </section>
 
   <div class="container">
-    <section id="pricing">
-      <h2>Pricing</h2>
+    <section id="pricing" aria-labelledby="pricing-h">
+      <h2 id="pricing-h">Pricing</h2>
       <div class="proj-grid">
         <div class="proj">
-          <h3>Audit & Roadmap</h3>
+          <h3>Audit &amp; Roadmap</h3>
           <p class="muted">1–2 weeks</p>
           <ul>
             <li>Systems assessment</li>
-            <li>Roadmap & ROI plan</li>
+            <li>Roadmap &amp; ROI plan</li>
             <li>Implementation proposal</li>
           </ul>
         </div>
@@ -147,23 +255,42 @@
           <p class="muted">4–6 weeks</p>
           <ul>
             <li>Workflow setup</li>
-            <li>Automation & dashboards</li>
+            <li>Automation &amp; dashboards</li>
             <li>Handover + QA</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="about">
-      <h2>About DeskXP</h2>
+    <section id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About DeskXP</h2>
       <p>We specialize in building, improving, and scaling customer support operations by leveraging technology, data, and process design.</p>
       <p>Find out more and reach out to us here:</p>
-      <a href="/about/" class="btn-accent">Contact Us →</a>
+      <a href="about/index.html" class="btn-accent">Contact Us →</a>
     </section>
 
-    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
+    <footer>© <span id="y">2025</span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <script src="js/main.js?v=99"></script>
+  <!-- JS: keep at the end; add tiny fallbacks -->
+  <script>
+    // Year fallback if your main bundle doesn’t run
+    (function(){ var y = document.getElementById('y'); if (y && (!y.textContent || /^\d{4}$/.test(y.textContent)===false)) { y.textContent = new Date().getFullYear(); } })();
+
+    // Mobile menu minimal behavior (defensive)
+    (function(){
+      var btn = document.getElementById('menuBtn');
+      var menu = document.getElementById('menu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function(){
+        var open = menu.getAttribute('data-open') === 'true';
+        menu.setAttribute('data-open', String(!open));
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    })();
+  </script>
+
+  <!-- Your main script (ok if it fails; page still readable) -->
+  <script src="js/main.js?v=100" defer></script>
 </body>
 </html>
