@@ -169,31 +169,16 @@ img { max-width: 100%; height: auto; display: block; }
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.btn.primary {
+.btn.primary,
+.banner .btn.secondary {
   background: var(--accent);
   color: #fff;
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
-.btn.primary:hover {
-  background: #008b42;
-  transform: translateY(-2px);
-}
-.btn.secondary {
-  background: transparent;
-  color: var(--text);
-  border: 2px solid var(--muted);
-}
-.btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-.banner .btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-}
+.btn.primary:hover,
 .banner .btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: #008b42;
   transform: translateY(-2px);
 }
 @media (max-width: 500px) {
