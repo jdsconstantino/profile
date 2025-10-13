@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <link rel="stylesheet" href="/css/site.css?v=100">
+  <link rel="stylesheet" href="/css/site.css?v=101">
   <style>
     a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: none; }
@@ -59,7 +59,8 @@
           <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg"><span>Automation &amp; AI</span></button>
           <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg"><span>Reporting &amp; Analytics</span></button>
           <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg"><span>eCommerce Integrations</span></button>
-          <button class="svc-item" data-slug="ongoing-ops"><img class="svc-thumb" src="/assets/svc-6.jpg"><span>Ongoing Ops</span></button>
+          <!-- REPLACED ITEM -->
+          <button class="svc-item" data-slug="customer-experience-servicing"><img class="svc-thumb" src="/assets/svc-6.jpg"><span>Customer Experience &amp; Servicing</span></button>
         </aside>
 
         <article class="svc-body" id="svc-body"></article>
@@ -174,33 +175,43 @@
         ]
       },
 
-      "ongoing-ops": {
-        title: "Ongoing Ops",
+      /* REPLACED: ongoing-ops -> customer-experience-servicing */
+      "customer-experience-servicing": {
+        title: "Customer Experience & Servicing",
         img: "/assets/svc-6.jpg",
-        tags: ["Admin", "QA", "Training", "Governance"],
-        intro: "Great CX systems need maintenance. We stay on to keep yours running flawlessly — managing configs, QA, training, and continuous improvement.",
+        tags: ["Hiring", "Training", "QA", "Policies", "Operations"],
+        intro: "Zero to scaled Customer Care. We build your entire CX operation end-to-end — people, process, tools, and governance — so you can support growth without chaos.",
         what: [
-          "🔄 **Monthly configuration audits** — triggers, automations, SLAs, and fields kept optimized.",
-          "🧭 **QA programs and calibration sessions** for consistent evaluation across teams.",
-          "📘 **Playbook updates & agent enablement** to roll out new processes quickly.",
-          "🧰 **Sandbox testing and release management** before production pushes.",
-          "📢 **Feedback loops** from frontline to leadership — continuous CX refinement."
+          "🧑‍🤝‍🧑 **Team build-out:** role design, hiring scorecards, interviews, onboarding plans, and shadowing frameworks.",
+          "📘 **Training program:** curriculum, LMS structure, nested modules (product, tools, soft skills), and certification paths.",
+          "✅ **QA program & calibration:** scorecards tied to business outcomes, coaching loops, and trend reporting.",
+          "📜 **Policy & process establishment:** returns/refunds/DMCA/KYC/etc. with clear exception handling.",
+          "🧭 **Daily operations:** WFM basics, queue management, playbook rollouts, release/change management.",
+          "🧰 **Tooling & access:** Zendesk/Freshdesk setup, permissions, SSO, integrations (Shopify/Magento/voice/chat).",
+          "📣 **Feedback → roadmap:** structured VOC to product/ops with impact tracking."
         ],
         outcomes: [
-          "🧼 **Stable configurations** and fewer regressions.",
-          "💬 **Consistent quality** via calibrated QA sessions.",
-          "🚀 **Faster adoption** of new processes and automations.",
-          "📊 **Sustained efficiency gains** month over month."
+          "🚀 **Launch a functioning Customer Care org** in weeks, not quarters.",
+          "👥 **Predictable quality & consistency** via training + QA + policy alignment.",
+          "📉 **Lower cost-to-serve** through right-sizing, automation, and clean routing.",
+          "🔁 **Continuous improvement engine** — issues feed policy, training, and product fixes."
         ]
       }
+    };
+
+    // alias map to keep old links alive
+    const ALIASES = {
+      "ongoing-ops": "customer-experience-servicing",
+      "ecom-integrations": "ecommerce-integrations" // safety if you used the shorter slug before
     };
 
     const contentEl = document.getElementById('svc-body');
     const sidebarEl = document.getElementById('svc-sidebar');
 
     function render(slug, push=false) {
-      const svc = services[slug] || services["operations-design"];
-      document.querySelectorAll('.svc-item').forEach(b => b.classList.toggle('selected', b.dataset.slug === slug));
+      const key = ALIASES[slug] || slug;
+      const svc = services[key] || services["operations-design"];
+      document.querySelectorAll('.svc-item').forEach(b => b.classList.toggle('selected', b.dataset.slug === key));
       contentEl.innerHTML = `
         <div class="svc-title">
           <img src="${svc.img}" alt="">
@@ -215,7 +226,9 @@
         <h3>Outcomes</h3>
         <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
       `;
-      const url = new URL(window.location); url.searchParams.set('s', slug); if (push) history.replaceState({}, '', url);
+      const url = new URL(window.location);
+      url.searchParams.set('s', key);
+      if (push) history.replaceState({}, '', url);
     }
 
     sidebarEl.addEventListener('click', (e) => {
