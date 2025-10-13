@@ -8,26 +8,24 @@
   <link rel="stylesheet" href="/css/site.css?v=202">
 </head>
 <body class="js">
+
   <!-- NAV -->
   <div class="nav-wrap">
     <nav class="nav">
-      <a class="brand" href="/">
-        <img src="/assets/logo.png" alt="DeskXP" />
-        <span>DeskXP</span>
-      </a>
+      <a class="brand" href="/"><img src="/assets/logo.png" alt="DeskXP" /><span>DeskXP</span></a>
       <div class="menu" id="menu">
-        <a href="#work">Work</a>
-        <a href="/services">Services</a>
+        <a href="#services">Services</a>
+        <a href="#feedback">Customer Feedback</a>
         <a href="/about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#cta">Book a Call</a>
       </div>
-      <button class="hamburger" aria-label="Menu" onclick="document.getElementById('menu').dataset.open = document.getElementById('menu').dataset.open === 'true' ? 'false' : 'true'">
+      <button class="hamburger" aria-label="Menu" onclick="document.getElementById('menu').dataset.open = (document.getElementById('menu').dataset.open==='true'?'false':'true')">
         <span></span><span></span><span></span>
       </button>
     </nav>
   </div>
 
-  <!-- BANNER -->
+  <!-- 1) BANNER -->
   <header class="banner">
     <div class="inner">
       <h1 class="headline">CX systems that scale — without losing the human.</h1>
@@ -36,41 +34,118 @@
   </header>
 
   <main class="container">
-    <!-- TEASER (statement) -->
+
+    <!-- 2) SERVICES -->
+    <section id="services" class="reveal">
+      <h2>Services</h2>
+      <div class="proj-grid">
+        <div class="proj">
+          <h3>Ops Design</h3>
+          <p class="muted">Process blueprints & scalable systems</p>
+          <ul>
+            <li>End-to-end CX architecture</li>
+            <li>Workflow & escalation mapping</li>
+            <li>Automation opportunities</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <h3>Systems Architecture</h3>
+          <p class="muted">Integrate and optimize your tools</p>
+          <ul>
+            <li>Zendesk · Freshdesk · Shopify · Sunshine</li>
+            <li>Data visibility & dashboards</li>
+            <li>Custom APIs & middleware setup</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <h3>Automation & AI</h3>
+          <p class="muted">Remove repetitive work</p>
+          <ul>
+            <li>Bot design & conversational flows</li>
+            <li>Auto-assignment & triage logic</li>
+            <li>AI routing, tagging & summarization</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) CUSTOMER FEEDBACK -->
+    <section id="feedback" class="success-slider reveal">
+      <div class="success-head">
+        <h2>Customer Feedback</h2>
+      </div>
+
+      <button class="success-nav prev" aria-label="Previous">&#8249;</button>
+      <button class="success-nav next" aria-label="Next">&#8250;</button>
+
+      <div class="success-track" id="successTrack">
+        <!-- Slide 1 -->
+        <article class="success-slide is-active">
+          <img class="success-logo" src="/assets/logo-sample1.png" alt="Client 1">
+          <h3 class="success-title">“We cut ticket handling time by 32% in two weeks.”</h3>
+          <p class="success-body">DeskXP rebuilt our workflows and added self-serve. Volume stayed the same; effort didn’t.</p>
+          <div class="success-quote">Real process work, not fluff. <span>COO, Ecommerce Brand</span></div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="success-slide">
+          <img class="success-logo" src="/assets/logo-sample2.png" alt="Client 2">
+          <h3 class="success-title">“Prototype in 7 days. We shipped the week after.”</h3>
+          <p class="success-body">Clear scope, no BS. Automation removed the repetitive tickets that drained the team.</p>
+          <div class="success-quote">Fast and disciplined. <span>Head of CX, Fintech</span></div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="success-slide">
+          <img class="success-logo" src="/assets/logo-sample3.png" alt="Client 3">
+          <h3 class="success-title">“Dashboards that actually drive decisions.”</h3>
+          <p class="success-body">We finally see SLA risk before it hits us. Daily ops is calmer.</p>
+          <div class="success-quote">Worth every peso. <span>Operations Lead</span></div>
+        </article>
+      </div>
+
+      <div class="success-dots" id="successDots">
+        <button class="active" aria-label="Slide 1"></button>
+        <button aria-label="Slide 2"></button>
+        <button aria-label="Slide 3"></button>
+      </div>
+    </section>
+
+    <!-- 4) TEASER (statement) -->
     <section class="about-teaser reveal">
-      <span class="eyebrow">DeskXP</span>
-      <p class="statement">Expert. Seasoned. Tech-driven. Customer-First.</p>
-      <p class="subtext">Systems that scale people, not just processes.</p>
+      <span class="teaser-eyebrow">DeskXP</span>
+      <p class="teaser-statement">Expert. Seasoned. Tech-driven. Customer-First.</p>
+      <p class="teaser-subtext">Systems that scale people, not just processes.</p>
       <a href="/about" class="btn-ghost">Learn more</a>
     </section>
 
-    <!-- DISCOVERY CARD (calm, neutral) -->
-    <section class="dc-card reveal" id="cta">
-      <div class="dc-body">
-        <h3>Book a discovery call</h3>
-        <p>We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
-        <ul class="cta-list">
-          <li>MVP or prototype in <strong>7 days</strong></li>
-          <li>Cut repetitive inquiries with automation &amp; self-serve</li>
-          <li>Eliminate manual busywork in daily ops</li>
-        </ul>
-        <p class="cta-note">Free <strong>30-minute</strong> call.</p>
-      </div>
-      <div class="dc-cta cta-actions">
-        <a href="/book" class="btn-solid">Book a call</a>
+    <!-- 5) DISCOVERY CALL -->
+    <section class="reveal" id="cta">
+      <h2>Book a discovery call</h2>
+      <div class="cta-grid">
+        <div>
+          <p>We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+          <ul class="cta-list">
+            <li>MVP or prototype in <strong>7 days</strong></li>
+            <li>Cut repetitive inquiries with automation & self-serve</li>
+            <li>Eliminate manual busywork in daily ops</li>
+          </ul>
+          <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="/book" class="btn-accent book-call">Book a Call</a>
+        </div>
       </div>
     </section>
 
-    <!-- (Optional) SUCCESS STORIES placeholder: keep as-is if you already render it server-side -->
-
   </main>
 
-  <!-- FOOTER -->
-  <footer id="contact">
+  <!-- 6) FOOTER -->
+  <footer>
     © DeskXP • <a href="https://deskxp.com">deskxp.com</a>
   </footer>
 
-  <!-- Minimal reveal-on-scroll (respects your .js .reveal CSS) -->
+  <!-- Reveal-on-scroll -->
   <script>
     (function(){
       if (!('IntersectionObserver' in window)) return;
@@ -78,6 +153,29 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }});
       }, {threshold: 0.15});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+  </script>
+
+  <!-- Minimal slider logic (matches your success-* classes) -->
+  <script>
+    (function(){
+      const track = document.getElementById('successTrack');
+      if(!track) return;
+      const slides = Array.from(track.querySelectorAll('.success-slide'));
+      const dots = Array.from(document.getElementById('successDots').children);
+      const prev = document.querySelector('.success-nav.prev');
+      const next = document.querySelector('.success-nav.next');
+      let i = 0;
+      function show(n){
+        slides[i].classList.remove('is-active');
+        dots[i].classList.remove('active');
+        i = (n + slides.length) % slides.length;
+        slides[i].classList.add('is-active');
+        dots[i].classList.add('active');
+      }
+      prev.addEventListener('click', ()=>show(i-1));
+      next.addEventListener('click', ()=>show(i+1));
+      dots.forEach((d,idx)=>d.addEventListener('click', ()=>show(idx)));
     })();
   </script>
 </body>
