@@ -4,356 +4,308 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
-  <meta name="description" content="CX services: Operations Design, Systems Architecture, Automation & AI, Reporting & Analytics, eCommerce Integrations, Ongoing Ops." />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css" />
 
+  <!-- ✅ Correct path to your global CSS (we’re inside /services/) -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Small overrides -->
   <style>
-    /* ---- Page-specific minimal CSS ---- */
-    .svc-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 280px 1fr; gap: 28px; }
-    .svc-side { position: sticky; top: 16px; align-self: start; border: 1px solid var(--border, #e6e6e6); border-radius: 12px; overflow: hidden; }
-    .svc-nav { list-style: none; margin: 0; padding: 8px; }
-    .svc-link { display: flex; gap: 10px; align-items: center; text-decoration: none; padding: 10px 12px; border-radius: 10px; font-weight: 500; color: var(--ink, #111); }
-    .svc-link:hover { background: var(--hover, #f6f6f6); }
-    .svc-link.active { outline: 2px solid var(--accent, #0ea5e9); background: color-mix(in srgb, var(--accent, #0ea5e9) 6%, white); }
-    .svc-thumb { width: 36px; height: 36px; object-fit: cover; border-radius: 8px; border: 1px solid #e6e6e6; }
-    .svc-body { min-height: 420px; }
-    .svc-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
-    .svc-hero img { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; border: 1px solid #e6e6e6; }
-    .svc-hero h1 { font-size: 28px; margin: 0; }
-    .svc-meta { color: #666; font-size: 14px; margin-top: -4px; }
-    .pill { display: inline-block; padding: 6px 10px; border: 1px solid #e6e6e6; border-radius: 999px; font-size: 12px; margin-right: 6px; }
-    .svc-section { margin: 22px 0; }
-    .svc-section h3 { margin: 0 0 8px; font-size: 18px; }
-    .svc-ul { margin: 0; padding-left: 18px; }
-    .muted { color: #666; }
-    @media (max-width: 900px) { .svc-wrap { grid-template-columns: 1fr; } .svc-side { position: static; } }
+    /* kill default blue/underline everywhere */
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: none; }
+
+    /* page-specific layout */
+    .svc-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .svc-layout { grid-template-columns: 1fr; } }
+
+    .svc-sidebar {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .svc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: transparent;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      margin: 10px 0;
+      transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .svc-item:hover { background: var(--glass); transform: translateY(-1px); }
+    .svc-item.selected {
+      background: rgba(0, 114, 54, 0.08);
+      box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset;
+    }
+    .svc-thumb {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid var(--border); object-fit: cover; background: #fff;
+    }
+
+    .svc-body {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .svc-title {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
+    }
+    .svc-title img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border); }
+    .chip {
+      display: inline-block; padding: 4px 10px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--glass); margin-right: 6px; font-size: .8rem;
+    }
+    .svc-body h3 { margin: 18px 0 8px; }
+    .svc-body ul { margin-left: 18px; }
   </style>
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- NAV -->
   <div class="nav-wrap">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html#home">
-        <img src="favicon.png" alt="DeskXP logo" />
+    <nav class="nav">
+      <a class="brand" href="/">
+        <img src="../favicon.png" alt="DeskXP logo">
         <span>DeskXP</span>
       </a>
-      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+      <div class="menu" id="menu">
+        <a href="/">Home</a>
+        <a href="/services/">Services</a>
+        <a href="/about/">About</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
-      <div class="menu" id="menu">
-        <a href="index.html#home">Home</a>
-        <a class="active" href="services.html">Services</a>
-        <a href="index.html#pricing">Pricing</a>
-        <a href="index.html#about">About Us</a>
-      </div>
     </nav>
   </div>
 
-  <!-- Global Banner -->
-  <div class="banner">
+  <!-- BANNER (uses correct relative path) -->
+  <header class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
       <p class="subhead">Pick a capability. See the details. Stay in flow.</p>
     </div>
-  </div>
+  </header>
 
-  <main class="svc-wrap">
-    <!-- Left Sidebar -->
-    <aside class="svc-side">
-      <ul class="svc-nav" id="svcNav"></ul>
-    </aside>
+  <main class="container">
+    <section class="visible">
+      <div class="svc-layout">
+        <!-- LEFT: Sidebar -->
+        <aside class="svc-sidebar" id="svc-sidebar">
+          <!-- thumbs use correct ../assets/... paths -->
+          <button class="svc-item" data-slug="operations-design">
+            <img class="svc-thumb" src="../assets/svc-1.jpg" alt="">
+            <span>Operations Design</span>
+          </button>
+          <button class="svc-item" data-slug="systems-architecture">
+            <img class="svc-thumb" src="../assets/svc-2.jpg" alt="">
+            <span>Systems Architecture</span>
+          </button>
+          <button class="svc-item" data-slug="automation-ai">
+            <img class="svc-thumb" src="../assets/svc-3.jpg" alt="">
+            <span>Automation &amp; AI</span>
+          </button>
+          <button class="svc-item" data-slug="reporting-analytics">
+            <img class="svc-thumb" src="../assets/svc-4.jpg" alt="">
+            <span>Reporting &amp; Analytics</span>
+          </button>
+          <button class="svc-item" data-slug="ecommerce-integrations">
+            <img class="svc-thumb" src="../assets/svc-5.jpg" alt="">
+            <span>eCommerce Integrations</span>
+          </button>
+          <button class="svc-item" data-slug="ongoing-ops">
+            <img class="svc-thumb" src="../assets/svc-6.jpg" alt="">
+            <span>Ongoing Ops</span>
+          </button>
+        </aside>
 
-    <!-- Right Content -->
-    <section class="svc-body" id="svcBody" aria-live="polite" aria-busy="false"></section>
+        <!-- RIGHT: Content -->
+        <article class="svc-body" id="svc-body">
+          <!-- filled by JS -->
+        </article>
+      </div>
+    </section>
   </main>
 
-  <footer style="text-align:center; padding: 28px 0; border-top: 1px solid #eee;">
-    © <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a>
-  </footer>
+  <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
 
   <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    if (hamburger) hamburger.addEventListener('click', () => menu.classList.toggle('open'));
 
-    // Mobile menu
-    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
-    btn?.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-    });
-
-    // ---------- Service Data ----------
-    const SERVICES = [
-      {
-        slug: 'ops-design',
-        title: 'Operations Design',
-        img: 'assets/svc-1.jpg',
-        meta: ['Playbooks', 'SLAs', 'Escalations'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-1.jpg" alt="">
-            <div>
-              <h1>Operations Design</h1>
-              <div class="svc-meta">
-                <span class="pill">Playbooks</span>
-                <span class="pill">SLAs</span>
-                <span class="pill">Escalations</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Triage maps across channels (email, chat, social, voice)</li>
-              <li>Escalation matrices and RACI handoffs</li>
-              <li>SLA policy, clock rules, schedules, holidays</li>
-              <li>Macros, templates, tone of voice & QA rubrics</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>Lower FRT/AHT via clear handling rules</li>
-              <li>Fewer reopens via precise ownership</li>
-              <li>Faster onboarding with playbooks</li>
-            </ul>
-          </div>`
+    // Service content data
+    const services = {
+      "operations-design": {
+        title: "Operations Design",
+        img: "../assets/svc-1.jpg",
+        tags: ["Playbooks","SLAs","Escalations"],
+        intro: "Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.",
+        what: [
+          "Triage maps across channels (email, chat, social, voice)",
+          "Escalation matrices and RACI handoffs",
+          "SLA policy, clock rules, schedules, holidays",
+          "Macros, templates, tone of voice & QA rubrics"
+        ],
+        outcomes: [
+          "Lower FRT/AHT via clear handling rules",
+          "Fewer reopens via precise ownership",
+          "Faster onboarding with playbooks"
+        ]
       },
-      {
-        slug: 'systems-arch',
-        title: 'Systems Architecture',
-        img: 'assets/svc-2.jpg',
-        meta: ['Zendesk', 'Routing', 'Hygiene'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-2.jpg" alt="">
-            <div>
-              <h1>Systems Architecture</h1>
-              <div class="svc-meta">
-                <span class="pill">Zendesk</span>
-                <span class="pill">Routing</span>
-                <span class="pill">Hygiene</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Design the stack so work routes cleanly and data stays tidy.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Ticket forms, fields, triggers, views — sane by default</li>
-              <li>Omnichannel routing, skills/groups, capacity rules</li>
-              <li>User/org structure, SSO, roles & permissions</li>
-              <li>Data hygiene: tags, categories, deduplication</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>Higher assignment accuracy</li>
-              <li>Cleaner data → better analytics</li>
-              <li>Happier agents via predictable flows</li>
-            </ul>
-          </div>`
+      "systems-architecture": {
+        title: "Systems Architecture",
+        img: "../assets/svc-2.jpg",
+        tags: ["Zendesk","Workflows","Data"],
+        intro: "Design the stack so ops don’t fight the tools.",
+        what: [
+          "Multi-brand / multi-form architecture",
+          "Triggers, automations, SLAs, skills-based routing",
+          "Guide/HC structure, KB governance, permissions",
+          "Event/data flows across CRM, chat, email, voice"
+        ],
+        outcomes: [
+          "Less admin thrash, more agent focus",
+          "Consistent data capture for reporting",
+          "Cleaner handoffs across teams"
+        ]
       },
-      {
-        slug: 'automation-ai',
-        title: 'Automation & AI',
-        img: 'assets/svc-3.jpg',
-        meta: ['Bots', 'Deflection', 'Intent'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-3.jpg" alt="">
-            <div>
-              <h1>Automation & AI</h1>
-              <div class="svc-meta">
-                <span class="pill">Bots</span>
-                <span class="pill">Deflection</span>
-                <span class="pill">Intent</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Automate the boring. Keep humans for nuance.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Intent detection & auto-tagging</li>
-              <li>Self-service KB surfacing & guided flows</li>
-              <li>Auto-replies with guardrails</li>
-              <li>Back-office automations via Zapier/Make</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>Deflection up, handle time down</li>
-              <li>24/7 consistency</li>
-              <li>Agents focus on high-value cases</li>
-            </ul>
-          </div>`
+      "automation-ai": {
+        title: "Automation & AI",
+        img: "../assets/svc-3.jpg",
+        tags: ["Bots","Deflection","Workflows"],
+        intro: "Automate the boring; escalate the real.",
+        what: [
+          "AI bots for FAQs, order status, returns",
+          "Auto-tagging & intent to route to the right group",
+          "Auto-responders by channel, schedule, and SLA",
+          "Human-in-the-loop fallbacks & safeguards"
+        ],
+        outcomes: [
+          "Ticket deflection & lower cost per contact",
+          "Better CX with instant answers",
+          "Cleaner queues for specialists"
+        ]
       },
-      {
-        slug: 'reporting-analytics',
-        title: 'Reporting & Analytics',
-        img: 'assets/svc-4.jpg',
-        meta: ['FRT', 'AHT', 'CSAT/QA'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-4.jpg" alt="">
-            <div>
-              <h1>Reporting & Analytics</h1>
-              <div class="svc-meta">
-                <span class="pill">FRT</span>
-                <span class="pill">AHT</span>
-                <span class="pill">CSAT/QA</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Dashboards that show what matters and drive action.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Explore dashboards: productivity, satisfaction, backlog</li>
-              <li>Cohort segmentation by channel or issue type</li>
-              <li>SLA breach and staffing insights</li>
-              <li>Executive trend summaries</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>Faster decisions via trustworthy data</li>
-              <li>Spot bottlenecks early</li>
-              <li>Better resource planning</li>
-            </ul>
-          </div>`
+      "reporting-analytics": {
+        title: "Reporting & Analytics",
+        img: "../assets/svc-4.jpg",
+        tags: ["Dashboards","SLA","QA"],
+        intro: "Decisions from data, not vibes.",
+        what: [
+          "Zendesk Explore dashboards (volume, SLA, CSAT, AHT)",
+          "Cohorts by SKU / issue type / channel",
+          "WBR/MBR scorecards with targets & trends",
+          "Data export & Looker Studio integrations"
+        ],
+        outcomes: [
+          "Clarity on what to fix first",
+          "Predictable staffing & SLAs",
+          "Exec-ready visuals"
+        ]
       },
-      {
-        slug: 'ecom-integrations',
-        title: 'eCommerce Integrations',
-        img: 'assets/svc-5.jpg',
-        meta: ['Shopify/Magento', 'APIs', 'Webhooks'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-5.jpg" alt="">
-            <div>
-              <h1>eCommerce Integrations</h1>
-              <div class="svc-meta">
-                <span class="pill">Shopify/Magento</span>
-                <span class="pill">APIs</span>
-                <span class="pill">Webhooks</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Pipe order data into CX tools so agents have context instantly.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Shopify/Magento ↔ Zendesk side-panel apps</li>
-              <li>Order/fulfillment context inside tickets</li>
-              <li>RMA, refund, replacement automations</li>
-              <li>Payment & dispute signals into routing</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>One-screen resolution for agents</li>
-              <li>Fewer transfers</li>
-              <li>Happier customers via fast answers</li>
-            </ul>
-          </div>`
+      "ecommerce-integrations": {
+        title: "eCommerce Integrations",
+        img: "../assets/svc-5.jpg",
+        tags: ["Shopify","Magento","Payments"],
+        intro: "Make order context appear where work happens.",
+        what: [
+          "Shopify / Magento sidebars with order data",
+          "RMA flows: returns, exchanges, refunds",
+          "Shipping status, webhooks, notifications",
+          "Payments & disputes data in ticket context"
+        ],
+        outcomes: [
+          "Fewer back-and-forths with customers",
+          "Faster resolution, fewer errors",
+          "Higher CSAT on post-purchase issues"
+        ]
       },
-      {
-        slug: 'ongoing-ops',
-        title: 'Ongoing Ops',
-        img: 'assets/svc-6.jpg',
-        meta: ['Iteration', 'Reporting', 'On-call'],
-        content: `
-          <div class="svc-hero">
-            <img src="assets/svc-6.jpg" alt="">
-            <div>
-              <h1>Ongoing Ops</h1>
-              <div class="svc-meta">
-                <span class="pill">Iteration</span>
-                <span class="pill">Reporting</span>
-                <span class="pill">On-call</span>
-              </div>
-            </div>
-          </div>
-          <p class="muted">Keep the machine sharp with monthly improvements.</p>
-          <div class="svc-section">
-            <h3>What we do</h3>
-            <ul class="svc-ul">
-              <li>Monthly ops reviews & backlog grooming</li>
-              <li>Macro/bot/routing experimentation</li>
-              <li>Training refreshers & QA calibration</li>
-              <li>Data cleanup & dashboard upkeep</li>
-            </ul>
-          </div>
-          <div class="svc-section">
-            <h3>Outcomes</h3>
-            <ul class="svc-ul">
-              <li>Continuous performance gains</li>
-              <li>Lower cost-to-serve</li>
-              <li>Teams that keep leveling up</li>
-            </ul>
-          </div>`
+      "ongoing-ops": {
+        title: "Ongoing Ops",
+        img: "../assets/svc-6.jpg",
+        tags: ["Admin","QA","Training"],
+        intro: "Keep the machine tuned: configs, QA, releases.",
+        what: [
+          "Change management & sandbox releases",
+          "QA program, calibrations, rubrics",
+          "Agent enablement & playbook refresh",
+          "Backlog cleanup, audits, hygiene"
+        ],
+        outcomes: [
+          "Stable configs, fewer regressions",
+          "Continuous CX improvements",
+          "Happier agents, tighter feedback loops"
+        ]
       }
-    ];
+    };
 
-    // ---------- Renderer ----------
-    const navEl = document.getElementById('svcNav');
-    const bodyEl = document.getElementById('svcBody');
+    const contentEl = document.getElementById('svc-body');
+    const sidebarEl = document.getElementById('svc-sidebar');
 
-    function renderNav(activeSlug) {
-      navEl.innerHTML = '';
-      SERVICES.forEach(svc => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = `?s=${svc.slug}`;
-        a.className = 'svc-link' + (svc.slug === activeSlug ? ' active' : '');
-        a.dataset.slug = svc.slug;
-        a.innerHTML = `<img class="svc-thumb" src="${svc.img}" alt=""><span>${svc.title}</span>`;
-        li.appendChild(a);
-        navEl.appendChild(li);
+    function render(slug, push=false) {
+      const svc = services[slug] || services["operations-design"];
+
+      // select state
+      document.querySelectorAll('.svc-item').forEach(b => {
+        b.classList.toggle('selected', b.dataset.slug === slug);
       });
-    }
 
-    function renderBody(svc) {
-      bodyEl.setAttribute('aria-busy', 'true');
-      const scrollY = window.scrollY;
-      bodyEl.innerHTML = svc.content;
-      window.scrollTo({ top: scrollY });
-      bodyEl.setAttribute('aria-busy', 'false');
-    }
+      // content
+      contentEl.innerHTML = `
+        <div class="svc-title">
+          <img src="${svc.img}" alt="">
+          <div>
+            <h2>${svc.title}</h2>
+            <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+        <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
 
-    function pickService(slug) {
-      const svc = SERVICES.find(s => s.slug === slug) || SERVICES[0];
-      renderNav(svc.slug);
-      renderBody(svc);
+        <h3>What we do</h3>
+        <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
+
+        <h3>Outcomes</h3>
+        <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
+      `;
+
+      // keep the URL clean and stable without scrolling
       const url = new URL(window.location);
-      url.searchParams.set('s', svc.slug);
-      window.history.pushState({ s: svc.slug }, '', url);
+      url.searchParams.set('s', slug);
+      if (push) history.replaceState({}, '', url);
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const initialSlug = params.get('s') || 'ops-design';
-    pickService(initialSlug);
-
-    navEl.addEventListener('click', e => {
-      const a = e.target.closest('a.svc-link');
-      if (!a) return;
+    // click handlers (no scroll, no reload)
+    sidebarEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.svc-item');
+      if (!btn) return;
       e.preventDefault();
-      pickService(a.dataset.slug);
+      render(btn.dataset.slug, true);
     });
 
-    window.addEventListener('popstate', e => {
-      const slug = (e.state && e.state.s) || new URLSearchParams(location.search).get('s') || 'ops-design';
-      pickService(slug);
-    });
+    // deep-linking via ?s=slug
+    const params = new URLSearchParams(window.location.search);
+    const initial = params.get('s') || 'operations-design';
+    render(initial, false);
+
+    // don’t auto-scroll when content updates
+    let lastTop = window.scrollY;
+    const observer = new MutationObserver(() => window.scrollTo({ top: lastTop }));
+    observer.observe(contentEl, { childList: true, subtree: true });
+    window.addEventListener('scroll', () => { lastTop = window.scrollY; }, { passive: true });
   </script>
 </body>
 </html>
