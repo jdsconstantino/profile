@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>James Constantino — CX Systems Expert</title>
-  <meta name="description" content="CX & Zendesk Systems Expert | Fintech & eCommerce Operations" />
+  <title>DeskXP — CX Operations & Systems</title>
+  <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="James Constantino — CX Systems Expert" />
-  <meta property="og:description" content="Zendesk & CX implementations that scale fintech and eCommerce operations." />
+  <meta property="og:title" content="DeskXP — CX Operations & Systems" />
+  <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
   <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com" />
@@ -20,201 +20,185 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #0b0c0e;
-      --panel: #101215;
-      --text: #e7e9ee;
-      --muted: #9aa2b4;
-      --accent: #007236;
-      --border: #1b1f26;
+    :root{ --bg:#0b0c0e; --panel:#101215; --text:#e7e9ee; --muted:#9aa2b4; --accent:#007236; --border:#1b1f26; --glass:rgba(255,255,255,.08); --glass-border:rgba(255,255,255,.16);}
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f9fafb; --panel:#ffffff; --text:#1a1b1e; --muted:#596070; --border:#e4e6eb; --glass:rgba(255,255,255,.75); --glass-border:rgba(0,0,0,.06);}
     }
 
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f9fafb;
-        --panel: #ffffff;
-        --text: #1a1b1e;
-        --muted: #596070;
-        --border: #e4e6eb;
-      }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;scroll-behavior:smooth}
+
+    /* ===== Tulle (glassy) sticky header ===== */
+    .nav-wrap{
+      position:sticky; top:0; z-index:50;
+      background:var(--glass);
+      backdrop-filter:saturate(160%) blur(16px);
+      -webkit-backdrop-filter:saturate(160%) blur(16px);
+      border-bottom:1px solid var(--glass-border);
+    }
+    .nav{
+      max-width:1100px; margin:0 auto; padding:10px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .brand img{width:24px; height:24px; border-radius:6px}
+    .nav a{color:var(--text); text-decoration:none; font-weight:600}
+    .menu{display:flex; gap:14px}
+    .menu a{padding:8px 12px; border-radius:8px; transition:background .2s ease, transform .2s ease}
+    .menu a:hover{background:var(--glass); transform:translateY(-1px)}
+    .hamburger{display:none; background:none; border:1px solid var(--glass-border); border-radius:8px; padding:8px}
+    .hamburger span{display:block; width:20px; height:2px; background:var(--text); margin:4px 0}
+
+    @media (max-width:760px){
+      .menu{display:none}
+      .menu.open{display:flex; flex-direction:column; gap:8px; padding:10px 0}
+      .hamburger{display:block}
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+    /* ===== Banner ===== */
+    .banner{width:100%; height:320px; background:url('banner.jpg') center/cover no-repeat; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; overflow:hidden}
+    .banner::after{content:""; position:absolute; inset:0; background:rgba(0,0,0,.4)}
+    .banner .inner{position:relative; z-index:1; animation:fadeUp .9s ease forwards}
+    .headline{font-size:2.2rem; margin:0 10px 8px}
+    .subhead{font-size:1.1rem; color:#d9e2d6; margin:0 10px}
 
-    .container { max-width: 960px; margin: auto; padding: 0 16px; }
+    /* ===== Content ===== */
+    .container{max-width:960px; margin:0 auto; padding:0 16px}
+    header.hero{margin-top:-48px; margin-bottom:48px; text-align:center; opacity:0; transform:translateY(20px); animation:fadeUp .8s ease .2s forwards}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+    .btn{display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; transition:all .2s ease}
+    .btn.primary{background:var(--accent); color:#fff}
+    .btn.secondary{background:transparent; color:var(--text); border:1px solid var(--border)}
+    .btn:hover{transform:translateY(-2px); opacity:.95}
 
-    /* 🔥 Banner styling */
-    .banner {
-      width: 100%;
-      height: 320px;
-      background: url('banner.jpg') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
+    section{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:28px 24px; margin-bottom:28px; box-shadow:0 6px 18px rgba(0,0,0,.2); opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease}
+    section.visible{opacity:1; transform:translateY(0)}
+    h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
+    ul.clean{margin:8px 0 0; padding-left:20px}
+    .muted{color:var(--muted)}
 
-    .banner::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-    }
+    .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    @media (max-width:900px){.proj-grid{grid-template-columns:1fr}}
 
-    .banner-content {
-      position: relative;
-      z-index: 1;
-      animation: fadeUp 1s ease forwards;
-    }
+    .proj{padding:16px; border:1px solid var(--border); border-radius:12px; background:var(--panel)}
+    .proj h3{margin:0 0 6px; font-size:18px}
+    .proj a{color:var(--accent); text-decoration:none}
+    .proj a:hover{text-decoration:underline}
 
-    .banner h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0.5rem;
-    }
+    footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem; opacity:0; transform:translateY(10px); animation:fadeUp 1s ease .8s forwards}
 
-    .banner p {
-      font-size: 1.2rem;
-      color: #d9e2d6;
-      font-weight: 500;
-    }
+    @keyframes fadeUp{from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)}}
 
-    header {
-      margin-top: -60px;
-      margin-bottom: 56px;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s ease forwards 0.3s;
-    }
-
-    h2 { font-size: 1.5rem; margin-bottom: 12px; color: var(--accent); }
-    p.tagline { color: var(--muted); margin-bottom: 20px; }
-
-    .btns a {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 10px 18px;
-      margin: 5px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-    .btns a:hover { opacity: 0.9; transform: translateY(-2px); }
-
-    section {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    section.visible { opacity: 1; transform: translateY(0); }
-
-    ul { list-style: disc; padding-left: 20px; }
-    footer {
-      text-align: center;
-      margin: 40px 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 1s ease 0.8s forwards;
-    }
-
-    .contact a { color: var(--accent); text-decoration: none; }
-    .contact a:hover { text-decoration: underline; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .banner { height: 240px; }
-      .banner h1 { font-size: 2rem; }
-      .banner p { font-size: 1rem; }
+    @media (max-width:600px){
+      .banner{height:240px}
+      .headline{font-size:1.8rem}
+      .subhead{font-size:1rem}
     }
   </style>
 </head>
 <body>
-  <!-- 🔥 Banner -->
-  <div class="banner">
-    <div class="banner-content">
-      <h1>James Constantino</h1>
-      <p>Building Scalable CX Systems for Fintech & eCommerce</p>
+
+  <!-- ===== Tulle/Glassy Header ===== -->
+  <div class="nav-wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#home">
+        <img src="favicon.png" alt="DeskXP logo" />
+        <span>DeskXP</span>
+      </a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu" id="menu">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About Us</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ===== Banner ===== -->
+  <div class="banner" id="home">
+    <div class="inner">
+      <h1 class="headline">People, process, and technology — aligned for scale.</h1>
+      <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
     </div>
   </div>
 
   <div class="container">
-    <header>
-      <p class="tagline">Zendesk & CX Systems Expert | Fintech & eCommerce Operations</p>
+    <!-- Optional CTA row under banner -->
+    <header class="hero">
       <div class="btns">
-        <a href="mailto:james.constantino18@gmail.com">Email</a>
-        <a href="https://linkedin.com/in/jdsconstantino" target="_blank">LinkedIn</a>
-        <a href="https://upwork.com/freelancers/~019be0250d1b9db328" target="_blank">Upwork</a>
+        <a class="btn primary" href="mailto:james.constantino18@gmail.com?subject=Project%20Inquiry%20via%20jdsc.deskxp.com">Email Me</a>
+        <a class="btn secondary" href="https://linkedin.com/in/jdsconstantino" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn secondary" href="https://upwork.com/freelancers/~019be0250d1b9db328" target="_blank" rel="noopener">Upwork</a>
       </div>
     </header>
 
-    <section>
-      <h2>About</h2>
-      <p>I design and implement scalable CX systems that reduce manual work and elevate customer satisfaction. My implementations combine <strong>Zendesk architecture</strong>, <strong>automation</strong>, and <strong>data-driven reporting</strong> for fintech and eCommerce operations.</p>
-    </section>
-
-    <section>
-      <h2>Highlighted Projects</h2>
-      <ul>
-        <li><strong>PalawanPay</strong> — Built full Zendesk setup with automation that saved ₱5M+ yearly.</li>
-        <li><strong>Unison Computer Systems</strong> — Integrated Magento ↔ Zendesk with custom ZAF app.</li>
-        <li><strong>boutiquedesophie.fr</strong> — Launched Internal Help Center & SLA dashboard improving FRT and CSAT.</li>
+    <section id="services">
+      <h2>Services</h2>
+      <ul class="clean">
+        <li><strong>Operations Design:</strong> playbooks, SLAs, triage flows, escalation paths</li>
+        <li><strong>Systems Architecture:</strong> Zendesk setup, triggers/automations, macros, routing</li>
+        <li><strong>Automation & AI:</strong> deflection, classification, intent routing, bots</li>
+        <li><strong>Reporting:</strong> Explore dashboards, FRT/AHT/CSAT visibility, QA loops</li>
+        <li><strong>Tooling:</strong> Shopify/Magento integrations, Make/Zapier, Apps Script glue</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Tool Stack</h2>
-      <p>Zendesk • Freshdesk • Sunshine Conversations • Shopify • Make • Zapier • Google Apps Script • Looker Studio</p>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <div class="contact">
-        <p>📧 <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
-        <p>💼 <a href="https://linkedin.com/in/jdsconstantino" target="_blank">linkedin.com/in/jdsconstantino</a></p>
-        <p>🎯 <a href="https://upwork.com/freelancers/~019be0250d1b9db328" target="_blank">upwork.com/freelancers/~019be0250d1b9db328</a></p>
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <div class="proj-grid">
+        <div class="proj">
+          <h3>Audit & Roadmap</h3>
+          <p class="muted">1–2 weeks</p>
+          <ul class="clean">
+            <li>Systems & ops assessment</li>
+            <li>Prioritized roadmap with ROI</li>
+            <li>Implementation plan</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <h3>Implementation Sprint</h3>
+          <p class="muted">4–6 weeks</p>
+          <ul class="clean">
+            <li>Workflows, automations, dashboards</li>
+            <li>Handover + playbooks</li>
+            <li>Training & QA loop</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <h3>Ongoing Ops</h3>
+          <p class="muted">Monthly</p>
+          <ul class="clean">
+            <li>Iterative improvements</li>
+            <li>Reporting & insights</li>
+            <li>On-call system tweaks</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <footer>© <span id="y"></span> James Constantino • <a href="https://deskxp.com" style="color:var(--accent)">DeskXP</a></footer>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>DeskXP blends operations leadership with pragmatic systems design. We turn messy support orgs into scalable CX engines by aligning people, process, and technology. Founded by James Constantino — CX systems & operations specialist — with experience across fintech and eCommerce.</p>
+      <p class="muted" style="margin-top:8px">Contact: <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
+    </section>
+
+    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
+    // Scroll reveal
+    const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} }), {threshold:.2});
+    document.querySelectorAll('section').forEach(s=>io.observe(s));
 
-    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    // Mobile menu
+    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+    btn.addEventListener('click', ()=>{ const open = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', open); });
   </script>
 </body>
 </html>
