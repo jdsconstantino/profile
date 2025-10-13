@@ -1,7 +1,6 @@
-// main.js — DeskXP v1.3
+// main.js — DeskXP v1.4
 
 document.addEventListener("DOMContentLoaded", function () {
-
   // YEAR
   const y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
@@ -11,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const btn = document.getElementById("menuBtn");
     const menu = document.getElementById("menu");
     if (!btn || !menu) return;
-
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
@@ -19,6 +17,33 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", () => setState(menu.getAttribute("data-open") !== "true"));
     window.addEventListener("hashchange", () => setState(false));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setState(false); });
+  })();
+
+  // SCROLL REVEAL — prepare observers FIRST, then flip .js (so no invisible flash)
+  (function scrollReveal() {
+    const els = document.querySelectorAll(".reveal");
+    if (!els.length) return;
+
+    const enableMotion = () => {
+      document.documentElement.classList.add("js");
+      // Immediately reveal anything already in viewport
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add("is-visible"));
+      }
+    };
+
+    // Defer flipping .js until after paint, so layout is stable
+    requestAnimationFrame(enableMotion);
   })();
 
   // SUCCESS STORIES SLIDER (FADE)
@@ -34,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let idx = 0, timer = null;
     const DURATION = 6000;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setActive(i) {
       slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
@@ -68,26 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (e.key === "ArrowLeft") go(idx - 1, true);
       if (e.key === "ArrowRight") go(idx + 1, true);
     });
-  })();
-
-  // SCROLL REVEAL (safe)
-  (function scrollReveal() {
-    const els = document.querySelectorAll(".reveal");
-    if (!els.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      els.forEach(el => el.classList.add("is-visible"));
-      return;
-    }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    els.forEach(el => io.observe(el));
   })();
 
 });
