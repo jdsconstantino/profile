@@ -207,3 +207,16 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   transform: translateY(-3px);
   text-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
+.btn-minimal {
+  background: transparent;
+  border: 1.5px solid #111;
+  color: #111;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all .3s ease;
+}
+.btn-minimal:hover {
+  background: #111;
+  color: #fff;
+}
