@@ -184,3 +184,17 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .book-call:hover {
   background-color: #005a2a;
 }
+.about-btn {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.about-btn:hover {
+  background-color: #005a2a;
+}
