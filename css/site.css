@@ -126,3 +126,18 @@ footer{
 
 /* Animation keyframes */
 @keyframes fadeUp{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)} }
+
+/* remove the overlap hack altogether */
+header.hero { margin-top: 0; margin-bottom: 0; display:none; }
+
+/* nicer spacing inside hero */
+.banner .inner { display:flex; flex-direction:column; align-items:center; gap:16px; padding:0 16px; }
+
+/* better contrast for secondary buttons on dark hero */
+.btn.secondary.on-hero {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff;
+}
+.btn.secondary.on-hero:hover { background: rgba(255,255,255,0.2); }
+
