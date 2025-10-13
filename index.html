@@ -93,47 +93,73 @@
           </div>
         </a>
 
-        <!-- REPLACED: Ongoing Ops -> Customer Experience & Servicing -->
         <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience & Servicing">
           <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing" loading="lazy">
           <div class="card-body">
             <h3>Customer Experience & Servicing</h3>
-            <p>Build your Customer Care from zero to scaled: hiring, training, QA, operations, policies, and processes.</p>
+            <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
           </div>
         </a>
       </div>
     </section>
-        <!-- Success Stories -->
-<section id="success" class="success-wrap">
-  <div class="success-inner">
-    <h2>Success Stories</h2>
-    <div class="story-grid">
-      <div class="story">
-        <img src="assets/story-1.jpg" alt="PalawanPay CX Transformation" loading="lazy">
-        <div class="story-body">
-          <h3>PalawanPay CX Transformation</h3>
-          <p>Scaled Customer Care from 5 to 200+ agents, implemented Zendesk Suite, and achieved a ₱5M+ annual cost reduction through automation and self-service initiatives.</p>
-        </div>
-      </div>
 
-      <div class="story">
-        <img src="assets/story-2.jpg" alt="Unison Computer Systems" loading="lazy">
-        <div class="story-body">
-          <h3>Unison Computer Systems</h3>
-          <p>Revamped ticket workflows, built CSAT and productivity dashboards, and launched a fully branded Help Center with AI-powered support and self-service.</p>
-        </div>
-      </div>
+  </div><!-- /container (close BEFORE the full-width section) -->
 
-      <div class="story">
-        <img src="assets/story-3.jpg" alt="Boutique de Sophie" loading="lazy">
-        <div class="story-body">
-          <h3>Boutique de Sophie</h3>
-          <p>Integrated Shopify ↔ Zendesk, implemented refund automation, and reduced manual workload by 60% while improving post-purchase CSAT to 4.8★.</p>
-        </div>
-      </div>
+  <!-- ===== Full-Width Success Stories (END-TO-END) ===== -->
+  <section id="success" class="success-slider" aria-label="Success Stories">
+    <div class="success-head">
+      <h2>Success Stories</h2>
     </div>
-  </div>
-</section>
+
+    <div class="success-track" id="successTrack">
+      <!-- Slide 1 -->
+      <article class="success-slide" aria-roledescription="slide">
+        <img class="success-logo" src="/assets/brands/palawanpay.png" alt="PalawanPay" />
+        <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
+        <p class="success-body">
+          Built Customer Care from the ground up (hiring, training, QA, policies). Implemented Zendesk Suite with advanced API/webhook integrations, a branded Help Center, and scalable automations/self-service.
+        </p>
+        <blockquote class="success-quote">
+          “We went from firefighting to a predictable CX engine. Tickets are routed correctly, FRT improved drastically, and we finally trust our data.”
+          <span>— Client Operations Lead</span>
+        </blockquote>
+      </article>
+
+      <!-- Slide 2 -->
+      <article class="success-slide" aria-roledescription="slide">
+        <img class="success-logo" src="/assets/brands/unison.png" alt="Unison Computer Systems" />
+        <h3 class="success-title">Unison Computer Systems — Workflows, Dashboards, Help Center</h3>
+        <p class="success-body">
+          Revamped ticket flows, created CSAT and productivity dashboards, and launched a fully branded Help Center with AI support and self-service content governance.
+        </p>
+        <blockquote class="success-quote">
+          “The new workflows cut noise and made our metrics actionable. The dashboard became our weekly operating system.”
+          <span>— CX Manager</span>
+        </blockquote>
+      </article>
+
+      <!-- Slide 3 -->
+      <article class="success-slide" aria-roledescription="slide">
+        <img class="success-logo" src="/assets/brands/boutique-de-sophie.png" alt="Boutique de Sophie" />
+        <h3 class="success-title">Boutique de Sophie — Shopify ↔ Zendesk + Refund Automation</h3>
+        <p class="success-body">
+          Integrated Shopify order context into tickets, automated refunds/returns, reduced manual workload by 60%, and lifted post-purchase CSAT to 4.8★.
+        </p>
+        <blockquote class="success-quote">
+          “Support finally sees everything in one view. Less back-and-forth, faster resolutions, happier customers.”
+          <span>— Store Owner</span>
+        </blockquote>
+      </article>
+    </div>
+
+    <!-- Controls -->
+    <button class="success-nav prev" id="prevBtn" aria-label="Previous story">‹</button>
+    <button class="success-nav next" id="nextBtn" aria-label="Next story">›</button>
+    <div class="success-dots" id="successDots" aria-label="Slide indicators"></div>
+  </section>
+
+  <!-- Re-open site container for the rest of the page -->
+  <div class="container">
 
     <!-- Pricing -->
     <section id="pricing">
@@ -196,6 +222,70 @@
     btn.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
+    });
+
+    // ===== Success slider (no libraries) =====
+    const track = document.getElementById('successTrack');
+    const slides = Array.from(track.children);
+    const dotsWrap = document.getElementById('successDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let idx = 0, timer = null, isDragging = false, startX = 0, currentX = 0;
+
+    function go(i, user=false) {
+      idx = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${idx * 100}vw)`;
+      [...dotsWrap.children].forEach((d,k)=>d.classList.toggle('active', k===idx));
+      if (user) restart();
+    }
+
+    function buildDots() {
+      dotsWrap.innerHTML = slides.map((_,i)=>`<button aria-label="Go to slide ${i+1}"></button>`).join('');
+      [...dotsWrap.children].forEach((b,i)=>b.addEventListener('click', ()=>go(i,true)));
+      dotsWrap.children[0]?.classList.add('active');
+    }
+
+    function start() {
+      timer = setInterval(()=>go(idx+1), 6000);
+    }
+    function stop() { clearInterval(timer); }
+    function restart() { stop(); start(); }
+
+    // drag / swipe
+    function onDown(e){ isDragging=true; startX = (e.touches?e.touches[0].clientX:e.clientX); stop(); }
+    function onMove(e){
+      if(!isDragging) return;
+      currentX = (e.touches?e.touches[0].clientX:e.clientX);
+      const delta = currentX - startX;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(calc(-${idx*100}vw + ${delta}px))`;
+    }
+    function onUp(){
+      if(!isDragging) return;
+      isDragging=false; track.style.transition='';
+      const delta = currentX - startX;
+      if (delta > 80) go(idx-1,true);
+      else if (delta < -80) go(idx+1,true);
+      else go(idx,true);
+    }
+
+    buildDots(); start();
+
+    // listeners
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    prevBtn.addEventListener('click', ()=>go(idx-1,true));
+    nextBtn.addEventListener('click', ()=>go(idx+1,true));
+    track.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    track.addEventListener('touchstart', onDown, {passive:true});
+    track.addEventListener('touchmove', onMove, {passive:true});
+    track.addEventListener('touchend', onUp);
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowLeft') go(idx-1,true);
+      if(e.key==='ArrowRight') go(idx+1,true);
     });
   </script>
 </body>
