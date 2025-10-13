@@ -20,7 +20,11 @@
   }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 html, body { margin: 0; }
 body {
   font-family: "Inter", system-ui, sans-serif;
@@ -67,7 +71,10 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 8px;
   transition: background .2s ease, transform .2s ease;
 }
-.menu a:hover { background: var(--glass); transform: translateY(-1px); }
+.menu a:hover {
+  background: var(--glass);
+  transform: translateY(-1px);
+}
 .hamburger {
   display: none;
   background: none;
@@ -97,7 +104,7 @@ img { max-width: 100%; height: auto; display: block; }
 .banner {
   width: 100%;
   height: 320px;
-  background: url('../assets/svc-7.jpg') center/cover no-repeat;
+  background: url('/assets/svc-7.jpg') center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -121,8 +128,15 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 10px;
   animation: fadeUp .9s ease forwards;
 }
-.headline { font-size: 2.2rem; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.4); }
-.subhead { font-size: 1.1rem; color: #d9e2d6; }
+.headline {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.subhead {
+  font-size: 1.1rem;
+  color: #d9e2d6;
+}
 @media (max-width: 600px) {
   .banner { height: 240px; }
   .headline { font-size: 1.8rem; }
@@ -130,7 +144,11 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ===== Sections ===== */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
 section {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -142,7 +160,10 @@ section {
   transform: translateY(30px);
   transition: opacity .6s ease, transform .6s ease;
 }
-section.visible { opacity: 1; transform: translateY(0); }
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
 .muted { color: var(--muted); }
 
@@ -175,32 +196,27 @@ h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
 .card-body { padding: 16px; }
 .card h3 { margin: 0 0 6px; font-size: 18px; }
 .card p { margin: 0; color: var(--muted); }
+
 /* Remove default link styles for service cards */
 .card {
   text-decoration: none;
   color: inherit;
 }
-
-.card h3, 
-.card p {
+.card h3, .card p {
   color: inherit;
   text-decoration: none;
 }
-
 .card:hover h3 {
   color: var(--accent, #0ea5e9);
   text-decoration: none;
 }
-
 .card:visited h3 {
   color: inherit;
 }
-
 .card a {
   text-decoration: none;
   color: inherit;
 }
-
 
 /* ===== Pricing ===== */
 .proj-grid {
