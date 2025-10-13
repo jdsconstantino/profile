@@ -15,12 +15,21 @@
 /* Base */
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{margin:0;}
-body{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-  background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; scroll-behavior:smooth;}
+body{
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; scroll-behavior:smooth;
+}
 img{max-width:100%; height:auto; display:block;}
 
 /* Header */
-.nav-wrap{position:sticky; top:0; z-index:50; background:var(--glass); backdrop-filter:saturate(160%) blur(16px); -webkit-backdrop-filter:saturate(160%) blur(16px); border-bottom:1px solid var(--glass-border);}
+.nav-wrap{
+  position:sticky; top:0; z-index:50;
+  background:var(--glass);
+  backdrop-filter:saturate(160%) blur(16px);
+  -webkit-backdrop-filter:saturate(160%) blur(16px);
+  border-bottom:1px solid var(--glass-border);
+}
 .nav{max-width:1100px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;}
 .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--text); text-decoration:none;}
 .brand img{width:24px; height:24px; border-radius:6px;}
@@ -76,7 +85,7 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
 .proj{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:20px;}
 .proj h3{margin-bottom:6px;}
 
-/* Success Stories (fade slider) */
+/* Success Stories (fade slider — centered, no drift) */
 .success-slider{
   width:100vw; margin-left:calc(50% - 50vw);
   background:linear-gradient(135deg, rgba(245,248,247,0.95), rgba(255,255,255,0.9));
@@ -85,28 +94,63 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
 }
 .success-head{max-width:1300px; margin:0 auto 24px; padding:0 32px;}
 .success-head h2{font-size:2rem; color:var(--accent); text-align:center;}
-.success-track{position:relative; max-width:1000px; margin:0 auto; display:flex; flex-direction:column; align-items:center;}
-.success-slide{
-  width:100%; text-align:center; opacity:0; pointer-events:none; transition:opacity .7s ease-in-out;
-  position:absolute; left:50%; transform:translateX(-50%);
+
+.success-track{
+  position:relative;
+  max-width:1000px;
+  margin:0 auto;
+  padding:0 16px;          /* give breathing room on narrow viewports */
+  display:block;           /* no flex gaps affecting centering */
+  min-height: 420px;       /* prevents layout jump during fades */
 }
-.success-slide.is-active{opacity:1; pointer-events:auto; position:relative; transform:none;}
-.success-logo{width:120px; height:120px; object-fit:contain; background:#fff; border-radius:24px; border:1px solid #e4e6eb; box-shadow:0 8px 22px rgba(0,0,0,.15); margin-bottom:18px;}
-.success-title{font-size:1.5rem; font-weight:700; margin-bottom:10px; color:#111;}
-.success-body{max-width:900px; color:#2d2d2d; opacity:.95; line-height:1.6; margin:0 auto 16px;}
-.success-quote{max-width:900px; margin:16px auto 0; padding:16px 22px; border-left:4px solid var(--accent); background:rgba(255,255,255,.8); color:#333; font-style:italic; border-radius:12px;}
+
+/* Stacked slides are absolutely centered; active slide becomes relative */
+.success-slide{
+  position:absolute;
+  inset:0;                 /* top/right/bottom/left: 0 */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .7s ease-in-out;
+}
+.success-slide.is-active{
+  position:relative;
+  opacity:1;
+  pointer-events:auto;
+}
+
+.success-logo{
+  width:120px; height:120px; object-fit:contain;
+  background:#fff; border-radius:24px; border:1px solid #e4e6eb;
+  box-shadow:0 8px 22px rgba(0,0,0,.15); margin-bottom:6px;
+}
+.success-title{font-size:1.5rem; font-weight:700; color:#111; margin:6px auto 6px; max-width:900px;}
+.success-body{max-width:900px; color:#2d2d2d; opacity:.95; line-height:1.6; margin:0 auto 10px;}
+.success-quote{
+  max-width:900px; margin:6px auto 0; padding:16px 22px;
+  border-left:4px solid var(--accent); background:rgba(255,255,255,.8);
+  color:#333; font-style:italic; border-radius:12px;
+}
 .success-quote span{display:block; margin-top:8px; opacity:.85; font-style:normal; font-size:.95rem; font-weight:500;}
+
 .success-nav{position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; background:rgba(0,0,0,.08); border:1px solid #e4e6eb; color:#000; font-size:28px; line-height:44px; border-radius:12px; cursor:pointer; z-index:10;}
 .success-nav:hover{background:rgba(0,0,0,.14);}
 .success-nav.prev{left:16px;} .success-nav.next{right:16px;}
 .success-dots{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:flex; gap:10px;}
 .success-dots button{width:10px; height:10px; border-radius:999px; background:rgba(0,0,0,.25); border:0; cursor:pointer;}
 .success-dots button.active{background:#000;}
+
 @media (max-width:700px){
   .success-head{padding:0 16px;}
   .success-logo{width:90px; height:90px; border-radius:18px;}
   .success-title{font-size:1.25rem;}
   .success-body,.success-quote{padding:12px 14px;}
+  .success-track{min-height: 500px;} /* room for multiline text on small screens */
 }
 
 /* CTA (non-slogan) */
@@ -126,4 +170,17 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{animation:none!important; transition:none!important; scroll-behavior:auto!important;}
+}
+.book-call {
+  background-color: #007236;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.book-call:hover {
+  background-color: #005a2a;
 }
