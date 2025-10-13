@@ -4,129 +4,288 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
+  <meta name="description" content="CX services: Operations Design, Systems Architecture, Automation & AI, Reporting & Analytics, eCommerce Integrations, Ongoing Ops." />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/site.css" />
+
   <style>
-    .services-layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 32px;
-      margin-top: 40px;
-    }
-    .sidebar {
-      border-right: 1px solid var(--border);
-      padding-right: 20px;
-    }
-    .sidebar a {
-      display: block;
-      padding: 10px 14px;
-      margin-bottom: 6px;
-      border-radius: 8px;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      transition: background .2s ease, transform .2s ease;
-    }
-    .sidebar a:hover { background: var(--glass); transform: translateX(3px); }
-    .sidebar a.active {
-      background: var(--accent);
-      color: #fff;
-    }
-    .service-body section { margin-bottom: 32px; }
-    @media (max-width: 800px) {
-      .services-layout { grid-template-columns: 1fr; }
-      .sidebar { border: none; display: flex; flex-wrap: wrap; gap: 10px; }
-      .sidebar a { margin: 0; }
-    }
+    /* ---- Page-specific minimal CSS (add to site.css if you want) ---- */
+    .svc-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 280px 1fr; gap: 28px; }
+    .svc-side { position: sticky; top: 16px; align-self: start; border: 1px solid var(--border, #e6e6e6); border-radius: 12px; overflow: hidden; }
+    .svc-nav { list-style: none; margin: 0; padding: 8px; }
+    .svc-link { display: flex; gap: 10px; align-items: center; text-decoration: none; padding: 10px 12px; border-radius: 10px; font-weight: 500; color: var(--ink, #111); }
+    .svc-link:hover { background: var(--hover, #f6f6f6); }
+    .svc-link.active { outline: 2px solid var(--accent, #0ea5e9); background: color-mix(in srgb, var(--accent, #0ea5e9) 6%, white); }
+    .svc-thumb { width: 36px; height: 36px; object-fit: cover; border-radius: 8px; border: 1px solid #e6e6e6; }
+    .svc-body { min-height: 420px; }
+    .svc-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
+    .svc-hero img { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; border: 1px solid #e6e6e6; }
+    .svc-hero h1 { font-size: 28px; margin: 0; }
+    .svc-meta { color: #666; font-size: 14px; margin-top: -4px; }
+    .pill { display: inline-block; padding: 6px 10px; border: 1px solid #e6e6e6; border-radius: 999px; font-size: 12px; margin-right: 6px; }
+    .svc-section { margin: 22px 0; }
+    .svc-section h3 { margin: 0 0 8px; font-size: 18px; }
+    .svc-ul { margin: 0; padding-left: 18px; }
+    .muted { color: #666; }
+    @media (max-width: 900px) { .svc-wrap { grid-template-columns: 1fr; } .svc-side { position: static; } }
   </style>
 </head>
 <body>
+  <!-- Header (reuse your nav-wrap/nav if you want the same header) -->
   <div class="nav-wrap">
-    <nav class="nav">
-      <a class="brand" href="index.html"><img src="favicon.png" alt="DeskXP"/><span>DeskXP</span></a>
-      <div class="menu">
-        <a href="index.html">Home</a>
-        <a href="#services" class="active">Services</a>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html#home">
+        <img src="favicon.png" alt="DeskXP logo" />
+        <span>DeskXP</span>
+      </a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu" id="menu">
+        <a href="index.html#home">Home</a>
+        <a class="active" href="service.html">Services</a>
         <a href="index.html#pricing">Pricing</a>
-        <a href="index.html#about">About</a>
+        <a href="index.html#about">About Us</a>
       </div>
     </nav>
   </div>
 
+  <!-- Global Banner (you said keep banner global for now) -->
   <div class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
-      <p class="subhead">Every workflow, system, and automation tuned for scale.</p>
+      <p class="subhead">Pick a capability. See the details. Stay in flow.</p>
     </div>
   </div>
 
-  <div class="container services-layout">
-    <aside class="sidebar" id="sidebar">
-      <a href="#opsdesign" class="active">Operations Design</a>
-      <a href="#systems">Systems Architecture</a>
-      <a href="#automation">Automation & AI</a>
-      <a href="#analytics">Reporting & Analytics</a>
-      <a href="#ecommerce">eCommerce Integrations</a>
-      <a href="#ongoing">Ongoing Ops</a>
+  <main class="svc-wrap">
+    <!-- Left Sidebar -->
+    <aside class="svc-side">
+      <ul class="svc-nav" id="svcNav">
+        <!-- JS injects items -->
+      </ul>
     </aside>
 
-    <div class="service-body">
-      <section id="opsdesign">
-        <h2>Operations Design</h2>
-        <p>We turn ad-hoc support into a predictable machine — playbooks, SLAs, and escalation paths that scale with your team.</p>
-        <ul><li>Lower AHT via triage & macros</li><li>Higher CSAT from consistent responses</li><li>Playbooks, SLA matrix, and QA framework</li></ul>
-      </section>
+    <!-- Right Content -->
+    <section class="svc-body" id="svcBody" aria-live="polite" aria-busy="false">
+      <!-- JS injects content -->
+    </section>
+  </main>
 
-      <section id="systems">
-        <h2>Systems Architecture</h2>
-        <p>Zendesk configuration that matches your org design — routing, triggers, macros, and data hygiene done right.</p>
-        <ul><li>Predictable ticket flow</li><li>Cleaner reporting data</li><li>Maintainable automation setup</li></ul>
-      </section>
-
-      <section id="automation">
-        <h2>Automation & AI</h2>
-        <p>Deflection, classification, and intent routing that cut handle time while keeping the human touch.</p>
-        <ul><li>Deflect low-value tickets</li><li>Intent-based routing</li><li>AI-assisted replies & QA</li></ul>
-      </section>
-
-      <section id="analytics">
-        <h2>Reporting & Analytics</h2>
-        <p>Data dashboards that show what matters — productivity, satisfaction, and trends in one view.</p>
-      </section>
-
-      <section id="ecommerce">
-        <h2>eCommerce Integrations</h2>
-        <p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier automations, and order-to-ticket sync.</p>
-      </section>
-
-      <section id="ongoing">
-        <h2>Ongoing Ops</h2>
-        <p>Continuous optimization and support for your CX systems — keep workflows fresh as your business grows.</p>
-      </section>
-    </div>
-  </div>
-
-  <footer>© <span id="y"></span> DeskXP</footer>
+  <footer style="text-align:center; padding: 28px 0; border-top: 1px solid #eee;">
+    © <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a>
+  </footer>
 
   <script>
+    // year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // highlight active link
-    const links = document.querySelectorAll('.sidebar a');
-    const sections = document.querySelectorAll('.service-body section');
-    window.addEventListener('scroll', () => {
-      let current = "";
-      sections.forEach(s => {
-        const top = s.offsetTop - 120;
-        if (scrollY >= top) current = s.id;
+    // mobile menu (same behavior as index)
+    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+    btn?.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+
+    // ---------- Data model for services ----------
+    const SERVICES = [
+      {
+        slug: 'ops-design',
+        title: 'Operations Design',
+        img: 'assets/svc-1.jpg',
+        meta: ['Playbooks', 'SLAs', 'Escalations'],
+        blurb: 'Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.',
+        bullets: [
+          'Triage maps across channels (email, chat, social, voice)',
+          'Escalation matrices and RACI handoffs',
+          'SLA policy, clock rules, schedules, holidays',
+          'Macros, templates, tone of voice & QA rubrics'
+        ],
+        outcomes: [
+          'FRT/AHT reduced via clear handling rules',
+          'Lower re-opens via precise ownership',
+          'Agent onboarding time cut with playbooks'
+        ]
+      },
+      {
+        slug: 'systems-arch',
+        title: 'Systems Architecture',
+        img: 'assets/svc-2.jpg',
+        meta: ['Zendesk', 'Routing', 'Hygiene'],
+        blurb: 'Design the stack so work routes cleanly and data stays tidy.',
+        bullets: [
+          'Ticket forms, fields, triggers, views — sane by default',
+          'Omnichannel routing, skills/groups, capacity rules',
+          'User/org structure, SSO, roles & granular permissions',
+          'Data hygiene: tags, categories, de-duplication'
+        ],
+        outcomes: [
+          'Higher assignment accuracy, fewer misroutes',
+          'Cleaner data → better analytics',
+          'Happier agents thanks to predictable flows'
+        ]
+      },
+      {
+        slug: 'automation-ai',
+        title: 'Automation & AI',
+        img: 'assets/svc-3.jpg',
+        meta: ['Bots', 'Deflection', 'Intent'],
+        blurb: 'Automate the boring. Keep humans for nuance.',
+        bullets: [
+          'Intent detection & auto-tagging',
+          'Self-service: KB surfacing & guided flows',
+          'Auto-replies with guardrails; safe handoffs',
+          'Back-office automations (Zapier/Make, webhooks)'
+        ],
+        outcomes: [
+          'Deflection up, handle time down',
+          'Consistent responses 24/7',
+          'Agents focus on high-value cases'
+        ]
+      },
+      {
+        slug: 'reporting-analytics',
+        title: 'Reporting & Analytics',
+        img: 'assets/svc-4.jpg',
+        meta: ['FRT', 'AHT', 'CSAT/QA'],
+        blurb: 'Dashboards that show what matters and drive action.',
+        bullets: [
+          'Explore dashboards: productivity, satisfaction, backlog',
+          'Cohort/segmentation by channel, issue-type, SKU',
+          'SLA breach root-cause and staffing insights',
+          'Executive views with trends & projections'
+        ],
+        outcomes: [
+          'Faster decisions with trustworthy data',
+          'Spot bottlenecks before they bite',
+          'Tighter planning with accurate forecasts'
+        ]
+      },
+      {
+        slug: 'ecom-integrations',
+        title: 'eCommerce Integrations',
+        img: 'assets/svc-5.jpg',
+        meta: ['Shopify/Magento', 'APIs', 'Webhooks'],
+        blurb: 'Pipe order data into CX tools so agents have context on first click.',
+        bullets: [
+          'Shopify/Magento ↔ Zendesk side-panel apps',
+          'Order/fulfillment status in-ticket',
+          'RMA flows, refunds, replacements automation',
+          'Payments/disputes signals into routing'
+        ],
+        outcomes: [
+          'One-screen resolution for agents',
+          'Fewer transfers and back-and-forth',
+          'Customer wow from fast answers'
+        ]
+      },
+      {
+        slug: 'ongoing-ops',
+        title: 'Ongoing Ops',
+        img: 'assets/svc-6.jpg',
+        meta: ['Iteration', 'Reporting', 'On-call'],
+        blurb: 'Keep the machine sharp with monthly improvements.',
+        bullets: [
+          'Monthly ops reviews & backlog grooming',
+          'Experimentation: macros/bots/routing tweaks',
+          'Training refreshers & QA calibration',
+          'Data cleanup and dashboard maintenance'
+        ],
+        outcomes: [
+          'Continuous performance gains',
+          'Lower cost-to-serve over time',
+          'A team that keeps leveling up'
+        ]
+      }
+    ];
+
+    // ---------- Renderers ----------
+    const navEl = document.getElementById('svcNav');
+    const bodyEl = document.getElementById('svcBody');
+
+    function renderNav(activeSlug) {
+      navEl.innerHTML = '';
+      SERVICES.forEach(svc => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `?s=${svc.slug}`;
+        a.className = 'svc-link' + (svc.slug === activeSlug ? ' active' : '');
+        a.dataset.slug = svc.slug;
+        a.innerHTML = `
+          <img class="svc-thumb" src="${svc.img}" alt="">
+          <span>${svc.title}</span>
+        `;
+        li.appendChild(a);
+        navEl.appendChild(li);
       });
-      links.forEach(a => {
-        a.classList.remove('active');
-        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
-      });
+    }
+
+    function renderBody(svc) {
+      bodyEl.setAttribute('aria-busy', 'true');
+      // Keep viewport steady: don’t jump down the page
+      const scrollY = window.scrollY;
+
+      bodyEl.innerHTML = `
+        <div class="svc-hero">
+          <img src="${svc.img}" alt="">
+          <div>
+            <h1>${svc.title}</h1>
+            <div class="svc-meta">
+              ${svc.meta.map(m => `<span class="pill">${m}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+        <p class="muted">${svc.blurb}</p>
+
+        <div class="svc-section">
+          <h3>What we do</h3>
+          <ul class="svc-ul">
+            ${svc.bullets.map(b => `<li>${b}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h3>Outcomes</h3>
+          <ul class="svc-ul">
+            ${svc.outcomes.map(o => `<li>${o}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      // restore scroll to prevent visual jump
+      window.scrollTo({ top: scrollY });
+      bodyEl.setAttribute('aria-busy', 'false');
+    }
+
+    function pickService(slug) {
+      const svc = SERVICES.find(s => s.slug === slug) || SERVICES[0];
+      renderNav(svc.slug);
+      renderBody(svc);
+      // update URL without full reload
+      const url = new URL(window.location);
+      url.searchParams.set('s', svc.slug);
+      window.history.pushState({ s: svc.slug }, '', url);
+    }
+
+    // ---------- Init ----------
+    const params = new URLSearchParams(window.location.search);
+    const initialSlug = params.get('s') || 'ops-design';
+    pickService(initialSlug);
+
+    // ---------- Events ----------
+    navEl.addEventListener('click', e => {
+      const a = e.target.closest('a.svc-link');
+      if (!a) return;
+      e.preventDefault();         // no page jump
+      pickService(a.dataset.slug); // swap content only
+    });
+
+    // handle back/forward
+    window.addEventListener('popstate', e => {
+      const slug = (e.state && e.state.s) || new URLSearchParams(location.search).get('s') || 'ops-design';
+      pickService(slug);
     });
   </script>
 </body>
 </html>
-
