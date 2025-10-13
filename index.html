@@ -1,53 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>James Constantino | CX & Zendesk Expert</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>James Constantino — Zendesk & CX Systems Expert</title>
+  <meta name="description" content="Zendesk & CX systems for fintech and eCommerce. Implementations, automations, and dashboards that cut cost and improve CX." />
+
+  <!-- Open Graph / LinkedIn / Slack previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="James Constantino — Zendesk & CX Systems Expert" />
+  <meta property="og:description" content="Implementations, automations, and dashboards for fintech & eCommerce." />
+  <meta property="og:image" content="https://jdconstantino.github.io/profile/og-image.png" />
+  <meta property="og:url" content="https://jdconstantino.github.io/profile/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: 'Inter', sans-serif; color: #222; margin: 0; background: #f9fafb; }
-    .container { max-width: 800px; margin: 80px auto; padding: 0 20px; }
-    h1 { font-size: 2.4em; margin-bottom: 0.2em; }
-    h2 { color: #007236; margin-top: 2em; }
-    a { color: #007236; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .btn { display: inline-block; background: #007236; color: #fff; padding: 10px 20px; border-radius: 6px; margin: 10px 5px 0 0; }
-    .section { margin-bottom: 60px; }
+    :root{
+      --bg:#0b0c0e; --panel:#101215; --text:#e7e9ee; --muted:#a9b0bd;
+      --accent:#007236; --accent-2:#12b76a; --border:#1b1f26;
+      --shadow:0 10px 30px rgba(0,0,0,0.25);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f9fafb; --panel:#ffffff; --text:#121417; --muted:#5b6876; --border:#e6e8ee; --shadow:0 8px 24px rgba(16,24,40,.08);}
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+    .wrap{max-width:980px;margin:0 auto;padding:32px}
+    header{display:flex;flex-direction:column;gap:14px;padding:36px 24px;margin:24px 0;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
+    h1{font-size:34px;line-height:1.2;margin:0}
+    .tag{color:var(--muted);font-weight:600}
+    .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:transparent}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+    .btn.secondary{background:transparent}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:820px){ .grid{grid-template-columns:1fr} header{padding:28px} }
+    section{margin:28px 0;padding:24px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
+    section h2{margin:0 0 10px 0;font-size:22px}
+    .pill{display:inline-block;background:rgba(18,183,106,.12);color:var(--accent-2);border:1px solid rgba(18,183,106,.35);padding:2px 8px;border-radius:999px;font-size:12px;margin-right:8px}
+    ul.clean{margin:8px 0 0 0;padding-left:20px}
+    .proj{padding:16px;border:1px solid var(--border);border-radius:12px}
+    .proj h3{margin:0 0 6px 0;font-size:18px}
+    .muted{color:var(--muted)}
+    footer{margin:18px 0 40px 0;color:var(--muted);text-align:center}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>James Constantino</h1>
-    <p><strong>Zendesk & CX Systems Expert</strong> | Fintech & eCommerce Operations</p>
-    <a class="btn" href="https://www.linkedin.com/in/yourprofile">LinkedIn</a>
-    <a class="btn" href="https://www.upwork.com/freelancers/~yourprofile">Upwork</a>
-    <a class="btn" href="mailto:youremail@example.com">Email</a>
+  <div class="wrap">
+    <header>
+      <div class="tag">Available for freelance and consulting</div>
+      <h1>James Constantino</h1>
+      <div><strong>Zendesk & CX Systems Expert</strong> — Fintech & eCommerce Operations</div>
+      <div class="cta">
+        <a class="btn primary" href="mailto:youremail@example.com">Email</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn secondary" href="https://www.upwork.com/freelancers/~yourprofile" target="_blank" rel="noopener">Upwork</a>
+        <a class="btn secondary" href="./JamesConstantino-CV.pdf" target="_blank" rel="noopener">Download CV</a>
+      </div>
+    </header>
 
-    <div class="section">
-      <h2>About Me</h2>
-      <p>I specialize in designing scalable customer experience systems for fintech and eCommerce brands. I’ve led Zendesk implementations, workflow automations, and integrations with Shopify, Sunshine Conversations, and Magento.</p>
+    <section>
+      <h2>About</h2>
+      <p>I design and implement customer experience systems that reduce manual work and improve time-to-resolution. My focus: <strong>Zendesk architecture</strong>, <strong>automation</strong>, and <strong>data-driven operations</strong> for fintech and eCommerce. Tools I live in: Zendesk (Support, Guide, Explore, Sunshine Conversations), Freshdesk, Shopify, Make/Zapier, Google Apps Script, Looker Studio.</p>
+    </section>
+
+    <div class="grid">
+      <section>
+        <h2>Highlighted Projects</h2>
+
+        <div class="proj">
+          <h3>PalawanPay — Zendesk Implementation</h3>
+          <p class="muted">Fintech wallet • CX automation</p>
+          <ul class="clean">
+            <li>Designed end-to-end workflows, triggers, and SLA policies.</li>
+            <li>Automations + bot deflection yielding <strong>₱5M+ annual savings</strong>.</li>
+            <li>Dashboards for productivity, CSAT, and dispute outcomes.</li>
+          </ul>
+        </div>
+
+        <div class="proj">
+          <h3>Unison Computer Systems — Magento ↔ Zendesk</h3>
+          <p class="muted">eCommerce • Custom sidebar app</p>
+          <ul class="clean">
+            <li>Built a ZAF app to surface order details by requester email.</li>
+            <li>“Submit a Request” flow pre-fills ticket metadata from Magento.</li>
+            <li>Reduced agent AHT and misroutes; cleaner data for reporting.</li>
+          </ul>
+        </div>
+
+        <div class="proj">
+          <h3>MyPrettyStrap — Help Center & SLAs</h3>
+          <p class="muted">DTC fashion • Guide + Explore</p>
+          <ul class="clean">
+            <li>Launched Help Center, macros, and SLA monitoring.</li>
+            <li>Improved first-response times and self-service coverage.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Capabilities</h2>
+        <p>
+          <span class="pill">Zendesk Architecture</span>
+          <span class="pill">Workflow Automation</span>
+          <span class="pill">Bots & Deflection</span>
+          <span class="pill">Data & Dashboards</span>
+          <span class="pill">Shopify / Magento</span>
+          <span class="pill">AI-assisted Triage</span>
+        </p>
+        <h2>Selected Tools</h2>
+        <p class="muted">Zendesk • Freshdesk • Sunshine Conversations • Shopify • Make • Zapier • Google Apps Script • Looker Studio</p>
+        <h2>Contact</h2>
+        <p>Prefer email? <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com/a>.  
+        Or ping me on <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a> or <a href="https://www.upwork.com/freelancers/~yourprofile" target="_blank" rel="noopener">Upwork</a>.</p>
+      </section>
     </div>
 
-    <div class="section">
-      <h2>Highlighted Projects</h2>
-      <ul>
-        <li><strong>PalawanPay</strong> – Built full Zendesk Support system; saved ₱5M+ annually via automation.</li>
-        <li><strong>Unison Systems</strong> – Integrated Magento + Zendesk; custom app for order lookups.</li>
-        <li><strong>MyPrettyStrap</strong> – Created Help Center and SLA dashboard for eCommerce operations.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Tech Stack</h2>
-      <p>Zendesk • Sunshine Conversations • Freshdesk • Shopify • Make • Zapier • Google Apps Script • Looker Studio</p>
-    </div>
-
-    <div class="section">
-      <h2>Contact</h2>
-      <p>📧 <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
-    </div>
+    <footer>© <span id="y"></span> James Constantino — Built on GitHub Pages</footer>
   </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
-
