@@ -13,13 +13,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com" />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
@@ -38,7 +33,7 @@
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#pricing">Pricing</a>
-        <a href="#about">About</a>
+        <a href="#about">About Us</a>
       </div>
     </nav>
   </div>
@@ -52,31 +47,32 @@
   </div>
 
   <div class="container">
+
     <!-- ===== Services ===== -->
     <section id="services">
       <h2>Services</h2>
       <div class="card-grid">
-         <article class="card">
-          <a href="svc1.html"><img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy"></a>
+        <article class="card">
+          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
           <div class="card-body">
-        <h3><a href="svc1.html" style="color:inherit;text-decoration:none">Operations Design</a></h3>
-        <p>Playbooks, SLAs, triage flows, escalation paths.</p>
-      </div>
-    </article>
+            <h3>Operations Design</h3>
+            <p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p>
+          </div>
+        </article>
 
         <article class="card">
-          <a href="svc2.html"><img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy"></a>
+          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
           <div class="card-body">
-          <h3><a href="svc2.html" style="color:inherit;text-decoration:none">Systems Architecture</a></h3>
-          <p>Zendesk setup, routing, triggers, macros, data hygiene.</p>
-        </div>
-      </article>
+            <h3>Systems Architecture</h3>
+            <p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p>
+          </div>
+        </article>
 
-      <article class="card">
-          <a href="svc3.html"><img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy"></a>
-            <div class="card-body">
-            <h3><a href="svc3.html" style="color:inherit;text-decoration:none">Automation & AI</a></h3>
-            <p>Deflection, classification, intent routing, bots.</p>
+        <article class="card">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy">
+          <div class="card-body">
+            <h3>Automation & AI</h3>
+            <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
           </div>
         </article>
 
@@ -84,7 +80,7 @@
           <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
           <div class="card-body">
             <h3>Reporting & Analytics</h3>
-            <p>Explore dashboards for FRT, AHT, CSAT, QA loops.</p>
+            <p>Explore dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
           </div>
         </article>
 
@@ -92,7 +88,7 @@
           <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
           <div class="card-body">
             <h3>eCommerce Integrations</h3>
-            <p>Shopify/Magento ↔ Zendesk, Make/Zapier, webhooks.</p>
+            <p>Shopify / Magento ↔ Zendesk integrations, Make / Zapier workflows, and webhooks.</p>
           </div>
         </article>
 
@@ -100,7 +96,7 @@
           <img class="card-img" src="assets/svc-6.jpg" alt="Ongoing Ops" loading="lazy">
           <div class="card-body">
             <h3>Ongoing Ops</h3>
-            <p>Iteration, incident cleanup, on-call system tweaks.</p>
+            <p>Iteration, reporting, and continuous optimization to keep CX operations evolving.</p>
           </div>
         </article>
       </div>
@@ -119,6 +115,7 @@
             <li>Implementation plan</li>
           </ul>
         </div>
+
         <div class="proj">
           <h3>Implementation Sprint</h3>
           <p class="muted">4–6 weeks</p>
@@ -128,6 +125,7 @@
             <li>Training & QA loop</li>
           </ul>
         </div>
+
         <div class="proj">
           <h3>Ongoing Ops</h3>
           <p class="muted">Monthly</p>
@@ -142,8 +140,9 @@
 
     <!-- ===== About ===== -->
     <section id="about">
-      <h2>About</h2>
-      <p>DeskXP blends operations leadership with pragmatic systems design. We turn messy support orgs into scalable CX engines by aligning people, process, and technology. Founded by <strong>James Constantino</strong> — CX systems & operations specialist — with experience across fintech and eCommerce.</p>
+      <h2>About Us</h2>
+      <p>DeskXP blends operations leadership with pragmatic systems design. We turn messy support orgs into scalable CX engines by aligning people, process, and technology.</p>
+      <p class="muted" style="margin-top:8px">Founded by <strong>James Constantino</strong> — CX systems & operations specialist with fintech and eCommerce experience.</p>
       <p class="muted" style="margin-top:8px">Contact: <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
     </section>
 
@@ -151,16 +150,13 @@
   </div>
 
   <script>
-    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Scroll reveal
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     }), { threshold: .2 });
-    document.querySelectorAll('section, .card').forEach(s => io.observe(s));
+    document.querySelectorAll('section').forEach(s => io.observe(s));
 
-    // Mobile menu
     const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
     btn.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
