@@ -28,6 +28,7 @@
       --accent: #007236;
       --border: #1b1f26;
     }
+
     @media (prefers-color-scheme: light) {
       :root {
         --bg: #f9fafb;
@@ -44,28 +45,60 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 32px 16px;
       scroll-behavior: smooth;
     }
 
-    .container { max-width: 960px; margin: auto; }
+    .container { max-width: 960px; margin: auto; padding: 0 16px; }
+
+    /* 🔥 Banner styling */
+    .banner {
+      width: 100%;
+      height: 320px;
+      background: url('banner.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .banner h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner p {
+      font-size: 1.2rem;
+      color: #d9e2d6;
+      font-weight: 500;
+    }
 
     header {
+      margin-top: -60px;
       margin-bottom: 56px;
       text-align: center;
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeUp 0.8s ease forwards;
+      animation: fadeUp 0.8s ease forwards 0.3s;
     }
 
-    h1 { font-size: 2.5rem; margin-bottom: 8px; }
     h2 { font-size: 1.5rem; margin-bottom: 12px; color: var(--accent); }
-
-    p.tagline {
-      color: var(--muted);
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
+    p.tagline { color: var(--muted); margin-bottom: 20px; }
 
     .btns a {
       display: inline-block;
@@ -94,17 +127,18 @@
     section.visible { opacity: 1; transform: translateY(0); }
 
     ul { list-style: disc; padding-left: 20px; }
-    .muted { color: var(--muted); }
-
     footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.9rem;
+      margin: 40px 0;
       color: var(--muted);
+      font-size: 0.9rem;
       opacity: 0;
       transform: translateY(10px);
       animation: fadeUp 1s ease 0.8s forwards;
     }
+
+    .contact a { color: var(--accent); text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
@@ -112,28 +146,23 @@
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      section { padding: 20px; }
+      .banner { height: 240px; }
+      .banner h1 { font-size: 2rem; }
+      .banner p { font-size: 1rem; }
     }
-
-    /* Contact section styling */
-    .contact {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .contact a {
-      color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .contact a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
+  <!-- 🔥 Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>James Constantino</h1>
+      <p>Building Scalable CX Systems for Fintech & eCommerce</p>
+    </div>
+  </div>
+
   <div class="container">
     <header>
-      <h1>James Constantino</h1>
       <p class="tagline">Zendesk & CX Systems Expert | Fintech & eCommerce Operations</p>
       <div class="btns">
         <a href="mailto:james.constantino18@gmail.com">Email</a>
@@ -176,7 +205,6 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Scroll animation
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
