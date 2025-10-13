@@ -5,74 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <!-- ✅ Correct path to your global CSS (we’re inside /services/) -->
-  <link rel="stylesheet" href="/css/style.css">
+  <!-- Load the global CSS from site root. Add cache-buster. -->
+  <link rel="stylesheet" href="/css/style.css?v=99">
 
-  <!-- Small overrides -->
   <style>
     /* kill default blue/underline everywhere */
     a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: none; }
 
     /* page-specific layout */
-    .svc-layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 28px;
-      align-items: start;
-    }
+    .svc-layout { display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: start; }
     @media (max-width: 900px) { .svc-layout { grid-template-columns: 1fr; } }
 
-    .svc-sidebar {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-    }
-    .svc-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: transparent;
-      cursor: pointer;
-      width: 100%;
-      text-align: left;
-      margin: 10px 0;
-      transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
-    }
+    .svc-sidebar { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+    .svc-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid var(--border); border-radius:12px; background:transparent; cursor:pointer; width:100%; text-align:left; margin:10px 0; transition:background .2s, box-shadow .2s, transform .2s; }
     .svc-item:hover { background: var(--glass); transform: translateY(-1px); }
-    .svc-item.selected {
-      background: rgba(0, 114, 54, 0.08);
-      box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset;
-    }
-    .svc-thumb {
-      width: 36px; height: 36px; border-radius: 8px;
-      border: 1px solid var(--border); object-fit: cover; background: #fff;
-    }
+    .svc-item.selected { background: rgba(0,114,54,.08); box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset; }
+    .svc-thumb { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); object-fit:cover; background:#fff; }
 
-    .svc-body {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-    }
-    .svc-title {
-      display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
-    }
-    .svc-title img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border); }
-    .chip {
-      display: inline-block; padding: 4px 10px; border-radius: 999px;
-      border: 1px solid var(--border); background: var(--glass); margin-right: 6px; font-size: .8rem;
-    }
+    .svc-body { background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:24px; }
+    .svc-title { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
+    .svc-title img { width:56px; height:56px; border-radius:12px; object-fit:cover; border:1px solid var(--border); }
+    .chip { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border); background:var(--glass); margin-right:6px; font-size:.8rem; }
     .svc-body h3 { margin: 18px 0 8px; }
     .svc-body ul { margin-left: 18px; }
   </style>
 </head>
 <body>
-
   <!-- NAV -->
   <div class="nav-wrap">
     <nav class="nav">
@@ -91,7 +50,7 @@
     </nav>
   </div>
 
-  <!-- BANNER (uses correct relative path) -->
+  <!-- BANNER (background image path in CSS uses /assets, see note below) -->
   <header class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
@@ -104,7 +63,6 @@
       <div class="svc-layout">
         <!-- LEFT: Sidebar -->
         <aside class="svc-sidebar" id="svc-sidebar">
-          <!-- thumbs use correct /assets/... paths -->
           <button class="svc-item" data-slug="operations-design">
             <img class="svc-thumb" src="/assets/svc-1.jpg" alt="">
             <span>Operations Design</span>
@@ -132,9 +90,7 @@
         </aside>
 
         <!-- RIGHT: Content -->
-        <article class="svc-body" id="svc-body">
-          <!-- filled by JS -->
-        </article>
+        <article class="svc-body" id="svc-body"></article>
       </div>
     </section>
   </main>
@@ -142,12 +98,10 @@
   <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
 
   <script>
-    // mobile hamburger
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     if (hamburger) hamburger.addEventListener('click', () => menu.classList.toggle('open'));
 
-    // Service content data
     const services = {
       "operations-design": {
         title: "Operations Design",
@@ -258,13 +212,7 @@
 
     function render(slug, push=false) {
       const svc = services[slug] || services["operations-design"];
-
-      // select state
-      document.querySelectorAll('.svc-item').forEach(b => {
-        b.classList.toggle('selected', b.dataset.slug === slug);
-      });
-
-      // content
+      document.querySelectorAll('.svc-item').forEach(b => b.classList.toggle('selected', b.dataset.slug === slug));
       contentEl.innerHTML = `
         <div class="svc-title">
           <img src="${svc.img}" alt="">
@@ -274,38 +222,21 @@
           </div>
         </div>
         <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
-
         <h3>What we do</h3>
         <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
-
         <h3>Outcomes</h3>
         <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
       `;
-
-      // keep the URL clean and stable without scrolling
-      const url = new URL(window.location);
-      url.searchParams.set('s', slug);
-      if (push) history.replaceState({}, '', url);
+      const url = new URL(window.location); url.searchParams.set('s', slug); if (push) history.replaceState({}, '', url);
     }
 
-    // click handlers (no scroll, no reload)
     sidebarEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('.svc-item');
-      if (!btn) return;
-      e.preventDefault();
-      render(btn.dataset.slug, true);
+      const btn = e.target.closest('.svc-item'); if (!btn) return;
+      e.preventDefault(); render(btn.dataset.slug, true);
     });
 
-    // deep-linking via ?s=slug
     const params = new URLSearchParams(window.location.search);
-    const initial = params.get('s') || 'operations-design';
-    render(initial, false);
-
-    // don’t auto-scroll when content updates
-    let lastTop = window.scrollY;
-    const observer = new MutationObserver(() => window.scrollTo({ top: lastTop }));
-    observer.observe(contentEl, { childList: true, subtree: true });
-    window.addEventListener('scroll', () => { lastTop = window.scrollY; }, { passive: true });
+    render(params.get('s') || 'operations-design', false);
   </script>
 </body>
 </html>
