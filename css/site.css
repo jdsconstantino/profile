@@ -98,8 +98,20 @@ section{
 }
 
 /* Optional scroll reveal (only applies if you add .reveal and JS toggles .is-visible) */
-.reveal{ opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
-.reveal.is-visible{ opacity:1; transform:translateY(0); }
+/* Scroll reveal — SAFE contract */
+.reveal { /* visible by default; JS may add .js on <html> to enable animation */
+  opacity: 1;
+  transform: none;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
 h2{ font-size:1.5rem; margin:0 0 12px; color:var(--accent); }
 .muted{ color:var(--muted); }
