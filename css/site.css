@@ -1,1 +1,10 @@
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media(max-width:900px){.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.card-grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.card-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .35s ease}
+.card-body{padding:16px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted)}
+.card:hover .card-img{transform:scale(1.03)} /* subtle zoom */
 
