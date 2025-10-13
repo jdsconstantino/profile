@@ -184,17 +184,51 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .book-call:hover {
   background-color: #005a2a;
 }
+.about-section {
+  padding: 100px 20px;
+  text-align: center;
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.about-content h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+.about-content .tagline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.about-content .tagline span {
+  display: inline-block;
+  margin: 0 4px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.about-content .tagline span:hover {
+  color: var(--accent);
+  transform: translateY(-4px);
+}
 .about-btn {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 40px;
   background-color: var(--accent);
   color: #fff;
-  padding: 12px 28px;
-  border-radius: 8px;
+  padding: 14px 32px;
+  border-radius: 10px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
 }
+
 .about-btn:hover {
   background-color: #005a2a;
+  transform: scale(1.05);
 }
+
