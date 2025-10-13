@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://jdsc.deskxp.com/" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=200" />
-  <noscript><style>.reveal{opacity:1!important;transform:none!important;}</style></noscript>
+  <link rel="stylesheet" href="css/site.css?v=201" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
@@ -101,7 +101,7 @@
   </main>
 
   <!-- Success Stories (Fade slider) -->
-  <section id="success" class="success-slider reveal">
+  <section id="success" class="success-slider reveal" aria-label="Customer success stories">
     <div class="success-head"><h2>Success Stories</h2></div>
     <div class="success-track" id="successTrack" aria-live="polite">
       <!-- PalawanPay -->
@@ -146,9 +146,9 @@
       </article>
     </div>
 
-    <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
-    <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
-    <div class="success-dots" id="successDots"></div>
+    <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
+    <button class="success-nav next" id="nextBtn" aria-label="Next slide">›</button>
+    <div class="success-dots" id="successDots" role="tablist" aria-label="Slides"></div>
   </section>
 
   <!-- Pricing -->
@@ -177,20 +177,28 @@
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA (non-slogan conversion card) -->
     <section id="cta" class="reveal">
-      <h2>Let’s build your next breakthrough</h2>
-      <div class="cta-body">
-        <p>Do you need an MVP in <strong>7 days</strong>? Struggling to cut down repetitive inquiries? Tired of endless manual work slowing you down?</p>
-        <p><strong>Let’s fix that.</strong> Book a quick discovery call — we’ll audit your process, spot automation gaps, and design a lean CX system that scales.</p>
-        <p class="muted">No strings attached — <strong>free 30-minute discovery call</strong>.</p>
-        <a href="https://calendly.com/deskxp/intro-call" class="btn-accent">Book a Call →</a>
+      <h2>Book a discovery call</h2>
+      <div class="cta-grid">
+        <div class="cta-copy">
+          <p>We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+          <ul class="cta-list">
+            <li>MVP or prototype in <strong>7 days</strong></li>
+            <li>Cut repetitive inquiries with automation & self-serve</li>
+            <li>Eliminate manual busywork in daily ops</li>
+          </ul>
+          <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="https://calendly.com/deskxp/intro-call" class="btn-accent">Book a Call</a>
+        </div>
       </div>
     </section>
 
     <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <script src="js/main.js?v=200"></script>
+  <script src="js/main.js?v=201"></script>
 </body>
 </html>
