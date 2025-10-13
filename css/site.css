@@ -284,3 +284,10 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   .dc-card{ grid-template-columns: 1fr; }
   .dc-cta{ justify-content:flex-start; }
 }
+/* Teaser subline should be normal weight */
+.about-teaser p.teaser-subtext,
+.about-teaser .teaser-subtext,
+.about-teaser p.subtext,
+.about-teaser .subtext {
+  font-weight: 400;
+}
