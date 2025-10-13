@@ -3,387 +3,219 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Services — DeskXP</title>
+  <title>DeskXP — CX Operations & Systems</title>
+  <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Open Graph -->
+  <meta property="og:title" content="DeskXP — CX Operations & Systems" />
+  <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
+  <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jdsc.deskxp.com" />
 
-  <!-- Main site styles -->
-  <link rel="stylesheet" href="/css/site.css?v=201">
-
-  <style>
-    body { font-family: "Inter", system-ui, sans-serif; }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: none; }
-
-    /* Layout */
-    .svc-layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 28px;
-      align-items: start;
-      margin-top: 24px;
-      animation: fadeIn 0.4s ease;
-    }
-    @media (max-width: 900px) {
-      .svc-layout { grid-template-columns: 1fr; }
-    }
-
-    /* Sidebar */
-    .svc-sidebar {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      position: sticky;
-      top: 100px;
-      align-self: start;
-      animation: slideInLeft 0.6s ease;
-    }
-
-    .svc-item {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:transparent;
-      cursor:pointer;
-      width:100%;
-      text-align:left;
-      margin:10px 0;
-      transition:background .25s ease, transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-    .svc-item:hover {
-      background: var(--glass);
-      transform: translateY(-1px);
-    }
-    /* Neutral selected state (no green) */
-    .svc-item.selected {
-      background: rgba(0,0,0,.06);
-      box-shadow: 0 0 0 2px rgba(0,0,0,.18) inset;
-      border-color: rgba(0,0,0,.22);
-      animation: selectPulse 0.4s ease;
-    }
-    @media (prefers-color-scheme: dark){
-      .svc-item.selected {
-        background: rgba(255,255,255,.06);
-        box-shadow: 0 0 0 2px rgba(255,255,255,.16) inset;
-        border-color: rgba(255,255,255,.18);
-      }
-    }
-    @keyframes selectPulse {
-      0% { box-shadow: 0 0 0 0 rgba(0,0,0,.18); }
-      70% { box-shadow: 0 0 0 6px rgba(0,0,0,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
-    }
-
-    .svc-thumb {
-      width:36px; height:36px;
-      border-radius:8px; border:1px solid var(--border);
-      object-fit:cover; background:#fff;
-    }
-
-    /* Body */
-    .svc-body {
-      background: var(--panel);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:24px;
-      opacity:0;
-      transform: translateY(10px);
-      transition: opacity .35s ease, transform .35s ease;
-    }
-    .svc-body.visible {
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    .svc-title {
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:8px;
-    }
-    .svc-title img {
-      width:56px;
-      height:56px;
-      border-radius:12px;
-      object-fit:cover;
-      border:1px solid var(--border);
-    }
-    .chip {
-      display:inline-block;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:var(--glass);
-      margin-right:6px;
-      font-size:.8rem;
-    }
-    .svc-body h3 { margin: 18px 0 8px; }
-    .svc-body ul { margin-left: 18px; }
-
-    @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:none;} }
-    @keyframes slideInLeft { from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:none;} }
-  </style>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css?v=99" />
 </head>
 <body>
 
   <!-- Header -->
   <div class="nav-wrap">
-    <nav class="nav">
-      <a class="brand" href="/">
-        <img src="/favicon.png" alt="DeskXP logo">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#home">
+        <img src="favicon.png" alt="DeskXP logo" />
         <span>DeskXP</span>
       </a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
       <div class="menu" id="menu">
-        <a href="/">Home</a>
-        <a href="/services/">Services</a>
-        <a href="/about/">About</a>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About Us</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
 
   <!-- Banner -->
-  <header class="banner">
+  <div class="banner" id="home">
     <div class="inner">
-      <h1 class="headline">Services</h1>
-      <p class="subhead">Operational design meets automation — built to scale your CX engine.</p>
+      <h1 class="headline">People, process, and technology — aligned for scale.</h1>
+      <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
     </div>
-  </header>
+  </div>
 
-  <!-- Main -->
-  <main class="container">
-    <section class="visible">
-      <div class="svc-layout">
-        <aside class="svc-sidebar" id="svc-sidebar" aria-label="Service categories">
-          <button type="button" class="svc-item" data-slug="operations-design">
-            <img class="svc-thumb" src="/assets/svc-1.jpg" alt="Operations Design">
-            <span>Operations Design</span>
-          </button>
-          <button type="button" class="svc-item" data-slug="systems-architecture">
-            <img class="svc-thumb" src="/assets/svc-2.jpg" alt="Systems Architecture">
-            <span>Systems Architecture</span>
-          </button>
-          <button type="button" class="svc-item" data-slug="automation-ai">
-            <img class="svc-thumb" src="/assets/svc-3.jpg" alt="Automation and AI">
-            <span>Automation &amp; AI</span>
-          </button>
-          <button type="button" class="svc-item" data-slug="reporting-analytics">
-            <img class="svc-thumb" src="/assets/svc-4.jpg" alt="Reporting and Analytics">
-            <span>Reporting &amp; Analytics</span>
-          </button>
-          <button type="button" class="svc-item" data-slug="ecommerce-integrations">
-            <img class="svc-thumb" src="/assets/svc-5.jpg" alt="eCommerce Integrations">
-            <span>eCommerce Integrations</span>
-          </button>
-          <button type="button" class="svc-item" data-slug="customer-experience-servicing">
-            <img class="svc-thumb" src="/assets/svc-6.jpg" alt="Customer Experience and Servicing">
-            <span>Customer Experience &amp; Servicing</span>
-          </button>
-        </aside>
+  <div class="container">
 
-        <article class="svc-body" id="svc-body" aria-live="polite"></article>
+    <!-- Services -->
+    <section id="services">
+      <h2>Services</h2>
+
+      <div class="card-grid">
+        <a class="card" href="/services/?s=operations-design" aria-label="Operations Design">
+          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
+          <div class="card-body">
+            <h3>Operations Design</h3>
+            <p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p>
+          </div>
+        </a>
+
+        <a class="card" href="/services/?s=systems-architecture" aria-label="Systems Architecture">
+          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
+          <div class="card-body">
+            <h3>Systems Architecture</h3>
+            <p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p>
+          </div>
+        </a>
+
+        <a class="card" href="/services/?s=automation-ai" aria-label="Automation & AI">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy">
+          <div class="card-body">
+            <h3>Automation & AI</h3>
+            <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
+          </div>
+        </a>
+
+        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting & Analytics">
+          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
+          <div class="card-body">
+            <h3>Reporting & Analytics</h3>
+            <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
+          </div>
+        </a>
+
+        <a class="card" href="/services/?s=ecommerce-integrations" aria-label="eCommerce Integrations">
+          <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
+          <div class="card-body">
+            <h3>eCommerce Integrations</h3>
+            <p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p>
+          </div>
+        </a>
+
+        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience & Servicing">
+          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing" loading="lazy">
+          <div class="card-body">
+            <h3>Customer Experience & Servicing</h3>
+            <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
+          </div>
+        </a>
       </div>
     </section>
-  </main>
 
-  <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
+  </div><!-- /container -->
 
-  <!-- Scripts -->
+  <!-- Success Stories -->
+  <section id="success" class="success-slider">
+    <div class="success-head"><h2>Success Stories</h2></div>
+
+    <div class="success-track" id="successTrack">
+      <article class="success-slide is-active">
+        <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay">
+        <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
+        <p class="success-body">Built Customer Care from the ground up (hiring, training, QA, policies) and implemented full Zendesk suite with automation and dashboards.</p>
+      </article>
+
+      <article class="success-slide">
+        <img class="success-logo" src="assets/unison.png" alt="Unison">
+        <h3 class="success-title">Unison — Workflows, Dashboards, Help Center</h3>
+        <p class="success-body">Revamped ticket flows, reporting, and Help Center for improved agent performance and SLA visibility.</p>
+      </article>
+    </div>
+
+    <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
+    <button class="success-nav next" id="nextBtn" aria-label="Next slide">›</button>
+    <div class="success-dots" id="successDots"></div>
+  </section>
+
+  <div class="container">
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <div class="proj-grid">
+        <div class="proj">
+          <h3>Audit & Roadmap</h3>
+          <p class="muted">1–2 weeks</p>
+          <ul>
+            <li>Systems assessment</li>
+            <li>Roadmap & ROI plan</li>
+            <li>Implementation proposal</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <h3>Implementation Sprint</h3>
+          <p class="muted">4–6 weeks</p>
+          <ul>
+            <li>Workflow setup</li>
+            <li>Automation & dashboards</li>
+            <li>Handover + QA</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About DeskXP</h2>
+      <p>We specialize in building, improving, and scaling customer support operations by leveraging technology, data, and process design.</p>
+      <p>Find out more and reach out to us here:</p>
+      <a href="/about/" class="btn-accent">Contact Us →</a>
+    </section>
+
+    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
+  </div>
+
+  <!-- Inline script (fully restored) -->
   <script>
-    // Mobile menu: use data-open to match global CSS
-    (function(){
-      const hamburger = document.getElementById('hamburger');
-      const menu = document.getElementById('menu');
-      hamburger.addEventListener('click', () => {
-        const open = menu.dataset.open === 'true' ? 'false' : 'true';
-        menu.dataset.open = open;
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    if (menuBtn && menu) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = menu.dataset.open === 'true';
+        const next = isOpen ? 'false' : 'true';
+        menu.dataset.open = next;
+        menuBtn.setAttribute('aria-expanded', next);
       });
-    })();
-
-    // Services content
-    const services = {
-      "operations-design": {
-        title: "Operations Design",
-        img: "/assets/svc-1.jpg",
-        tags: ["Playbooks", "SLAs", "Escalations", "CX Strategy"],
-        intro: "We transform reactive support teams into structured, data-driven CX operations. Our Operations Design builds the backbone of your support ecosystem — so every ticket, chat, and call flows through a clear, scalable process.",
-        what: [
-          "✅ <strong>Omnichannel triage maps</strong> that route tickets instantly to the right team — no more guesswork or ping-pong.",
-          "✅ <strong>Escalation frameworks and RACI ownership models</strong> to define who acts, who approves, and who informs.",
-          "✅ <strong>Custom SLA policies, schedules, and clock rules</strong> that actually reflect your business hours and priorities.",
-          "✅ <strong>Macro and template libraries</strong> aligned with your brand tone and compliance standards.",
-          "✅ <strong>QA scorecards and calibration rubrics</strong> that connect quality scores to real coaching insights."
-        ],
-        outcomes: [
-          "📈 Up to <strong>50% faster First Response Time (FRT)</strong> and measurable AHT reduction.",
-          "🧭 Clear ownership and routing reduce reopen rates by 30–40%.",
-          "🚀 New agents ramp faster through detailed playbooks and guided macros.",
-          "📊 Unified CX metrics across all channels — one source of truth.",
-          "💡 Built to scale: your team can double ticket volume without doubling headcount."
-        ]
-      },
-      "systems-architecture": {
-        title: "Systems Architecture",
-        img: "/assets/svc-2.jpg",
-        tags: ["Zendesk", "Workflows", "Data Governance"],
-        intro: "We design CX systems that make agents faster and managers smarter. No redundant forms, no duplicate triggers — just clean, intentional architecture.",
-        what: [
-          "✅ <strong>Zendesk / Freshdesk stack design</strong> built for multi-brand, multi-form environments.",
-          "✅ <strong>Triggers, automations, and routing logic</strong> that adapt to your SLAs, languages, and product lines.",
-          "✅ <strong>Guide & knowledge base frameworks</strong> with permission tiers and approval workflows.",
-          "✅ <strong>Data capture blueprints</strong> — every field, tag, and custom object with purpose.",
-          "✅ <strong>API & webhook mapping</strong> to connect CRM, chat, and order systems seamlessly."
-        ],
-        outcomes: [
-          "⚙️ <strong>Simplified admin load</strong> — fewer automations, higher reliability.",
-          "🔍 <strong>Cleaner analytics</strong> — data captured once, structured forever.",
-          "🤝 <strong>Smooth collaboration</strong> between support, ops, and engineering.",
-          "📊 <strong>Fewer misroutes and reassignments</strong>, improving CSAT and handle time."
-        ]
-      },
-      "automation-ai": {
-        title: "Automation & AI",
-        img: "/assets/svc-3.jpg",
-        tags: ["Bots", "Deflection", "Workflows"],
-        intro: "We use automation to eliminate repetitive work — without killing personalization. AI and bots handle the predictable, your team handles the meaningful.",
-        what: [
-          "🤖 <strong>AI bots and intent routing</strong> that detect customer purpose and auto-classify tickets.",
-          "⚡ <strong>Auto-tagging and auto-responses</strong> for common inquiries (order status, refunds, etc.).",
-          "💬 <strong>Dynamic macros and side conversations</strong> to speed up collaboration.",
-          "🧠 <strong>Human-in-the-loop safeguards</strong> to ensure accuracy and empathy remain intact.",
-          "📚 <strong>Continuous learning loops</strong> so bots evolve from every conversation."
-        ],
-        outcomes: [
-          "📉 <strong>20–40% ticket deflection</strong> on high-volume issues.",
-          "⏱️ <strong>Shorter handle times</strong> through smart pre-filling and automated summaries.",
-          "🧾 <strong>Cleaner data</strong> with standardized tagging and intents.",
-          "💬 <strong>Happier agents</strong> — less grunt work, more meaningful cases."
-        ]
-      },
-      "reporting-analytics": {
-        title: "Reporting & Analytics",
-        img: "/assets/svc-4.jpg",
-        tags: ["Dashboards", "SLA", "QA", "Insights"],
-        intro: "We turn your Zendesk data into executive-grade insight. No exports, no spreadsheets — just real-time visibility into performance and ROI.",
-        what: [
-          "📊 <strong>Zendesk Explore & Looker Studio dashboards</strong> tailored to leadership, ops, and QA levels.",
-          "📈 <strong>SLA and backlog monitoring</strong> with trend lines and breach prediction.",
-          "🧮 <strong>CSAT, DSAT, and QA correlation reports</strong> that reveal root causes behind satisfaction swings.",
-          "📅 <strong>Monthly business review (MBR) packs</strong> with insights and recommendations.",
-          "📦 <strong>Data pipelines & exports</strong> for BI or finance reporting."
-        ],
-        outcomes: [
-          "🧠 <strong>Decision clarity:</strong> know what’s breaking, what’s improving, and why.",
-          "📆 <strong>Forecast accuracy:</strong> staffing and SLA projections backed by data.",
-          "💸 <strong>ROI visibility:</strong> show cost savings and productivity gains in real numbers."
-        ]
-      },
-      "ecommerce-integrations": {
-        title: "eCommerce Integrations",
-        img: "/assets/svc-5.jpg",
-        tags: ["Shopify", "Magento", "Payments", "APIs"],
-        intro: "We bridge your eCommerce and support systems so agents have full order context in every ticket. Less tab-switching, more resolving.",
-        what: [
-          "🛍️ <strong>Shopify & Magento app integrations</strong> that pull live order, tracking, and payment details directly into Zendesk.",
-          "🔁 <strong>RMA & refund workflows</strong> that create tickets automatically from customer actions.",
-          "🚚 <strong>Shipping and fulfillment updates</strong> synced to tickets in real time.",
-          "💳 <strong>Payment and dispute integrations</strong> (PayPal, Klarna, Stripe) with automated documentation capture.",
-          "🧩 <strong>Custom webhooks & APIs</strong> to fit your exact store logic."
-        ],
-        outcomes: [
-          "📦 <strong>Faster resolutions</strong> — agents see everything without leaving Zendesk.",
-          "💰 <strong>Reduced refunds & disputes</strong> through proactive, data-backed communication.",
-          "📈 <strong>Higher post-purchase CSAT</strong> from faster, transparent support."
-        ]
-      },
-      "customer-experience-servicing": {
-        title: "Customer Experience & Servicing",
-        img: "/assets/svc-6.jpg",
-        tags: ["Hiring", "Training", "QA", "Policies", "Operations"],
-        intro: "Zero to scaled Customer Care. We build your entire CX operation end-to-end — people, process, tools, and governance — so you can support growth without chaos.",
-        what: [
-          "🧑‍🤝‍🧑 <strong>Team build-out:</strong> role design, hiring scorecards, interviews, onboarding plans, and shadowing frameworks.",
-          "📘 <strong>Training program:</strong> curriculum, LMS structure, nested modules (product, tools, soft skills), and certification paths.",
-          "✅ <strong>QA program & calibration:</strong> scorecards tied to business outcomes, coaching loops, and trend reporting.",
-          "📜 <strong>Policy & process establishment:</strong> returns/refunds/DMCA/KYC/etc. with clear exception handling.",
-          "🧭 <strong>Daily operations:</strong> WFM basics, queue management, playbook rollouts, release/change management.",
-          "🧰 <strong>Tooling & access:</strong> Zendesk/Freshdesk setup, permissions, SSO, integrations (Shopify/Magento/voice/chat).",
-          "📣 <strong>Feedback → roadmap:</strong> structured VOC to product/ops with impact tracking."
-        ],
-        outcomes: [
-          "🚀 <strong>Launch a functioning Customer Care org</strong> in weeks, not quarters.",
-          "👥 <strong>Predictable quality & consistency</strong> via training + QA + policy alignment.",
-          "📉 <strong>Lower cost-to-serve</strong> through right-sizing, automation, and clean routing.",
-          "🔁 <strong>Continuous improvement engine</strong> — issues feed policy, training, and product fixes."
-        ]
-      }
-    };
-
-    const ALIASES = {
-      "ongoing-ops": "customer-experience-servicing",
-      "ecom-integrations": "ecommerce-integrations"
-    };
-
-    const contentEl = document.getElementById('svc-body');
-    const sidebarEl = document.getElementById('svc-sidebar');
-
-    function render(slug, updateUrl=false) {
-      const key = ALIASES[slug] || slug;
-      const svc = services[key] || services["operations-design"];
-
-      // selected styles + a11y
-      document.querySelectorAll('.svc-item').forEach(b => {
-        const selected = b.dataset.slug === key;
-        b.classList.toggle('selected', selected);
-        b.setAttribute('aria-current', selected ? 'true' : 'false');
-      });
-
-      contentEl.classList.remove('visible');
-      setTimeout(() => {
-        contentEl.innerHTML = `
-          <div class="svc-title">
-            <img src="${svc.img}" alt="${svc.title}">
-            <div>
-              <h2>${svc.title}</h2>
-              <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
-            </div>
-          </div>
-          <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
-          <h3>What we do</h3>
-          <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
-          <h3>Outcomes</h3>
-          <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
-        `;
-        contentEl.classList.add('visible');
-
-        // On mobile, scroll content into view; desktop stays put
-        if (window.innerWidth < 900) {
-          contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        if (updateUrl) {
-          const url = new URL(window.location);
-          url.searchParams.set('s', key);
-          history.replaceState({}, '', url);
-        }
-      }, 120);
     }
 
-    sidebarEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('.svc-item'); if (!btn) return;
-      e.preventDefault();
-      render(btn.dataset.slug, true);
+    // Footer year
+    const y = document.getElementById('y');
+    if (y) y.textContent = new Date().getFullYear();
+
+    // Success slider
+    const track = document.getElementById('successTrack');
+    const slides = Array.from(track.querySelectorAll('.success-slide'));
+    const dots = document.getElementById('successDots');
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    let index = 0;
+
+    function updateSlider() {
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      Array.from(dots.children).forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.addEventListener('click', () => { index = i; updateSlider(); });
+      dots.appendChild(dot);
     });
 
-    // initial render (deep-link support)
-    const params = new URLSearchParams(window.location.search);
-    render(params.get('s') || 'operations-design', false);
+    if (prev) prev.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; updateSlider(); });
+    if (next) next.addEventListener('click', () => { index = (index + 1) % slides.length; updateSlider(); });
+    updateSlider();
+
+    // Smooth scroll (optional)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
