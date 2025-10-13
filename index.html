@@ -19,113 +19,131 @@
   <!-- Icons -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Fonts (graceful if blocked) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- CRITICAL SAFETY NET: text always visible even if CSS/JS borks -->
+  <!-- Baseline safety: text always visible even if CSS/JS fail -->
   <style>
-    /* Base: readable by default */
-    :root { --bg:#ffffff; --fg:#111111; --accent:#4c8bf5; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#0b0b0b; --fg:#f2f2f2; }
-    }
-    html { color-scheme: light dark; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--bg);
-      color: var(--fg);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    /* If JS is off or broken, kill any opacity/transform tricks */
-    .no-js * {
-      opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
-      visibility: visible !important;
-    }
-
-    /* Guard against “transparent text” bugs from bad CSS */
-    * { text-shadow: none; }
-    :where(h1,h2,h3,h4,h5,h6,p,li,a,span,div,small,strong,em) { -webkit-text-fill-color: currentColor; }
-
-    /* Minimal layout safety so page isn’t naked without site.css */
-    .nav-wrap { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid #eaeaea22; z-index: 50; }
-    .nav { max-width: 1100px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.2px; }
-    .brand img { width: 24px; height: 24px; }
-    .hamburger { display: none; }
-    .menu a { margin-left: 14px; }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .banner { padding: 72px 16px 48px; text-align: center; }
-    .banner .inner { max-width: 900px; margin: 0 auto; }
-    .headline { font-size: clamp(28px, 4vw, 44px); line-height: 1.15; margin: 0 0 12px; }
-    .subhead { font-size: clamp(16px, 2vw, 20px); color: #666; margin: 0; }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 32px 16px; }
-    section { margin-block: 32px; }
-    h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 16px; }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .card { display: block; border: 1px solid #eaeaea55; border-radius: 12px; overflow: hidden; background: #fff08; }
-    .card-img { width: 100%; height: 160px; object-fit: cover; display:block; }
-    .card-body { padding: 14px; }
-    .card h3 { margin: 0 0 6px; font-size: 18px; }
-    .card p { margin: 0; color: #666; }
-
-    .success-slider { padding: 24px 16px 40px; background: #f8f8f8; }
-    .success-head { max-width: 1100px; margin: 0 auto 12px; }
-    .success-track { max-width: 1100px; margin: 0 auto; display: grid; gap: 12px; grid-template-columns: 1fr; }
-    .success-slide { border: 1px solid #eaeaea55; border-radius: 12px; padding: 16px; background: #fff; }
-    .success-logo { height: 28px; width: auto; }
-    .success-title { margin: 10px 0 8px; font-size: 18px; }
-    .success-body { margin: 0; color: #666; }
-    .success-nav, .success-dots { display: none; } /* Progressive enhancement only */
-
-    .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-    .proj { border: 1px solid #eaeaea55; border-radius: 12px; padding: 16px; background: #fff; }
-    .muted { color: #666; margin-top: -6px; }
-
-    .btn-accent { display: inline-block; margin-top: 10px; padding: 10px 14px; border-radius: 10px; border: 1px solid #eaeaea55; background: #fff; }
-    .btn-accent:hover { text-decoration: none; }
-
-    footer { margin-top: 40px; padding: 20px 0; border-top: 1px solid #eaeaea55; text-align: center; }
-
-    /* Respect users who hate motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    }
-
-    /* Mobile menu (progressive enhancement in main.css/main.js later) */
-    @media (max-width: 720px) {
-      .hamburger { display: inline-flex; flex-direction: column; gap: 4px; background: transparent; border: 0; padding: 8px; }
-      .hamburger span { width: 22px; height: 2px; background: currentColor; display: block; }
-      .menu { display: none; }
-      .menu[data-open="true"] { display: block; }
-      .menu a { display: block; padding: 8px 0; margin: 0; }
+    :root { --bg:#ffffff; --fg:#111; --accent:#007236; }
+    @media (prefers-color-scheme: dark){ :root{ --bg:#0b0b0b; --fg:#f2f2f2; } }
+    html{ color-scheme:light dark; }
+    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"; background:var(--bg); color:var(--fg); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    .no-js *{ opacity:1!important; transform:none!important; visibility:visible!important; }
+    :where(h1,h2,h3,h4,h5,h6,p,li,a,span,small,strong,em,div){ -webkit-text-fill-color:currentColor; }
+    /* Minimal layout so page isn't naked without external CSS */
+    .nav-wrap{ position:sticky; top:0; background:var(--bg); border-bottom:1px solid #eaeaea22; z-index:50; }
+    .nav{ max-width:1100px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; }
+    .brand{ display:inline-flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; color:inherit; text-decoration:none; }
+    .brand img{ width:24px; height:24px; }
+    .hamburger{ display:none; }
+    .menu a{ margin-left:14px; color:inherit; text-decoration:none; }
+    .banner{ padding:72px 16px 48px; text-align:center; }
+    .banner .inner{ max-width:900px; margin:0 auto; }
+    .headline{ font-size:clamp(28px,4vw,44px); line-height:1.15; margin:0 0 12px; }
+    .subhead{ font-size:clamp(16px,2vw,20px); color:#666; margin:0; }
+    .container{ max-width:1100px; margin:0 auto; padding:32px 16px; }
+    section{ margin-block:32px; }
+    h2{ font-size:clamp(22px,3vw,28px); margin:0 0 16px; color:var(--accent); }
+    .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    .card{ display:block; border:1px solid #eaeaea55; border-radius:12px; overflow:hidden; background:#fff; }
+    .card-img{ width:100%; height:160px; object-fit:cover; display:block; }
+    .card-body{ padding:14px; }
+    .card h3{ margin:0 0 6px; font-size:18px; }
+    .card p{ margin:0; color:#666; }
+    .proj-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    .proj{ border:1px solid #eaeaea55; border-radius:12px; padding:16px; background:#fff; }
+    .muted{ color:#666; margin-top:-6px; }
+    .btn-accent{ display:inline-block; margin-top:10px; padding:10px 14px; border-radius:10px; border:1px solid #eaeaea55; background:#fff; color:inherit; text-decoration:none; }
+    footer{ margin-top:40px; padding:20px 0; border-top:1px solid #eaeaea55; text-align:center; color:#666; }
+    @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+    @media (max-width: 720px){
+      .hamburger{ display:inline-flex; flex-direction:column; gap:4px; background:transparent; border:0; padding:8px; }
+      .hamburger span{ width:22px; height:2px; background:currentColor; display:block; }
+      .menu{ display:none; }
+      .menu[data-open="true"]{ display:block; }
+      .menu a{ display:block; padding:8px 0; margin:0; }
     }
   </style>
 
-  <!-- Your site stylesheet (can animate things, but content is already visible) -->
-  <link rel="stylesheet" href="css/site.css?v=100" />
+  <!-- Your site stylesheet -->
+  <link rel="stylesheet" href="css/site.css?v=102" />
 
-  <!-- If JS is completely disabled, keep everything visible -->
+  <!-- Small overrides for banner path + fade slider -->
+  <style>
+    /* 1) Banner: absolute path for custom domain */
+    .banner{
+      width:100%;
+      height:320px;
+      background:url('/assets/svc-7.jpg') center/cover no-repeat; /* ABSOLUTE path */
+      position:relative;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; text-align:center; overflow:hidden;
+    }
+    .banner::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.45); }
+    .banner .inner{ position:relative; z-index:1; }
+
+    /* 2) Success slider: FADE mode */
+    .success-slider{
+      width:100vw; margin-left:calc(50% - 50vw);
+      background:linear-gradient(135deg, rgba(245,248,247,0.95), rgba(255,255,255,0.85));
+      color:#1a1b1e; border-top:1px solid #e4e6eb; border-bottom:1px solid #e4e6eb;
+      position:relative; overflow:hidden; padding:64px 0 84px;
+    }
+    .success-head{ max-width:1300px; margin:0 auto 18px; padding:0 32px; }
+    .success-head h2{ font-size:2rem; color:var(--accent); text-align:center; }
+
+    /* Fade stack */
+    .success-track{
+      position:relative;
+      max-width:1300px; margin:0 auto;
+      height:auto; min-height:280px;
+    }
+    .success-slide{
+      position:absolute; inset:0;
+      opacity:0; transition:opacity .6s ease;
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      padding:0 24px;
+    }
+    .success-slide.is-active{ opacity:1; position:absolute; }
+    .success-logo{
+      width:96px; height:96px; object-fit:contain; background:#fff;
+      border-radius:20px; border:1px solid #e4e6eb; box-shadow:0 6px 20px rgba(0,0,0,.12);
+      margin-bottom:18px;
+    }
+    .success-title{ font-size:1.4rem; margin-bottom:8px; }
+    .success-body{ max-width:900px; color:#2d2d2d; opacity:.95; }
+    .success-quote{
+      max-width:900px; margin-top:16px; padding:14px 18px; border-left:4px solid var(--accent);
+      background:rgba(255,255,255,.7); color:#333; font-style:italic; border-radius:12px;
+    }
+    .success-quote span{ display:block; margin-top:8px; opacity:.85; font-style:normal; font-size:.95rem; }
+
+    .success-nav{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; background:rgba(0,0,0,.08);
+      border:1px solid #e4e6eb; color:#000; font-size:28px; line-height:44px;
+      border-radius:12px; cursor:pointer;
+    }
+    .success-nav:hover{ background:rgba(0,0,0,.14); }
+    .success-nav.prev{ left:16px; }
+    .success-nav.next{ right:16px; }
+
+    .success-dots{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:flex; gap:10px; }
+    .success-dots button{ width:10px; height:10px; border-radius:999px; background:rgba(0,0,0,.25); border:0; cursor:pointer; }
+    .success-dots button.active{ background:#000; }
+
+    @media (max-width:700px){
+      .success-head{ padding:0 16px; }
+      .success-logo{ width:72px; height:72px; border-radius:16px; }
+      .success-title{ font-size:1.2rem; }
+      .success-body, .success-quote{ padding:12px 14px; }
+    }
+  </style>
+
   <noscript><style>section,.card,.success-slide,.proj,.banner,.menu{opacity:1!important;transform:none!important;visibility:visible!important}</style></noscript>
 
-  <!-- Flip .no-js to .js ASAP -->
-  <script>
-    document.documentElement.classList.replace('no-js','js');
-  </script>
+  <script>document.documentElement.classList.replace('no-js','js');</script>
 </head>
 <body>
 
@@ -213,25 +231,55 @@
     </section>
   </main>
 
-  <!-- Success Stories (kept outside .container for full-bleed bg) -->
+  <!-- Success Stories (FADE slider) -->
   <section id="success" class="success-slider" aria-labelledby="success-h">
     <div class="success-head"><h2 id="success-h">Success Stories</h2></div>
 
     <div class="success-track" id="successTrack" aria-live="polite">
-      <article class="success-slide">
-        <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay">
-        <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
-        <p class="success-body">Built Customer Care from the ground up (hiring, training, QA, policies)...</p>
+      <!-- PalawanPay -->
+      <article class="success-slide is-active">
+        <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay logo">
+        <h3 class="success-title">PalawanPay — CX Organization & Zendesk Transformation</h3>
+        <p class="success-body">
+          Established a full Customer Care organization from the ground up — hiring, training, QA, and policy design.
+          Delivered an end-to-end Zendesk implementation covering advanced workflows, automation, and integrations.
+          Introduced chatbot automation that generated over ₱5M in annual savings.
+        </p>
+        <blockquote class="success-quote">
+          “His expertise in Zendesk was pivotal for our team — from setting up simple workflows and trigger automations to handling more advanced tasks like tool integrations and building dashboards. Thanks to James, our day-to-day ran smoother, providing a good experience to both our team and our customers.
+          <br><br>
+          Beyond his technical skills, his can-do attitude is also a standout; no matter how tight the deadline or how tricky the issue, he finds a way to deliver. James is one of the most talented and good-natured individuals I’ve worked with — any team would be lucky to have him.”
+          <span>— Ops Excellence Manager, PalawanPay</span>
+        </blockquote>
       </article>
 
+      <!-- Unison -->
       <article class="success-slide">
-        <img class="success-logo" src="assets/unison.png" alt="Unison">
-        <h3 class="success-title">Unison — Workflows, Dashboards, Help Center</h3>
-        <p class="success-body">Revamped ticket flows, dashboards, and launched a fully branded Help Center.</p>
+        <img class="success-logo" src="assets/unison.png" alt="Unison logo">
+        <h3 class="success-title">Unison — Zendesk Implementation & Workflow Optimization</h3>
+        <p class="success-body">
+          Completed an end-to-end Zendesk implementation and a comprehensive workflow review, improving ticket routing, dashboards, and Help Center UX for better visibility and faster response times.
+        </p>
+        <blockquote class="success-quote">
+          “Placeholder for client feedback.”
+          <span>— [Client Representative, Unison]</span>
+        </blockquote>
+      </article>
+
+      <!-- Boutique de Sophie -->
+      <article class="success-slide">
+        <img class="success-logo" src="assets/bds.png" alt="Boutique de Sophie logo">
+        <h3 class="success-title">Boutique de Sophie — Zendesk Implementation & Process Improvement</h3>
+        <p class="success-body">
+          Implemented Zendesk with external dashboard integrations and optimized internal workflows, improving response efficiency and reducing customer disputes by ~30%.
+        </p>
+        <blockquote class="success-quote">
+          “Placeholder for client feedback.”
+          <span>— [Client Representative, Boutique de Sophie]</span>
+        </blockquote>
       </article>
     </div>
 
-    <!-- Nav/dots are progressive; content is readable with no JS -->
     <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
     <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
     <div class="success-dots" id="successDots" role="tablist" aria-label="Slides"></div>
@@ -272,25 +320,96 @@
     <footer>© <span id="y">2025</span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <!-- JS: keep at the end; add tiny fallbacks -->
+  <!-- Inline JS (kept small; no dependency on old main.js) -->
   <script>
-    // Year fallback if your main bundle doesn’t run
-    (function(){ var y = document.getElementById('y'); if (y && (!y.textContent || /^\d{4}$/.test(y.textContent)===false)) { y.textContent = new Date().getFullYear(); } })();
+    // Ensure .js flag exists even if early script failed
+    (function(){var de=document.documentElement;if(de&&de.classList.contains('no-js'))de.classList.replace('no-js','js');else if(de&&!de.classList.contains('js'))de.classList.add('js');})();
 
-    // Mobile menu minimal behavior (defensive)
+    // Year
+    (function(){ var y=document.getElementById('y'); if(y) y.textContent=String(new Date().getFullYear()); })();
+
+    // Mobile menu
     (function(){
-      var btn = document.getElementById('menuBtn');
-      var menu = document.getElementById('menu');
-      if (!btn || !menu) return;
+      var btn=document.getElementById('menuBtn');
+      var menu=document.getElementById('menu');
+      if(!btn||!menu) return;
+      function setState(open){
+        menu.setAttribute('data-open', open?'true':'false');
+        btn.setAttribute('aria-expanded', open?'true':'false');
+      }
       btn.addEventListener('click', function(){
-        var open = menu.getAttribute('data-open') === 'true';
-        menu.setAttribute('data-open', String(!open));
-        btn.setAttribute('aria-expanded', String(!open));
+        var open=menu.getAttribute('data-open')==='true';
+        setState(!open);
+      });
+      window.addEventListener('hashchange', function(){ setState(false); }, {passive:true});
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') setState(false); });
+    })();
+
+    // Success slider (FADE)
+    (function(){
+      var track=document.getElementById('successTrack');
+      var dotsWrap=document.getElementById('successDots');
+      var prevBtn=document.getElementById('prevBtn');
+      var nextBtn=document.getElementById('nextBtn');
+      if(!track||!dotsWrap) return;
+
+      var slides=[].slice.call(track.children);
+      if(!slides.length) return;
+
+      var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var idx=0, timer=null, DURATION=5000;
+
+      function setActive(i){
+        slides.forEach(function(s, k){
+          s.classList.toggle('is-active', k===i);
+        });
+        [].forEach.call(dotsWrap.children, function(d,k){
+          d.classList.toggle('active', k===i);
+        });
+      }
+
+      function go(i, user){
+        idx=(i+slides.length)%slides.length;
+        setActive(idx);
+        if(user) restart();
+      }
+
+      function buildDots(){
+        dotsWrap.innerHTML = slides.map(function(_,i){
+          return '<button aria-label="Go to slide '+(i+1)+'"></button>';
+        }).join('');
+        [].forEach.call(dotsWrap.children, function(b,i){
+          b.addEventListener('click', function(){ go(i, true); });
+        });
+        if(dotsWrap.children[0]) dotsWrap.children[0].classList.add('active');
+      }
+
+      function start(){ if(reduce) return; stop(); timer=setInterval(function(){ go(idx+1, false); }, DURATION); }
+      function stop(){ if(timer) clearInterval(timer); timer=null; }
+      function restart(){ stop(); start(); }
+
+      // Init
+      buildDots();
+      requestAnimationFrame(function(){ setActive(0); start(); });
+
+      // Controls
+      if(prevBtn) prevBtn.addEventListener('click', function(){ go(idx-1, true); });
+      if(nextBtn) nextBtn.addEventListener('click', function(){ go(idx+1, true); });
+
+      // Pause on hover/focus
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('focusin', stop);
+      track.addEventListener('focusout', start);
+
+      // Keyboard
+      window.addEventListener('keydown', function(e){
+        if(e.key==='ArrowLeft') go(idx-1, true);
+        if(e.key==='ArrowRight') go(idx+1, true);
       });
     })();
   </script>
 
-  <!-- Your main script (ok if it fails; page still readable) -->
-  <script src="js/main.js?v=100" defer></script>
+  <!-- IMPORTANT: we purposely do NOT load your old js/main.js here to avoid conflicts with the new fade slider -->
 </body>
 </html>
