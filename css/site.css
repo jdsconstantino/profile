@@ -1,7 +1,8 @@
-/* ================================
-   DeskXP — Full Stylesheet (v1.2)
-================================ */
+/* =========================================
+   DeskXP — Full Stylesheet (v1.3)
+   ========================================= */
 
+/* ---------- Theme ---------- */
 :root {
   --bg: #0b0c0e;
   --panel: #101215;
@@ -9,10 +10,9 @@
   --muted: #9aa2b4;
   --accent: #007236;
   --border: #1b1f26;
-  --glass: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.16);
 }
-
 @media (prefers-color-scheme: light) {
   :root {
     --bg: #f9fafb;
@@ -20,15 +20,16 @@
     --text: #1a1b1e;
     --muted: #596070;
     --border: #e4e6eb;
-    --glass: rgba(255, 255, 255, 0.75);
-    --glass-border: rgba(0, 0, 0, 0.06);
+    --glass: rgba(255,255,255,0.75);
+    --glass-border: rgba(0,0,0,0.06);
   }
 }
 
+/* ---------- Base ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { margin: 0; }
 body {
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -38,7 +39,7 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 
-/* ===== Header ===== */
+/* ---------- Header ---------- */
 .nav-wrap {
   position: sticky; top: 0; z-index: 50;
   background: var(--glass);
@@ -60,13 +61,14 @@ img { max-width: 100%; height: auto; display: block; }
 .menu a:hover { background: var(--glass); transform: translateY(-1px); }
 .hamburger { display: none; background: none; border: 1px solid var(--glass-border); border-radius: 8px; padding: 8px; }
 .hamburger span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; }
+
 @media (max-width: 760px){
   .menu{ display:none; }
   .menu.open, .menu[data-open="true"]{ display:flex; flex-direction:column; gap:8px; padding:10px 0; }
   .hamburger{ display:block; }
 }
 
-/* ===== Banner ===== */
+/* ---------- Banner ---------- */
 .banner{
   width:100%; height:320px;
   background:url("/assets/svc-7.jpg") center/cover no-repeat; /* custom domain -> absolute path */
@@ -77,13 +79,14 @@ img { max-width: 100%; height: auto; display: block; }
 .banner .inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:10px; }
 .headline{ font-size:2.2rem; font-weight:700; text-shadow:0 2px 6px rgba(0,0,0,.4); }
 .subhead{ font-size:1.1rem; color:#d9e2d6; }
+
 @media (max-width:600px){
   .banner{ height:240px; }
   .headline{ font-size:1.8rem; }
   .subhead{ font-size:1rem; }
 }
 
-/* ===== Sections (VISIBLE BY DEFAULT) ===== */
+/* ---------- Sections (VISIBLE by default) ---------- */
 .container{ max-width:1100px; margin:0 auto; padding:0 16px; }
 section{
   background:var(--panel);
@@ -93,14 +96,15 @@ section{
   margin:32px 0;
   box-shadow:0 6px 18px rgba(0,0,0,0.2);
 }
-/* Optional entrance animations only when explicitly opted-in */
-.js .reveal{ opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
-.js .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+/* Optional scroll reveal (only applies if you add .reveal and JS toggles .is-visible) */
+.reveal{ opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
 
 h2{ font-size:1.5rem; margin:0 0 12px; color:var(--accent); }
 .muted{ color:var(--muted); }
 
-/* ===== Services Grid ===== */
+/* ---------- Services Grid ---------- */
 .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
 .card{
   background:var(--panel);
@@ -109,10 +113,6 @@ h2{ font-size:1.5rem; margin:0 0 12px; color:var(--accent); }
   overflow:hidden;
   display:flex; flex-direction:column;
 }
-/* Optional entrance */
-.js .card.reveal{ opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
-.js .card.reveal.is-visible{ opacity:1; transform:translateY(0); }
-
 .card-img{ width:100%; height:220px; object-fit:cover; border-bottom:1px solid var(--border); transition:transform .35s ease; }
 .card:hover .card-img{ transform:scale(1.03); }
 .card-body{ padding:16px; }
@@ -121,7 +121,7 @@ h2{ font-size:1.5rem; margin:0 0 12px; color:var(--accent); }
 .card, .card a{ text-decoration:none; color:inherit; }
 .card:hover h3{ color:var(--accent); }
 
-/* ===== Buttons ===== */
+/* ---------- Buttons ---------- */
 .btn-accent{
   display:inline-block; margin-top:16px; background:var(--accent); color:#fff;
   padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;
@@ -130,4 +130,77 @@ h2{ font-size:1.5rem; margin:0 0 12px; color:var(--accent); }
 .btn-accent:hover{ background:#005829; transform:translateY(-2px); }
 .btn-ghost{
   display:inline-block; margin-top:16px; background:transparent; border:1px solid var(--accent); color:var(--accent);
-  padding:10
+  padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600; transition: transform .2s ease, background .2s ease;
+}
+.btn-ghost:hover{ background:var(--accent); color:#fff; transform:translateY(-2px); }
+
+/* ---------- Pricing ---------- */
+.proj-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+.proj{ background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:20px; }
+.proj h3{ margin-bottom:6px; }
+
+/* ---------- Success Stories (Fade Slider — fixed) ---------- */
+.success-slider{
+  width:100vw; margin-left:calc(50% - 50vw);
+  background:linear-gradient(135deg, rgba(245,248,247,0.95), rgba(255,255,255,0.9));
+  color:#1a1b1e; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden; padding:64px 0 84px;
+}
+.success-head{ max-width:1300px; margin:0 auto 24px; padding:0 32px; }
+.success-head h2{ font-size:2rem; color:var(--accent); text-align:center; }
+
+.success-track{
+  position:relative; max-width:1000px; margin:0 auto;
+  display:flex; flex-direction:column; align-items:center;
+}
+.success-slide{
+  width:100%; text-align:center;
+  opacity:0; pointer-events:none; transition:opacity .7s ease-in-out;
+  position:absolute; left:50%; transform:translateX(-50%);
+}
+.success-slide.is-active{
+  opacity:1; pointer-events:auto; position:relative; transform:none;
+}
+.success-logo{
+  width:120px; height:120px; object-fit:contain; background:#fff;
+  border-radius:24px; border:1px solid #e4e6eb; box-shadow:0 8px 22px rgba(0,0,0,.15);
+  margin-bottom:18px;
+}
+.success-title{ font-size:1.5rem; font-weight:700; margin-bottom:10px; color:#111; }
+.success-body{ max-width:900px; color:#2d2d2d; opacity:.95; line-height:1.6; margin:0 auto 16px; }
+.success-quote{
+  max-width:900px; margin:16px auto 0; padding:16px 22px;
+  border-left:4px solid var(--accent); background:rgba(255,255,255,.8);
+  color:#333; font-style:italic; border-radius:12px;
+}
+.success-quote span{ display:block; margin-top:8px; opacity:.85; font-style:normal; font-size:.95rem; font-weight:500; }
+
+.success-nav{
+  position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px;
+  background:rgba(0,0,0,.08); border:1px solid #e4e6eb; color:#000; font-size:28px; line-height:44px; border-radius:12px; cursor:pointer; z-index:10;
+}
+.success-nav:hover{ background:rgba(0,0,0,.14); }
+.success-nav.prev{ left:16px; }
+.success-nav.next{ right:16px; }
+
+.success-dots{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:flex; gap:10px; }
+.success-dots button{ width:10px; height:10px; border-radius:999px; background:rgba(0,0,0,.25); border:0; cursor:pointer; }
+.success-dots button.active{ background:#000; }
+
+@media (max-width:700px){
+  .success-head{ padding:0 16px; }
+  .success-logo{ width:90px; height:90px; border-radius:18px; }
+  .success-title{ font-size:1.25rem; }
+  .success-body, .success-quote{ padding:12px 14px; }
+}
+
+/* ---------- Footer ---------- */
+footer{
+  text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;
+}
+
+/* ---------- Keyframes & Motion ---------- */
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(30px);} to{ opacity:1; transform:translateY(0);} }
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
