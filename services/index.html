@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <!-- Load the global CSS from site root. Add cache-buster. -->
-  <link rel="stylesheet" href="/css/site.css?v=99">
-
+  <link rel="stylesheet" href="/css/site.css?v=100">
   <style>
-    /* kill default blue/underline everywhere */
     a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: none; }
-
-    /* page-specific layout */
     .svc-layout { display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: start; }
     @media (max-width: 900px) { .svc-layout { grid-template-columns: 1fr; } }
 
@@ -32,7 +27,7 @@
   </style>
 </head>
 <body>
-  <!-- NAV -->
+
   <div class="nav-wrap">
     <nav class="nav">
       <a class="brand" href="/">
@@ -44,52 +39,29 @@
         <a href="/services/">Services</a>
         <a href="/about/">About</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
 
-  <!-- BANNER (background image path in CSS uses /assets, see note below) -->
   <header class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
-      <p class="subhead">Pick a capability. See the details. Stay in flow.</p>
+      <p class="subhead">Operational design meets automation — built to scale your CX engine.</p>
     </div>
   </header>
 
   <main class="container">
     <section class="visible">
       <div class="svc-layout">
-        <!-- LEFT: Sidebar -->
         <aside class="svc-sidebar" id="svc-sidebar">
-          <button class="svc-item" data-slug="operations-design">
-            <img class="svc-thumb" src="/assets/svc-1.jpg" alt="">
-            <span>Operations Design</span>
-          </button>
-          <button class="svc-item" data-slug="systems-architecture">
-            <img class="svc-thumb" src="/assets/svc-2.jpg" alt="">
-            <span>Systems Architecture</span>
-          </button>
-          <button class="svc-item" data-slug="automation-ai">
-            <img class="svc-thumb" src="/assets/svc-3.jpg" alt="">
-            <span>Automation &amp; AI</span>
-          </button>
-          <button class="svc-item" data-slug="reporting-analytics">
-            <img class="svc-thumb" src="/assets/svc-4.jpg" alt="">
-            <span>Reporting &amp; Analytics</span>
-          </button>
-          <button class="svc-item" data-slug="ecommerce-integrations">
-            <img class="svc-thumb" src="/assets/svc-5.jpg" alt="">
-            <span>eCommerce Integrations</span>
-          </button>
-          <button class="svc-item" data-slug="ongoing-ops">
-            <img class="svc-thumb" src="/assets/svc-6.jpg" alt="">
-            <span>Ongoing Ops</span>
-          </button>
+          <button class="svc-item" data-slug="operations-design"><img class="svc-thumb" src="/assets/svc-1.jpg"><span>Operations Design</span></button>
+          <button class="svc-item" data-slug="systems-architecture"><img class="svc-thumb" src="/assets/svc-2.jpg"><span>Systems Architecture</span></button>
+          <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg"><span>Automation &amp; AI</span></button>
+          <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg"><span>Reporting &amp; Analytics</span></button>
+          <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg"><span>eCommerce Integrations</span></button>
+          <button class="svc-item" data-slug="ongoing-ops"><img class="svc-thumb" src="/assets/svc-6.jpg"><span>Ongoing Ops</span></button>
         </aside>
 
-        <!-- RIGHT: Content -->
         <article class="svc-body" id="svc-body"></article>
       </div>
     </section>
@@ -100,109 +72,125 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
-    if (hamburger) hamburger.addEventListener('click', () => menu.classList.toggle('open'));
+    hamburger.addEventListener('click', () => menu.classList.toggle('open'));
 
     const services = {
       "operations-design": {
         title: "Operations Design",
         img: "/assets/svc-1.jpg",
-        tags: ["Playbooks","SLAs","Escalations"],
-        intro: "Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.",
+        tags: ["Playbooks", "SLAs", "Escalations", "CX Strategy"],
+        intro: "We transform reactive support teams into structured, data-driven CX operations. Our Operations Design builds the backbone of your support ecosystem — so every ticket, chat, and call flows through a clear, scalable process.",
         what: [
-          "Triage maps across channels (email, chat, social, voice)",
-          "Escalation matrices and RACI handoffs",
-          "SLA policy, clock rules, schedules, holidays",
-          "Macros, templates, tone of voice & QA rubrics"
+          "✅ **Omnichannel triage maps** that route tickets instantly to the right team — no more guesswork or ping-pong.",
+          "✅ **Escalation frameworks and RACI ownership models** to define who acts, who approves, and who informs.",
+          "✅ **Custom SLA policies, schedules, and clock rules** that actually reflect your business hours and priorities.",
+          "✅ **Macro and template libraries** aligned with your brand tone and compliance standards.",
+          "✅ **QA scorecards and calibration rubrics** that connect quality scores to real coaching insights."
         ],
         outcomes: [
-          "Lower FRT/AHT via clear handling rules",
-          "Fewer reopens via precise ownership",
-          "Faster onboarding with playbooks"
+          "📈 Up to **50% faster First Response Time (FRT)** and measurable AHT reduction.",
+          "🧭 Clear ownership and routing reduce reopen rates by 30–40%.",
+          "🚀 New agents ramp faster through detailed playbooks and guided macros.",
+          "📊 Unified CX metrics across all channels — one source of truth.",
+          "💡 Built to scale: your team can double ticket volume without doubling headcount."
         ]
       },
+
       "systems-architecture": {
         title: "Systems Architecture",
         img: "/assets/svc-2.jpg",
-        tags: ["Zendesk","Workflows","Data"],
-        intro: "Design the stack so ops don’t fight the tools.",
+        tags: ["Zendesk", "Workflows", "Data Governance"],
+        intro: "We design CX systems that make agents faster and managers smarter. No redundant forms, no duplicate triggers — just clean, intentional architecture.",
         what: [
-          "Multi-brand / multi-form architecture",
-          "Triggers, automations, SLAs, skills-based routing",
-          "Guide/HC structure, KB governance, permissions",
-          "Event/data flows across CRM, chat, email, voice"
+          "✅ **Zendesk / Freshdesk stack design** built for multi-brand, multi-form environments.",
+          "✅ **Triggers, automations, and routing logic** that adapt to your SLAs, languages, and product lines.",
+          "✅ **Guide & knowledge base frameworks** with permission tiers and approval workflows.",
+          "✅ **Data capture blueprints** — every field, tag, and custom object with purpose.",
+          "✅ **API & webhook mapping** to connect CRM, chat, and order systems seamlessly."
         ],
         outcomes: [
-          "Less admin thrash, more agent focus",
-          "Consistent data capture for reporting",
-          "Cleaner handoffs across teams"
+          "⚙️ **Simplified admin load** — fewer automations, higher reliability.",
+          "🔍 **Cleaner analytics** — data captured once, structured forever.",
+          "🤝 **Smooth collaboration** between support, ops, and engineering.",
+          "📊 **Fewer misroutes and reassignments**, improving CSAT and handle time."
         ]
       },
+
       "automation-ai": {
         title: "Automation & AI",
         img: "/assets/svc-3.jpg",
-        tags: ["Bots","Deflection","Workflows"],
-        intro: "Automate the boring; escalate the real.",
+        tags: ["Bots", "Deflection", "Workflows"],
+        intro: "We use automation to eliminate repetitive work — without killing personalization. AI and bots handle the predictable, your team handles the meaningful.",
         what: [
-          "AI bots for FAQs, order status, returns",
-          "Auto-tagging & intent to route to the right group",
-          "Auto-responders by channel, schedule, and SLA",
-          "Human-in-the-loop fallbacks & safeguards"
+          "🤖 **AI bots and intent routing** that detect customer purpose and auto-classify tickets.",
+          "⚡ **Auto-tagging and auto-responses** for common inquiries (order status, refunds, etc.).",
+          "💬 **Dynamic macros and side conversations** to speed up collaboration.",
+          "🧠 **Human-in-the-loop safeguards** to ensure accuracy and empathy remain intact.",
+          "📚 **Continuous learning loops** so bots evolve from every conversation."
         ],
         outcomes: [
-          "Ticket deflection & lower cost per contact",
-          "Better CX with instant answers",
-          "Cleaner queues for specialists"
+          "📉 **20–40% ticket deflection** on high-volume issues.",
+          "⏱️ **Shorter handle times** through smart pre-filling and automated summaries.",
+          "🧾 **Cleaner data** with standardized tagging and intents.",
+          "💬 **Happier agents** — less grunt work, more meaningful cases."
         ]
       },
+
       "reporting-analytics": {
         title: "Reporting & Analytics",
         img: "/assets/svc-4.jpg",
-        tags: ["Dashboards","SLA","QA"],
-        intro: "Decisions from data, not vibes.",
+        tags: ["Dashboards", "SLA", "QA", "Insights"],
+        intro: "We turn your Zendesk data into executive-grade insight. No exports, no spreadsheets — just real-time visibility into performance and ROI.",
         what: [
-          "Zendesk Explore dashboards (volume, SLA, CSAT, AHT)",
-          "Cohorts by SKU / issue type / channel",
-          "WBR/MBR scorecards with targets & trends",
-          "Data export & Looker Studio integrations"
+          "📊 **Zendesk Explore & Looker Studio dashboards** tailored to leadership, ops, and QA levels.",
+          "📈 **SLA and backlog monitoring** with trend lines and breach prediction.",
+          "🧮 **CSAT, DSAT, and QA correlation reports** that reveal root causes behind satisfaction swings.",
+          "📅 **Monthly business review (MBR) packs** with insights and recommendations.",
+          "📦 **Data pipelines & exports** for BI or finance reporting."
         ],
         outcomes: [
-          "Clarity on what to fix first",
-          "Predictable staffing & SLAs",
-          "Exec-ready visuals"
+          "🧠 **Decision clarity:** know what’s breaking, what’s improving, and why.",
+          "📆 **Forecast accuracy:** staffing and SLA projections backed by data.",
+          "💸 **ROI visibility:** show cost savings and productivity gains in real numbers."
         ]
       },
+
       "ecommerce-integrations": {
         title: "eCommerce Integrations",
         img: "/assets/svc-5.jpg",
-        tags: ["Shopify","Magento","Payments"],
-        intro: "Make order context appear where work happens.",
+        tags: ["Shopify", "Magento", "Payments", "APIs"],
+        intro: "We bridge your eCommerce and support systems so agents have full order context in every ticket. Less tab-switching, more resolving.",
         what: [
-          "Shopify / Magento sidebars with order data",
-          "RMA flows: returns, exchanges, refunds",
-          "Shipping status, webhooks, notifications",
-          "Payments & disputes data in ticket context"
+          "🛍️ **Shopify & Magento app integrations** that pull live order, tracking, and payment details directly into Zendesk.",
+          "🔁 **RMA & refund workflows** that create tickets automatically from customer actions.",
+          "🚚 **Shipping and fulfillment updates** synced to tickets in real time.",
+          "💳 **Payment and dispute integrations** (PayPal, Klarna, Stripe) with automated documentation capture.",
+          "🧩 **Custom webhooks & APIs** to fit your exact store logic."
         ],
         outcomes: [
-          "Fewer back-and-forths with customers",
-          "Faster resolution, fewer errors",
-          "Higher CSAT on post-purchase issues"
+          "📦 **Faster resolutions** — agents see everything without leaving Zendesk.",
+          "💰 **Reduced refunds & disputes** through proactive, data-backed communication.",
+          "📈 **Higher post-purchase CSAT** from faster, transparent support."
         ]
       },
+
       "ongoing-ops": {
         title: "Ongoing Ops",
         img: "/assets/svc-6.jpg",
-        tags: ["Admin","QA","Training"],
-        intro: "Keep the machine tuned: configs, QA, releases.",
+        tags: ["Admin", "QA", "Training", "Governance"],
+        intro: "Great CX systems need maintenance. We stay on to keep yours running flawlessly — managing configs, QA, training, and continuous improvement.",
         what: [
-          "Change management & sandbox releases",
-          "QA program, calibrations, rubrics",
-          "Agent enablement & playbook refresh",
-          "Backlog cleanup, audits, hygiene"
+          "🔄 **Monthly configuration audits** — triggers, automations, SLAs, and fields kept optimized.",
+          "🧭 **QA programs and calibration sessions** for consistent evaluation across teams.",
+          "📘 **Playbook updates & agent enablement** to roll out new processes quickly.",
+          "🧰 **Sandbox testing and release management** before production pushes.",
+          "📢 **Feedback loops** from frontline to leadership — continuous CX refinement."
         ],
         outcomes: [
-          "Stable configs, fewer regressions",
-          "Continuous CX improvements",
-          "Happier agents, tighter feedback loops"
+          "🧼 **Stable configurations** and fewer regressions.",
+          "💬 **Consistent quality** via calibrated QA sessions.",
+          "🚀 **Faster adoption** of new processes and automations.",
+          "📊 **Sustained efficiency gains** month over month."
         ]
       }
     };
