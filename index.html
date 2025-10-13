@@ -11,7 +11,15 @@
   <meta property="og:url" content="https://jdsc.deskxp.com/" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=104" />
+  <link rel="stylesheet" href="css/site.css?v=105" />
+  <style id="reveal-failsafe">
+    /* Visible by default even if JS fails */
+    .reveal { opacity: 1 !important; transform: none !important; }
+    /* Only hide when JS is running */
+    .js .reveal { opacity: 0 !important; transform: translateY(30px) !important; transition: opacity .6s ease, transform .6s ease; }
+    .js .reveal.is-visible { opacity: 1 !important; transform: none !important; }
+</style>
+
   <script>document.documentElement.classList.replace('no-js','js');</script>
 </head>
 
