@@ -29,11 +29,9 @@
         <img src="favicon.png" alt="DeskXP logo" />
         <span>DeskXP</span>
       </a>
-
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
         <span></span><span></span><span></span>
       </button>
-
       <div class="menu" id="menu">
         <a href="index.html">Home</a>
         <a href="#home-services">Services</a>
@@ -63,7 +61,6 @@
     <!-- Services grid 3×2 -->
     <section id="home-services">
       <h2>Services</h2>
-
       <div class="card-grid">
         <article class="card">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy" width="1600" height="900">
@@ -124,23 +121,6 @@
     <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Scroll reveal
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    }), { threshold: .2 });
-    document.querySelectorAll('section').forEach(s => io.observe(s));
-    document.querySelectorAll('.card').forEach(c => io.observe(c));
-
-    // Mobile menu
-    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
-    btn.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-    });
-  </script>
+  <script src="js/site.js"></script>
 </body>
 </html>
