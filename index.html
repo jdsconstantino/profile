@@ -3,150 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>DeskXP — CX Operations & Systems</title>
   <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
-
-  <!-- Canonical / Social -->
-  <link rel="canonical" href="./" />
   <meta property="og:title" content="DeskXP — CX Operations & Systems" />
   <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
   <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
-  <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com/" />
-  <meta name="theme-color" content="#111111" />
-
-  <!-- Icons -->
   <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Baseline safety: text always visible even if CSS/JS fail -->
-  <style>
-    :root { --bg:#ffffff; --fg:#111; --accent:#007236; }
-    @media (prefers-color-scheme: dark){ :root{ --bg:#0b0b0b; --fg:#f2f2f2; } }
-    html{ color-scheme:light dark; }
-    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"; background:var(--bg); color:var(--fg); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
-    .no-js *{ opacity:1!important; transform:none!important; visibility:visible!important; }
-    :where(h1,h2,h3,h4,h5,h6,p,li,a,span,small,strong,em,div){ -webkit-text-fill-color:currentColor; }
-    /* Minimal layout so page isn't naked without external CSS */
-    .nav-wrap{ position:sticky; top:0; background:var(--bg); border-bottom:1px solid #eaeaea22; z-index:50; }
-    .nav{ max-width:1100px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; }
-    .brand{ display:inline-flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; color:inherit; text-decoration:none; }
-    .brand img{ width:24px; height:24px; }
-    .hamburger{ display:none; }
-    .menu a{ margin-left:14px; color:inherit; text-decoration:none; }
-    .banner{ padding:72px 16px 48px; text-align:center; }
-    .banner .inner{ max-width:900px; margin:0 auto; }
-    .headline{ font-size:clamp(28px,4vw,44px); line-height:1.15; margin:0 0 12px; }
-    .subhead{ font-size:clamp(16px,2vw,20px); color:#666; margin:0; }
-    .container{ max-width:1100px; margin:0 auto; padding:32px 16px; }
-    section{ margin-block:32px; }
-    h2{ font-size:clamp(22px,3vw,28px); margin:0 0 16px; color:var(--accent); }
-    .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
-    .card{ display:block; border:1px solid #eaeaea55; border-radius:12px; overflow:hidden; background:#fff; }
-    .card-img{ width:100%; height:160px; object-fit:cover; display:block; }
-    .card-body{ padding:14px; }
-    .card h3{ margin:0 0 6px; font-size:18px; }
-    .card p{ margin:0; color:#666; }
-    .proj-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
-    .proj{ border:1px solid #eaeaea55; border-radius:12px; padding:16px; background:#fff; }
-    .muted{ color:#666; margin-top:-6px; }
-    .btn-accent{ display:inline-block; margin-top:10px; padding:10px 14px; border-radius:10px; border:1px solid #eaeaea55; background:#fff; color:inherit; text-decoration:none; }
-    footer{ margin-top:40px; padding:20px 0; border-top:1px solid #eaeaea55; text-align:center; color:#666; }
-    @media (prefers-reduced-motion: reduce){ *{ animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
-    @media (max-width: 720px){
-      .hamburger{ display:inline-flex; flex-direction:column; gap:4px; background:transparent; border:0; padding:8px; }
-      .hamburger span{ width:22px; height:2px; background:currentColor; display:block; }
-      .menu{ display:none; }
-      .menu[data-open="true"]{ display:block; }
-      .menu a{ display:block; padding:8px 0; margin:0; }
-    }
-  </style>
-
-  <!-- Your site stylesheet -->
-  <link rel="stylesheet" href="css/site.css?v=102" />
-
-  <!-- Small overrides for banner path + fade slider -->
-  <style>
-    /* 1) Banner: absolute path for custom domain */
-    .banner{
-      width:100%;
-      height:320px;
-      background:url('/assets/svc-7.jpg') center/cover no-repeat; /* ABSOLUTE path */
-      position:relative;
-      display:flex; align-items:center; justify-content:center;
-      color:#fff; text-align:center; overflow:hidden;
-    }
-    .banner::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.45); }
-    .banner .inner{ position:relative; z-index:1; }
-
-    /* 2) Success slider: FADE mode */
-    .success-slider{
-      width:100vw; margin-left:calc(50% - 50vw);
-      background:linear-gradient(135deg, rgba(245,248,247,0.95), rgba(255,255,255,0.85));
-      color:#1a1b1e; border-top:1px solid #e4e6eb; border-bottom:1px solid #e4e6eb;
-      position:relative; overflow:hidden; padding:64px 0 84px;
-    }
-    .success-head{ max-width:1300px; margin:0 auto 18px; padding:0 32px; }
-    .success-head h2{ font-size:2rem; color:var(--accent); text-align:center; }
-
-    /* Fade stack */
-    .success-track{
-      position:relative;
-      max-width:1300px; margin:0 auto;
-      height:auto; min-height:280px;
-    }
-    .success-slide{
-      position:absolute; inset:0;
-      opacity:0; transition:opacity .6s ease;
-      display:flex; flex-direction:column; align-items:center; text-align:center;
-      padding:0 24px;
-    }
-    .success-slide.is-active{ opacity:1; position:absolute; }
-    .success-logo{
-      width:96px; height:96px; object-fit:contain; background:#fff;
-      border-radius:20px; border:1px solid #e4e6eb; box-shadow:0 6px 20px rgba(0,0,0,.12);
-      margin-bottom:18px;
-    }
-    .success-title{ font-size:1.4rem; margin-bottom:8px; }
-    .success-body{ max-width:900px; color:#2d2d2d; opacity:.95; }
-    .success-quote{
-      max-width:900px; margin-top:16px; padding:14px 18px; border-left:4px solid var(--accent);
-      background:rgba(255,255,255,.7); color:#333; font-style:italic; border-radius:12px;
-    }
-    .success-quote span{ display:block; margin-top:8px; opacity:.85; font-style:normal; font-size:.95rem; }
-
-    .success-nav{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; background:rgba(0,0,0,.08);
-      border:1px solid #e4e6eb; color:#000; font-size:28px; line-height:44px;
-      border-radius:12px; cursor:pointer;
-    }
-    .success-nav:hover{ background:rgba(0,0,0,.14); }
-    .success-nav.prev{ left:16px; }
-    .success-nav.next{ right:16px; }
-
-    .success-dots{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); display:flex; gap:10px; }
-    .success-dots button{ width:10px; height:10px; border-radius:999px; background:rgba(0,0,0,.25); border:0; cursor:pointer; }
-    .success-dots button.active{ background:#000; }
-
-    @media (max-width:700px){
-      .success-head{ padding:0 16px; }
-      .success-logo{ width:72px; height:72px; border-radius:16px; }
-      .success-title{ font-size:1.2rem; }
-      .success-body, .success-quote{ padding:12px 14px; }
-    }
-  </style>
-
-  <noscript><style>section,.card,.success-slide,.proj,.banner,.menu{opacity:1!important;transform:none!important;visibility:visible!important}</style></noscript>
-
+  <link rel="stylesheet" href="css/site.css?v=104" />
   <script>document.documentElement.classList.replace('no-js','js');</script>
 </head>
-<body>
 
+<body>
   <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
@@ -157,11 +26,12 @@
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
         <span></span><span></span><span></span>
       </button>
-      <div class="menu" id="menu" data-open="false" role="menu">
-        <a href="#home" role="menuitem">Home</a>
-        <a href="#services" role="menuitem">Services</a>
-        <a href="#pricing" role="menuitem">Pricing</a>
-        <a href="#about" role="menuitem">About Us</a>
+      <div class="menu" id="menu" data-open="false">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#success">Success Stories</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#cta">Book a Call</a>
       </div>
     </nav>
   </div>
@@ -174,56 +44,55 @@
     </div>
   </header>
 
-  <main id="main" class="container" tabindex="-1">
+  <main class="container">
     <!-- Services -->
-    <section id="services" aria-labelledby="services-h">
-      <h2 id="services-h">Services</h2>
-
+    <section id="services" class="reveal">
+      <h2>Services</h2>
       <div class="card-grid">
-        <a class="card" href="services/index.html?s=operations-design" aria-label="Operations Design">
-          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
+        <a class="card" href="services/index.html?s=operations-design">
+          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design">
           <div class="card-body">
             <h3>Operations Design</h3>
             <p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p>
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=systems-architecture" aria-label="Systems Architecture">
-          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
+        <a class="card" href="services/index.html?s=systems-architecture">
+          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture">
           <div class="card-body">
             <h3>Systems Architecture</h3>
             <p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p>
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=automation-ai" aria-label="Automation &amp; AI">
-          <img class="card-img" src="assets/svc-3.jpg" alt="Automation &amp; AI" loading="lazy">
+        <a class="card" href="services/index.html?s=automation-ai">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI">
           <div class="card-body">
-            <h3>Automation &amp; AI</h3>
+            <h3>Automation & AI</h3>
             <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=reporting-analytics" aria-label="Reporting &amp; Analytics">
-          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting &amp; Analytics" loading="lazy">
+        <a class="card" href="services/index.html?s=reporting-analytics">
+          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics">
           <div class="card-body">
-            <h3>Reporting &amp; Analytics</h3>
+            <h3>Reporting & Analytics</h3>
             <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=ecommerce-integrations" aria-label="eCommerce Integrations">
-          <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
+        <a class="card" href="services/index.html?s=ecommerce-integrations">
+          <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations">
           <div class="card-body">
             <h3>eCommerce Integrations</h3>
             <p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p>
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=customer-experience-servicing" aria-label="Customer Experience &amp; Servicing">
-          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience &amp; Servicing" loading="lazy">
+        <a class="card" href="services/index.html?s=customer-experience-servicing">
+          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing">
           <div class="card-body">
-            <h3>Customer Experience &amp; Servicing</h3>
+            <h3>Customer Experience & Servicing</h3>
             <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
           </div>
         </a>
@@ -231,11 +100,10 @@
     </section>
   </main>
 
-  <!-- Success Stories (FADE slider) -->
-  <section id="success" class="success-slider" aria-labelledby="success-h">
-    <div class="success-head"><h2 id="success-h">Success Stories</h2></div>
-
-    <div class="success-track" id="successTrack" aria-live="polite">
+  <!-- Success Stories -->
+  <section id="success" class="success-slider reveal">
+    <div class="success-head"><h2>Success Stories</h2></div>
+    <div class="success-track" id="successTrack">
       <!-- PalawanPay -->
       <article class="success-slide is-active">
         <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay logo">
@@ -246,7 +114,7 @@
           Introduced chatbot automation that generated over ₱5M in annual savings.
         </p>
         <blockquote class="success-quote">
-          “His expertise in Zendesk was pivotal for our team — from setting up simple workflows and trigger automations to handling more advanced tasks like tool integrations and building dashboards. Our day-to-day ran smoother, providing a good experience to both our team and our customers."
+          “His expertise in Zendesk was pivotal for our team — from setting up simple workflows and trigger automations to handling more advanced tasks like tool integrations and building dashboards. Our day-to-day ran smoother, providing a good experience to both our team and our customers.”
           <span>— Ops Excellence Manager, PalawanPay</span>
         </blockquote>
       </article>
@@ -260,11 +128,11 @@
         </p>
         <blockquote class="success-quote">
           “We have seen a huge reduction in overall manual handling of tickets and significant time savings from the automated PDF creation process. The workflows that were implemented allowed our support team to focus more on customer experience rather than repetitive administrative tasks.”
-          <span>— [Customer Service Manager, Unison]</span>
+          <span>— Customer Service Manager, Unison</span>
         </blockquote>
       </article>
 
-      <!-- Boutique de Sophie -->
+      <!-- BDS -->
       <article class="success-slide">
         <img class="success-logo" src="assets/boutique-de-sophie.png" alt="Boutique de Sophie logo">
         <h3 class="success-title">Boutique de Sophie — Zendesk Implementation & Process Improvement</h3>
@@ -272,27 +140,28 @@
           Implemented Zendesk with external dashboard integrations and optimized internal workflows, improving response efficiency and reducing customer disputes by ~30%.
         </p>
         <blockquote class="success-quote">
-          “We’ve been able to fully maximize the potential of our Zendesk account through the systems and automations that were implemented. Every possible opportunity for optimization was explored and executed — from workflow design to integration and reporting. As a result, we’ve seen a 30% decrease in disputes and chargebacks, alongside faster resolution times and more consistent customer communication. James’ structured approach to process design and automation has made a tangible impact on our operations. His ability to translate complex support needs into efficient, scalable workflows has been a game-changer for our customer experience team.”
-          <span>— [Business Owner, Boutique de Sophie]</span>
+          “We’ve been able to fully maximize the potential of our Zendesk account through the systems and automations that were implemented. Every possible opportunity for optimization was explored and executed — from workflow design to integration and reporting. As a result, we’ve seen a 30% decrease in disputes and chargebacks, alongside faster resolution times and more consistent customer communication.”
+          <span>— Business Owner, Boutique de Sophie</span>
         </blockquote>
       </article>
     </div>
 
     <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
     <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
-    <div class="success-dots" id="successDots" role="tablist" aria-label="Slides"></div>
+    <div class="success-dots" id="successDots"></div>
   </section>
 
+  <!-- Pricing -->
   <div class="container">
-    <section id="pricing" aria-labelledby="pricing-h">
-      <h2 id="pricing-h">Pricing</h2>
+    <section id="pricing" class="reveal">
+      <h2>Pricing</h2>
       <div class="proj-grid">
         <div class="proj">
-          <h3>Audit &amp; Roadmap</h3>
+          <h3>Audit & Roadmap</h3>
           <p class="muted">1–2 weeks</p>
           <ul>
             <li>Systems assessment</li>
-            <li>Roadmap &amp; ROI plan</li>
+            <li>Roadmap & ROI plan</li>
             <li>Implementation proposal</li>
           </ul>
         </div>
@@ -301,116 +170,27 @@
           <p class="muted">4–6 weeks</p>
           <ul>
             <li>Workflow setup</li>
-            <li>Automation &amp; dashboards</li>
+            <li>Automation & dashboards</li>
             <li>Handover + QA</li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- CTA -->
     <section id="cta" class="reveal">
       <h2>Let’s build your next breakthrough</h2>
       <div class="cta-body">
-      <p>Do you need an MVP in <strong>7 days</strong>? Struggling to cut down repetitive inquiries? Tired of endless manual work slowing you down?</p>
-      <p><strong>Let’s fix that.</strong> Book a quick call — we’ll audit your process, spot automation gaps, and design a lean CX system that scales.</p>
-      <a href="https://calendly.com/deskxp/intro-call" class="btn-accent">Book a Call →</a>
-      <a href="https://jdsc.deskxp.com/about/index.html" class="btn-accent">About Us →</a>
+        <p>Do you need an MVP in <strong>7 days</strong>? Struggling to cut down repetitive inquiries? Tired of endless manual work slowing you down?</p>
+        <p><strong>Let’s fix that.</strong> Book a quick discovery call — we’ll audit your process, spot automation gaps, and design a lean CX system that scales.</p>
+        <p class="muted">No strings attached — <strong>free 30-minute discovery call</strong>.</p>
+        <a href="https://calendly.com/deskxp/intro-call" class="btn-accent">Book a Call →</a>
       </div>
     </section>
 
-    <footer>© <span id="y">2025</span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
+    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <!-- Inline JS (kept small; no dependency on old main.js) -->
-  <script>
-    // Ensure .js flag exists even if early script failed
-    (function(){var de=document.documentElement;if(de&&de.classList.contains('no-js'))de.classList.replace('no-js','js');else if(de&&!de.classList.contains('js'))de.classList.add('js');})();
-
-    // Year
-    (function(){ var y=document.getElementById('y'); if(y) y.textContent=String(new Date().getFullYear()); })();
-
-    // Mobile menu
-    (function(){
-      var btn=document.getElementById('menuBtn');
-      var menu=document.getElementById('menu');
-      if(!btn||!menu) return;
-      function setState(open){
-        menu.setAttribute('data-open', open?'true':'false');
-        btn.setAttribute('aria-expanded', open?'true':'false');
-      }
-      btn.addEventListener('click', function(){
-        var open=menu.getAttribute('data-open')==='true';
-        setState(!open);
-      });
-      window.addEventListener('hashchange', function(){ setState(false); }, {passive:true});
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') setState(false); });
-    })();
-
-    // Success slider (FADE)
-    (function(){
-      var track=document.getElementById('successTrack');
-      var dotsWrap=document.getElementById('successDots');
-      var prevBtn=document.getElementById('prevBtn');
-      var nextBtn=document.getElementById('nextBtn');
-      if(!track||!dotsWrap) return;
-
-      var slides=[].slice.call(track.children);
-      if(!slides.length) return;
-
-      var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var idx=0, timer=null, DURATION=5000;
-
-      function setActive(i){
-        slides.forEach(function(s, k){
-          s.classList.toggle('is-active', k===i);
-        });
-        [].forEach.call(dotsWrap.children, function(d,k){
-          d.classList.toggle('active', k===i);
-        });
-      }
-
-      function go(i, user){
-        idx=(i+slides.length)%slides.length;
-        setActive(idx);
-        if(user) restart();
-      }
-
-      function buildDots(){
-        dotsWrap.innerHTML = slides.map(function(_,i){
-          return '<button aria-label="Go to slide '+(i+1)+'"></button>';
-        }).join('');
-        [].forEach.call(dotsWrap.children, function(b,i){
-          b.addEventListener('click', function(){ go(i, true); });
-        });
-        if(dotsWrap.children[0]) dotsWrap.children[0].classList.add('active');
-      }
-
-      function start(){ if(reduce) return; stop(); timer=setInterval(function(){ go(idx+1, false); }, DURATION); }
-      function stop(){ if(timer) clearInterval(timer); timer=null; }
-      function restart(){ stop(); start(); }
-
-      // Init
-      buildDots();
-      requestAnimationFrame(function(){ setActive(0); start(); });
-
-      // Controls
-      if(prevBtn) prevBtn.addEventListener('click', function(){ go(idx-1, true); });
-      if(nextBtn) nextBtn.addEventListener('click', function(){ go(idx+1, true); });
-
-      // Pause on hover/focus
-      track.addEventListener('mouseenter', stop);
-      track.addEventListener('mouseleave', start);
-      track.addEventListener('focusin', stop);
-      track.addEventListener('focusout', start);
-
-      // Keyboard
-      window.addEventListener('keydown', function(e){
-        if(e.key==='ArrowLeft') go(idx-1, true);
-        if(e.key==='ArrowRight') go(idx+1, true);
-      });
-    })();
-  </script>
-
-  <!-- IMPORTANT: we purposely do NOT load your old js/main.js here to avoid conflicts with the new fade slider -->
+  <script src="js/main.js?v=104"></script>
 </body>
 </html>
