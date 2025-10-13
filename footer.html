@@ -1,7 +1,6 @@
 <!-- ===== Global Footer ===== -->
-<footer class="global-footer">
+<footer class="global-footer" role="contentinfo">
   <div class="footer-inner">
-
     <div class="footer-brand">
       <a href="/" class="brand-link">
         <img src="favicon.png" alt="DeskXP logo" class="footer-logo" />
@@ -10,32 +9,18 @@
       <p>Building scalable CX operations with systems, data, and automation.</p>
     </div>
 
-    <nav class="footer-nav">
+    <nav class="footer-nav" aria-label="Footer">
       <a href="/">Home</a>
-      <a href="/services.html">Services</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/services/">Services</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
     </nav>
 
-    <div class="footer-social">
-      <a href="https://linkedin.com/in/jamesconstantino" target="_blank" aria-label="LinkedIn">
-        <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
+    <div class="footer-social" aria-label="Social links">
+      <!-- LinkedIn (inline SVG = no asset path problems) -->
+      <a href="https://linkedin.com/in/jamesconstantino" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM3 8.982h3.96V21H3V8.982zM9.69 8.982H13.5v1.64h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.65 4.77 6.09V21h-3.96v-4.7c0-1.12-.02-2.56-1.56-2.56-1.57 0-1.81 1.23-1.81 2.48V21H9.69V8.982z"/></svg>
       </a>
-      <a href="https://upwork.com/fl/jamesconstantino" target="_blank" aria-label="Upwork">
-        <img src="assets/icons/upwork.svg" alt="Upwork" />
-      </a>
-      <a href="mailto:james.constantino18@gmail.com" aria-label="Email">
-        <img src="assets/icons/mail.svg" alt="Email" />
-      </a>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© <span id="footerYear"></span> DeskXP • All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-  // Auto-year
-  document.getElementById("footerYear").textContent = new Date().getFullYear();
-</script>
+      <!-- Upwork -->
+      <a href="https://www.upwork.com/freelancers/~" target="_blank" rel="noopener" aria-label="Upwork" class="social-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M18.6 4c-2.35 0-4.2 1.46-4.2 4.53v1.2c-.44-.64-.87-1.44-1.27-2.44L11 5H8.9v7.23c0 .82-.45 1.33-1.12 1.33-.67 0-1.11-.51-1.11-1.33V5H4.5v7.23c0 2.12 1.4 3.67 3.28 3.6
