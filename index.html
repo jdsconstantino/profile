@@ -301,5 +301,11 @@ Beyond his technical skills, his can-do attitude is also a stand out, no matter 
       if(e.key==='ArrowRight') go(idx+1,true);
     });
   </script>
+  <div id="footer"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => (document.getElementById("footer").innerHTML = html));
+</script>
 </body>
 </html>
