@@ -14,13 +14,11 @@
 html,body{margin:0}
 body{
   font-family:Inter,system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  scroll-behavior:smooth;
+  background:var(--bg); color:var(--text);
+  line-height:1.6; scroll-behavior:smooth;
 }
 
-/* Global image safety: render small even if file is huge */
+/* Safety: images never explode layout even if huge files */
 img{max-width:100%; height:auto; display:block}
 
 /* ===== Glassy sticky header ===== */
@@ -51,8 +49,8 @@ img{max-width:100%; height:auto; display:block}
 /* ===== Banner ===== */
 .banner{
   width:100%;
-  height:320px;
-  background:url('../assets/svc-7.jpg') center/cover no-repeat;
+  height:280px; /* tighter, less scroll push */
+  background:url('../assets/svc-7.jpg') 50% 40% / cover no-repeat;
   position:relative;
   display:flex; align-items:center; justify-content:center;
   text-align:center; color:#fff; overflow:hidden;
@@ -61,11 +59,11 @@ img{max-width:100%; height:auto; display:block}
 .banner .inner{position:relative; z-index:1; animation:fadeUp .9s ease forwards}
 .headline{font-size:2.2rem; margin:0 10px 8px}
 .subhead{font-size:1.1rem; color:#d9e2d6; margin:0 10px}
-@media (max-width:600px){ .banner{height:240px} .headline{font-size:1.8rem} .subhead{font-size:1rem} }
+@media (max-width:600px){ .banner{height:220px} .headline{font-size:1.7rem} .subhead{font-size:.98rem} }
 
 /* ===== Layout ===== */
 .container{max-width:1100px; margin:0 auto; padding:0 16px}
-header.hero{margin-top:-48px; margin-bottom:48px; text-align:center; opacity:0; transform:translateY(20px); animation:fadeUp .8s ease .2s forwards}
+header.hero{margin-top:-36px; margin-bottom:36px; text-align:center; opacity:0; transform:translateY(20px); animation:fadeUp .8s ease .2s forwards}
 
 .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
 .btn{display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; transition:all .2s ease}
@@ -75,16 +73,18 @@ header.hero{margin-top:-48px; margin-bottom:48px; text-align:center; opacity:0; 
 
 section{
   background:var(--panel); border:1px solid var(--border); border-radius:12px;
-  padding:28px 24px; margin:28px 0; box-shadow:0 6px 18px rgba(0,0,0,.2);
+  padding:24px; margin:24px 0; box-shadow:0 6px 18px rgba(0,0,0,.2);
   opacity:0; transform:translateY(30px);
   transition:opacity .6s ease, transform .6s ease;
 }
 section.visible{opacity:1; transform:translateY(0)}
 h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
 .muted{color:var(--muted)}
-#home-services h2{margin-bottom:20px}
 
-/* ===== Services Grid 3×2 ===== */
+/* ===== Home Services grid ===== */
+#home-services{max-width:1000px; margin:0 auto}
+#home-services h2{margin-bottom:16px}
+
 .card-grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
@@ -92,19 +92,6 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
 }
 @media (max-width:900px){ .card-grid{grid-template-columns:repeat(2, minmax(0,1fr))} }
 @media (max-width:600px){ .card-grid{grid-template-columns:1fr} }
-
-#home-services {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.card-img {
-  width: 100%;
-  height: 220px; /* fixed display height for uniformity */
-  object-fit: cover;
-  object-position: center;
-  border-bottom: 1px solid var(--border);
-}
 
 .card{
   background:var(--panel);
@@ -117,22 +104,22 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
 }
 .card.visible{opacity:1; transform:translateY(0)}
 
+/* Constrain rendered size HARD (even if file is huge) */
 .card-img{
   width:100%;
-  /* Force consistent visual size regardless of original image dimensions */
-  aspect-ratio:16/9;
-  object-fit:cover;
-  display:block;
-  transition:transform .35s ease;
+  height:clamp(160px, 22vw, 220px); /* responsive, uniform */
+  object-fit:cover; object-position:center;
+  display:block; transition:transform .35s ease;
+  border-bottom:1px solid var(--border);
 }
-.card-body{padding:16px}
+.card-body{padding:14px}
 .card h3{margin:0 0 6px; font-size:18px}
 .card p{margin:0; color:var(--muted)}
 .card:hover .card-img{transform:scale(1.03)}
 
 /* ===== Footer ===== */
 footer{
-  text-align:center; margin:40px 0; color:var(--muted);
+  text-align:center; margin:32px 0; color:var(--muted);
   font-size:.9rem; opacity:0; transform:translateY(10px);
   animation:fadeUp 1s ease .8s forwards;
 }
