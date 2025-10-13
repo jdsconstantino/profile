@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,19 +11,11 @@
   <meta property="og:url" content="https://jdsc.deskxp.com/" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=105" />
-  <style id="reveal-failsafe">
-    /* Visible by default even if JS fails */
-    .reveal { opacity: 1 !important; transform: none !important; }
-    /* Only hide when JS is running */
-    .js .reveal { opacity: 0 !important; transform: translateY(30px) !important; transition: opacity .6s ease, transform .6s ease; }
-    .js .reveal.is-visible { opacity: 1 !important; transform: none !important; }
-</style>
-
-  <script>document.documentElement.classList.replace('no-js','js');</script>
+  <link rel="stylesheet" href="css/site.css?v=200" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important;}</style></noscript>
 </head>
-
 <body>
+
   <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
@@ -57,7 +49,7 @@
     <section id="services" class="reveal">
       <h2>Services</h2>
       <div class="card-grid">
-        <a class="card" href="services/index.html?s=operations-design">
+        <a class="card reveal" href="services/index.html?s=operations-design">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design">
           <div class="card-body">
             <h3>Operations Design</h3>
@@ -65,7 +57,7 @@
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=systems-architecture">
+        <a class="card reveal" href="services/index.html?s=systems-architecture">
           <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture">
           <div class="card-body">
             <h3>Systems Architecture</h3>
@@ -73,7 +65,7 @@
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=automation-ai">
+        <a class="card reveal" href="services/index.html?s=automation-ai">
           <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI">
           <div class="card-body">
             <h3>Automation & AI</h3>
@@ -81,7 +73,7 @@
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=reporting-analytics">
+        <a class="card reveal" href="services/index.html?s=reporting-analytics">
           <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics">
           <div class="card-body">
             <h3>Reporting & Analytics</h3>
@@ -89,7 +81,7 @@
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=ecommerce-integrations">
+        <a class="card reveal" href="services/index.html?s=ecommerce-integrations">
           <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations">
           <div class="card-body">
             <h3>eCommerce Integrations</h3>
@@ -97,7 +89,7 @@
           </div>
         </a>
 
-        <a class="card" href="services/index.html?s=customer-experience-servicing">
+        <a class="card reveal" href="services/index.html?s=customer-experience-servicing">
           <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing">
           <div class="card-body">
             <h3>Customer Experience & Servicing</h3>
@@ -108,10 +100,10 @@
     </section>
   </main>
 
-  <!-- Success Stories -->
+  <!-- Success Stories (Fade slider) -->
   <section id="success" class="success-slider reveal">
     <div class="success-head"><h2>Success Stories</h2></div>
-    <div class="success-track" id="successTrack">
+    <div class="success-track" id="successTrack" aria-live="polite">
       <!-- PalawanPay -->
       <article class="success-slide is-active">
         <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay logo">
@@ -199,6 +191,6 @@
     <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
 
-  <script src="js/main.js?v=105"></script>
+  <script src="js/main.js?v=200"></script>
 </body>
 </html>
