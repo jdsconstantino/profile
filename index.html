@@ -15,7 +15,7 @@
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/site.css?v=99" />
 </head>
 <body>
 
@@ -38,7 +38,7 @@
     </nav>
   </div>
 
-  <!-- Global Banner -->
+  <!-- Banner -->
   <div class="banner" id="home">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
@@ -103,205 +103,66 @@
       </div>
     </section>
 
-  </div><!-- /container (close BEFORE the full-width section) -->
+  </div><!-- /container -->
 
-  <!-- ===== Full-Width Success Stories (END-TO-END) ===== -->
-  <section id="success" class="success-slider" aria-label="Success Stories">
-    <div class="success-head">
-      <h2>Success Stories</h2>
-    </div>
+  <!-- Success Stories -->
+  <section id="success" class="success-slider">
+    <div class="success-head"><h2>Success Stories</h2></div>
 
     <div class="success-track" id="successTrack">
-      <!-- Slide 1 -->
-      <article class="success-slide" aria-roledescription="slide">
-        <img class="success-logo" src="/assets/palawanpay.png" alt="PalawanPay" />
+      <article class="success-slide">
+        <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay">
         <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
-        <p class="success-body">
-          Built Customer Care from the ground up (hiring, training, QA, policies). Implemented Zendesk Suite with advanced API/webhook integrations, a branded Help Center, and scalable automations/self-service.
-        </p>
-        <blockquote class="success-quote">
-          His expertise in Zendesk was pivotal for our team — from setting up simple workflows and trigger automations to handling more advanced tasks like tool integrations and building dashboards. Thanks to James, our day-to-day ran smoother, providing a good experience to both our team and our customers.
-Beyond his technical skills, his can-do attitude is also a stand out, no matter how tight the deadline or how tricky the issue he finds ways to get things delivered.”
-          <span>— Client Operations Lead</span>
-        </blockquote>
+        <p class="success-body">Built Customer Care from the ground up (hiring, training, QA, policies)...</p>
       </article>
 
-      <!-- Slide 2 -->
-      <article class="success-slide" aria-roledescription="slide">
-        <img class="success-logo" src="/assets/unison.png" alt="Unison Computer Systems" />
-        <h3 class="success-title">Unison Computer Systems — Workflows, Dashboards, Help Center</h3>
-        <p class="success-body">
-          Revamped ticket flows, created CSAT and productivity dashboards, and launched a fully branded Help Center with AI support and self-service content governance.
-        </p>
-        <blockquote class="success-quote">
-          “The new workflows cut noise and made our metrics actionable. The dashboard became our weekly operating system.”
-          <span>— CX Manager</span>
-        </blockquote>
-      </article>
-
-      <!-- Slide 3 -->
-      <article class="success-slide" aria-roledescription="slide">
-        <img class="success-logo" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie" />
-        <h3 class="success-title">Boutique de Sophie — Shopify ↔ Zendesk + Refund Automation</h3>
-        <p class="success-body">
-          Integrated Shopify order context into tickets, automated refunds/returns, reduced manual workload by 60%, and lifted post-purchase CSAT to 4.8★.
-        </p>
-        <blockquote class="success-quote">
-          “Support finally sees everything in one view. Less back-and-forth, faster resolutions, happier customers.”
-          <span>— Store Owner</span>
-        </blockquote>
+      <article class="success-slide">
+        <img class="success-logo" src="assets/unison.png" alt="Unison">
+        <h3 class="success-title">Unison — Workflows, Dashboards, Help Center</h3>
+        <p class="success-body">Revamped ticket flows, dashboards, and launched a fully branded Help Center.</p>
       </article>
     </div>
 
-    <!-- Controls -->
-    <button class="success-nav prev" id="prevBtn" aria-label="Previous story">‹</button>
-    <button class="success-nav next" id="nextBtn" aria-label="Next story">›</button>
-    <div class="success-dots" id="successDots" aria-label="Slide indicators"></div>
+    <button class="success-nav prev" id="prevBtn">‹</button>
+    <button class="success-nav next" id="nextBtn">›</button>
+    <div class="success-dots" id="successDots"></div>
   </section>
 
-  <!-- Re-open site container for the rest of the page -->
   <div class="container">
-
-    <!-- Pricing -->
     <section id="pricing">
       <h2>Pricing</h2>
       <div class="proj-grid">
         <div class="proj">
           <h3>Audit & Roadmap</h3>
           <p class="muted">1–2 weeks</p>
-          <ul class="clean">
-            <li>Systems & ops assessment</li>
-            <li>Prioritized roadmap with ROI</li>
-            <li>Implementation plan</li>
+          <ul>
+            <li>Systems assessment</li>
+            <li>Roadmap & ROI plan</li>
+            <li>Implementation proposal</li>
           </ul>
         </div>
         <div class="proj">
           <h3>Implementation Sprint</h3>
           <p class="muted">4–6 weeks</p>
-          <ul class="clean">
-            <li>Workflows, automations, dashboards</li>
-            <li>Handover + playbooks</li>
-            <li>Training & QA loop</li>
-          </ul>
-        </div>
-        <div class="proj">
-          <h3>Customer Experience & Servicing</h3>
-          <p class="muted">Project or Retainer</p>
-          <ul class="clean">
-            <li>Team build: hiring & onboarding</li>
-            <li>QA, training, and policy/process setup</li>
-            <li>Day-2 operations and governance</li>
+          <ul>
+            <li>Workflow setup</li>
+            <li>Automation & dashboards</li>
+            <li>Handover + QA</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Techy About Teaser -->
-<section id="about" class="about-hero">
-  <div class="about-hero__inner">
-    <div class="about-hero__eyebrow">About DeskXP</div>
+    <section id="about">
+      <h2>About DeskXP</h2>
+      <p>We specialize in building, improving, and scaling customer support operations by leveraging technology, data, and process design.</p>
+      <p>Find out more and reach out to us here:</p>
+      <a href="/about/" class="btn-accent">Contact Us →</a>
+    </section>
 
-    <h2 class="about-hero__title">
-      We build <span>scalable customer support</span> with systems, data & automation.
-    </h2>
-
-    <p class="about-hero__subtitle">
-      From Zendesk architecture to AI workflows and CX analytics — we turn messy operations
-      into predictable engines that grow with your team.
-    </p>
-    <div class="about-hero__cta">
-      <a href="/about/" class="btn-accent">Learn more about us→</a>
-      <a href="/services/?s=customer-experience-servicing" class="btn-ghost">See what we deliver</a>
-    </div>
+    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   </div>
-</section>
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Fade-in on scroll
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    }), { threshold: 0.2 });
-    document.querySelectorAll('section, .card').forEach(el => io.observe(el));
-
-    // Mobile menu
-    const btn = document.getElementById('menuBtn'),
-          menu = document.getElementById('menu');
-    btn.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-    });
-
-    // ===== Success slider (no libraries) =====
-    const track = document.getElementById('successTrack');
-    const slides = Array.from(track.children);
-    const dotsWrap = document.getElementById('successDots');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    let idx = 0, timer = null, isDragging = false, startX = 0, currentX = 0;
-
-    function go(i, user=false) {
-      idx = (i + slides.length) % slides.length;
-      track.style.transform = `translateX(-${idx * 100}vw)`;
-      [...dotsWrap.children].forEach((d,k)=>d.classList.toggle('active', k===idx));
-      if (user) restart();
-    }
-
-    function buildDots() {
-      dotsWrap.innerHTML = slides.map((_,i)=>`<button aria-label="Go to slide ${i+1}"></button>`).join('');
-      [...dotsWrap.children].forEach((b,i)=>b.addEventListener('click', ()=>go(i,true)));
-      dotsWrap.children[0]?.classList.add('active');
-    }
-
-    function start() {
-      timer = setInterval(()=>go(idx+1), 6000);
-    }
-    function stop() { clearInterval(timer); }
-    function restart() { stop(); start(); }
-
-    // drag / swipe
-    function onDown(e){ isDragging=true; startX = (e.touches?e.touches[0].clientX:e.clientX); stop(); }
-    function onMove(e){
-      if(!isDragging) return;
-      currentX = (e.touches?e.touches[0].clientX:e.clientX);
-      const delta = currentX - startX;
-      track.style.transition = 'none';
-      track.style.transform = `translateX(calc(-${idx*100}vw + ${delta}px))`;
-    }
-    function onUp(){
-      if(!isDragging) return;
-      isDragging=false; track.style.transition='';
-      const delta = currentX - startX;
-      if (delta > 80) go(idx-1,true);
-      else if (delta < -80) go(idx+1,true);
-      else go(idx,true);
-    }
-
-    buildDots(); start();
-
-    // listeners
-    track.addEventListener('mouseenter', stop);
-    track.addEventListener('mouseleave', start);
-    prevBtn.addEventListener('click', ()=>go(idx-1,true));
-    nextBtn.addEventListener('click', ()=>go(idx+1,true));
-    track.addEventListener('mousedown', onDown);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    track.addEventListener('touchstart', onDown, {passive:true});
-    track.addEventListener('touchmove', onMove, {passive:true});
-    track.addEventListener('touchend', onUp);
-    window.addEventListener('keydown', (e)=>{
-      if(e.key==='ArrowLeft') go(idx-1,true);
-      if(e.key==='ArrowRight') go(idx+1,true);
-    });
-  </script>
-  <div id="footer"></div>
-<script>
-  fetch("footer.html")
-    .then(res => res.text())
-    .then(html => (document.getElementById("footer").innerHTML = html));
-</script>
+  <script src="js/main.js?v=99"></script>
 </body>
 </html>
