@@ -209,14 +209,16 @@ footer{
   background: linear-gradient(135deg, #007236 0%, #009e4f 100%);
   color: #fff;
   text-align: center;
-  padding: 60px 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  padding: 70px 24px;
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  margin-top: 60px;
 }
 #cta h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   color: #fff;
+  letter-spacing: -0.3px;
 }
 #cta p {
   font-size: 1.1rem;
@@ -225,11 +227,17 @@ footer{
   margin: 0 auto 20px;
   color: rgba(255,255,255,0.9);
 }
+#cta p.muted {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-top: 10px;
+}
 #cta .btn-accent {
   background: #fff;
   color: #007236;
   font-weight: 700;
   transition: all 0.2s ease;
+  margin-top: 8px;
 }
 #cta .btn-accent:hover {
   background: #f0f0f0;
