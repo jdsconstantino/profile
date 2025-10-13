@@ -93,6 +93,19 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
 @media (max-width:900px){ .card-grid{grid-template-columns:repeat(2, minmax(0,1fr))} }
 @media (max-width:600px){ .card-grid{grid-template-columns:1fr} }
 
+#home-services {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card-img {
+  width: 100%;
+  height: 220px; /* fixed display height for uniformity */
+  object-fit: cover;
+  object-position: center;
+  border-bottom: 1px solid var(--border);
+}
+
 .card{
   background:var(--panel);
   border:1px solid var(--border);
