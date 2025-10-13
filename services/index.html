@@ -5,29 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <link rel="stylesheet" href="/css/site.css?v=101">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="/css/site.css?v=201">
+
   <style>
+    body { font-family: "Inter", system-ui, sans-serif; }
+
     a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: none; }
-    .svc-layout { display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: start; }
-    @media (max-width: 900px) { .svc-layout { grid-template-columns: 1fr; } }
 
-    .svc-sidebar { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
-    .svc-item { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid var(--border); border-radius:12px; background:transparent; cursor:pointer; width:100%; text-align:left; margin:10px 0; transition:background .2s, box-shadow .2s, transform .2s; }
-    .svc-item:hover { background: var(--glass); transform: translateY(-1px); }
-    .svc-item.selected { background: rgba(0,114,54,.08); box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset; }
-    .svc-thumb { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); object-fit:cover; background:#fff; }
+    /* Layout */
+    .svc-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: start;
+      margin-top: 24px;
+      animation: fadeIn 0.4s ease;
+    }
+    @media (max-width: 900px) {
+      .svc-layout { grid-template-columns: 1fr; }
+    }
 
-    .svc-body { background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:24px; }
-    .svc-title { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
-    .svc-title img { width:56px; height:56px; border-radius:12px; object-fit:cover; border:1px solid var(--border); }
-    .chip { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border); background:var(--glass); margin-right:6px; font-size:.8rem; }
+    /* Sidebar */
+    .svc-sidebar {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      animation: slideInLeft 0.6s ease;
+    }
+
+    .svc-item {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:transparent;
+      cursor:pointer;
+      width:100%;
+      text-align:left;
+      margin:10px 0;
+      transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    .svc-item:hover {
+      background: var(--glass);
+      transform: translateY(-1px);
+    }
+    .svc-item.selected {
+      background: rgba(0,114,54,.1);
+      box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset;
+      animation: selectPulse 0.4s ease;
+    }
+    @keyframes selectPulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,114,54,.25); }
+      70% { box-shadow: 0 0 0 6px rgba(0,114,54,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,114,54,0); }
+    }
+
+    .svc-thumb {
+      width:36px; height:36px;
+      border-radius:8px; border:1px solid var(--border);
+      object-fit:cover; background:#fff;
+    }
+
+    /* Body */
+    .svc-body {
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:24px;
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .svc-body.visible {
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    .svc-title {
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:8px;
+    }
+    .svc-title img {
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      object-fit:cover;
+      border:1px solid var(--border);
+    }
+    .chip {
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--glass);
+      margin-right:6px;
+      font-size:.8rem;
+    }
     .svc-body h3 { margin: 18px 0 8px; }
     .svc-body ul { margin-left: 18px; }
+
+    @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:none;} }
+    @keyframes slideInLeft { from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:none;} }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav">
       <a class="brand" href="/">
@@ -43,6 +139,7 @@
     </nav>
   </div>
 
+  <!-- Banner -->
   <header class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
@@ -50,6 +147,7 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main class="container">
     <section class="visible">
       <div class="svc-layout">
@@ -59,7 +157,6 @@
           <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg"><span>Automation &amp; AI</span></button>
           <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg"><span>Reporting &amp; Analytics</span></button>
           <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg"><span>eCommerce Integrations</span></button>
-          <!-- REPLACED ITEM -->
           <button class="svc-item" data-slug="customer-experience-servicing"><img class="svc-thumb" src="/assets/svc-6.jpg"><span>Customer Experience &amp; Servicing</span></button>
         </aside>
 
@@ -70,6 +167,7 @@
 
   <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
 
+  <!-- Scripts -->
   <script>
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
@@ -96,7 +194,6 @@
           "💡 Built to scale: your team can double ticket volume without doubling headcount."
         ]
       },
-
       "systems-architecture": {
         title: "Systems Architecture",
         img: "/assets/svc-2.jpg",
@@ -116,7 +213,6 @@
           "📊 **Fewer misroutes and reassignments**, improving CSAT and handle time."
         ]
       },
-
       "automation-ai": {
         title: "Automation & AI",
         img: "/assets/svc-3.jpg",
@@ -136,7 +232,6 @@
           "💬 **Happier agents** — less grunt work, more meaningful cases."
         ]
       },
-
       "reporting-analytics": {
         title: "Reporting & Analytics",
         img: "/assets/svc-4.jpg",
@@ -155,7 +250,6 @@
           "💸 **ROI visibility:** show cost savings and productivity gains in real numbers."
         ]
       },
-
       "ecommerce-integrations": {
         title: "eCommerce Integrations",
         img: "/assets/svc-5.jpg",
@@ -174,8 +268,6 @@
           "📈 **Higher post-purchase CSAT** from faster, transparent support."
         ]
       },
-
-      /* REPLACED: ongoing-ops -> customer-experience-servicing */
       "customer-experience-servicing": {
         title: "Customer Experience & Servicing",
         img: "/assets/svc-6.jpg",
@@ -199,10 +291,9 @@
       }
     };
 
-    // alias map to keep old links alive
     const ALIASES = {
       "ongoing-ops": "customer-experience-servicing",
-      "ecom-integrations": "ecommerce-integrations" // safety if you used the shorter slug before
+      "ecom-integrations": "ecommerce-integrations"
     };
 
     const contentEl = document.getElementById('svc-body');
@@ -212,23 +303,33 @@
       const key = ALIASES[slug] || slug;
       const svc = services[key] || services["operations-design"];
       document.querySelectorAll('.svc-item').forEach(b => b.classList.toggle('selected', b.dataset.slug === key));
-      contentEl.innerHTML = `
-        <div class="svc-title">
-          <img src="${svc.img}" alt="">
-          <div>
-            <h2>${svc.title}</h2>
-            <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+
+      contentEl.classList.remove('visible');
+      setTimeout(() => {
+        contentEl.innerHTML = `
+          <div class="svc-title">
+            <img src="${svc.img}" alt="">
+            <div>
+              <h2>${svc.title}</h2>
+              <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+            </div>
           </div>
-        </div>
-        <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
-        <h3>What we do</h3>
-        <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
-        <h3>Outcomes</h3>
-        <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
-      `;
-      const url = new URL(window.location);
-      url.searchParams.set('s', key);
-      if (push) history.replaceState({}, '', url);
+          <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
+          <h3>What we do</h3>
+          <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
+          <h3>Outcomes</h3>
+          <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
+        `;
+        contentEl.classList.add('visible');
+
+        if (window.innerWidth < 900) {
+          contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        const url = new URL(window.location);
+        url.searchParams.set('s', key);
+        if (push) history.replaceState({}, '', url);
+      }, 150);
     }
 
     sidebarEl.addEventListener('click', (e) => {
