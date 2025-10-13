@@ -32,8 +32,8 @@
       <div class="menu" id="menu">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#about">About Us</a>
+        <a href="#success">Success Stories</a>
+        <a href="#cta">Book a Call</a>
       </div>
     </nav>
   </div>
@@ -121,6 +121,12 @@
         <h3 class="success-title">Unison — Workflows, Dashboards, Help Center</h3>
         <p class="success-body">Revamped ticket flows, reporting, and Help Center for improved agent performance and SLA visibility.</p>
       </article>
+
+      <article class="success-slide">
+        <img class="success-logo" src="assets/bds.png" alt="Boutique de Sophie">
+        <h3 class="success-title">Boutique de Sophie — E-commerce Scaling</h3>
+        <p class="success-body">Shopify ↔ Zendesk integration, self-serve content, and targeted automations that reduced repetitive tickets and improved post-purchase CSAT.</p>
+      </article>
     </div>
 
     <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
@@ -128,42 +134,35 @@
     <div class="success-dots" id="successDots"></div>
   </section>
 
-  <div class="container">
-    <section id="pricing">
-      <h2>Pricing</h2>
-      <div class="proj-grid">
-        <div class="proj">
-          <h3>Audit & Roadmap</h3>
-          <p class="muted">1–2 weeks</p>
-          <ul>
-            <li>Systems assessment</li>
-            <li>Roadmap & ROI plan</li>
-            <li>Implementation proposal</li>
-          </ul>
-        </div>
-        <div class="proj">
-          <h3>Implementation Sprint</h3>
-          <p class="muted">4–6 weeks</p>
-          <ul>
-            <li>Workflow setup</li>
-            <li>Automation & dashboards</li>
-            <li>Handover + QA</li>
-          </ul>
-        </div>
+  <!-- Teaser -->
+  <section class="about-teaser reveal">
+    <p class="statement">Expert. Seasoned. Tech-driven. Customer-First.</p>
+    <p class="teaser-subtext">Systems that scale people, not just processes.</p>
+    <a href="/about/" class="btn-minimal">Learn more</a>
+  </section>
+
+  <!-- Discovery Call -->
+  <section id="cta" class="reveal">
+    <h2>Book a discovery call</h2>
+    <div class="cta-grid">
+      <div>
+        <p>We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+        <ul class="cta-list">
+          <li>MVP or prototype in <strong>7 days</strong></li>
+          <li>Cut repetitive inquiries with automation &amp; self-serve</li>
+          <li>Eliminate manual busywork in daily ops</li>
+        </ul>
+        <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
       </div>
-    </section>
+      <div class="cta-actions">
+        <a href="/book" class="book-call">Book a Call</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="about">
-      <h2>About DeskXP</h2>
-      <p>We specialize in building, improving, and scaling customer support operations by leveraging technology, data, and process design.</p>
-      <p>Find out more and reach out to us here:</p>
-      <a href="/about/" class="btn-accent">Contact Us →</a>
-    </section>
+  <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
 
-    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
-  </div>
-
-  <!-- Inline script (fully restored) -->
+  <!-- Inline script -->
   <script>
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
@@ -189,11 +188,8 @@
     const next = document.getElementById('nextBtn');
     let index = 0;
 
-    function updateSlider() {
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-      Array.from(dots.children).forEach((d, i) => d.classList.toggle('active', i === index));
-    }
-
+    // Build dots
+    dots.innerHTML = '';
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.type = 'button';
@@ -201,19 +197,22 @@
       dots.appendChild(dot);
     });
 
-    if (prev) prev.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; updateSlider(); });
-    if (next) next.addEventListener('click', () => { index = (index + 1) % slides.length; updateSlider(); });
+    function updateSlider() {
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      Array.from(dots.children).forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+    function step(dir){ index = (index + dir + slides.length) % slides.length; updateSlider(); }
+
+    if (prev) prev.addEventListener('click', () => step(-1));
+    if (next) next.addEventListener('click', () => step(1));
     updateSlider();
 
-    // Smooth scroll (optional)
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const id = a.getAttribute('href').slice(1);
         const target = document.getElementById(id);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       });
     });
   </script>
