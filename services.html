@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/site.css" />
 
   <style>
-    /* ---- Page-specific minimal CSS (add to site.css if you want) ---- */
+    /* ---- Page-specific minimal CSS ---- */
     .svc-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 280px 1fr; gap: 28px; }
     .svc-side { position: sticky; top: 16px; align-self: start; border: 1px solid var(--border, #e6e6e6); border-radius: 12px; overflow: hidden; }
     .svc-nav { list-style: none; margin: 0; padding: 8px; }
@@ -32,7 +32,7 @@
   </style>
 </head>
 <body>
-  <!-- Header (reuse your nav-wrap/nav if you want the same header) -->
+  <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html#home">
@@ -51,7 +51,7 @@
     </nav>
   </div>
 
-  <!-- Global Banner (you said keep banner global for now) -->
+  <!-- Global Banner -->
   <div class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
@@ -62,15 +62,11 @@
   <main class="svc-wrap">
     <!-- Left Sidebar -->
     <aside class="svc-side">
-      <ul class="svc-nav" id="svcNav">
-        <!-- JS injects items -->
-      </ul>
+      <ul class="svc-nav" id="svcNav"></ul>
     </aside>
 
     <!-- Right Content -->
-    <section class="svc-body" id="svcBody" aria-live="polite" aria-busy="false">
-      <!-- JS injects content -->
-    </section>
+    <section class="svc-body" id="svcBody" aria-live="polite" aria-busy="false"></section>
   </main>
 
   <footer style="text-align:center; padding: 28px 0; border-top: 1px solid #eee;">
@@ -78,129 +74,237 @@
   </footer>
 
   <script>
-    // year
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // mobile menu (same behavior as index)
+    // Mobile menu
     const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
     btn?.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
     });
 
-    // ---------- Data model for services ----------
+    // ---------- Service Data ----------
     const SERVICES = [
       {
         slug: 'ops-design',
         title: 'Operations Design',
         img: 'assets/svc-1.jpg',
         meta: ['Playbooks', 'SLAs', 'Escalations'],
-        blurb: 'Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.',
-        bullets: [
-          'Triage maps across channels (email, chat, social, voice)',
-          'Escalation matrices and RACI handoffs',
-          'SLA policy, clock rules, schedules, holidays',
-          'Macros, templates, tone of voice & QA rubrics'
-        ],
-        outcomes: [
-          'FRT/AHT reduced via clear handling rules',
-          'Lower re-opens via precise ownership',
-          'Agent onboarding time cut with playbooks'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-1.jpg" alt="">
+            <div>
+              <h1>Operations Design</h1>
+              <div class="svc-meta">
+                <span class="pill">Playbooks</span>
+                <span class="pill">SLAs</span>
+                <span class="pill">Escalations</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Foundations for a scalable CX org: clear flows, tight SLAs, and crisp escalation paths.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Triage maps across channels (email, chat, social, voice)</li>
+              <li>Escalation matrices and RACI handoffs</li>
+              <li>SLA policy, clock rules, schedules, holidays</li>
+              <li>Macros, templates, tone of voice & QA rubrics</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>Lower FRT/AHT via clear handling rules</li>
+              <li>Fewer reopens via precise ownership</li>
+              <li>Faster onboarding with playbooks</li>
+            </ul>
+          </div>`
       },
       {
         slug: 'systems-arch',
         title: 'Systems Architecture',
         img: 'assets/svc-2.jpg',
         meta: ['Zendesk', 'Routing', 'Hygiene'],
-        blurb: 'Design the stack so work routes cleanly and data stays tidy.',
-        bullets: [
-          'Ticket forms, fields, triggers, views — sane by default',
-          'Omnichannel routing, skills/groups, capacity rules',
-          'User/org structure, SSO, roles & granular permissions',
-          'Data hygiene: tags, categories, de-duplication'
-        ],
-        outcomes: [
-          'Higher assignment accuracy, fewer misroutes',
-          'Cleaner data → better analytics',
-          'Happier agents thanks to predictable flows'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-2.jpg" alt="">
+            <div>
+              <h1>Systems Architecture</h1>
+              <div class="svc-meta">
+                <span class="pill">Zendesk</span>
+                <span class="pill">Routing</span>
+                <span class="pill">Hygiene</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Design the stack so work routes cleanly and data stays tidy.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Ticket forms, fields, triggers, views — sane by default</li>
+              <li>Omnichannel routing, skills/groups, capacity rules</li>
+              <li>User/org structure, SSO, roles & permissions</li>
+              <li>Data hygiene: tags, categories, deduplication</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>Higher assignment accuracy</li>
+              <li>Cleaner data → better analytics</li>
+              <li>Happier agents via predictable flows</li>
+            </ul>
+          </div>`
       },
       {
         slug: 'automation-ai',
         title: 'Automation & AI',
         img: 'assets/svc-3.jpg',
         meta: ['Bots', 'Deflection', 'Intent'],
-        blurb: 'Automate the boring. Keep humans for nuance.',
-        bullets: [
-          'Intent detection & auto-tagging',
-          'Self-service: KB surfacing & guided flows',
-          'Auto-replies with guardrails; safe handoffs',
-          'Back-office automations (Zapier/Make, webhooks)'
-        ],
-        outcomes: [
-          'Deflection up, handle time down',
-          'Consistent responses 24/7',
-          'Agents focus on high-value cases'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-3.jpg" alt="">
+            <div>
+              <h1>Automation & AI</h1>
+              <div class="svc-meta">
+                <span class="pill">Bots</span>
+                <span class="pill">Deflection</span>
+                <span class="pill">Intent</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Automate the boring. Keep humans for nuance.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Intent detection & auto-tagging</li>
+              <li>Self-service KB surfacing & guided flows</li>
+              <li>Auto-replies with guardrails</li>
+              <li>Back-office automations via Zapier/Make</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>Deflection up, handle time down</li>
+              <li>24/7 consistency</li>
+              <li>Agents focus on high-value cases</li>
+            </ul>
+          </div>`
       },
       {
         slug: 'reporting-analytics',
         title: 'Reporting & Analytics',
         img: 'assets/svc-4.jpg',
         meta: ['FRT', 'AHT', 'CSAT/QA'],
-        blurb: 'Dashboards that show what matters and drive action.',
-        bullets: [
-          'Explore dashboards: productivity, satisfaction, backlog',
-          'Cohort/segmentation by channel, issue-type, SKU',
-          'SLA breach root-cause and staffing insights',
-          'Executive views with trends & projections'
-        ],
-        outcomes: [
-          'Faster decisions with trustworthy data',
-          'Spot bottlenecks before they bite',
-          'Tighter planning with accurate forecasts'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-4.jpg" alt="">
+            <div>
+              <h1>Reporting & Analytics</h1>
+              <div class="svc-meta">
+                <span class="pill">FRT</span>
+                <span class="pill">AHT</span>
+                <span class="pill">CSAT/QA</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Dashboards that show what matters and drive action.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Explore dashboards: productivity, satisfaction, backlog</li>
+              <li>Cohort segmentation by channel or issue type</li>
+              <li>SLA breach and staffing insights</li>
+              <li>Executive trend summaries</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>Faster decisions via trustworthy data</li>
+              <li>Spot bottlenecks early</li>
+              <li>Better resource planning</li>
+            </ul>
+          </div>`
       },
       {
         slug: 'ecom-integrations',
         title: 'eCommerce Integrations',
         img: 'assets/svc-5.jpg',
         meta: ['Shopify/Magento', 'APIs', 'Webhooks'],
-        blurb: 'Pipe order data into CX tools so agents have context on first click.',
-        bullets: [
-          'Shopify/Magento ↔ Zendesk side-panel apps',
-          'Order/fulfillment status in-ticket',
-          'RMA flows, refunds, replacements automation',
-          'Payments/disputes signals into routing'
-        ],
-        outcomes: [
-          'One-screen resolution for agents',
-          'Fewer transfers and back-and-forth',
-          'Customer wow from fast answers'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-5.jpg" alt="">
+            <div>
+              <h1>eCommerce Integrations</h1>
+              <div class="svc-meta">
+                <span class="pill">Shopify/Magento</span>
+                <span class="pill">APIs</span>
+                <span class="pill">Webhooks</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Pipe order data into CX tools so agents have context instantly.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Shopify/Magento ↔ Zendesk side-panel apps</li>
+              <li>Order/fulfillment context inside tickets</li>
+              <li>RMA, refund, replacement automations</li>
+              <li>Payment & dispute signals into routing</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>One-screen resolution for agents</li>
+              <li>Fewer transfers</li>
+              <li>Happier customers via fast answers</li>
+            </ul>
+          </div>`
       },
       {
         slug: 'ongoing-ops',
         title: 'Ongoing Ops',
         img: 'assets/svc-6.jpg',
         meta: ['Iteration', 'Reporting', 'On-call'],
-        blurb: 'Keep the machine sharp with monthly improvements.',
-        bullets: [
-          'Monthly ops reviews & backlog grooming',
-          'Experimentation: macros/bots/routing tweaks',
-          'Training refreshers & QA calibration',
-          'Data cleanup and dashboard maintenance'
-        ],
-        outcomes: [
-          'Continuous performance gains',
-          'Lower cost-to-serve over time',
-          'A team that keeps leveling up'
-        ]
+        content: `
+          <div class="svc-hero">
+            <img src="assets/svc-6.jpg" alt="">
+            <div>
+              <h1>Ongoing Ops</h1>
+              <div class="svc-meta">
+                <span class="pill">Iteration</span>
+                <span class="pill">Reporting</span>
+                <span class="pill">On-call</span>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Keep the machine sharp with monthly improvements.</p>
+          <div class="svc-section">
+            <h3>What we do</h3>
+            <ul class="svc-ul">
+              <li>Monthly ops reviews & backlog grooming</li>
+              <li>Macro/bot/routing experimentation</li>
+              <li>Training refreshers & QA calibration</li>
+              <li>Data cleanup & dashboard upkeep</li>
+            </ul>
+          </div>
+          <div class="svc-section">
+            <h3>Outcomes</h3>
+            <ul class="svc-ul">
+              <li>Continuous performance gains</li>
+              <li>Lower cost-to-serve</li>
+              <li>Teams that keep leveling up</li>
+            </ul>
+          </div>`
       }
     ];
 
-    // ---------- Renderers ----------
+    // ---------- Renderer ----------
     const navEl = document.getElementById('svcNav');
     const bodyEl = document.getElementById('svcBody');
 
@@ -212,10 +316,7 @@
         a.href = `?s=${svc.slug}`;
         a.className = 'svc-link' + (svc.slug === activeSlug ? ' active' : '');
         a.dataset.slug = svc.slug;
-        a.innerHTML = `
-          <img class="svc-thumb" src="${svc.img}" alt="">
-          <span>${svc.title}</span>
-        `;
+        a.innerHTML = `<img class="svc-thumb" src="${svc.img}" alt=""><span>${svc.title}</span>`;
         li.appendChild(a);
         navEl.appendChild(li);
       });
@@ -223,37 +324,8 @@
 
     function renderBody(svc) {
       bodyEl.setAttribute('aria-busy', 'true');
-      // Keep viewport steady: don’t jump down the page
       const scrollY = window.scrollY;
-
-      bodyEl.innerHTML = `
-        <div class="svc-hero">
-          <img src="${svc.img}" alt="">
-          <div>
-            <h1>${svc.title}</h1>
-            <div class="svc-meta">
-              ${svc.meta.map(m => `<span class="pill">${m}</span>`).join('')}
-            </div>
-          </div>
-        </div>
-        <p class="muted">${svc.blurb}</p>
-
-        <div class="svc-section">
-          <h3>What we do</h3>
-          <ul class="svc-ul">
-            ${svc.bullets.map(b => `<li>${b}</li>`).join('')}
-          </ul>
-        </div>
-
-        <div class="svc-section">
-          <h3>Outcomes</h3>
-          <ul class="svc-ul">
-            ${svc.outcomes.map(o => `<li>${o}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-
-      // restore scroll to prevent visual jump
+      bodyEl.innerHTML = svc.content;
       window.scrollTo({ top: scrollY });
       bodyEl.setAttribute('aria-busy', 'false');
     }
@@ -262,26 +334,22 @@
       const svc = SERVICES.find(s => s.slug === slug) || SERVICES[0];
       renderNav(svc.slug);
       renderBody(svc);
-      // update URL without full reload
       const url = new URL(window.location);
       url.searchParams.set('s', svc.slug);
       window.history.pushState({ s: svc.slug }, '', url);
     }
 
-    // ---------- Init ----------
     const params = new URLSearchParams(window.location.search);
     const initialSlug = params.get('s') || 'ops-design';
     pickService(initialSlug);
 
-    // ---------- Events ----------
     navEl.addEventListener('click', e => {
       const a = e.target.closest('a.svc-link');
       if (!a) return;
-      e.preventDefault();         // no page jump
-      pickService(a.dataset.slug); // swap content only
+      e.preventDefault();
+      pickService(a.dataset.slug);
     });
 
-    // handle back/forward
     window.addEventListener('popstate', e => {
       const slug = (e.state && e.state.s) || new URLSearchParams(location.search).get('s') || 'ops-design';
       pickService(slug);
