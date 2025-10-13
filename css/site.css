@@ -204,3 +204,34 @@ footer{
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
 }
+/* ===== CTA Section ===== */
+#cta {
+  background: linear-gradient(135deg, #007236 0%, #009e4f 100%);
+  color: #fff;
+  text-align: center;
+  padding: 60px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+#cta h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+#cta p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto 20px;
+  color: rgba(255,255,255,0.9);
+}
+#cta .btn-accent {
+  background: #fff;
+  color: #007236;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+#cta .btn-accent:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
