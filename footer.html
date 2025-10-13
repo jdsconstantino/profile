@@ -1,1 +1,41 @@
+<!-- ===== Global Footer ===== -->
+<footer class="global-footer">
+  <div class="footer-inner">
 
+    <div class="footer-brand">
+      <a href="/" class="brand-link">
+        <img src="favicon.png" alt="DeskXP logo" class="footer-logo" />
+        <span>DeskXP</span>
+      </a>
+      <p>Building scalable CX operations with systems, data, and automation.</p>
+    </div>
+
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://linkedin.com/in/jamesconstantino" target="_blank" aria-label="LinkedIn">
+        <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
+      </a>
+      <a href="https://upwork.com/fl/jamesconstantino" target="_blank" aria-label="Upwork">
+        <img src="assets/icons/upwork.svg" alt="Upwork" />
+      </a>
+      <a href="mailto:james.constantino18@gmail.com" aria-label="Email">
+        <img src="assets/icons/mail.svg" alt="Email" />
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span id="footerYear"></span> DeskXP • All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Auto-year
+  document.getElementById("footerYear").textContent = new Date().getFullYear();
+</script>
