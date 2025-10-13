@@ -68,3 +68,79 @@
         <article class="card">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy" width="1600" height="900">
           <div class="card-body">
+            <h3>Operations Design</h3>
+            <p>Playbooks, SLAs, triage flows, escalation paths.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy" width="1600" height="900">
+          <div class="card-body">
+            <h3>Systems Architecture</h3>
+            <p>Zendesk setup, routing, triggers, macros, data hygiene.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy" width="1600" height="900">
+          <div class="card-body">
+            <h3>Automation & AI</h3>
+            <p>Deflection, classification, intent routing, bots.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy" width="1600" height="900">
+          <div class="card-body">
+            <h3>Reporting & Analytics</h3>
+            <p>Explore dashboards for FRT, AHT, CSAT, QA loops.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy" width="1600" height="900">
+          <div class="card-body">
+            <h3>eCommerce Integrations</h3>
+            <p>Shopify/Magento ↔ Zendesk, Make/Zapier, webhooks.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-img" src="assets/svc-6.jpg" alt="Ongoing Ops" loading="lazy" width="1600" height="900">
+          <div class="card-body">
+            <h3>Ongoing Ops</h3>
+            <p>Iteration, incident cleanup, on-call system tweaks.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="muted">Email: <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
+    </section>
+
+    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    }), { threshold: .2 });
+    document.querySelectorAll('section').forEach(s => io.observe(s));
+    document.querySelectorAll('.card').forEach(c => io.observe(c));
+
+    // Mobile menu
+    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  </script>
+</body>
+</html>
