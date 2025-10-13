@@ -8,3 +8,6 @@
 .card p{margin:0;color:var(--muted)}
 .card:hover .card-img{transform:scale(1.03)} /* subtle zoom */
 
+.banner{width:100%;height:320px;background:url('../assets/svc-7.jpg') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+
+
