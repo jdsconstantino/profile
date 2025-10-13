@@ -19,7 +19,7 @@
 </head>
 <body>
 
-  <!-- ===== Header ===== -->
+  <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="#home">
@@ -38,7 +38,7 @@
     </nav>
   </div>
 
-  <!-- ===== Banner ===== -->
+  <!-- Global Banner -->
   <div class="banner" id="home">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
@@ -48,9 +48,10 @@
 
   <div class="container">
 
-    <!-- ===== Services ===== -->
+    <!-- Services -->
     <section id="services">
       <h2>Services</h2>
+
       <div class="card-grid">
         <article class="card">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
@@ -80,7 +81,7 @@
           <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
           <div class="card-body">
             <h3>Reporting & Analytics</h3>
-            <p>Explore dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
+            <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
           </div>
         </article>
 
@@ -88,7 +89,7 @@
           <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
           <div class="card-body">
             <h3>eCommerce Integrations</h3>
-            <p>Shopify / Magento ↔ Zendesk integrations, Make / Zapier workflows, and webhooks.</p>
+            <p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p>
           </div>
         </article>
 
@@ -102,7 +103,7 @@
       </div>
     </section>
 
-    <!-- ===== Pricing ===== -->
+    <!-- Pricing -->
     <section id="pricing">
       <h2>Pricing</h2>
       <div class="proj-grid">
@@ -115,7 +116,6 @@
             <li>Implementation plan</li>
           </ul>
         </div>
-
         <div class="proj">
           <h3>Implementation Sprint</h3>
           <p class="muted">4–6 weeks</p>
@@ -125,7 +125,6 @@
             <li>Training & QA loop</li>
           </ul>
         </div>
-
         <div class="proj">
           <h3>Ongoing Ops</h3>
           <p class="muted">Monthly</p>
@@ -138,7 +137,7 @@
       </div>
     </section>
 
-    <!-- ===== About ===== -->
+    <!-- About -->
     <section id="about">
       <h2>About Us</h2>
       <p>DeskXP blends operations leadership with pragmatic systems design. We turn messy support orgs into scalable CX engines by aligning people, process, and technology.</p>
@@ -150,14 +149,18 @@
   </div>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // Fade-in on scroll
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    }), { threshold: .2 });
-    document.querySelectorAll('section').forEach(s => io.observe(s));
+    }), { threshold: 0.2 });
+    document.querySelectorAll('section, .card').forEach(el => io.observe(el));
 
-    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+    // Mobile menu
+    const btn = document.getElementById('menuBtn'),
+          menu = document.getElementById('menu');
     btn.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
