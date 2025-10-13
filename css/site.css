@@ -1,3 +1,11 @@
+/* ===============================
+   DeskXP — SAFE, VISIBLE BY DEFAULT
+   - No element starts hidden
+   - Animations gated behind .js
+   - Reduced motion respected
+   - GH Pages path-safe assets
+================================= */
+
 :root {
   --bg: #0b0c0e;
   --panel: #101215;
@@ -24,12 +32,19 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { margin: 0; }
 body {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  /* If you hate smooth scrolling, your OS setting will override anyway. */
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+/* Guard against WebKit text paint bugs */
+:where(h1,h2,h3,h4,h5,h6,p,li,a,span,small,strong,em,div) { -webkit-text-fill-color: currentColor; }
+
 img { max-width: 100%; height: auto; display: block; }
 
 /* ===== Header ===== */
@@ -88,7 +103,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 @media (max-width: 760px) {
   .menu { display: none; }
-  .menu.open {
+  /* support both class and data attribute states */
+  .menu.open,
+  .menu[data-open="true"] {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -101,7 +118,8 @@ img { max-width: 100%; height: auto; display: block; }
 .banner {
   width: 100%;
   height: 320px;
-  background: url('/assets/svc-7.jpg') center/cover no-repeat;
+  /* FIX: use relative path so GitHub Pages subpaths don’t break */
+  background: url('assets/svc-7.jpg') center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -123,7 +141,7 @@ img { max-width: 100%; height: auto; display: block; }
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  animation: fadeUp .9s ease forwards;
+  /* Default: visible. If you want an entrance, we gate it under .js below. */
 }
 .headline {
   font-size: 2.2rem;
@@ -146,6 +164,8 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 0 auto;
   padding: 0 16px;
 }
+
+/* DEFAULT: sections are visible. No opacity traps. */
 section {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -153,14 +173,19 @@ section {
   padding: 24px;
   margin: 32px 0;
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* If JS is active, you can opt-in to reveal animations with .reveal */
+.js .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity .6s ease, transform .6s ease;
 }
-section.visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
 h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
 .muted { color: var(--muted); }
 
@@ -177,11 +202,14 @@ h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .6s ease, transform .6s ease;
+  /* Visible by default */
 }
-.card.visible { opacity: 1; transform: translateY(0); }
+.js .card.reveal { 
+  opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease;
+}
+.js .card.reveal.is-visible {
+  opacity: 1; transform: translateY(0);
+}
 .card-img {
   width: 100%;
   height: 220px;
@@ -245,6 +273,7 @@ h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
 .proj h3 { margin-bottom: 6px; }
 
 /* ===== Success Stories (Slider) ===== */
+/* Full-bleed section with legible light surface */
 .success-slider{
   width:100vw;
   margin-left:calc(50% - 50vw);
@@ -345,18 +374,21 @@ h2 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
 }
 
 /* ===== Footer ===== */
+/* Visible by default. If you want an entrance, opt-in via .reveal */
 footer {
   text-align: center;
   margin: 40px 0;
   color: var(--muted);
   font-size: .9rem;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeUp 1s ease .8s forwards;
 }
 
-/* ===== Animation ===== */
+/* ===== Animations (opt-in only) ===== */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect users who hate motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
