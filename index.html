@@ -13,112 +13,37 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com" />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{ --bg:#0b0c0e; --panel:#101215; --text:#e7e9ee; --muted:#9aa2b4; --accent:#007236; --border:#1b1f26; --glass:rgba(255,255,255,.08); --glass-border:rgba(255,255,255,.16);}
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#f9fafb; --panel:#ffffff; --text:#1a1b1e; --muted:#596070; --border:#e4e6eb; --glass:rgba(255,255,255,.75); --glass-border:rgba(0,0,0,.06);}
-    }
-
-    *{box-sizing:border-box} html,body{margin:0}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;scroll-behavior:smooth}
-
-    /* ===== Tulle (glassy) sticky header ===== */
-    .nav-wrap{
-      position:sticky; top:0; z-index:50;
-      background:var(--glass);
-      backdrop-filter:saturate(160%) blur(16px);
-      -webkit-backdrop-filter:saturate(160%) blur(16px);
-      border-bottom:1px solid var(--glass-border);
-    }
-    .nav{
-      max-width:1100px; margin:0 auto; padding:10px 16px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
-    .brand img{width:24px; height:24px; border-radius:6px}
-    .nav a{color:var(--text); text-decoration:none; font-weight:600}
-    .menu{display:flex; gap:14px}
-    .menu a{padding:8px 12px; border-radius:8px; transition:background .2s ease, transform .2s ease}
-    .menu a:hover{background:var(--glass); transform:translateY(-1px)}
-    .hamburger{display:none; background:none; border:1px solid var(--glass-border); border-radius:8px; padding:8px}
-    .hamburger span{display:block; width:20px; height:2px; background:var(--text); margin:4px 0}
-
-    @media (max-width:760px){
-      .menu{display:none}
-      .menu.open{display:flex; flex-direction:column; gap:8px; padding:10px 0}
-      .hamburger{display:block}
-    }
-
-    /* ===== Banner ===== */
-    .banner{width:100%; height:320px; background:url('banner.jpg') center/cover no-repeat; position:relative; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; overflow:hidden}
-    .banner::after{content:""; position:absolute; inset:0; background:rgba(0,0,0,.4)}
-    .banner .inner{position:relative; z-index:1; animation:fadeUp .9s ease forwards}
-    .headline{font-size:2.2rem; margin:0 10px 8px}
-    .subhead{font-size:1.1rem; color:#d9e2d6; margin:0 10px}
-
-    /* ===== Content ===== */
-    .container{max-width:960px; margin:0 auto; padding:0 16px}
-    header.hero{margin-top:-48px; margin-bottom:48px; text-align:center; opacity:0; transform:translateY(20px); animation:fadeUp .8s ease .2s forwards}
-    .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
-    .btn{display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; transition:all .2s ease}
-    .btn.primary{background:var(--accent); color:#fff}
-    .btn.secondary{background:transparent; color:var(--text); border:1px solid var(--border)}
-    .btn:hover{transform:translateY(-2px); opacity:.95}
-
-    section{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:28px 24px; margin-bottom:28px; box-shadow:0 6px 18px rgba(0,0,0,.2); opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease}
-    section.visible{opacity:1; transform:translateY(0)}
-    h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent)}
-    ul.clean{margin:8px 0 0; padding-left:20px}
-    .muted{color:var(--muted)}
-
-    .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-    @media (max-width:900px){.proj-grid{grid-template-columns:1fr}}
-
-    .proj{padding:16px; border:1px solid var(--border); border-radius:12px; background:var(--panel)}
-    .proj h3{margin:0 0 6px; font-size:18px}
-    .proj a{color:var(--accent); text-decoration:none}
-    .proj a:hover{text-decoration:underline}
-
-    footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem; opacity:0; transform:translateY(10px); animation:fadeUp 1s ease .8s forwards}
-
-    @keyframes fadeUp{from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)}}
-
-    @media (max-width:600px){
-      .banner{height:240px}
-      .headline{font-size:1.8rem}
-      .subhead{font-size:1rem}
-    }
-  </style>
+  <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
 
-  <!-- ===== Tulle/Glassy Header ===== -->
+  <!-- Glassy Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="#home">
+      <a class="brand" href="index.html">
         <img src="favicon.png" alt="DeskXP logo" />
         <span>DeskXP</span>
       </a>
+
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
         <span></span><span></span><span></span>
       </button>
+
       <div class="menu" id="menu">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#about">About Us</a>
+        <a href="index.html">Home</a>
+        <a href="#home-services">Services</a>
+        <a href="#contact">Contact</a>
       </div>
     </nav>
   </div>
 
-  <!-- ===== Banner ===== -->
-  <div class="banner" id="home">
+  <!-- Banner -->
+  <div class="banner">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
       <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
@@ -126,7 +51,7 @@
   </div>
 
   <div class="container">
-    <!-- Optional CTA row under banner -->
+    <!-- CTA row -->
     <header class="hero">
       <div class="btns">
         <a class="btn primary" href="mailto:james.constantino18@gmail.com?subject=Project%20Inquiry%20via%20jdsc.deskxp.com">Email Me</a>
@@ -135,113 +60,11 @@
       </div>
     </header>
 
+    <!-- Services grid 3×2 -->
     <section id="home-services">
-  <h2>Services</h2>
-  <div class="card-grid">
-    <article class="card">
-      <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
-      <div class="card-body">
-        <h3>Operations Design</h3>
-        <p>Playbooks, SLAs, triage flows, escalation paths.</p>
-      </div>
-    </article>
+      <h2>Services</h2>
 
-    <article class="card">
-      <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
-      <div class="card-body">
-        <h3>Systems Architecture</h3>
-        <p>Zendesk setup, routing, triggers, macros, data hygiene.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy">
-      <div class="card-body">
-        <h3>Automation & AI</h3>
-        <p>Deflection, classification, intent routing, bots.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
-      <div class="card-body">
-        <h3>Reporting & Analytics</h3>
-        <p>Explore dashboards for FRT, AHT, CSAT, QA loops.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
-      <div class="card-body">
-        <h3>eCommerce Integrations</h3>
-        <p>Shopify/Magento ↔ Zendesk, Make/Zapier, webhooks.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img class="card-img" src="assets/svc-6.jpg" alt="Ongoing Ops" loading="lazy">
-      <div class="card-body">
-        <h3>Ongoing Ops</h3>
-        <p>Iteration, incident cleanup, on-call system tweaks.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-
-    <section id="pricing">
-      <h2>Pricing</h2>
-      <div class="proj-grid">
-        <div class="proj">
-          <h3>Audit & Roadmap</h3>
-          <p class="muted">1–2 weeks</p>
-          <ul class="clean">
-            <li>Systems & ops assessment</li>
-            <li>Prioritized roadmap with ROI</li>
-            <li>Implementation plan</li>
-          </ul>
-        </div>
-        <div class="proj">
-          <h3>Implementation Sprint</h3>
-          <p class="muted">4–6 weeks</p>
-          <ul class="clean">
-            <li>Workflows, automations, dashboards</li>
-            <li>Handover + playbooks</li>
-            <li>Training & QA loop</li>
-          </ul>
-        </div>
-        <div class="proj">
-          <h3>Ongoing Ops</h3>
-          <p class="muted">Monthly</p>
-          <ul class="clean">
-            <li>Iterative improvements</li>
-            <li>Reporting & insights</li>
-            <li>On-call system tweaks</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <h2>About Us</h2>
-      <p>DeskXP blends operations leadership with pragmatic systems design. We turn messy support orgs into scalable CX engines by aligning people, process, and technology. Founded by James Constantino — CX systems & operations specialist — with experience across fintech and eCommerce.</p>
-      <p class="muted" style="margin-top:8px">Contact: <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a></p>
-    </section>
-
-    <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
-  </div>
-
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Scroll reveal
-    const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} }), {threshold:.2});
-    document.querySelectorAll('section').forEach(s=>io.observe(s));
-
-    // Mobile menu
-    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
-    btn.addEventListener('click', ()=>{ const open = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', open); });
-  </script>
-</body>
-</html>
+      <div class="card-grid">
+        <article class="card">
+          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy" width="1600" height="900">
+          <div class="card-body">
