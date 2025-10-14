@@ -1,41 +1,31 @@
-// main.v203.js — DeskXP unified frontend
+// main.v203.js — DeskXP unified frontend (nav fix)
 document.addEventListener("DOMContentLoaded", function () {
 
-  /* ===== YEAR ===== */
+  /* YEAR */
   var y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
 
-  /* ===== MOBILE MENU ===== */
+  /* MOBILE MENU */
   (function () {
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("menu");
     if (!btn || !menu) return;
-
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
     }
-
-    btn.addEventListener("click", function () {
-      setState(menu.getAttribute("data-open") !== "true");
-    });
-
-    // close on escape or nav click
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") setState(false);
-    });
+    btn.addEventListener("click", function () { setState(menu.getAttribute("data-open") !== "true"); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setState(false); });
     menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setState(false)));
   })();
 
-  /* ===== SCROLL REVEAL ===== */
+  /* SCROLL REVEAL */
   (function () {
     var root = document.documentElement;
     var els = document.querySelectorAll(".reveal");
     if (!els.length) return;
-
     function revealAll() { els.forEach(el => el.classList.add("is-visible")); }
-
     function enableIO() {
       try {
         var io = new IntersectionObserver(function (entries) {
@@ -47,16 +37,15 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }, { threshold: 0.2 });
         els.forEach(el => io.observe(el));
-      } catch (e) { revealAll(); }
+      } catch { revealAll(); }
     }
-
     requestAnimationFrame(() => {
       root.classList.add("js");
       if ("IntersectionObserver" in window) enableIO(); else revealAll();
     });
   })();
 
-  /* ===== SUCCESS SLIDER ===== */
+  /* SUCCESS SLIDER */
   (function () {
     var track = document.getElementById("successTrack");
     var dotsWrap = document.getElementById("successDots");
@@ -69,63 +58,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var idx = 0, timer = null;
     var INTERVAL = 6000;
-    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setActive(i) {
       slides.forEach((s, n) => s.classList.toggle("is-active", n === i));
       var dots = dotsWrap.children;
       for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("active", d === i);
     }
-
     function go(i, user) {
       idx = (i + slides.length) % slides.length;
       setActive(idx);
       if (user) restart();
     }
-
     function buildDots() {
       dotsWrap.innerHTML = slides.map((_, i) => `<button aria-label="Go to slide ${i + 1}"></button>`).join("");
       Array.from(dotsWrap.children).forEach((dot, j) => dot.addEventListener("click", () => go(j, true)));
-      if (dotsWrap.children[0]) dotsWrap.children[0].classList.add("active");
+      dotsWrap.children[0]?.classList.add("active");
     }
-
     function start() { if (!reducedMotion) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
     function stop() { if (timer) clearInterval(timer); timer = null; }
     function restart() { stop(); start(); }
 
     buildDots(); setActive(0); start();
-
     prevBtn?.addEventListener("click", () => go(idx - 1, true));
     nextBtn?.addEventListener("click", () => go(idx + 1, true));
     track.addEventListener("mouseenter", stop);
     track.addEventListener("mouseleave", start);
-
-    window.addEventListener("keydown", e => {
-      if (e.key === "ArrowLeft") go(idx - 1, true);
-      if (e.key === "ArrowRight") go(idx + 1, true);
-    });
+    window.addEventListener("keydown", e => { if (e.key === "ArrowLeft") go(idx - 1, true); if (e.key === "ArrowRight") go(idx + 1, true); });
   })();
 
-  /* ===== ACTIVE NAV HIGHLIGHT ON SCROLL ===== */
+  /* ACTIVE NAV HIGHLIGHT — robust mapping (works on / and /about/) */
   (function () {
-    var navLinks = document.querySelectorAll("[data-nav]");
-    if (!navLinks.length) return;
+    var links = Array.from(document.querySelectorAll("[data-nav]"));
+    if (!links.length) return;
 
-    var sections = Array.from(navLinks).map(link => {
-      var id = link.getAttribute("href").split("#")[1];
-      return document.getElementById(id);
+    // Build a list of {link, section} where section actually exists on this page.
+    var pairs = links.map(link => {
+      var href = link.getAttribute("href") || "";
+      var hash = href.includes("#") ? href.split("#")[1] : "";
+      var section = hash ? document.getElementById(hash) : null;
+      return section ? { link, section } : null;
     }).filter(Boolean);
+
+    if (!pairs.length) return;
 
     function onScroll() {
       var scrollPos = window.scrollY + 120;
-      sections.forEach((sec, i) => {
-        var top = sec.offsetTop, bottom = top + sec.offsetHeight;
+      pairs.forEach(({ link, section }) => {
+        var top = section.offsetTop, bottom = top + section.offsetHeight;
         var active = scrollPos >= top && scrollPos < bottom;
-        navLinks[i].classList.toggle("is-active", active);
+        link.classList.toggle("is-active", active);
       });
     }
 
     window.addEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
     onScroll();
   })();
 
