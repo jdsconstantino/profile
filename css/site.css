@@ -541,4 +541,14 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   border-radius: 20px;
   background: transparent; /* remove the black fill */
 }
+/* Projects: logo cards should not be cropped or scaled */
+.about-cases .card-img{
+  height: 140px;           /* shorter header area for logos */
+  object-fit: contain;     /* preserve logo edges */
+  background: #fff;        /* clean base so transparent logos pop */
+  padding: 16px;           /* breathing room inside the frame */
+  border-bottom: 1px solid var(--border);
+  transform: none;         /* kill any inherited transforms */
+}
+.about-cases .card:hover .card-img{ transform: none; } /* no zoom on hover */
 
