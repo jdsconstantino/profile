@@ -1,4 +1,4 @@
-/* DeskXP — Full Stylesheet (v202, dark-first) */
+/* DeskXP â€” Full Stylesheet (v203, dark-first, about-page fixes) */
 
 /* ===== Theme (dark global) ===== */
 :root{
@@ -18,9 +18,9 @@
   --shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-/* We’re forcing dark globally; no auto light-mode flip */
+/* Global base */
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{margin:0;}
+html,body{margin:0; overflow-x:hidden;} /* prevent 100vw bleed scroll */
 body{
   font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
   background:var(--bg); color:var(--text); line-height:1.6;
@@ -49,6 +49,13 @@ img{max-width:100%; height:auto; display:block;}
   .menu[data-open="true"]{display:block;}
   .menu a{display:block; padding:8px 0; margin:0;}
   .hamburger{display:block;}
+}
+
+/* ===== Focus styles for a11y ===== */
+a:focus-visible, button:focus-visible, .btn-solid:focus-visible, .btn-minimal:focus-visible, .success-nav:focus-visible, .hamburger:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:10px;
 }
 
 /* ===== Banner (home only) ===== */
@@ -85,7 +92,7 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
 .card,.card a{text-decoration:none; color:inherit;}
 .card:hover h3{color:var(--accent);}
 
-/* Logo cards shouldn’t crop/blur */
+/* Logo cards shouldnâ€™t crop/blur */
 .about-cases .card-img{
   height:140px; object-fit:contain; background:#fff; padding:16px; transform:none;
 }
@@ -119,7 +126,7 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
   .success-track{min-height:500px;}
 }
 
-/* ===== CTA ===== */
+/* ===== CTA (generic) ===== */
 #cta{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(0,0,0,.25);}
 #cta h2{margin-bottom:8px;}
 .cta-grid{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;}
@@ -130,10 +137,10 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
 .cta-actions .btn-accent:hover{transform:translateY(-2px);}
 @media (max-width:700px){.cta-grid{grid-template-columns:1fr;}}
 
-/* ===== Buttons used elsewhere ===== */
+/* ===== Buttons ===== */
 .book-call{background-color:#007236; color:#fff; border:none; border-radius:8px; padding:12px 24px; cursor:pointer; font-weight:600; transition:background .2s;}
 .book-call:hover{background-color:#005a2a;}
-.btn-minimal{background:transparent; border:1.6px solid #d1d5db; color:#e7e9ee; padding:12px 28px; border-radius:10px; font-weight:600; text-decoration:none; transition:.2s;}
+.btn-minimal{background:transparent; border:1.6px solid #d1d5db; color:#e7e9ee; padding:12px 28px; border-radius:10px; font-weight:600; text-decoration:none; transition:.2s; display:inline-block;}
 .btn-minimal:hover{background:#e7e9ee; color:#111;}
 .btn-solid{display:inline-block; padding:12px 22px; border-radius:12px; background:#111; color:#fff; text-decoration:none; font-weight:700; box-shadow:0 8px 22px rgba(0,0,0,.35); transition: transform .15s, box-shadow .2s;}
 .btn-solid:hover{ transform: translateY(-1px); box-shadow:0 12px 28px rgba(0,0,0,.45); }
@@ -151,6 +158,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   box-shadow:var(--shadow);
   padding:40px 34px;
 }
+.ap-actions{ display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
 
 /* Grid with image on the RIGHT on desktop */
 .ap-grid{
@@ -207,7 +215,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   50%{ transform: translateY(-6px); }
 }
 
-/* Logos strip (projects page/card reuse) */
+/* Logos strip */
 .about-logos{ padding:20px; text-align:center; background:var(--panel); border:1px solid var(--border); border-radius:12px; }
 .logo-row{ display:flex; gap:22px; flex-wrap:wrap; align-items:center; justify-content:center; }
 .logo-row img{ height:40px; width:auto; filter: grayscale(100%); opacity:.9; transition: filter .2s, opacity .2s; }
@@ -222,7 +230,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .tl-time{ margin-left:auto; color:#6b7280; font-size:.95rem; }
 .tl-points{ margin:8px 0 0 0; padding-left:18px; color:#1f2937; }
 
-/* Skills + Bars */
+/* Skills (if used) */
 .about-skills{ background:var(--panel); }
 .about-skills .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-bottom:14px; }
 .skill-card{ background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; }
@@ -232,6 +240,23 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .bar span{ flex:0 0 220px; font-size:.95rem; color:var(--text); }
 .bar i{ --p:80%; position:relative; display:block; height:10px; flex:1; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
 .bar i::after{ content:""; position:absolute; inset:0; width:var(--p); background:linear-gradient(90deg,var(--accent),#18a058); border-radius:999px; }
+
+/* ===== About CTA card (fix) ===== */
+.dc-card{
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  background:var(--panel); border:1px solid var(--border); border-radius:16px;
+  padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.dc-card h3{ margin:0 0 6px; color:var(--text); font-size:1.25rem; }
+.dc-card p{ margin:0 0 6px; color:var(--muted); }
+.dc-card .tiny{ font-size:.9rem; opacity:.9; }
+.dc-cta{ flex:0 0 auto; }
+.dc-cta .btn-solid{ white-space:nowrap; }
+@media (max-width:700px){
+  .dc-card{ flex-direction:column; align-items:flex-start; }
+  .dc-cta{ width:100%; }
+  .dc-cta .btn-solid{ width:100%; text-align:center; }
+}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
