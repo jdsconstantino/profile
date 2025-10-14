@@ -403,3 +403,116 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .bar i::after{ content:""; position:absolute; inset:0; width:var(--p); background:linear-gradient(90deg,var(--accent),#18a058); border-radius:999px; }
 
 /* Case cards reuse your .card-grid */
+
+/* ===== About profile variant: Bright Edition ===== */
+.about-profile {
+  background: linear-gradient(135deg, #fff7d1, #ffe76a);
+  border-radius: 20px;
+  padding: 48px 36px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.ap-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.ap-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Text */
+.ap-copy {
+  color: #1a1a1a;
+}
+.ap-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  color: #000;
+  margin: 0 0 6px;
+}
+.ap-tag {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.ap-blurb {
+  color: #222;
+  margin-bottom: 22px;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+/* KPI cards — white background for contrast */
+.ap-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.kpi {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.kpi-num {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #000;
+}
+.kpi-label {
+  color: #444;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Actions */
+.ap-actions {
+  display: flex;
+  gap: 12px;
+}
+.ap-actions .btn-minimal {
+  border: 2px solid #000;
+  color: #000;
+}
+.ap-actions .btn-minimal:hover {
+  background: #000;
+  color: #fff;
+}
+.ap-actions .btn-solid {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.ap-actions .btn-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .ap-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .ap-photo img {
+    max-width: 280px;
+    margin: 0 auto 20px;
+  }
+  .ap-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ap-actions {
+    justify-content: center;
+  }
+}
+
