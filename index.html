@@ -15,11 +15,11 @@
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=99" />
+  <link rel="stylesheet" href="css/site.css?v=202" />
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="#home">
@@ -29,11 +29,11 @@
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
         <span></span><span></span><span></span>
       </button>
-      <div class="menu" id="menu">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#success">Success Stories</a>
-        <a href="#cta">Book a Call</a>
+      <div class="menu" id="menu" data-open="false">
+        <a href="#home" data-nav>Home</a>
+        <a href="#services" data-nav>Services</a>
+        <a href="#success" data-nav>Success Stories</a>
+        <a href="#cta" data-nav>Book a Call</a>
       </div>
     </nav>
   </div>
@@ -122,7 +122,7 @@
       </article>
 
       <article class="success-slide">
-        <img class="success-logo" src="assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+        <img class="success-logo" src="assets/bds.png" alt="Boutique de Sophie">
         <h3 class="success-title">Boutique de Sophie — E-commerce Scaling</h3>
         <p class="success-body">Shopify ↔ Zendesk integration, self-serve content, and targeted automations that reduced repetitive tickets and improved post-purchase CSAT.</p>
       </article>
@@ -135,19 +135,15 @@
 
   <!-- Teaser + Discovery -->
   <div class="container">
-    <!-- Teaser -->
-    <section class="about-teaser v2 reveal" aria-labelledby="about-line">
+    <section class="about-teaser reveal v2" aria-labelledby="about-line">
       <span class="eyebrow">About</span>
-      <h2 id="about-line" class="statement">
-        Customer-First. Seasoned. Tech-driven. <span class="nowrap">Expert.</span>
-      </h2>
-  <p class="teaser-subtext">Systems that scale people, not just processes.</p>
-  <div class="cta-row">
-    <a href="/about/" class="btn-minimal">Learn more</a>
-  </div>
-</section>
+      <h2 id="about-line" class="statement">Expert. Seasoned. Tech-driven. <span class="nowrap">Customer-First.</span></h2>
+      <p class="teaser-subtext">Systems that scale people, not just processes.</p>
+      <div class="cta-row">
+        <a href="/about.html" class="btn-minimal">Learn more</a>
+      </div>
+    </section>
 
-    <!-- Discovery Call -->
     <section id="cta" class="reveal">
       <h2>Book a discovery call</h2>
       <div class="cta-grid">
@@ -169,59 +165,6 @@
 
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
 
-  <!-- Inline script -->
-  <script>
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const menu = document.getElementById('menu');
-    if (menuBtn && menu) {
-      menuBtn.addEventListener('click', () => {
-        const isOpen = menu.dataset.open === 'true';
-        const next = isOpen ? 'false' : 'true';
-        menu.dataset.open = next;
-        menuBtn.setAttribute('aria-expanded', next);
-      });
-    }
-
-    // Footer year
-    const y = document.getElementById('y');
-    if (y) y.textContent = new Date().getFullYear();
-
-    // Success slider
-    const track = document.getElementById('successTrack');
-    const slides = Array.from(track.querySelectorAll('.success-slide'));
-    const dots = document.getElementById('successDots');
-    const prev = document.getElementById('prevBtn');
-    const next = document.getElementById('nextBtn');
-    let index = 0;
-
-    // Build dots
-    dots.innerHTML = '';
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.addEventListener('click', () => { index = i; updateSlider(); });
-      dots.appendChild(dot);
-    });
-
-    function updateSlider() {
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-      Array.from(dots.children).forEach((d, i) => d.classList.toggle('active', i === index));
-    }
-    function step(dir){ index = (index + dir + slides.length) % slides.length; updateSlider(); }
-
-    if (prev) prev.addEventListener('click', () => step(-1));
-    if (next) next.addEventListener('click', () => step(1));
-    updateSlider();
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const id = a.getAttribute('href').slice(1);
-        const target = document.getElementById(id);
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-      });
-    });
-  </script>
+  <script src="/js/main.js?v=201"></script>
 </body>
 </html>
