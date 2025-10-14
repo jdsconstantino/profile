@@ -13,12 +13,19 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com" />
 
+  <!-- Hero preload (swap to your new banner asset) -->
+  <!-- <link rel="preload" as="image" href="/assets/your-hero.webp"> -->
+
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css?v=202" />
+  <!-- use the fixed stylesheet -->
+  <link rel="stylesheet" href="css/site.v203.css?v=203" />
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
+
+  <!-- Skip link for accessibility -->
+  <a href="#services" class="skip">Skip to content</a>
 
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
@@ -38,20 +45,22 @@
     </nav>
   </div>
 
-  <!-- Banner -->
-  <div class="banner" id="home">
+  <!-- Banner (use your new image; overlay is toned down in v203) -->
+  <div class="banner" id="home" style="background-image:url('/assets/svc-7.jpg');">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
       <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
+      <div class="cta-row" style="margin-top:12px;">
+        <a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a>
+      </div>
     </div>
   </div>
 
   <div class="container">
 
     <!-- Services -->
-    <section id="services">
+    <section id="services" class="reveal">
       <h2>Services</h2>
-
       <div class="card-grid">
         <a class="card" href="/services/?s=operations-design" aria-label="Operations Design">
           <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
@@ -69,18 +78,18 @@
           </div>
         </a>
 
-        <a class="card" href="/services/?s=automation-ai" aria-label="Automation & AI">
-          <img class="card-img" src="assets/svc-3.jpg" alt="Automation & AI" loading="lazy">
+        <a class="card" href="/services/?s=automation-ai" aria-label="Automation &amp; AI">
+          <img class="card-img" src="assets/svc-3.jpg" alt="Automation &amp; AI" loading="lazy">
           <div class="card-body">
-            <h3>Automation & AI</h3>
+            <h3>Automation &amp; AI</h3>
             <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
           </div>
         </a>
 
-        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting & Analytics">
-          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting & Analytics" loading="lazy">
+        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting &amp; Analytics">
+          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting &amp; Analytics" loading="lazy">
           <div class="card-body">
-            <h3>Reporting & Analytics</h3>
+            <h3>Reporting &amp; Analytics</h3>
             <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
           </div>
         </a>
@@ -93,10 +102,10 @@
           </div>
         </a>
 
-        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience & Servicing">
-          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience & Servicing" loading="lazy">
+        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience &amp; Servicing">
+          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience &amp; Servicing" loading="lazy">
           <div class="card-body">
-            <h3>Customer Experience & Servicing</h3>
+            <h3>Customer Experience &amp; Servicing</h3>
             <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
           </div>
         </a>
@@ -104,8 +113,8 @@
     </section>
   </div><!-- /container -->
 
-  <!-- Success Stories -->
-  <section id="success" class="success-slider">
+  <!-- Success Stories (spacing/centerline cleaned in v203) -->
+  <section id="success" class="success-slider reveal">
     <div class="success-head"><h2>Success Stories</h2></div>
 
     <div class="success-track" id="successTrack">
@@ -130,7 +139,7 @@
 
     <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
     <button class="success-nav next" id="nextBtn" aria-label="Next slide">›</button>
-    <div class="success-dots" id="successDots"></div>
+    <div class="success-dots" id="successDots" aria-label="Slide pagination"></div>
   </section>
 
   <!-- Teaser + Discovery -->
@@ -144,6 +153,7 @@
       </div>
     </section>
 
+    <!-- Book a call (uses unified .btn-primary) -->
     <section id="cta" class="reveal">
       <h2>Book a discovery call</h2>
       <div class="cta-grid">
@@ -157,7 +167,7 @@
           <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
         </div>
         <div class="cta-actions">
-          <a href="https://calendly.com/deskxp/30min" class="book-call">Book a Call</a>
+          <a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a>
         </div>
       </div>
     </section>
@@ -166,5 +176,24 @@
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
 
   <script src="/js/main.js?v=201"></script>
+  <script>
+    // Active nav on scroll (tiny, non-breaking)
+    (function(){
+      var links=[].slice.call(document.querySelectorAll('[data-nav]'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').replace('#',''); map[id]=a; });
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting && map[e.target.id]){
+            links.forEach(function(x){x.classList.remove('is-active');});
+            map[e.target.id].classList.add('is-active');
+          }
+        });
+      },{threshold:.4});
+      ['home','services','success','cta'].forEach(function(id){
+        var el=document.getElementById(id); if(el) obs.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
