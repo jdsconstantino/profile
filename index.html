@@ -13,47 +13,36 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jdsc.deskxp.com" />
 
-  <!-- Hero preload (swap to your new banner asset) -->
-  <!-- <link rel="preload" as="image" href="/assets/your-hero.webp"> -->
-
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- use the fixed stylesheet -->
-  <link rel="stylesheet" href="/css/site.v204.css?v=204">
-  <link rel="stylesheet" href="/css/site.services-hotfix.css?v=1">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/site.v205.css?v=205" />
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
-  <!-- Skip link for accessibility -->
   <a href="#services" class="skip">Skip to content</a>
 
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="#home">
-        <img src="favicon.png" alt="DeskXP logo" />
-        <span>DeskXP</span>
-      </a>
-      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="brand" href="#home"><img src="/favicon.png" alt="DeskXP logo" /><span>DeskXP</span></a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn"><span></span><span></span><span></span></button>
       <div class="menu" id="menu" data-open="false">
         <a href="#home" data-nav>Home</a>
         <a href="#services" data-nav>Services</a>
         <a href="#success" data-nav>Success Stories</a>
         <a href="#cta" data-nav>Book a Call</a>
+        <a href="/about/" data-nav>About</a>
       </div>
     </nav>
   </div>
 
-  <!-- Banner (use your new image; overlay is toned down in v203) -->
-  <div class="banner" id="home" style="background-image:url('/assets/svc-7.jpg');">
+  <!-- Banner -->
+  <div class="banner" id="home" style="background-image:url('/assets/hero.jpg');">
     <div class="inner">
       <h1 class="headline">People, process, and technology — aligned for scale.</h1>
       <p class="subhead">CX systems that drive efficiency without losing the human touch.</p>
-      <div class="cta-row" style="margin-top:12px;">
-        <a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a>
-      </div>
+      <div style="margin-top:12px;"><a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a></div>
     </div>
   </div>
 
@@ -64,97 +53,68 @@
       <h2>Services</h2>
       <div class="card-grid">
         <a class="card" href="/services/?s=operations-design" aria-label="Operations Design">
-          <img class="card-img" src="assets/svc-1.jpg" alt="Operations Design" loading="lazy">
-          <div class="card-body">
-            <h3>Operations Design</h3>
-            <p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p>
-          </div>
+          <img class="card-img" src="/assets/svc-1.jpg" alt="Operations Design" loading="lazy">
+          <div class="card-body"><h3>Operations Design</h3><p>Playbooks, SLAs, triage flows, escalation paths — foundations of a scalable CX org.</p></div>
         </a>
-
         <a class="card" href="/services/?s=systems-architecture" aria-label="Systems Architecture">
-          <img class="card-img" src="assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
-          <div class="card-body">
-            <h3>Systems Architecture</h3>
-            <p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p>
-          </div>
+          <img class="card-img" src="/assets/svc-2.jpg" alt="Systems Architecture" loading="lazy">
+          <div class="card-body"><h3>Systems Architecture</h3><p>Zendesk setup, routing, triggers, macros, and data hygiene for clean workflows.</p></div>
         </a>
-
-        <a class="card" href="/services/?s=automation-ai" aria-label="Automation &amp; AI">
-          <img class="card-img" src="assets/svc-3.jpg" alt="Automation &amp; AI" loading="lazy">
-          <div class="card-body">
-            <h3>Automation &amp; AI</h3>
-            <p>Deflection, classification, intent routing, and bots that shorten handle time.</p>
-          </div>
+        <a class="card" href="/services/?s=automation-ai" aria-label="Automation & AI">
+          <img class="card-img" src="/assets/svc-3.jpg" alt="Automation &amp; AI" loading="lazy">
+          <div class="card-body"><h3>Automation &amp; AI</h3><p>Deflection, classification, intent routing, and bots that shorten handle time.</p></div>
         </a>
-
-        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting &amp; Analytics">
-          <img class="card-img" src="assets/svc-4.jpg" alt="Reporting &amp; Analytics" loading="lazy">
-          <div class="card-body">
-            <h3>Reporting &amp; Analytics</h3>
-            <p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
-          </div>
+        <a class="card" href="/services/?s=reporting-analytics" aria-label="Reporting & Analytics">
+          <img class="card-img" src="/assets/svc-4.jpg" alt="Reporting &amp; Analytics" loading="lazy">
+          <div class="card-body"><h3>Reporting &amp; Analytics</h3><p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p></div>
         </a>
-
         <a class="card" href="/services/?s=ecommerce-integrations" aria-label="eCommerce Integrations">
-          <img class="card-img" src="assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
-          <div class="card-body">
-            <h3>eCommerce Integrations</h3>
-            <p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p>
-          </div>
+          <img class="card-img" src="/assets/svc-5.jpg" alt="eCommerce Integrations" loading="lazy">
+          <div class="card-body"><h3>eCommerce Integrations</h3><p>Shopify/Magento ↔ Zendesk, Make/Zapier workflows, and webhooks.</p></div>
         </a>
-
-        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience &amp; Servicing">
-          <img class="card-img" src="assets/svc-6.jpg" alt="Customer Experience &amp; Servicing" loading="lazy">
-          <div class="card-body">
-            <h3>Customer Experience &amp; Servicing</h3>
-            <p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
-          </div>
+        <a class="card" href="/services/?s=customer-experience-servicing" aria-label="Customer Experience & Servicing">
+          <img class="card-img" src="/assets/svc-6.jpg" alt="Customer Experience &amp; Servicing" loading="lazy">
+          <div class="card-body"><h3>Customer Experience &amp; Servicing</h3><p>Build Customer Care from zero to scale: hiring, training, QA, operations.</p></div>
         </a>
       </div>
     </section>
-  </div><!-- /container -->
+  </div>
 
-  <!-- Success Stories (spacing/centerline cleaned in v203) -->
+  <!-- Success Stories -->
   <section id="success" class="success-slider reveal">
     <div class="success-head"><h2>Success Stories</h2></div>
-
     <div class="success-track" id="successTrack">
       <article class="success-slide is-active">
-        <img class="success-logo" src="assets/palawanpay.png" alt="PalawanPay">
+        <img class="success-logo" src="/assets/palawanpay.png" alt="PalawanPay">
         <h3 class="success-title">PalawanPay — End-to-End CX Org + Advanced Zendesk</h3>
-        <p class="success-body">Built Customer Care from the ground up (hiring, training, QA, policies) and implemented full Zendesk suite with automation and dashboards.</p>
+        <p class="success-body">Built Customer Care from zero; deployed full Zendesk suite with automation and dashboards.</p>
       </article>
-
       <article class="success-slide">
-        <img class="success-logo" src="assets/unison.png" alt="Unison">
+        <img class="success-logo" src="/assets/unison.png" alt="Unison">
         <h3 class="success-title">Unison — Workflows, Dashboards, Help Center</h3>
-        <p class="success-body">Revamped ticket flows, reporting, and Help Center for improved agent performance and SLA visibility.</p>
+        <p class="success-body">Revamped ticket flows, reporting, and Help Center for SLA visibility and agent speed.</p>
       </article>
-
       <article class="success-slide">
-        <img class="success-logo" src="assets/bds.png" alt="Boutique de Sophie">
+        <img class="success-logo" src="/assets/bds.png" alt="Boutique de Sophie">
         <h3 class="success-title">Boutique de Sophie — E-commerce Scaling</h3>
-        <p class="success-body">Shopify ↔ Zendesk integration, self-serve content, and targeted automations that reduced repetitive tickets and improved post-purchase CSAT.</p>
+        <p class="success-body">Shopify ↔ Zendesk integration, self-serve content, targeted automations; improved CSAT.</p>
       </article>
     </div>
-
     <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
     <button class="success-nav next" id="nextBtn" aria-label="Next slide">›</button>
     <div class="success-dots" id="successDots" aria-label="Slide pagination"></div>
   </section>
 
-  <!-- Teaser + Discovery -->
   <div class="container">
-    <section class="about-teaser reveal v2" aria-labelledby="about-line">
-      <span class="eyebrow">About</span>
-      <h2 id="about-line" class="statement">Expert. Seasoned. Tech-driven. <span class="nowrap">Customer-First.</span></h2>
-      <p class="teaser-subtext">Systems that scale people, not just processes.</p>
-      <div class="cta-row">
-        <a href="/about.html" class="btn-minimal">Learn more</a>
-      </div>
+    <!-- About teaser -->
+    <section class="about-teaser reveal" aria-labelledby="about-line">
+      <span class="eyebrow muted">About</span>
+      <h2 id="about-line">Expert. Seasoned. Tech-driven. <span class="nowrap">Customer-First.</span></h2>
+      <p class="teaser-subtext muted">Systems that scale people, not just processes.</p>
+      <div class="cta-row"><a href="/about/" class="btn-minimal">Learn more</a></div>
     </section>
 
-    <!-- Book a call (uses unified .btn-primary) -->
+    <!-- CTA -->
     <section id="cta" class="reveal">
       <h2>Book a discovery call</h2>
       <div class="cta-grid">
@@ -167,34 +127,13 @@
           </ul>
           <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
         </div>
-        <div class="cta-actions">
-          <a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a>
-        </div>
+        <div class="cta-actions"><a href="https://calendly.com/deskxp/30min" class="btn-primary">Book a Call</a></div>
       </div>
     </section>
   </div>
 
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
 
-  <script src="/js/main.v202.js?v=202"></script>
-  <script>
-    // Active nav on scroll (tiny, non-breaking)
-    (function(){
-      var links=[].slice.call(document.querySelectorAll('[data-nav]'));
-      var map = {};
-      links.forEach(function(a){ var id=a.getAttribute('href').replace('#',''); map[id]=a; });
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting && map[e.target.id]){
-            links.forEach(function(x){x.classList.remove('is-active');});
-            map[e.target.id].classList.add('is-active');
-          }
-        });
-      },{threshold:.4});
-      ['home','services','success','cta'].forEach(function(id){
-        var el=document.getElementById(id); if(el) obs.observe(el);
-      });
-    })();
-  </script>
+  <script src="/js/main.v203.js?v=203" defer></script>
 </body>
 </html>
