@@ -1,68 +1,62 @@
-// main.v202.js — DeskXP
-// Adds: active nav highlighting on scroll, safer slider auto-pause with reduced motion,
-// closes mobile menu after nav link click, keeps v201 features.
-
+// main.v203.js — DeskXP unified frontend
 document.addEventListener("DOMContentLoaded", function () {
-  // YEAR
+
+  /* ===== YEAR ===== */
   var y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
 
-  // MOBILE MENU
+  /* ===== MOBILE MENU ===== */
   (function () {
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("menu");
     if (!btn || !menu) return;
+
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
+      document.body.style.overflow = open ? "hidden" : "";
     }
+
     btn.addEventListener("click", function () {
       setState(menu.getAttribute("data-open") !== "true");
     });
-    // Close on Esc or hash change
-    window.addEventListener("hashchange", function () { setState(false); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setState(false); });
-    // Close when clicking a nav link
-    var navLinks = menu.querySelectorAll("a");
-    for (var i=0;i<navLinks.length;i++){
-      navLinks[i].addEventListener("click", function(){ setState(false); });
-    }
+
+    // close on escape or nav click
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setState(false);
+    });
+    menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setState(false)));
   })();
 
-  // SCROLL REVEAL (safe: visible by default, animates once)
+  /* ===== SCROLL REVEAL ===== */
   (function () {
     var root = document.documentElement;
     var els = document.querySelectorAll(".reveal");
     if (!els.length) return;
 
-    function revealAll() { for (var i=0;i<els.length;i++) els[i].classList.add("is-visible"); }
+    function revealAll() { els.forEach(el => el.classList.add("is-visible")); }
+
     function enableIO() {
       try {
         var io = new IntersectionObserver(function (entries) {
-          for (var i=0;i<entries.length;i++) {
-            if (entries[i].isIntersecting) {
-              entries[i].target.classList.add("is-visible");
-              io.unobserve(entries[i].target);
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
             }
-          }
+          });
         }, { threshold: 0.2 });
-        for (var j=0;j<els.length;j++) io.observe(els[j]);
+        els.forEach(el => io.observe(el));
       } catch (e) { revealAll(); }
     }
 
-    // Flip .js AFTER observers are ready (prevents initial hide)
-    requestAnimationFrame(function () {
+    requestAnimationFrame(() => {
       root.classList.add("js");
       if ("IntersectionObserver" in window) enableIO(); else revealAll();
     });
   })();
 
-  // SUCCESS SLIDER (fade; auto + arrows + dots)
+  /* ===== SUCCESS SLIDER ===== */
   (function () {
     var track = document.getElementById("successTrack");
     var dotsWrap = document.getElementById("successDots");
@@ -70,18 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
     var nextBtn = document.getElementById("nextBtn");
     if (!track || !dotsWrap) return;
 
-    var slides = Array.prototype.slice.call(track.children || []);
+    var slides = Array.from(track.children);
     if (!slides.length) return;
 
-    var idx = 0;
-    var timer = null;
+    var idx = 0, timer = null;
     var INTERVAL = 6000;
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setActive(i) {
-      for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s === i);
+      slides.forEach((s, n) => s.classList.toggle("is-active", n === i));
       var dots = dotsWrap.children;
-      for (var d=0; d<dots.length; d++) dots[d].classList.toggle("active", d === i);
+      for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("active", d === i);
     }
 
     function go(i, user) {
@@ -91,64 +84,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function buildDots() {
-      var html = "";
-      for (var i=0;i<slides.length;i++) html += '<button aria-label="Go to slide '+(i+1)+'"></button>';
-      dotsWrap.innerHTML = html;
-      var dots = dotsWrap.children;
-      for (var j=0;j<dots.length;j++){
-        (function(k){ dots[k].addEventListener("click", function(){ go(k, true); }); })(j);
-      }
-      if (dots[0]) dots[0].classList.add("active");
+      dotsWrap.innerHTML = slides.map((_, i) => `<button aria-label="Go to slide ${i + 1}"></button>`).join("");
+      Array.from(dotsWrap.children).forEach((dot, j) => dot.addEventListener("click", () => go(j, true)));
+      if (dotsWrap.children[0]) dotsWrap.children[0].classList.add("active");
     }
 
-    function start() { stop(); if (!reduceMotion) timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); }
+    function start() { if (!reducedMotion) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
     function stop() { if (timer) clearInterval(timer); timer = null; }
     function restart() { stop(); start(); }
 
-    // Init
-    try { buildDots(); setActive(0); start(); } catch(e){ /* fail open */ }
+    buildDots(); setActive(0); start();
 
-    // Controls
-    if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx - 1, true); });
-    if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx + 1, true); });
-
+    prevBtn?.addEventListener("click", () => go(idx - 1, true));
+    nextBtn?.addEventListener("click", () => go(idx + 1, true));
     track.addEventListener("mouseenter", stop);
     track.addEventListener("mouseleave", start);
 
-    // Arrow keys
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") { go(idx - 1, true); }
-      if (e.key === "ArrowRight") { go(idx + 1, true); }
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft") go(idx - 1, true);
+      if (e.key === "ArrowRight") go(idx + 1, true);
     });
   })();
 
-  // ACTIVE NAV HIGHLIGHT ON SCROLL
-  (function(){
-    var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
-    if (!links.length) return;
-    var map = {};
-    links.forEach(function(a){
-      var href = a.getAttribute('href') || '';
-      if (!href || href.charAt(0) !== '#') return;
-      var id = href.slice(1);
-      if (id) map[id] = a;
-    });
-    var ids = Object.keys(map);
-    if (!ids.length) return;
+  /* ===== ACTIVE NAV HIGHLIGHT ON SCROLL ===== */
+  (function () {
+    var navLinks = document.querySelectorAll("[data-nav]");
+    if (!navLinks.length) return;
 
-    try{
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting && map[e.target.id]){
-            links.forEach(function(x){ x.classList.remove('is-active'); });
-            map[e.target.id].classList.add('is-active');
-          }
-        });
-      }, { threshold: 0.4 });
-      ids.forEach(function(id){
-        var el = document.getElementById(id);
-        if (el) obs.observe(el);
+    var sections = Array.from(navLinks).map(link => {
+      var id = link.getAttribute("href").split("#")[1];
+      return document.getElementById(id);
+    }).filter(Boolean);
+
+    function onScroll() {
+      var scrollPos = window.scrollY + 120;
+      sections.forEach((sec, i) => {
+        var top = sec.offsetTop, bottom = top + sec.offsetHeight;
+        var active = scrollPos >= top && scrollPos < bottom;
+        navLinks[i].classList.toggle("is-active", active);
       });
-    }catch(e){ /* no-op */ }
+    }
+
+    window.addEventListener("scroll", onScroll);
+    onScroll();
   })();
+
 });
