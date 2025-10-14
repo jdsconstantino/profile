@@ -54,7 +54,7 @@ img{max-width:100%; height:auto; display:block;}
 /* ===== Banner (home only) ===== */
 .banner{
   width:100%; height:320px;
-  background:url("/assets/svc-7.jpg") center/cover no-repeat;
+  background:url("/assets/banner.jpg") center/cover no-repeat;
   position:relative; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; overflow:hidden;
 }
 .banner::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45);}
