@@ -515,32 +515,6 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
     justify-content: center;
   }
 }
-/* ===== Profile photo bright background ===== */
-.ap-photo {
-  position: relative;
-  background: #ffeb3b; /* bright yellow base */
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.ap-photo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(145deg, #fff289, #ffd600);
-  z-index: 0;
-}
-
-.ap-photo img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 20px;
-  background: transparent; /* remove the black fill */
-}
 /* Projects: logo cards should not be cropped or scaled */
 .about-cases .card-img{
   height: 140px;           /* shorter header area for logos */
