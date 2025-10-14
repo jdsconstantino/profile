@@ -30,11 +30,11 @@ img{max-width:100%; height:auto; display:block;}
 
 /* ===== Header ===== */
 .nav-wrap{
-  position:sticky; top:0; z-index:50;
-  background:var(--glass);
-  backdrop-filter:saturate(160%) blur(16px);
-  -webkit-backdrop-filter:saturate(160%) blur(16px);
-  border-bottom:1px solid var(--glass-border);
+  position:sticky; 
+  top:0; 
+  z-index:50;
+  background:#101215;               /* solid dark background */
+  border-bottom:1px solid var(--border);
 }
 .nav{max-width:1100px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;}
 .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--text); text-decoration:none;}
