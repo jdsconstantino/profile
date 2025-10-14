@@ -6,33 +6,35 @@
   <title>About — DeskXP</title>
   <meta name="description" content="James Daniel Constantino — CX systems & operations portfolio. Relevant experience, outcomes, and tools." />
   <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="stylesheet" href="/css/site.v204.css?v=204">
-  <link rel="stylesheet" href="/css/site.services-hotfix.css?v=1">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/site.v205.css?v=205" />
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
+  <a href="#profile" class="skip">Skip to content</a>
+
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="/"><img src="/favicon.png" alt="DeskXP" width="24" height="24" /><span>DeskXP</span></a>
+      <a class="brand" href="/"><img src="/favicon.png" alt="DeskXP" width="26" height="26" /><span>DeskXP</span></a>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn"><span></span><span></span><span></span></button>
       <div class="menu" id="menu" data-open="false">
-        <a href="/">Home</a>
-        <a href="/#services">Services</a>
-        <a href="/#success">Success</a>
-        <a href="/about.html" aria-current="page">About</a>
-        <a href="/#cta">Book a Call</a>
+        <a href="/#home" data-nav>Home</a>
+        <a href="/#services" data-nav>Services</a>
+        <a href="/#success" data-nav>Success Stories</a>
+        <a href="/#cta" data-nav>Book a Call</a>
+        <a href="/about/" aria-current="page">About</a>
       </div>
     </nav>
   </div>
 
   <div class="container">
-    <!-- White section, photo RIGHT -->
-    <section class="about-profile reveal" aria-labelledby="name">
+    <section id="profile" class="about-profile reveal" aria-labelledby="name">
       <div class="ap-grid">
         <div class="ap-copy">
           <h1 id="name" class="ap-title">James Daniel Constantino</h1>
-          <p class="ap-tag">CX Systems & Operations — Fintech • E-commerce</p>
+          <p class="ap-tag">CX Systems &amp; Operations — Fintech • E-commerce</p>
           <p class="ap-blurb">
             I build scalable Customer Care systems—architecture, automation, and analytics—then operationalize them with clean data, clear SLAs, and ruthless follow-through.
           </p>
@@ -56,9 +58,8 @@
       </div>
     </section>
 
-    <!-- Logos -->
     <section class="about-logos reveal">
-      <p class="muted">Selected brands & projects</p>
+      <p class="muted">Selected brands &amp; projects</p>
       <div class="logo-row">
         <img src="/assets/palawanpay.png" alt="PalawanPay" />
         <img src="/assets/unison.png" alt="Unison" />
@@ -66,79 +67,63 @@
       </div>
     </section>
 
-    <!-- Professional Career -->
     <section class="about-timeline reveal">
       <h2>Professional Career</h2>
       <ol class="tl tl-pro">
         <li>
-          <div class="tl-head">
-            <strong>Zendesk Lead Consultant — ValueHub IT</strong>
-            <span class="tl-time">2025 – Present</span>
-          </div>
+          <div class="tl-head"><strong>Zendesk Lead Consultant — ValueHub IT</strong><span class="tl-time">2025 – Present</span></div>
           <ul class="tl-points">
             <li>Own end-to-end CX implementations: architecture, workflows, automations, Guide, and Explore.</li>
-            <li>Standardize onboarding kits (forms, macros, SLAs, QA) to cut time-to-go-live to days, not weeks.</li>
-            <li>Coach client teams on governance: clean fields, naming, routing discipline, and data contracts.</li>
+            <li>Standardize onboarding kits (forms, macros, SLAs, QA) to cut time-to-go-live to days.</li>
+            <li>Coach teams on governance: clean fields, naming, routing discipline, data contracts.</li>
           </ul>
         </li>
-
         <li>
-          <div class="tl-head">
-            <strong>Operations Lead (B2C) — PalawanPay</strong>
-            <span class="tl-time">2023 – 2025</span>
-          </div>
+          <div class="tl-head"><strong>Operations Lead (B2C) — PalawanPay</strong><span class="tl-time">2023 – 2025</span></div>
           <ul class="tl-points">
-            <li>Built Customer Care from zero: hiring, training, QA, SOPs, escalation matrices, and vendor mgmt.</li>
-            <li>Deployed full Zendesk stack with skills-based routing, macros, SLAs, and Guide; automated repetitive paths with bots and Sunshine Conversations (₱5M+ deflection savings).</li>
-            <li>Instituted data-driven ops: weekly reviews on FRT/AHT/CSAT, backlog hygiene, and actionable dashboards.</li>
+            <li>Built Customer Care from zero: hiring, training, QA, SOPs, escalations, vendor mgmt.</li>
+            <li>Deployed full Zendesk stack; automated repetitive paths (₱5M+ deflection savings).</li>
+            <li>Instituted data-driven ops: weekly FRT/AHT/CSAT reviews, backlog hygiene, dashboards.</li>
           </ul>
         </li>
-
         <li>
-          <div class="tl-head">
-            <strong>Independent CX Systems Consultant — E-commerce</strong>
-            <span class="tl-time">2022 – Present</span>
-          </div>
+          <div class="tl-head"><strong>Independent CX Systems Consultant — E-commerce</strong><span class="tl-time">2022 – Present</span></div>
           <ul class="tl-points">
-            <li>Implemented Shopify/Magento ↔ Zendesk integrations, Make/Zapier flows, and transactional comms.</li>
-            <li>Built disputes/refunds SOPs, routing and macros for post-purchase; instrumented AHT/CSAT/SLAs.</li>
-            <li>Delivered Looker Studio/Explore dashboards blending tickets, orders, refunds, and QA outcomes.</li>
+            <li>Shopify/Magento ↔ Zendesk integrations, Make/Zapier flows, transactional comms.</li>
+            <li>Disputes/refunds SOPs; routing & macros for post-purchase; AHT/CSAT/SLAs instrumentation.</li>
+            <li>Looker Studio/Explore dashboards across tickets, orders, refunds, QA outcomes.</li>
           </ul>
         </li>
       </ol>
     </section>
 
-    <!-- Projects -->
     <section class="about-cases reveal">
       <h2>Projects</h2>
       <div class="card-grid">
         <a class="card" href="/#success">
           <img class="card-img" src="/assets/palawanpay.png" alt="PalawanPay" loading="lazy" />
           <div class="card-body">
-            <h3>PalawanPay — CX Org & Advanced Zendesk</h3>
-            <p>Zero-to-one Customer Care; skills routing, SLAs, bots; Explore dashboards; measurable savings.</p>
+            <h3>PalawanPay — CX Org &amp; Advanced Zendesk</h3>
+            <p>Zero-to-one Customer Care; skills routing, SLAs, bots; Explore dashboards.</p>
           </div>
         </a>
-
         <a class="card" href="/#success">
           <img class="card-img" src="/assets/unison.png" alt="Unison" loading="lazy" />
           <div class="card-body">
-            <h3>Unison — Workflows & Help Center</h3>
-            <p>Ticket flow overhaul, Guide UX, SLA discipline, and productivity/satisfaction reporting.</p>
+            <h3>Unison — Workflows &amp; Help Center</h3>
+            <p>Ticket flow overhaul, Guide UX, SLA discipline, productivity reporting.</p>
           </div>
         </a>
-
         <a class="card" href="/#success">
           <img class="card-img" src="/assets/bds.png" alt="Boutique de Sophie" loading="lazy" />
           <div class="card-body">
             <h3>Boutique de Sophie — E-commerce Scaling</h3>
-            <p>Shopify ↔ Zendesk integration, targeted automations, and self-serve to reduce repetitive tickets.</p>
+            <p>Shopify ↔ Zendesk integration, targeted automations, self-serve content.</p>
           </div>
         </a>
       </div>
     </section>
 
-    <!-- CTA -->
     <section class="dc-card reveal">
       <div>
         <h3>Let’s diagnose your CX in 30 minutes.</h3>
@@ -152,6 +137,6 @@
   </div>
 
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
-  <script src="/js/main.v202.js?v=202"></script>
+  <script src="/js/main.v203.js?v=203" defer></script>
 </body>
 </html>
