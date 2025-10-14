@@ -291,3 +291,67 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .about-teaser .subtext {
   font-weight: 400;
 }
+/* ===== About teaser v2 (tighter, senior-looking) ===== */
+.nowrap { white-space: nowrap; }
+
+.about-teaser.v2{
+  /* keep your gradient card but tighten the frame */
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: left;
+  padding: 56px 32px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* hierarchy + readable line length */
+.about-teaser.v2 .statement{
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  max-width: 22ch;            /* kill the billboard width */
+  text-wrap: balance;
+  color: #0f172a;
+  text-shadow: none;          /* ditch the glow */
+}
+
+.about-teaser.v2 .teaser-subtext{
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.5;
+  color: #374151;
+  margin: 0;
+  max-width: 50ch;
+  opacity: .95;
+}
+
+/* small eyebrow for polish */
+.about-teaser.v2 .eyebrow{
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+/* button sits on a baseline, not floating in space */
+.about-teaser.v2 .cta-row{
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* keep your btn but make it feel intentional here */
+.about-teaser.v2 .btn-minimal{
+  border-width: 2px;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+/* optional: a center variant you can toggle if you must */
+.about-teaser.v2.center{ text-align:center; }
+.about-teaser.v2.center .statement,
+.about-teaser.v2.center .teaser-subtext{ margin-left:auto; margin-right:auto; }
