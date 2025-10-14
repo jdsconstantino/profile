@@ -1,11 +1,10 @@
-// main.v203.js — DeskXP unified frontend (nav fix)
+// main.js — DeskXP v201
 document.addEventListener("DOMContentLoaded", function () {
-
-  /* YEAR */
+  // YEAR
   var y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
 
-  /* MOBILE MENU */
+  // MOBILE MENU
   (function () {
     var btn = document.getElementById("menuBtn");
     var menu = document.getElementById("menu");
@@ -13,39 +12,43 @@ document.addEventListener("DOMContentLoaded", function () {
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
-      document.body.style.overflow = open ? "hidden" : "";
     }
-    btn.addEventListener("click", function () { setState(menu.getAttribute("data-open") !== "true"); });
+    btn.addEventListener("click", function () {
+      setState(menu.getAttribute("data-open") !== "true");
+    });
+    window.addEventListener("hashchange", function () { setState(false); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setState(false); });
-    menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setState(false)));
   })();
 
-  /* SCROLL REVEAL */
+  // SCROLL REVEAL (safe: visible by default, animates once)
   (function () {
     var root = document.documentElement;
     var els = document.querySelectorAll(".reveal");
     if (!els.length) return;
-    function revealAll() { els.forEach(el => el.classList.add("is-visible")); }
+
+    function revealAll() { for (var i=0;i<els.length;i++) els[i].classList.add("is-visible"); }
     function enableIO() {
       try {
         var io = new IntersectionObserver(function (entries) {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              io.unobserve(entry.target);
+          for (var i=0;i<entries.length;i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("is-visible");
+              io.unobserve(entries[i].target);
             }
-          });
+          }
         }, { threshold: 0.2 });
-        els.forEach(el => io.observe(el));
-      } catch { revealAll(); }
+        for (var j=0;j<els.length;j++) io.observe(els[j]);
+      } catch (e) { revealAll(); }
     }
-    requestAnimationFrame(() => {
+
+    // Flip .js AFTER observers are ready (prevents initial hide)
+    requestAnimationFrame(function () {
       root.classList.add("js");
       if ("IntersectionObserver" in window) enableIO(); else revealAll();
     });
   })();
 
-  /* SUCCESS SLIDER */
+  // SUCCESS SLIDER (fade; auto + arrows + dots)
   (function () {
     var track = document.getElementById("successTrack");
     var dotsWrap = document.getElementById("successDots");
@@ -53,67 +56,54 @@ document.addEventListener("DOMContentLoaded", function () {
     var nextBtn = document.getElementById("nextBtn");
     if (!track || !dotsWrap) return;
 
-    var slides = Array.from(track.children);
+    var slides = Array.prototype.slice.call(track.children || []);
     if (!slides.length) return;
 
-    var idx = 0, timer = null;
+    var idx = 0;
+    var timer = null;
     var INTERVAL = 6000;
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setActive(i) {
-      slides.forEach((s, n) => s.classList.toggle("is-active", n === i));
+      for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s === i);
       var dots = dotsWrap.children;
-      for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("active", d === i);
+      for (var d=0; d<dots.length; d++) dots[d].classList.toggle("active", d === i);
     }
+
     function go(i, user) {
       idx = (i + slides.length) % slides.length;
       setActive(idx);
       if (user) restart();
     }
+
     function buildDots() {
-      dotsWrap.innerHTML = slides.map((_, i) => `<button aria-label="Go to slide ${i + 1}"></button>`).join("");
-      Array.from(dotsWrap.children).forEach((dot, j) => dot.addEventListener("click", () => go(j, true)));
-      dotsWrap.children[0]?.classList.add("active");
+      var html = "";
+      for (var i=0;i<slides.length;i++) html += '<button aria-label="Go to slide '+(i+1)+'"></button>';
+      dotsWrap.innerHTML = html;
+      var dots = dotsWrap.children;
+      for (var j=0;j<dots.length;j++){
+        (function(k){ dots[k].addEventListener("click", function(){ go(k, true); }); })(j);
+      }
+      if (dots[0]) dots[0].classList.add("active");
     }
-    function start() { if (!reducedMotion) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
+
+    function start() { stop(); timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); }
     function stop() { if (timer) clearInterval(timer); timer = null; }
     function restart() { stop(); start(); }
 
-    buildDots(); setActive(0); start();
-    prevBtn?.addEventListener("click", () => go(idx - 1, true));
-    nextBtn?.addEventListener("click", () => go(idx + 1, true));
+    // Init
+    try { buildDots(); setActive(0); start(); } catch(e){ /* fail open */ }
+
+    // Controls
+    if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx - 1, true); });
+    if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx + 1, true); });
+
     track.addEventListener("mouseenter", stop);
     track.addEventListener("mouseleave", start);
-    window.addEventListener("keydown", e => { if (e.key === "ArrowLeft") go(idx - 1, true); if (e.key === "ArrowRight") go(idx + 1, true); });
+
+    // Arrow keys
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { go(idx - 1, true); }
+      if (e.key === "ArrowRight") { go(idx + 1, true); }
+    });
   })();
-
-  /* ACTIVE NAV HIGHLIGHT — robust mapping (works on / and /about/) */
-  (function () {
-    var links = Array.from(document.querySelectorAll("[data-nav]"));
-    if (!links.length) return;
-
-    // Build a list of {link, section} where section actually exists on this page.
-    var pairs = links.map(link => {
-      var href = link.getAttribute("href") || "";
-      var hash = href.includes("#") ? href.split("#")[1] : "";
-      var section = hash ? document.getElementById(hash) : null;
-      return section ? { link, section } : null;
-    }).filter(Boolean);
-
-    if (!pairs.length) return;
-
-    function onScroll() {
-      var scrollPos = window.scrollY + 120;
-      pairs.forEach(({ link, section }) => {
-        var top = section.offsetTop, bottom = top + section.offsetHeight;
-        var active = scrollPos >= top && scrollPos < bottom;
-        link.classList.toggle("is-active", active);
-      });
-    }
-
-    window.addEventListener("scroll", onScroll);
-    window.addEventListener("resize", onScroll);
-    onScroll();
-  })();
-
 });
