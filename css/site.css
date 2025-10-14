@@ -238,7 +238,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   *{animation:none!important; transition:none!important; scroll-behavior:auto!important;}
 }
 /* Headline safe-space on the hero */
-.banner .inner{ padding-top:80px; }         /* desktop */
+.banner .inner{ padding-top:120px; }         /* desktop */
 @media (max-width:600px){
   .banner .inner{ padding-top:40px; }       /* mobile */
 }
