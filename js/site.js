@@ -1,4 +1,7 @@
-// main.js — DeskXP v201
+// main.v202.js — DeskXP
+// Adds: active nav highlighting on scroll, safer slider auto-pause with reduced motion,
+// closes mobile menu after nav link click, keeps v201 features.
+
 document.addEventListener("DOMContentLoaded", function () {
   // YEAR
   var y = document.getElementById("y");
@@ -12,12 +15,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
     }
     btn.addEventListener("click", function () {
       setState(menu.getAttribute("data-open") !== "true");
     });
+    // Close on Esc or hash change
     window.addEventListener("hashchange", function () { setState(false); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setState(false); });
+    // Close when clicking a nav link
+    var navLinks = menu.querySelectorAll("a");
+    for (var i=0;i<navLinks.length;i++){
+      navLinks[i].addEventListener("click", function(){ setState(false); });
+    }
   })();
 
   // SCROLL REVEAL (safe: visible by default, animates once)
@@ -62,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var idx = 0;
     var timer = null;
     var INTERVAL = 6000;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setActive(i) {
       for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s === i);
@@ -86,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (dots[0]) dots[0].classList.add("active");
     }
 
-    function start() { stop(); timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); }
+    function start() { stop(); if (!reduceMotion) timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); }
     function stop() { if (timer) clearInterval(timer); timer = null; }
     function restart() { stop(); start(); }
 
@@ -105,5 +120,35 @@ document.addEventListener("DOMContentLoaded", function () {
       if (e.key === "ArrowLeft") { go(idx - 1, true); }
       if (e.key === "ArrowRight") { go(idx + 1, true); }
     });
+  })();
+
+  // ACTIVE NAV HIGHLIGHT ON SCROLL
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+    if (!links.length) return;
+    var map = {};
+    links.forEach(function(a){
+      var href = a.getAttribute('href') || '';
+      if (!href || href.charAt(0) !== '#') return;
+      var id = href.slice(1);
+      if (id) map[id] = a;
+    });
+    var ids = Object.keys(map);
+    if (!ids.length) return;
+
+    try{
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting && map[e.target.id]){
+            links.forEach(function(x){ x.classList.remove('is-active'); });
+            map[e.target.id].classList.add('is-active');
+          }
+        });
+      }, { threshold: 0.4 });
+      ids.forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) obs.observe(el);
+      });
+    }catch(e){ /* no-op */ }
   })();
 });
