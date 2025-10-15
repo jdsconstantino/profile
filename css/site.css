@@ -404,3 +404,31 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   color: #fff;
   transform: translateY(-1px);
 }
+/* Center the Learn More button */
+.about-teaser.reveal.v2 .btn-outline {
+  display: inline-block;
+  padding: 10px 28px;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  text-align: center;
+  transition: all 0.25s ease;
+  margin: 20px auto 0;       /* centers horizontally */
+}
+
+.about-teaser.reveal.v2 .about-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* centers everything inside */
+  text-align: center;
+}
+
+/* Hover effect */
+.about-teaser.reveal.v2 .btn-outline:hover {
+  background: var(--accent, #007236);
+  border-color: var(--accent, #007236);
+  color: #fff;
+  transform: translateY(-1px);
+}
