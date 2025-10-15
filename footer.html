@@ -1,34 +1,173 @@
-<footer>
-  <div class="footer-grid">
-    <div class="footer-col">
-      <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-logo">
-      <ul class="footer-links">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Cookie Policy</a></li>
-      </ul>
-    </div>
+<footer class="dxp-footer">
+  <style>
+    /* Load a cleaner UI font just for the footer (safe to @import inside <style>) */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <ul class="footer-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/services/">Services</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="#cta">Book a Call</a></li>
-      </ul>
-    </div>
+    :root{
+      --dxp-green: #007236;
+      --dxp-ink:   #e7e9ee;
+      --dxp-muted: #cfd4dc;
+      --dxp-ink-2: #f6f7f9;
+      --dxp-bg-1:  #2E424E; /* brand ink */
+      --dxp-bg-2:  #1f2a30; /* deeper base */
+    }
 
-    <div class="footer-col">
-      <h4>Connect with Me</h4>
-      <ul class="footer-links">
-        <li><a href="https://linkedin.com/in/jamesconstantino" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.upwork.com/freelancers/~yourlink" target="_blank">Upwork</a></li>
-      </ul>
+    /* OUTER: remove bleed, keep it as a rounded surface with gradient */
+    .dxp-footer{
+      font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+      color: var(--dxp-ink);
+      margin: 40px auto 0;
+      padding: 0;                     /* handled by the surface */
+    }
+
+    /* Rounded panel that holds the gradient — overflow hidden avoids bleed */
+    .dxp-footer .surface{
+      background: radial-gradient(120% 160% at 50% -20%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%),
+                  linear-gradient(180deg, #37535F 0%, #2E424E 32%, #24353D 70%, #1c262c 100%);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      overflow: hidden;               /* <— no gradient bleed */
+      padding: 46px 24px 22px;
+    }
+
+    .dxp-footer .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* GRID: 4 columns as requested */
+    .dxp-footer .grid{
+      display: grid;
+      grid-template-columns: 180px 220px 1fr 1fr;  /* Logo | Policies | Nav | Connect */
+      gap: 36px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    /* Column blocks */
+    .dxp-footer .col h4{
+      margin: 0 0 12px;
+      font-weight: 700;
+      font-size: clamp(1rem, 0.8rem + .6vw, 1.08rem);
+      color: var(--dxp-ink-2);
+      letter-spacing: .005em;
+    }
+
+    .dxp-footer .logo{
+      display: block;
+      width: 120px;
+      height: auto;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
+    }
+
+    .dxp-footer .links{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dxp-footer .links li{ margin: 7px 0; }
+
+    .dxp-footer a{
+      color: var(--dxp-ink);
+      text-decoration: none;
+      font-size: .95rem;
+      line-height: 1.45;
+      opacity: .92;
+      transition: color .18s ease, opacity .18s ease, text-decoration-color .18s ease;
+      text-decoration-color: transparent;
+    }
+    .dxp-footer a:hover{
+      opacity: 1;
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,.7);
+    }
+
+    /* Hairline and copyright row */
+    .dxp-footer .rule{
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
+      margin: 8px 0 14px;
+      opacity: .75;
+    }
+    .dxp-footer .copy{
+      text-align: center;
+      color: var(--dxp-muted);
+      font-size: .92rem;
+      letter-spacing: .01em;
+    }
+    .dxp-footer .copy a{ color: #fff; text-decoration: none; }
+    .dxp-footer .copy a:hover{ text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .dxp-footer .grid{
+        grid-template-columns: 160px 1fr 1fr;       /* Logo + Policies share 1 row */
+        grid-auto-rows: auto;
+      }
+      .dxp-footer .col.logo-col{ grid-column: 1; }
+      .dxp-footer .col.policies{ grid-column: 2 / 4; }
+    }
+    @media (max-width: 720px){
+      .dxp-footer .grid{ grid-template-columns: 1fr 1fr; gap: 28px 22px; }
+      .dxp-footer .col.logo-col{ grid-column: 1 / -1; }
+      .dxp-footer .logo{ width: 100px; }
+    }
+    @media (max-width: 520px){
+      .dxp-footer .grid{ grid-template-columns: 1fr; gap: 22px; }
+    }
+  </style>
+
+  <div class="surface">
+    <div class="wrap">
+      <div class="grid">
+        <!-- Col 1: Logo only -->
+        <div class="col logo-col">
+          <img src="/assets/logo.png" alt="DeskXP" class="logo">
+        </div>
+
+        <!-- Col 2: Policies -->
+        <div class="col policies">
+          <h4>Policies</h4>
+          <ul class="links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/cookies/">Cookie Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Navigation -->
+        <div class="col">
+          <h4>Navigation</h4>
+          <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/#success">Success Stories</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/#cta">Book a Call</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Connect -->
+        <div class="col">
+          <h4>Connect with Me</h4>
+          <ul class="links">
+            <li><a href="https://linkedin.com/in/jamesconstantino" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.upwork.com/freelancers/~yourlink" target="_blank" rel="noopener">Upwork</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+      <p class="copy">© <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a></p>
     </div>
   </div>
 
-  <p class="copyright">
-    © <span id="y"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a>
-  </p>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    (function(){
+      var el = document.getElementById("dxp-year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
 </footer>
