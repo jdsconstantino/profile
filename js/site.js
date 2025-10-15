@@ -48,62 +48,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  // SUCCESS SLIDER (fade; auto + arrows + dots)
-  (function () {
-    var track = document.getElementById("successTrack");
-    var dotsWrap = document.getElementById("successDots");
-    var prevBtn = document.getElementById("prevBtn");
-    var nextBtn = document.getElementById("nextBtn");
-    if (!track || !dotsWrap) return;
+  /* ===== SUCCESS SLIDER (hardened) ===== */
+(function () {
+  var root = document.getElementById("success");
+  if (!root) return;
 
-    var slides = Array.prototype.slice.call(track.children || []);
-    if (!slides.length) return;
+  var track = root.querySelector("#successTrack");
+  var dotsWrap = root.querySelector("#successDots");
+  var prevBtn = root.querySelector("#prevBtn");
+  var nextBtn = root.querySelector("#nextBtn");
+  if (!track) return;
 
-    var idx = 0;
-    var timer = null;
-    var INTERVAL = 6000;
+  var slides = Array.from(track.children).filter(s => s.classList.contains("success-slide"));
+  if (!slides.length) return;
 
-    function setActive(i) {
-      for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s === i);
-      var dots = dotsWrap.children;
-      for (var d=0; d<dots.length; d++) dots[d].classList.toggle("active", d === i);
-    }
+  // Create dots if missing
+  if (!dotsWrap) {
+    dotsWrap = document.createElement("div");
+    dotsWrap.id = "successDots";
+    dotsWrap.className = "success-dots";
+    root.appendChild(dotsWrap);
+  }
 
-    function go(i, user) {
-      idx = (i + slides.length) % slides.length;
-      setActive(idx);
-      if (user) restart();
-    }
+  var idx = 0, timer = null;
+  var INTERVAL = 6000;
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    function buildDots() {
-      var html = "";
-      for (var i=0;i<slides.length;i++) html += '<button aria-label="Go to slide '+(i+1)+'"></button>';
-      dotsWrap.innerHTML = html;
-      var dots = dotsWrap.children;
-      for (var j=0;j<dots.length;j++){
-        (function(k){ dots[k].addEventListener("click", function(){ go(k, true); }); })(j);
-      }
-      if (dots[0]) dots[0].classList.add("active");
-    }
+  function setActive(i) {
+    slides.forEach((s, n) => s.classList.toggle("is-active", n === i));
+    var dots = dotsWrap.children;
+    for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("active", d === i);
+  }
 
-    function start() { stop(); timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
-    function restart() { stop(); start(); }
+  function go(i, user) {
+    idx = (i + slides.length) % slides.length;
+    setActive(idx);
+    if (user) restart();
+  }
 
-    // Init
-    try { buildDots(); setActive(0); start(); } catch(e){ /* fail open */ }
+  function buildDots() {
+    dotsWrap.innerHTML = slides.map((_, i) => `<button aria-label="Go to slide ${i + 1}" type="button"></button>`).join("");
+    Array.from(dotsWrap.children).forEach((dot, j) => dot.addEventListener("click", () => go(j, true)));
+    dotsWrap.children[0] && dotsWrap.children[0].classList.add("active");
+  }
 
-    // Controls
-    if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx - 1, true); });
-    if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx + 1, true); });
+  function start() { if (!reducedMotion) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
+  function stop() { if (timer) clearInterval(timer); timer = null; }
+  function restart() { stop(); start(); }
 
-    track.addEventListener("mouseenter", stop);
-    track.addEventListener("mouseleave", start);
+  // Init
+  buildDots();
+  setActive(0);
+  start();
 
-    // Arrow keys
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") { go(idx - 1, true); }
-      if (e.key === "ArrowRight") { go(idx + 1, true); }
-    });
-  })();
-});
+  // Controls (guard against missing buttons)
+  if (prevBtn) prevBtn.addEventListener("click", () => go(idx - 1, true));
+  if (nextBtn) nextBtn.addEventListener("click", () => go(idx + 1, true));
+
+  // Pause on hover/touch within the track
+  track.addEventListener("mouseenter", stop);
+  track.addEventListener("mouseleave", start);
+  track.addEventListener("touchstart", stop, { passive: true });
+  track.addEventListener("touchend", start, { passive: true });
+
+  // Arrow keys
+  window.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") go(idx - 1, true);
+    if (e.key === "ArrowRight") go(idx + 1, true);
+  });
+})();
