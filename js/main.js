@@ -126,17 +126,13 @@ document.addEventListener("DOMContentLoaded", function () {
   })();
 });
 
-// === GLOBAL HEADER LOADER ===
+// === GLOBAL HEADER LOADER (keep the rest of your file as-is) ===
 (() => {
-  const path = "/partials/header.html"; // ✅ Correct relative path for your current repo structure
+  const path = "/partials/header.html"; // ← THIS, not /profile/partials/...
 
   const ensureMount = () => {
     let el = document.getElementById("site-header");
-    if (!el) {
-      el = document.createElement("div");
-      el.id = "site-header";
-      document.body.insertBefore(el, document.body.firstChild);
-    }
+    if (!el) { el = document.createElement("div"); el.id = "site-header"; document.body.insertBefore(el, document.body.firstChild); }
     return el;
   };
 
@@ -148,28 +144,23 @@ document.addEventListener("DOMContentLoaded", function () {
       const mount = ensureMount();
       mount.innerHTML = html;
 
-      // Mobile burger toggle + sticky behavior
+      // burger + sticky
       const btn = mount.querySelector("#menuBtn");
       const menu = mount.querySelector("#menu");
-      const navWrap = mount.querySelector(".nav-wrap");
+      const header = mount.querySelector(".nav-wrap, .dxp-header");
       if (btn && menu) {
         btn.addEventListener("click", () => {
           const open = menu.getAttribute("data-open") !== "true";
-          menu.setAttribute("data-open", open);
-          btn.setAttribute("aria-expanded", open);
+          menu.setAttribute("data-open", String(open));
+          btn.setAttribute("aria-expanded", String(open));
         });
       }
-
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 8) navWrap?.classList.add("is-scrolled");
-        else navWrap?.classList.remove("is-scrolled");
+        if (window.scrollY > 8) header?.classList.add("is-scrolled");
+        else header?.classList.remove("is-scrolled");
       });
-    } catch (err) {
-      console.error("Header load failed:", err);
-    }
+    } catch (err) { console.error("Header load failed:", err); }
   };
 
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", loadHeader)
-    : loadHeader();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", loadHeader) : loadHeader();
 })();
