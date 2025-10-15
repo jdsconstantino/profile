@@ -1158,3 +1158,10 @@ section.reveal h2 {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+<style>
+  /* Make the CTA title white even if it has .accent inside */
+  #cta h2,
+  #cta h2 .accent {
+    color: #fff !important;
+  }
+</style>
