@@ -576,7 +576,7 @@ footer .footer-col {
 
 footer .footer-logo {
   width: 140px;
-  margin-bottom: 18px;
+  margin-bottom: 32px;
   filter: brightness(0) invert(1);
   display: block;
 }
