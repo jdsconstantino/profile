@@ -206,6 +206,55 @@
   line-height: 1.35;
   color: #0f172a;
 }
+/* === Boutique de Sophie layout === */
+#success .ss-row--bds {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+#success .wins--bds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 20px 22px;
+  justify-items: center;
+}
+
+#success .wins--bds .win img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+
+#success .wins--bds .win p {
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.35;
+  font-size: 0.95rem;
+  max-width: 220px;
+}
+
+@media (max-width: 900px) {
+  #success .ss-row--bds {
+    grid-template-columns: 1fr;
+  }
+  #success .wins--bds {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  #success .wins--bds {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -289,17 +338,18 @@
 
     <!-- Boutique de Sophie -->
     <article class="success-slide">
-      <div class="ss-row">
-        <div class="ss-left"><img class="ss-logo" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie"></div>
-        <div class="ss-right">
-          <h3>Boutique de Sophie — E-commerce Scaling</h3>
-          <ul class="ss-metrics">
-            <li class="metric"><span class="m-num">E2E</span><span class="m-label">Zendesk implementation</span></li>
-            <li class="metric"><span class="m-num">Automation</span><span class="m-label">workflow efficiencies</span></li>
-            <li class="metric"><span class="m-num">CSAT</span><span class="m-label">program implementation</span></li>
-            <li class="metric"><span class="m-num">BI</span><span class="m-label">dashboards & reporting</span></li>
-            <li class="metric"><span class="m-num">-30%</span><span class="m-label">disputes reduced</span></li>
-            <li class="metric"><span class="m-num">+50%</span><span class="m-label">SLA score increase</span></li>
+      <div class="ss-row ss-row--bds">
+        <div class="ss-left">
+          <img class="ss-logo ss-logo--xl" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+        </div>
+        <div class="ss-right ss-right--sep">
+          <ul class="wins wins--bds">
+            <li class="win"><img src="/assets/zendeskunison.png" alt="Zendesk"><p>End-to-End Zendesk implementation</p></li>
+            <li class="win"><img src="/assets/workflow-automate.png" alt="Workflow"><p>Workflow automation</p></li>
+            <li class="win"><img src="/assets/bds-csat.png" alt="CSAT"><p>CSAT program implementation</p></li>
+            <li class="win"><img src="/assets/onetouch.png" alt="Dashboard"><p>Dashboards & reporting</p></li>
+            <li class="win"><img src="/assets/disputes-bds.png" alt="Disputes"><p>−30% disputes reduced</p></li>
+            <li class="win"><img src="/assets/bds-sla.png" alt="SLA"><p>+50% SLA score increase</p></li>
           </ul>
         </div>
       </div>
@@ -310,7 +360,7 @@
   <button class="success-nav next" id="nextBtn">›</button>
   <div class="success-dots" id="successDots"></div>
 </section>
-
+  
   <!-- About + CTA -->
   <div class="container">
     <section class="about-teaser reveal v2">
