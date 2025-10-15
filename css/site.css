@@ -242,3 +242,6 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 @media (max-width:600px){
   .banner .inner{ padding-top:40px; }       /* mobile */
 }
+.success-slider{ position: relative; }
+.success-nav{ position:absolute; z-index:5; }
+.success-track{ position:relative; z-index:1; }
