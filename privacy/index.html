@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy — DeskXP</title>
+  <meta name="description" content="DeskXP Privacy Policy — how we handle your data responsibly." />
 
+  <!-- Font + Main CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/site.css?v=210" />
+
+  <style>
+    body {
+      background: #0d0f12;
+      color: #e6e9ef;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 80px auto 120px;
+      background: #14181d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 56px 60px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #007236;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 38px;
+      margin-bottom: 8px;
+    }
+
+    p, li {
+      font-size: 1rem;
+      color: #c9d1d9;
+      margin-bottom: 16px;
+    }
+
+    a {
+      color: #00b858;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 32px 24px;
+        margin: 60px auto;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <h1>Privacy Policy</h1>
+    <p><strong>Last updated:</strong> October 2025</p>
+
+    <h2>1. Data We Collect</h2>
+    <p>We collect only the information you choose to share — such as your name, email address, or meeting details when booking a call through Calendly.</p>
+
+    <h2>2. How We Use It</h2>
+    <p>Information is used solely to respond to inquiries or schedule consultations. We do not sell, rent, or trade personal information.</p>
+
+    <h2>3. Third-Party Services</h2>
+    <p>Our website runs on GitHub Pages and uses Google Fonts and Calendly. These services may log limited technical data such as IP address, browser type, or device information for performance and security purposes.</p>
+
+    <h2>4. Your Rights</h2>
+    <p>You can request deletion of your personal data or clarification on what we store by contacting <a href="mailto:hello@deskxp.com">hello@deskxp.com</a>.</p>
+
+    <h2>5. Changes</h2>
+    <p>We may update this policy occasionally. The most recent version will always be available on this page.</p>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch("/footer.html")
+      .then(r => r.text())
+      .then(html => (document.getElementById("footer").innerHTML = html));
+  </script>
+  <script src="/js/main.js?v=210" defer></script>
+</body>
+</html>
