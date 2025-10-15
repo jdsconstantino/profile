@@ -4,24 +4,15 @@
       <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
     </a>
 
-    <!-- Hamburger -->
-    <button class="hamburger" id="menuBtn"
+    <!-- Menu label + hamburger (works on desktop + mobile) -->
+    <button class="menu-trigger" id="menuBtn"
             aria-label="Open menu" aria-controls="menuCurtain" aria-expanded="false">
-      <span></span><span></span><span></span>
+      <span class="menu-text">Menu</span>
+      <span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span>
     </button>
-
-    <!-- Desktop menu (inline) -->
-    <div class="menu-desktop" aria-hidden="false">
-      <a href="/">Home</a>
-      <a href="/services/">Services</a>
-      <a href="/#success">Success Stories</a>
-      <a href="/about/">About</a>
-      <a class="cta" href="/personalized-request">Tell Us What You Need!</a>
-      <a class="cta-outline" href="https://calendly.com/deskxp/30min">Book a Call</a>
-    </div>
   </div>
 
-  <!-- Mobile curtain -->
+  <!-- Slide-down curtain -->
   <div id="menuCurtain" class="curtain" hidden>
     <div class="curtain-inner">
       <ul class="curtain-menu">
@@ -29,58 +20,77 @@
         <li><a href="/services/">Services</a></li>
         <li><a href="/#success">Success Stories</a></li>
         <li><a href="/about/">About</a></li>
-        <li><a class="cta" href="/personalized-request">Tell Us What You Need!</a></li>
-        <li><a class="cta-outline" href="https://calendly.com/deskxp/30min">Book a Call</a></li>
+        <li><a href="https://calendly.com/deskxp/30min">Book a Call</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <style>
-/* ===== Scoped header styles ===== */
+/* ===== Scoped header styles (no extra links added) ===== */
 :root{
+  --dxp-green:#007236;               /* your header bg if you use green */
   --dxp-dark:#2E424E;
-  --dxp-ink:#ECF3FF;
-  --dxp-muted:#CFE2F2;
-  --dxp-border:rgba(255,255,255,.14);
-  --dxp-brand:#007236;
+  --dxp-ink:#ffffff;
+  --dxp-border:rgba(255,255,255,.18);
 }
-.nav-wrap{position:sticky;top:0;z-index:10000;background:linear-gradient(180deg,rgba(22,28,33,.55),rgba(22,28,33,.25));backdrop-filter:blur(6px);border-bottom:1px solid var(--dxp-border)}
-.nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 16px}
-.brand img{display:block}
 
-/* Desktop inline menu */
-.menu-desktop{display:none;gap:18px;align-items:center}
-.menu-desktop a{color:var(--dxp-ink);text-decoration:none;padding:8px 10px;border-radius:10px}
-.menu-desktop a:hover{background:rgba(255,255,255,.08)}
-.menu-desktop .cta{background:var(--dxp-brand);color:#fff;border-radius:999px;padding:9px 14px}
-.menu-desktop .cta-outline{border:1px solid var(--dxp-border);border-radius:999px;padding:9px 14px;color:var(--dxp-ink)}
-
-/* Hamburger */
-.hamburger{--w:22px;--bar:2px;width:40px;height:40px;border-radius:10px;border:1px solid var(--dxp-border);background:transparent;display:grid;place-items:center;cursor:pointer}
-.hamburger span{display:block;width:var(--w);height:var(--bar);background:var(--dxp-ink);border-radius:2px;transition:transform .25s ease,opacity .2s ease,translate .25s ease}
-.hamburger span:nth-child(1){transform-origin:left center}
-.hamburger span:nth-child(3){transform-origin:left center}
-.hamburger.is-open span:nth-child(1){transform:rotate(45deg)}
-.hamburger.is-open span:nth-child(2){opacity:0;translate:-6px 0}
-.hamburger.is-open span:nth-child(3){transform:rotate(-45deg)}
-
-/* Curtain (mobile) */
-.curtain{position:fixed;inset:0 0 auto 0;height:0;overflow:hidden;background:var(--dxp-dark);border-bottom:1px solid var(--dxp-border);box-shadow:0 20px 60px rgba(0,0,0,.5);transform:translateY(-100%);transition:transform .35s cubic-bezier(.2,.7,.2,1), height 0s linear .35s}
-.curtain.open{height:100vh;transform:translateY(0);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.curtain-inner{max-width:1100px;margin:0 auto;padding:18px 16px}
-.curtain-menu{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
-.curtain-menu a{display:block;padding:14px 10px;color:var(--dxp-ink);text-decoration:none;font-size:1.15rem;border-radius:12px}
-.curtain-menu a:hover{background:rgba(255,255,255,.08)}
-.curtain-menu .cta{background:var(--dxp-brand);color:#fff;border-radius:999px;text-align:center}
-.curtain-menu .cta-outline{border:1px solid var(--dxp-border);border-radius:999px;text-align:center}
-
-/* Breakpoints */
-@media (min-width: 900px){
-  .hamburger{display:none}
-  .menu-desktop{display:flex}
-  .curtain{display:none}
+.nav-wrap{
+  position:sticky; top:0; z-index:10000;
+  background: var(--dxp-green);     /* matches your screenshot */
+  border-bottom: 1px solid rgba(0,0,0,.12);
 }
+.nav{
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 16px;
+}
+.brand img{ display:block }
+
+/* Menu trigger = "Menu" text + hamburger */
+.menu-trigger{
+  display:flex; align-items:center; gap:10px;
+  color:var(--dxp-ink); background:transparent; border:0; cursor:pointer;
+  padding:6px 8px; border-radius:10px;
+}
+.menu-text{ font-size:1.05rem; line-height:1; }
+
+/* Hamburger icon (morphs to X) */
+.hamburger{ position:relative; width:26px; height:20px; display:inline-grid; align-content:space-between }
+.hamburger i{
+  display:block; height:2px; background:var(--dxp-ink); border-radius:2px;
+  transition:transform .25s ease, opacity .2s ease;
+}
+.menu-trigger.is-open .hamburger i:nth-child(1){ transform:translateY(9px) rotate(45deg) }
+.menu-trigger.is-open .hamburger i:nth-child(2){ opacity:0 }
+.menu-trigger.is-open .hamburger i:nth-child(3){ transform:translateY(-9px) rotate(-45deg) }
+
+/* Curtain */
+.curtain{
+  position:fixed; left:0; right:0; top:0;
+  height:0; overflow:hidden;
+  background:var(--dxp-dark);
+  border-bottom:1px solid var(--dxp-border);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  transform:translateY(-100%);
+  transition:transform .32s cubic-bezier(.2,.7,.2,1), height 0s linear .32s;
+}
+.curtain.open{
+  height:100vh;
+  transform:translateY(0);
+  transition:transform .32s cubic-bezier(.2,.7,.2,1);
+}
+.curtain-inner{ max-width:1100px; margin:0 auto; padding:18px 16px }
+.curtain-menu{
+  list-style:none; margin:18px 0 0; padding:0;
+  display:flex; flex-direction:column; gap:14px;
+}
+.curtain-menu a{
+  display:block; padding:14px 10px; color:#ECF3FF; text-decoration:none; font-size:1.15rem; border-radius:12px;
+}
+.curtain-menu a:hover{ background:rgba(255,255,255,.08) }
+
+/* Same UI on desktop + mobile: no inline desktop menu */
 </style>
 
 <script>
@@ -93,8 +103,7 @@
     btn.classList.add('is-open');
     btn.setAttribute('aria-expanded','true');
     curtain.hidden = false;
-    // Force reflow so transition runs even when hidden becomes false
-    void curtain.offsetHeight;
+    void curtain.offsetHeight;            // reflow to enable transition
     curtain.classList.add('open');
     document.documentElement.style.overflow = 'hidden'; // lock scroll
   };
@@ -104,8 +113,7 @@
     btn.setAttribute('aria-expanded','false');
     curtain.classList.remove('open');
     document.documentElement.style.overflow = '';
-    // wait for slide-up before hiding for a11y
-    setTimeout(() => { curtain.hidden = true; }, 300);
+    setTimeout(() => { curtain.hidden = true; }, 280);
   };
 
   btn.addEventListener('click', () => {
