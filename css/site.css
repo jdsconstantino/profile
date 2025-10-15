@@ -524,7 +524,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   position: absolute; left: 0; top: 0;
   width: 20px; height: 20px; line-height: 20px; text-align: center;
   border: 1px solid var(--border); border-radius: 50%;
-  color: var(--accent, #007236);
+  color: #007236;
 }
 
 /* Chips */
