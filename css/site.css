@@ -1217,7 +1217,7 @@ section.reveal h2 {
 /* 2) Raise the yellow wave globally (no SVG edit needed) */
 .expert-wave{ height:260px; transform:translateY(14px); }   /* pull up ~34px */
 @media (max-width:1100px){
-  .expert-wave{ transform:translateY(-28px) scaleY(.9); }     /* keep uplift on tablet */
+  .expert-wave{ transform:translateY(-10px) scaleY(.9); }     /* keep uplift on tablet */
 }
 @media (max-width:900px){
   .expert-wave{ transform:translateY(-22px) scaleY(.78); }    /* less height crash on mobile */
