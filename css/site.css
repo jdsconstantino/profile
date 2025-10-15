@@ -346,3 +346,61 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
   background:var(--accent) !important;
   box-shadow:0 0 0 4px rgba(0,114,54,.12) !important;
 }
+/* ==== PATCH: About teaser (v2) fix ==== */
+.about-teaser.reveal.v2 {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 42px 48px;
+  max-width: 1100px;
+  margin: 40px auto 64px;
+}
+
+.about-teaser.reveal.v2 s,
+.about-teaser.reveal.v2 del,
+.about-teaser.reveal.v2 p,
+.about-teaser.reveal.v2 a {
+  text-decoration: none !important;
+}
+
+.about-teaser.reveal.v2 .about-wrap { display: grid; gap: 12px; }
+
+.about-teaser.reveal.v2 h4 {
+  color: var(--muted);
+  letter-spacing: .06em;
+  margin: 0 0 4px;
+}
+
+.about-teaser.reveal.v2 h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.4vw + 1rem, 2.6rem);
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.about-teaser.reveal.v2 .accent { color: var(--accent, #007236); }
+
+.about-teaser.reveal.v2 .tagline {
+  color: var(--muted);
+  font-size: 1.125rem;
+  margin-top: 6px;
+}
+
+.about-teaser.reveal.v2 .btn-outline {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 22px;
+  border: 2px solid var(--text);
+  border-radius: 12px;
+  color: var(--text);
+  font-weight: 600;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.about-teaser.reveal.v2 .btn-outline:hover {
+  background: var(--accent, #007236);
+  border-color: var(--accent, #007236);
+  color: #fff;
+  transform: translateY(-1px);
+}
