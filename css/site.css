@@ -914,5 +914,16 @@ footer::before {
   text-decoration: none;
 }
 .copyright a:hover { text-decoration: underline; }
+/* === Footer vertical alignment tweak === */
+.footer-col:first-child {
+  transform: translateY(-10px); /* Adjust upward */
+}
+
+/* Optional: fine-tune for smaller screens */
+@media (max-width: 900px) {
+  .footer-col:first-child {
+    transform: none; /* reset for mobile stacked layout */
+  }
+}
 
 
