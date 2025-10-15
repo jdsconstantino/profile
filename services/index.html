@@ -5,123 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Main site styles (match homepage) -->
-  <link rel="stylesheet" href="/css/site.css?v=209">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/site.css?v=209" />
 
   <style>
     :root{
-      --accent:#007236;                 /* brand green */
-      --connector:#00b26b;              /* brighter line color for connectors */
-      --connector-glow: rgba(0,178,107,.55);
-      --spine: linear-gradient(180deg,#00c977,#0b7c4b);
-      --bg-circuit: rgba(0,114,54,.07); /* subtle background circuit */
-      --card-text:#0f172a;
-      --card-muted:#475569;
-      --card-border:#e6e9ef;
+      --accent:#007236;
+      --wire:#00ff88;
+      --wire2:#0aa564;
+      --wireGlow:rgba(0,255,160,.55);
+      --spineTop:#19e28e;
+      --spineBottom:#0b7c4b;
+      --bgTrace:rgba(0,114,54,.08);
+      --cardText:#0f172a;
+      --cardMuted:#475569;
+      --cardBorder:#e6e9ef;
     }
-    body{ font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
 
-    /* PAGE WRAPPER */
+    body{ font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; overflow-x:hidden; }
+
     .svc-page{ max-width:1200px; margin:48px auto 88px; padding:0 20px; }
-
-    /* TITLE */
     .svc-head{ text-align:center; margin-bottom:28px; }
-    .svc-head h1{ margin:0 0 6px; font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem); font-weight:800; letter-spacing:-.01em; color:var(--text,#e6e6e6);}
-    .svc-head p{ margin:0; color:var(--muted,#a3aab8); font-size:1.05rem; }
+    .svc-head h1{ margin:0 0 6px; font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem); font-weight:800; letter-spacing:-.01em; color:var(--text,#e6e6e6); }
+    .svc-head p{ margin:0; color:var(--muted,#a3aab8); }
 
-    /* FLOW WRAPPER + HEAVIER CIRCUIT BACKGROUND */
-    .svc-flow{ position:relative; margin-top:38px; }
+    /* Flow wrapper — clips background so nothing extends past footer */
+    .svc-flow{ position:relative; margin-top:38px; overflow:hidden; border-radius:18px; }
     .svc-flow::before{
-      content:"";
-      position:absolute; inset:-16px -16px; z-index:0; pointer-events:none;
+      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
       background:
-        linear-gradient(135deg, transparent 48%, var(--bg-circuit) 50%, transparent 52%) 0 0/28px 28px repeat,
-        linear-gradient(45deg,  transparent 48%, var(--bg-circuit) 50%, transparent 52%) 0 0/28px 28px repeat,
-        linear-gradient(90deg,   transparent 95%, var(--bg-circuit) 95%) 0 0/40px 40px repeat,
-        linear-gradient(         transparent 95%, var(--bg-circuit) 95%) 0 0/40px 40px repeat;
-      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.95), rgba(0,0,0,.6) 60%, transparent 85%);
+        radial-gradient(circle at 12% 18%, rgba(0,255,160,.15) 0 2px, transparent 3px) 0 0/180px 160px,
+        radial-gradient(circle at 78% 42%, rgba(0,255,160,.12) 0 2px, transparent 3px) 0 0/220px 200px,
+        radial-gradient(circle at 30% 80%, rgba(0,255,160,.10) 0 2px, transparent 3px) 0 0/200px 220px,
+        repeating-linear-gradient(90deg, rgba(0,255,160,.08) 0 2px, transparent 2px 42px),
+        repeating-linear-gradient(0deg,  rgba(0,255,160,.06) 0 2px, transparent 2px 42px),
+        radial-gradient(circle at 50% 50%, rgba(0,200,120,.08), transparent 70%);
+      background-blend-mode: screen;
+      animation:circuitDrift 22s linear infinite;
+    }
+    @keyframes circuitDrift{
+      0%{   background-position:0 0,0 0,0 0,0 0,0 0,0 0; }
+      50%{  background-position:40px 10px,-30px 20px,20px -10px,30px 0,0 30px,0 0; }
+      100%{ background-position:0 0,0 0,0 0,60px 0,0 60px,0 0; }
     }
 
-    /* CENTRAL SPINE */
     .svc-spine{
-      position:absolute; top:0; bottom:0; left:50%;
-      width:6px; transform:translateX(-50%);
-      background:var(--spine);
-      border-radius:999px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 0 20px var(--connector-glow);
+      position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%);
+      width:6px; border-radius:999px;
+      background:linear-gradient(180deg,var(--spineTop),var(--spineBottom));
+      box-shadow:0 0 20px var(--wireGlow);
+      z-index:1; animation:spinePulse 5s ease-in-out infinite;
     }
+    @keyframes spinePulse{ 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.2)} }
 
-    /* ROWS */
-    .svc-row{ display:flex; justify-content:space-between; align-items:flex-start; margin:44px 0; position:relative; z-index:1; }
-
-    /* CARD */
+    .svc-row{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; margin:44px 0; }
     .svc-card{
-      position:relative;
-      width:48%;
-      background:#fff;
-      color:var(--card-text);
-      border:1px solid var(--card-border);
-      border-radius:16px;
-      padding:22px 22px 18px;
-      box-shadow:0 12px 30px rgba(0,0,0,.18);
-      transition:transform .25s ease, box-shadow .25s ease;
+      position:relative; width:48%; background:#fff; color:var(--cardText);
+      border:1px solid var(--cardBorder); border-radius:16px; padding:22px 22px 18px;
+      box-shadow:0 12px 30px rgba(0,0,0,.18); transition:transform .25s, box-shadow .25s;
     }
     .svc-card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.24); }
-
-    /* alternate sides (odd: left; even: right) */
-    .svc-row:nth-child(odd)  .svc-card{ margin-right:auto; }
+    .svc-row:nth-child(odd)  .svc-card{ margin-right:auto; }  /* left first */
     .svc-row:nth-child(even) .svc-card{ margin-left:auto; }
 
-    /* THICK COLORED CONNECTORS with glow */
+    /* Glowing connector from spine to card */
     .svc-card::before{
-      content:"";
-      position:absolute; top:60px; width:92px; height:3px;
-      background:linear-gradient(90deg, var(--connector), var(--connector));
-      box-shadow:0 0 10px var(--connector-glow), 0 0 3px var(--connector);
+      content:""; position:absolute; top:60px; width:96px; height:3px; border-radius:4px;
+      background:linear-gradient(90deg,var(--wire),var(--wire2));
+      box-shadow:0 0 10px var(--wireGlow), 0 0 20px rgba(0,255,160,.25);
+      animation:wirePulse 4.5s ease-in-out infinite;
     }
-    .svc-row:nth-child(odd)  .svc-card::before{ right:-92px; }
-    .svc-row:nth-child(even) .svc-card::before{ left: -92px; }
+    .svc-row:nth-child(odd)  .svc-card::before{ right:-96px; }
+    .svc-row:nth-child(even) .svc-card::before{ left:-96px; }
+    @keyframes wirePulse{ 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.25)} }
 
-    /* NODE at the spine — ring + glow (auto-positioned by JS) */
     .svc-node{
       position:absolute; left:50%; transform:translate(-50%,-50%);
-      width:18px; height:18px; border-radius:999px;
-      background:#fff;
-      box-shadow:
-        0 0 0 4px var(--connector-glow),
-        0 0 0 2px var(--connector),
-        0 2px 10px rgba(0,0,0,.25);
-      z-index:2;
+      width:18px; height:18px; border-radius:999px; background:#eafff6;
+      box-shadow:0 0 0 6px rgba(0,255,160,.18), 0 0 0 2px var(--wire), 0 6px 16px rgba(0,0,0,.25);
+      z-index:3; animation:nodeBlink 6s ease-in-out infinite;
+    }
+    @keyframes nodeBlink{
+      0%,100%{box-shadow:0 0 0 6px rgba(0,255,160,.18), 0 0 0 2px var(--wire), 0 6px 16px rgba(0,0,0,.25)}
+      50%{box-shadow:0 0 0 10px rgba(0,255,160,.28), 0 0 0 2px var(--wire), 0 10px 22px rgba(0,0,0,.35)}
     }
 
-    /* CONTENT */
     .svc-meta{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-    .svc-meta img{ width:44px; height:44px; border-radius:12px; border:1px solid var(--card-border); object-fit:cover; }
+    .svc-meta img{ width:44px; height:44px; border-radius:12px; border:1px solid var(--cardBorder); object-fit:cover; }
     .svc-meta h2{ margin:0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
-    .chips{ margin:6px 0 10px; display:flex; flex-wrap:wrap; gap:8px; }
-    .chip{ display:inline-block; padding:6px 10px; font-size:.85rem; border-radius:999px; border:1px solid var(--card-border); background:#f8fafc; color:#0f172a; }
-    .svc-card p{ color:var(--card-muted); margin:0 0 10px; }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+    .chip{ padding:6px 10px; font-size:.85rem; border-radius:999px; border:1px solid var(--cardBorder); background:#f8fafc; color:#0f172a; }
+    .svc-card p{ color:var(--cardMuted); margin:0 0 10px; }
     .svc-card h3{ margin:12px 0 6px; font-size:1rem; color:#0f172a; }
     .svc-card ul{ margin:0 0 8px 18px; color:#111827; }
     .svc-card li{ margin:4px 0; }
     .svc-card strong{ font-weight:700; }
 
-    /* MOBILE */
     @media (max-width:980px){
+      .svc-page{ margin-top:28px; }
       .svc-spine{ left:14px; transform:none; }
-      .svc-row{ margin:32px 0 28px; }
+      .svc-row{ margin:28px 0; }
       .svc-card{ width:100%; }
-      .svc-card::before{ display:none; } /* hide connectors small screens */
+      .svc-card::before{ display:none; }
       .svc-node{ left:14px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header (IDENTICAL TO HOMEPAGE) -->
+  <!-- Header (exactly like homepage) -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="/#home">
@@ -140,11 +132,10 @@
     </nav>
   </div>
 
-  <!-- No banner on this page -->
-
   <main class="svc-page">
     <header class="svc-head">
       <h1>Services</h1>
+      <p>Operational design × automation — six tracks connected like a circuit.</p>
     </header>
 
     <section class="svc-flow" id="svc-flow" aria-label="Automation flow of services">
@@ -154,9 +145,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="operations-design">
-          <div class="svc-meta">
-            <img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2></div>
           <div class="chips"><span class="chip">Playbooks</span><span class="chip">SLAs</span><span class="chip">Escalations</span><span class="chip">CX Strategy</span></div>
           <p>Backbone first: we turn reactive support into a structured, data-driven operation with clear flows and ownership.</p>
           <h3>What we do</h3>
@@ -179,9 +168,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="systems-architecture">
-          <div class="svc-meta">
-            <img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2></div>
           <div class="chips"><span class="chip">Zendesk</span><span class="chip">Workflows</span><span class="chip">Data Governance</span></div>
           <p>Clean, intentional setup — fewer triggers, better data, faster agents.</p>
           <h3>What we do</h3>
@@ -204,9 +191,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="automation-ai">
-          <div class="svc-meta">
-            <img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2></div>
           <div class="chips"><span class="chip">Bots</span><span class="chip">Deflection</span><span class="chip">Workflows</span></div>
           <p>Kill repetitive work without killing the human touch. Bots do the predictable; your team handles the meaningful.</p>
           <h3>What we do</h3>
@@ -229,9 +214,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="reporting-analytics">
-          <div class="svc-meta">
-            <img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2></div>
           <div class="chips"><span class="chip">Dashboards</span><span class="chip">SLA</span><span class="chip">QA</span><span class="chip">Insights</span></div>
           <p>From exports to insight: real-time performance, trendlines, and ROI — no spreadsheet circus.</p>
           <h3>What we do</h3>
@@ -253,9 +236,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="ecommerce-integrations">
-          <div class="svc-meta">
-            <img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2></div>
           <div class="chips"><span class="chip">Shopify</span><span class="chip">Magento</span><span class="chip">Payments</span><span class="chip">APIs</span></div>
           <p>Pull order, shipping, and payment context into every ticket. Less tab-switching, more resolving.</p>
           <h3>What we do</h3>
@@ -277,9 +258,7 @@
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
         <article class="svc-card" id="customer-experience-servicing">
-          <div class="svc-meta">
-            <img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2>
-          </div>
+          <div class="svc-meta"><img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2></div>
           <div class="chips"><span class="chip">Hiring</span><span class="chip">Training</span><span class="chip">QA</span><span class="chip">Policies</span></div>
           <p>Zero ➜ scaled care org. People, process, tools, and governance — launched fast and built to last.</p>
           <h3>What we do</h3>
@@ -302,25 +281,24 @@
 
   <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
 
-  <!-- Use the same JS file as homepage so the nav behaves identically -->
+  <!-- Same JS as homepage for nav behavior -->
   <script src="/js/main.js?v=202" defer></script>
-
   <script>
-    // Auto-position nodes to align with connectors (60px from card top)
-    window.addEventListener('load', positionNodes);
-    window.addEventListener('resize', positionNodes);
+    // Align each spine node with its card connector (60px from card top)
     function positionNodes(){
-      const flow = document.getElementById('svc-flow');
-      const rows = Array.from(flow.querySelectorAll('.svc-row'));
-      const flowRect = flow.getBoundingClientRect();
+      const flow = document.getElementById('svc-flow'); if(!flow) return;
+      const rows = flow.querySelectorAll('.svc-row');
+      const baseTop = flow.getBoundingClientRect().top + window.scrollY;
       rows.forEach(row=>{
         const card = row.querySelector('.svc-card');
         const node = row.querySelector('.svc-node');
         if(!card || !node) return;
-        const cardRect = card.getBoundingClientRect();
-        node.style.top = `${(cardRect.top - flowRect.top) + 60}px`;
+        const y = card.getBoundingClientRect().top + window.scrollY - baseTop + 60;
+        node.style.top = y + 'px';
       });
     }
+    window.addEventListener('load', positionNodes);
+    window.addEventListener('resize', positionNodes);
   </script>
 </body>
 </html>
