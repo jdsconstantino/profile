@@ -510,85 +510,92 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 
 #cta .cta-trust { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
 
-/* === Footer (Green DeskXP Theme) === */
-.footer {
+/* === Unified left-aligned footer (DeskXP) === */
+footer {
   background: linear-gradient(90deg, #1B2236, #0E3B40);
   color: #e9f2f1;
   padding: 60px 5% 30px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-inner {
+footer .footer-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.2fr 1fr 1fr; /* first column wider */
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
-  align-items: start;
+  align-items: flex-start;
+  text-align: left; /* all left aligned */
 }
 
-.footer-col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+footer .footer-col {
+  text-align: left;
 }
 
-.footer-logo {
+footer .footer-logo {
   width: 140px;
   margin-bottom: 18px;
   filter: brightness(0) invert(1);
+  display: block;
 }
 
-.footer h4 {
-  color: #ffffff;
+footer h4 {
+  color: #8fd5bf;
   margin-bottom: 12px;
   font-size: 1.05rem;
   font-weight: 700;
 }
 
-.footer a {
-  color: #e8f0ec;
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer li {
+  margin: 6px 0;
+}
+
+footer a {
+  color: #cfe6df;
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
-.footer a:hover {
+footer a:hover {
   opacity: 0.85;
+  color: #9ee2c9;
 }
 
-.footer li {
-  margin: 6px 0;
-}
-
-.footer-bottom {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #e3ede8;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  margin-top: 40px;
+footer .footer-bottom {
+  max-width: 1200px;
+  margin: 20px auto 0;
   padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.9rem;
+  color: #d1e3db;
+  text-align: left;
 }
 
-/* Alignment fix for first column */
-.footer-col.first {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.social-links li {
-  margin: 8px 0;
-}
-
+/* Responsive layout */
 @media (max-width: 900px) {
-  .footer-inner {
+  footer .footer-inner {
     grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  footer .footer-logo {
+    margin-bottom: 12px;
+  }
+  footer .footer-bottom {
     text-align: center;
   }
-  .footer-col.first {
-    align-items: center;
-  }
-  .footer-logo {
-    margin: 0 auto 12px;
-  }
+}
+
+/* Prevent any background below footer */
+html, body {
+  background-color: #1B2236;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
