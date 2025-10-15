@@ -18,6 +18,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css?v=204" />
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+  <head>
+  ...
+  <link rel="stylesheet" href="/css/site.css?v=204">
+  
+  <!-- Inline override to force latest slider styling -->
+  <style>
+    #success.success-slider{
+      width:auto !important;
+      max-width:1400px !important;
+      margin:60px auto !important;
+      padding:40px 0 60px !important;
+      border-radius:16px !important;
+      background:linear-gradient(135deg,#f7f8f8,#ffffff) !important;
+      box-shadow:0 6px 24px rgba(0,0,0,.12) !important;
+      border:1px solid #1b1f26 !important;
+    }
+    #success .success-track{
+      max-width:900px !important;
+      min-height:340px !important;
+      margin:0 auto !important;
+      padding:0 20px !important;
+    }
+    #success .success-slide{
+      position:absolute; inset:0; opacity:0; pointer-events:none;
+      transition:opacity .7s ease-in-out;
+    }
+    #success .success-slide.is-active{
+      opacity:1; pointer-events:auto; position:relative;
+    }
+  </style>
 </head>
 <body>
   <div class="nav-wrap">
