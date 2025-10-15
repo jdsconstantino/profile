@@ -964,5 +964,61 @@ main > section:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+/* ===== FINAL FOOTER BLEED KILL ===== */
+
+/* 1) Clamp the footer painting region hard */
+footer {
+  position: relative;
+  overflow: hidden;     /* cut anything that tries to spill */
+  isolation: isolate;   /* stop blending into body */
+  margin-bottom: 0 !important;
+  padding-bottom: 28px; /* still gives breathing room for copyright */
+}
+
+/* make sure the decorative gradient sticks INSIDE the footer only */
+footer::before {
+  position: absolute;
+  inset: 0;             /* exactly the footer box */
+  clip-path: inset(0);  /* force clipping to the box */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2) Ensure the page below is the global bg, not a stray color */
+html, body {
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  height: auto;         /* avoid weird 100% overscroll on mobile */
+  overflow-x: hidden;
+}
+
+/* 3) If footer is injected into a wrapper, make sure it doesn't add space */
+#footer-container {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* 4) Kill any accidental margins on the last block above the footer */
+main > section:last-child,
+.container > section:last-child,
+body > section:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0;
+}
+
+/* 5) If you see a faint horizontal line at the very bottom, it’s the copyright divider.
+      Keep it if you like, or remove it here: */
+/* .copyright { border-top: 0; } */
+
+/* 6) Safety: separators never exceed column height */
+.footer-col:not(:first-child)::before {
+  top: 0;
+  bottom: 0;   /* exactly column height */
+  height: auto;
+}
 
 
