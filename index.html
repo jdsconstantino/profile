@@ -174,6 +174,38 @@
       #success .wins { grid-template-columns: 1fr; }
       #success .ss-left { padding-left: 0; justify-content: center; }
     }
+    /* === Unison layout === */
+#success .ss-row--unison {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+#success .wins--unison {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 28px;
+  justify-items: center;
+}
+#success .wins--unison .single-centered {
+  grid-column: 1 / span 2; /* centers the 3rd win under the two above */
+  justify-self: center;
+}
+#success .wins--unison .win img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+#success .wins--unison .win p {
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #0f172a;
+}
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
