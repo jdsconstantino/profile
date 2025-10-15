@@ -512,9 +512,10 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 
 /* === Footer (Green DeskXP Theme) === */
 .footer {
-  background: #60947e;
-  color: #f9fafb;
+  background: linear-gradient(90deg, #1B2236, #0E3B40);
+  color: #e9f2f1;
   padding: 60px 5% 30px;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .footer-inner {
