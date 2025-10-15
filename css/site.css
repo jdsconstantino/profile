@@ -1159,18 +1159,6 @@ section.reveal h2 {
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Card shell */
-.expert{
-  position:relative;
-  background:var(--dark);
-  border:1px solid var(--border);
-  border-radius:18px;
-  /* more breathing room + keep wave off the corner */
-  padding:44px 32px 92px;
-  margin:40px 0;
-  overflow:hidden; /* clip wave to rounded corners */
-}
-
 /* Two-column layout */
 .expert-grid{
   position:relative; z-index:2;
