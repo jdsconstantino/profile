@@ -11,24 +11,16 @@
   <link rel="icon" sizes="200x200" href="/assets/favicon.png" />
   <link rel="apple-touch-icon" href="/assets/favicon.png" />
 
-  <link rel="stylesheet" href="/css/site.css?v=202" />
+  <!-- Global Font + CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/site.css?v=209" />
+
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
-<body>
 
-  <div class="nav-wrap">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="/"><img src="/assets/logo.png" alt="DeskXP" width="24" height="24" /><span>DeskXP</span></a>
-      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn"><span></span><span></span><span></span></button>
-      <div class="menu" id="menu" data-open="false">
-        <a href="/">Home</a>
-        <a href="/#services">Services</a>
-        <a href="/#success">Success</a>
-        <a href="/about/" aria-current="page">About</a>
-        <a href="/#cta">Book a Call</a>
-      </div>
-    </nav>
-  </div>
+<body>
+  <!-- Global header mount -->
+  <div id="site-header"></div>
 
   <div class="container">
     <!-- White section, photo RIGHT -->
@@ -38,7 +30,7 @@
           <h1 id="name" class="ap-title">James Daniel Constantino</h1>
           <p class="ap-tag">CX Systems & Operations — Fintech • E-commerce</p>
           <p class="ap-blurb">
-            I build scalable Customer Care systems—architecture, automation, and analytics—then operationalize them with clean data, clear SLAs, and ruthless follow-through.
+            I build scalable Customer Care systems — architecture, automation, and analytics — then operationalize them with clean data, clear SLAs, and ruthless follow-through.
           </p>
 
           <div class="ap-stats">
@@ -155,12 +147,15 @@
     </section>
   </div>
 
+  <!-- Global footer -->
   <div id="footer"></div>
   <script>
     fetch("/footer.html")
       .then(r => r.text())
       .then(html => document.getElementById("footer").innerHTML = html);
   </script>
-  <script src="/js/main.js?v=202"></script>
+
+  <!-- Global JS (handles header injection + behaviors) -->
+  <script src="/js/main.js?v=202" defer></script>
 </body>
 </html>
