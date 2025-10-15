@@ -21,33 +21,105 @@
   <head>
   ...
   <link rel="stylesheet" href="/css/site.css?v=204">
-  
-  <!-- Inline override to force latest slider styling -->
   <style>
-    #success.success-slider{
-      width:auto !important;
-      max-width:1400px !important;
-      margin:60px auto !important;
-      padding:40px 0 60px !important;
-      border-radius:16px !important;
-      background:linear-gradient(135deg,#f7f8f8,#ffffff) !important;
-      box-shadow:0 6px 24px rgba(0,0,0,.12) !important;
-      border:1px solid #1b1f26 !important;
-    }
-    #success .success-track{
-      max-width:900px !important;
-      min-height:340px !important;
-      margin:0 auto !important;
-      padding:0 20px !important;
-    }
-    #success .success-slide{
-      position:absolute; inset:0; opacity:0; pointer-events:none;
-      transition:opacity .7s ease-in-out;
-    }
-    #success .success-slide.is-active{
-      opacity:1; pointer-events:auto; position:relative;
-    }
-  </style>
+  /* ——— Success Stories: seasoned UI pass ——— */
+
+  /* Card container: slightly wider, softer, less dead space */
+  #success.success-slider{
+    max-width:1320px !important;           /* wider than the 1100px site container */
+    margin:80px auto !important;           /* more breathing room above/below */
+    padding:36px 0 52px !important;        /* tighten vertical space */
+    border-radius:20px !important;
+    background:linear-gradient(180deg,#fbfbfb 0%, #ffffff 60%, #f7f9f7 100%) !important;
+    border:1px solid rgba(0,0,0,.06) !important;
+    box-shadow:0 14px 44px rgba(0,0,0,.16) !important;
+    position:relative !important;
+    overflow:hidden !important;
+  }
+  /* subtle inner glow so the white card doesn’t look flat */
+  #success.success-slider::before{
+    content:""; position:absolute; inset:0; border-radius:20px;
+    box-shadow: inset 0 0 70px rgba(0,0,0,.06);
+    pointer-events:none;
+  }
+
+  /* Heading: a touch larger and tighter */
+  #success .success-head{ margin-bottom:14px !important; }
+  #success .success-head h2{
+    font-size:2.05rem !important;
+    letter-spacing:-0.01em !important;
+    font-weight:800 !important;
+    color:var(--accent) !important;
+  }
+
+  /* Track height tighter; content centered */
+  #success .success-track{
+    max-width:880px !important;
+    min-height:300px !important;           /* was 340 */
+    margin:0 auto !important;
+    padding:0 18px !important;
+    display:flex !important; align-items:center !important; justify-content:center !important;
+  }
+
+  /* Slide layout & motion */
+  #success .success-slide{
+    position:absolute; inset:0; opacity:0; pointer-events:none;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    transition:opacity .6s ease, transform .6s ease;
+    transform:translateY(6px);
+    padding:0 18px;
+  }
+  #success .success-slide.is-active{
+    position:relative; opacity:1; pointer-events:auto; transform:translateY(0);
+  }
+
+  /* Logo tile: clearer, feels “placed” */
+  #success .success-logo{
+    width:96px !important; height:96px !important; padding:12px !important;
+    background:#fff !important; border:1px solid #e8eaef !important; border-radius:18px !important;
+    box-shadow:0 8px 24px rgba(0,0,0,.10) !important;
+    margin-bottom:12px !important;
+  }
+
+  /* Typography rhythm */
+  #success .success-slide h3{
+    font-size:1.28rem !important; font-weight:800 !important;
+    color:#16181b !important; margin:8px 0 6px !important; max-width:760px !important;
+  }
+  #success .success-slide p{
+    color:#2b2f33 !important; max-width:780px !important; line-height:1.6 !important; 
+    margin:0 auto !important;
+  }
+
+  /* Arrows: visible, confident, brand hover */
+  #success .success-nav{
+    top:50%; transform:translateY(-50%); width:44px; height:44px;
+    border-radius:12px; background:rgba(0,0,0,.10); color:#111; 
+    border:none; box-shadow:0 3px 10px rgba(0,0,0,.08);
+    transition:background .2s, transform .15s, box-shadow .2s;
+  }
+  #success .success-nav:hover{
+    background:var(--accent); color:#fff; transform:translateY(-50%) scale(1.06);
+    box-shadow:0 8px 18px rgba(0,114,54,.25);
+  }
+  #success .success-nav.prev{ left:24px !important; }
+  #success .success-nav.next{ right:24px !important; }
+
+  /* Dots: slightly larger, with active ring */
+  #success .success-dots{ bottom:16px !important; gap:10px !important; }
+  #success .success-dots button{
+    width:9px !important; height:9px !important; border-radius:999px; border:0;
+    background:rgba(0,0,0,.22) !important;
+  }
+  #success .success-dots button.active{
+    background:var(--accent) !important;
+    box-shadow:0 0 0 4px rgba(0,114,54,.12);
+  }
+
+  /* Make sure nothing overlays the arrows/content */
+  #success .success-track{ z-index:1 !important; }
+  #success .success-nav{ z-index:5 !important; }
+</style>
 </head>
 <body>
   <div class="nav-wrap">
