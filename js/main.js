@@ -118,3 +118,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 });
+// === GLOBAL HEADER LOADER ===
+(() => {
+  const path = "/profile/partials/header.html"; // correct path for your repo
+
+  const ensureMount = () => {
+    let el = document.getElementById("site-header");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "site-header";
+      document.body.insertBefore(el, document.body.firstChild);
+    }
+    return el;
+  };
+
+  const loadHeader = async () => {
+    try {
+      const res = await fetch(path, { cache: "no-store" });
+      if (!res.ok) throw new Error(res.status);
+      const html = await res.text();
+      const mount = ensureMount();
+      mount.innerHTML = html;
+
+      // Burger toggle + sticky behavior
+      const burger = mount.querySelector(".dxp-burger");
+      const menu = mount.querySelector(".dxp-menu");
+      const header = mount.querySelector(".dxp-header");
+
+      if (burger && menu) {
+        burger.addEventListener("click", () => {
+          const open = menu.classList.toggle("open");
+          burger.setAttribute("aria-expanded", String(open));
+        });
+      }
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 8) header?.classList.add("is-scrolled");
+        else header?.classList.remove("is-scrolled");
+      });
+    } catch (err) {
+      console.error("Header load failed:", err);
+    }
+  };
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", loadHeader)
+    : loadHeader();
+})();
+
