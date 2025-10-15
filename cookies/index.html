@@ -10,70 +10,60 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    body {
+    :root { --accent:#007236; --accent2:#00b858; }
+
+    body{
       background:#0d0f12;
       color:#e6e9ef;
       font-family:"Plus Jakarta Sans",sans-serif;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      height:100vh;
-      margin:0;
-      text-align:center;
-      overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:14px;
+      min-height:100vh; margin:0; text-align:center;
     }
 
-    img.cookie {
-      width:160px;
-      height:auto;
-      margin-bottom:28px;
+    img.cookie{
+      width:160px; height:auto; margin-bottom:10px;
       filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
       animation:bounce 2.2s ease-in-out infinite;
     }
 
-    h1 {
-      font-size:2.4rem;
-      font-weight:700;
-      color:#fff;
-      margin-bottom:12px;
+    h1{
+      font-size:clamp(1.8rem,1.2rem + 2vw,3.1rem);
+      font-weight:800; color:#fff; letter-spacing:-.02em; margin:0;
     }
 
-    p {
-      font-size:1.3rem;
-      color:#00b858;
-      font-weight:600;
-      margin-bottom:40px;
+    p.tag{
+      font-size:1.25rem; font-weight:600; color:var(--accent2); margin:8px 0 28px;
     }
 
-    a.back-home {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:12px 30px;
-      background:linear-gradient(90deg,#007236,#00b858);
-      color:#fff;
-      font-weight:600;
+    /* Centered pill button with an absolutely positioned arrow */
+    a.back-home{
+      position:relative;
+      display:inline-block;
+      min-width: 260px;              /* keeps a nice pill width */
+      padding:12px 38px;             /* equal left/right so text can truly center */
       border-radius:999px;
-      text-decoration:none;
-      transition:all .25s ease;
-      box-shadow:0 4px 18px rgba(0,184,88,.25);
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#fff; text-decoration:none; font-weight:700;
+      box-shadow:0 8px 26px rgba(0,184,88,.28);
+      transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
     }
-    a.back-home:hover {
+    a.back-home::before{
+      content:"←";
+      position:absolute; left:16px; top:50%;
+      transform:translateY(-50%);
+      font-size:1.1rem; line-height:1;
+      opacity:.95;
+    }
+    a.back-home:hover{
       transform:translateY(-2px);
-      box-shadow:0 8px 24px rgba(0,184,88,.35);
-    }
-
-    a.back-home span {
-      font-size:1.2rem;
-      line-height:1;
-      transform:translateY(-1px);
+      box-shadow:0 12px 30px rgba(0,184,88,.38);
+      filter:saturate(1.05);
     }
 
     @keyframes bounce {
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-10px);}
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
     }
   </style>
 </head>
@@ -81,7 +71,7 @@
 <body>
   <img class="cookie" src="/assets/cookie.png" alt="Cookie">
   <h1>We don’t collect cookies here!</h1>
-  <p>😂 Just pure DeskXP goodness.</p>
-  <a class="back-home" href="/"><span>←</span>Back to Home</a>
+  <p class="tag">😂 Just pure DeskXP goodness.</p>
+  <a class="back-home" href="/">Back to Home</a>
 </body>
 </html>
