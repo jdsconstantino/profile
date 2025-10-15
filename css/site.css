@@ -245,3 +245,7 @@ footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 .success-slider{ position: relative; }
 .success-nav{ position:absolute; z-index:5; }
 .success-track{ position:relative; z-index:1; }
+.success-slider{ position: relative; }
+.success-track{ position: relative; z-index: 1; }
+.success-nav{ position: absolute; z-index: 5; }
+
