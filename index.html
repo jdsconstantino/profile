@@ -407,7 +407,12 @@
     </section>
   </div>
 
-  <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
+  <div id="footer"></div>
+    <script>
+      fetch("/footer.html")
+      .then(r => r.text())
+      .then(html => document.getElementById("footer").innerHTML = html);
+    </script>
   <script src="/js/main.js?v=202" defer></script>
 </body>
 </html>
