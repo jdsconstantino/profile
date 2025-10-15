@@ -93,5 +93,72 @@
 
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
   <script src="/js/main.js?v=202"></script>
+  <script>
+(function () {
+  // HARDENED inline slider (no dependencies)
+  var root = document.getElementById("success");
+  if (!root) { console.warn("No #success section found."); return; }
+
+  var track   = document.getElementById("successTrack");
+  var dotsWrap= document.getElementById("successDots");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+
+  if (!track) { console.warn("No #successTrack found."); return; }
+
+  var slides = Array.prototype.slice.call(track.children || []).filter(function(s){ return s.classList.contains("success-slide"); });
+  if (!slides.length) { console.warn("No .success-slide items inside #successTrack."); return; }
+
+  // Build dots if empty
+  if (!dotsWrap) {
+    dotsWrap = document.createElement("div");
+    dotsWrap.id = "successDots";
+    dotsWrap.className = "success-dots";
+    root.appendChild(dotsWrap);
+  }
+  dotsWrap.innerHTML = slides.map(function(_, i){ return '<button type="button" aria-label="Go to slide '+(i+1)+'"></button>'; }).join("");
+
+  var idx = 0, timer = null, INTERVAL = 5000;
+  function setActive(i){
+    for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s===i);
+    var dots = dotsWrap.children;
+    for (var d=0; d<dots.length; d++) dots[d].classList.toggle("active", d===i);
+  }
+  function go(i, user){
+    idx = (i + slides.length) % slides.length;
+    setActive(idx);
+    if (user) restart();
+  }
+  function start(){ stop(); timer = setInterval(function(){ go(idx+1, false); }, INTERVAL); }
+  function stop(){ if (timer) clearInterval(timer); timer = null; }
+  function restart(){ stop(); start(); }
+
+  // Wire dots
+  Array.prototype.forEach.call(dotsWrap.children, function(dot, j){
+    dot.addEventListener("click", function(){ go(j, true); });
+  });
+
+  // Wire arrows if present
+  if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx-1, true); });
+  if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx+1, true); });
+
+  // Hover pause
+  track.addEventListener("mouseenter", stop);
+  track.addEventListener("mouseleave", start);
+
+  // Keys
+  window.addEventListener("keydown", function(e){
+    if (e.key === "ArrowLeft")  go(idx-1, true);
+    if (e.key === "ArrowRight") go(idx+1, true);
+  });
+
+  // Kick it
+  setActive(0);
+  start();
+
+  // Loud breadcrumb so we know it ran:
+  console.log("[DeskXP] Inline slider wired. Slides:", slides.length);
+})();
+</script>
 </body>
 </html>
