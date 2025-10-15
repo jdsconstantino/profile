@@ -164,3 +164,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", loadHeader) : loadHeader();
 })();
+// ... your other scripts and functions above this line
+
+// Mount header + enable hamburger menu
+fetch("/header.html")
+  .then(r => r.text())
+  .then(html => {
+    const mount = document.getElementById("site-header");
+    mount.innerHTML = html;
+    initCurtainMenu(); // activate menu after injection
+  });
+
+function initCurtainMenu() {
+  const btn = document.getElementById('menuBtn');
+  const curtain = document.getElementById('navCurtain');
+  if (!btn || !curtain) return;
+
+  const links = curtain.querySelectorAll('a');
+
+  const open = () => {
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    curtain.hidden = false;
+    void curtain.offsetHeight; // trigger animation
+    curtain.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+  };
+  const close = () => {
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    curtain.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    setTimeout(() => { curtain.hidden = true; }, 280);
+  };
+
+  btn.addEventListener('click', () => (
+    btn.classList.contains('is-open') ? close() : open()
+  ));
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && btn.classList.contains('is-open')) close();
+  });
+  links.forEach(a => a.addEventListener('click', close));
+}
