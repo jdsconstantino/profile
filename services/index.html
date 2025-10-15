@@ -8,8 +8,8 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Main site styles -->
-  <link rel="stylesheet" href="/css/site.css?v=201">
+  <!-- Main site styles (use the latest) -->
+  <link rel="stylesheet" href="/css/site.css?v=209">
 
   <style>
     body { font-family: "Inter", system-ui, sans-serif; }
@@ -117,6 +117,9 @@
     .svc-body h3 { margin: 18px 0 8px; }
     .svc-body ul { margin-left: 18px; }
 
+    /* Make markdown-style <strong> obvious on dark bg */
+    .svc-body strong { font-weight: 700; }
+
     @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:none;} }
     @keyframes slideInLeft { from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:none;} }
   </style>
@@ -125,21 +128,22 @@
 
   <!-- Header -->
   <div class="nav-wrap">
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <a class="brand" href="/">
-        <img src="/favicon.png" alt="DeskXP logo">
+        <!-- Fix: correct asset so “logo” alt text doesn’t render -->
+        <img src="/assets/logo.png" alt="DeskXP">
         <span>DeskXP</span>
       </a>
       <div class="menu" id="menu">
         <a href="/">Home</a>
-        <a href="https://jdsc.deskxp.com/services/">Services</a>
-        <a href="https://jdsc.deskxp.com/about/">About</a>
+        <a href="/services/" aria-current="page">Services</a>
+        <a href="/about.html">About</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </nav>
   </div>
 
-  <!-- Banner -->
+  <!-- Banner (uses your global .banner styles) -->
   <header class="banner">
     <div class="inner">
       <h1 class="headline">Services</h1>
@@ -152,15 +156,15 @@
     <section class="visible">
       <div class="svc-layout">
         <aside class="svc-sidebar" id="svc-sidebar">
-          <button class="svc-item" data-slug="operations-design"><img class="svc-thumb" src="/assets/svc-1.jpg"><span>Operations Design</span></button>
-          <button class="svc-item" data-slug="systems-architecture"><img class="svc-thumb" src="/assets/svc-2.jpg"><span>Systems Architecture</span></button>
-          <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg"><span>Automation &amp; AI</span></button>
-          <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg"><span>Reporting &amp; Analytics</span></button>
-          <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg"><span>eCommerce Integrations</span></button>
-          <button class="svc-item" data-slug="customer-experience-servicing"><img class="svc-thumb" src="/assets/svc-6.jpg"><span>Customer Experience &amp; Servicing</span></button>
+          <button class="svc-item" data-slug="operations-design"><img class="svc-thumb" src="/assets/svc-1.jpg" alt="Operations Design icon"><span>Operations Design</span></button>
+          <button class="svc-item" data-slug="systems-architecture"><img class="svc-thumb" src="/assets/svc-2.jpg" alt="Systems Architecture icon"><span>Systems Architecture</span></button>
+          <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg" alt="Automation &amp; AI icon"><span>Automation &amp; AI</span></button>
+          <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg" alt="Reporting &amp; Analytics icon"><span>Reporting &amp; Analytics</span></button>
+          <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg" alt="eCommerce Integrations icon"><span>eCommerce Integrations</span></button>
+          <button class="svc-item" data-slug="customer-experience-servicing"><img class="svc-thumb" src="/assets/svc-6.jpg" alt="Customer Experience &amp; Servicing icon"><span>Customer Experience &amp; Servicing</span></button>
         </aside>
 
-        <article class="svc-body" id="svc-body"></article>
+        <article class="svc-body" id="svc-body" aria-live="polite"></article>
       </div>
     </section>
   </main>
@@ -169,10 +173,15 @@
 
   <!-- Scripts -->
   <script>
+    // Mobile menu
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
-    hamburger.addEventListener('click', () => menu.classList.toggle('open'));
+    hamburger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
 
+    // --- Data ---
     const services = {
       "operations-design": {
         title: "Operations Design",
@@ -291,6 +300,7 @@
       }
     };
 
+    // URL aliases
     const ALIASES = {
       "ongoing-ops": "customer-experience-servicing",
       "ecom-integrations": "ecommerce-integrations"
@@ -299,16 +309,26 @@
     const contentEl = document.getElementById('svc-body');
     const sidebarEl = document.getElementById('svc-sidebar');
 
+    // Tiny markdown -> HTML for **bold**
+    const mdBold = (s) => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
     function render(slug, push=false) {
       const key = ALIASES[slug] || slug;
       const svc = services[key] || services["operations-design"];
-      document.querySelectorAll('.svc-item').forEach(b => b.classList.toggle('selected', b.dataset.slug === key));
+
+      // Sidebar selection
+      document.querySelectorAll('.svc-item').forEach(b => {
+        b.classList.toggle('selected', b.dataset.slug === key);
+      });
 
       contentEl.classList.remove('visible');
       setTimeout(() => {
+        const whatLis = svc.what.map(i => `<li>${mdBold(i)}</li>`).join('');
+        const outLis  = svc.outcomes.map(i => `<li>${mdBold(i)}</li>`).join('');
+
         contentEl.innerHTML = `
           <div class="svc-title">
-            <img src="${svc.img}" alt="">
+            <img src="${svc.img}" alt="${svc.title}">
             <div>
               <h2>${svc.title}</h2>
               <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
@@ -316,29 +336,33 @@
           </div>
           <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
           <h3>What we do</h3>
-          <ul>${svc.what.map(i=>`<li>${i}</li>`).join('')}</ul>
+          <ul>${whatLis}</ul>
           <h3>Outcomes</h3>
-          <ul>${svc.outcomes.map(i=>`<li>${i}</li>`).join('')}</ul>
+          <ul>${outLis}</ul>
         `;
         contentEl.classList.add('visible');
 
+        // mobile: ensure body is in view
         if (window.innerWidth < 900) {
           contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
+        // update URL param without reload
         const url = new URL(window.location);
         url.searchParams.set('s', key);
         if (push) history.replaceState({}, '', url);
-      }, 150);
+      }, 120);
     }
 
+    // Sidebar click
     sidebarEl.addEventListener('click', (e) => {
       const btn = e.target.closest('.svc-item'); if (!btn) return;
       e.preventDefault(); render(btn.dataset.slug, true);
     });
 
+    // Init from URL
     const params = new URLSearchParams(window.location.search);
-    render(params.get('s') || 'operations-design', false);
+    render(params.get('s') || 'automation-ai', false); // default to the sexiest section
   </script>
 </body>
 </html>
