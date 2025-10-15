@@ -1,80 +1,91 @@
-// main.js — DeskXP v202 (hardened slider + small safety fixes)
+// main.js — DeskXP v210 (global header + hardened slider + safe observers)
 document.addEventListener("DOMContentLoaded", function () {
-  // YEAR
-  var y = document.getElementById("y");
+  // === YEAR ===
+  const y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
 
-  // MOBILE MENU
+  // === MOBILE MENU ===
   (function () {
-    var btn = document.getElementById("menuBtn");
-    var menu = document.getElementById("menu");
+    const btn = document.getElementById("menuBtn");
+    const menu = document.getElementById("menu");
     if (!btn || !menu) return;
+
     function setState(open) {
       menu.setAttribute("data-open", open ? "true" : "false");
       btn.setAttribute("aria-expanded", open ? "true" : "false");
     }
+
     btn.addEventListener("click", function () {
       setState(menu.getAttribute("data-open") !== "true");
     });
-    window.addEventListener("hashchange", function () { setState(false); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setState(false); });
+
+    window.addEventListener("hashchange", function () {
+      setState(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setState(false);
+    });
   })();
 
-  // SCROLL REVEAL (safe)
+  // === SCROLL REVEAL ===
   (function () {
-    var root = document.documentElement;
-    var els = document.querySelectorAll(".reveal");
+    const root = document.documentElement;
+    const els = document.querySelectorAll(".reveal");
     if (!els.length) return;
-    function revealAll() { for (var i=0;i<els.length;i++) els[i].classList.add("is-visible"); }
+
+    function revealAll() {
+      els.forEach(el => el.classList.add("is-visible"));
+    }
+
     function enableIO() {
       try {
-        var io = new IntersectionObserver(function (entries) {
-          for (var i=0;i<entries.length;i++) {
-            if (entries[i].isIntersecting) {
-              entries[i].target.classList.add("is-visible");
-              io.unobserve(entries[i].target);
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
             }
-          }
+          });
         }, { threshold: 0.2 });
-        for (var j=0;j<els.length;j++) io.observe(els[j]);
+
+        els.forEach(el => io.observe(el));
       } catch (e) { revealAll(); }
     }
-    requestAnimationFrame(function () {
+
+    requestAnimationFrame(() => {
       root.classList.add("js");
       if ("IntersectionObserver" in window) enableIO(); else revealAll();
     });
   })();
 
-  // SUCCESS SLIDER (hardened)
+  // === SUCCESS SLIDER ===
   (function () {
-    var root = document.getElementById("success");
+    const root = document.getElementById("success");
     if (!root) return;
 
-    var track   = root.querySelector("#successTrack");
-    var dotsWrap= root.querySelector("#successDots");
-    var prevBtn = root.querySelector("#prevBtn");
-    var nextBtn = root.querySelector("#nextBtn");
+    const track = root.querySelector("#successTrack");
+    const dotsWrap = root.querySelector("#successDots") || document.createElement("div");
+    const prevBtn = root.querySelector("#prevBtn");
+    const nextBtn = root.querySelector("#nextBtn");
     if (!track) return;
 
-    var slides = Array.prototype.slice.call(track.children || []).filter(function(s){ return s.classList.contains("success-slide"); });
+    let slides = Array.from(track.children || []).filter(s => s.classList.contains("success-slide"));
     if (!slides.length) return;
 
-    // Build dots if missing
-    if (!dotsWrap) {
-      dotsWrap = document.createElement("div");
+    if (!dotsWrap.id) {
       dotsWrap.id = "successDots";
       dotsWrap.className = "success-dots";
       root.appendChild(dotsWrap);
     }
 
-    var idx = 0, timer = null;
-    var INTERVAL = 6000;
-    var reducedMotion = (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) || false;
+    let idx = 0, timer = null;
+    const INTERVAL = 6000;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
 
     function setActive(i) {
-      for (var s=0;s<slides.length;s++) slides[s].classList.toggle("is-active", s === i);
-      var dots = dotsWrap.children;
-      for (var d=0; d<dots.length; d++) dots[d].classList.toggle("active", d === i);
+      slides.forEach((s, j) => s.classList.toggle("is-active", j === i));
+      Array.from(dotsWrap.children).forEach((d, j) => d.classList.toggle("active", j === i));
     }
 
     function go(i, user) {
@@ -84,43 +95,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function buildDots() {
-      var html = "";
-      for (var i=0;i<slides.length;i++) html += '<button aria-label="Go to slide '+(i+1)+'" type="button"></button>';
-      dotsWrap.innerHTML = html;
-      var dots = dotsWrap.children;
-      for (var j=0;j<dots.length;j++){
-        (function(k){ dots[k].addEventListener("click", function(){ go(k, true); }); })(j);
-      }
-      if (dots[0]) dots[0].classList.add("active");
+      dotsWrap.innerHTML = slides.map((_, i) =>
+        `<button aria-label="Go to slide ${i + 1}" type="button"></button>`
+      ).join("");
+
+      Array.from(dotsWrap.children).forEach((dot, j) =>
+        dot.addEventListener("click", () => go(j, true))
+      );
+      dotsWrap.children[0]?.classList.add("active");
     }
 
-    function start() { if (!reducedMotion) { stop(); timer = setInterval(function(){ go(idx + 1, false); }, INTERVAL); } }
-    function stop()  { if (timer) clearInterval(timer); timer = null; }
-    function restart(){ stop(); start(); }
+    function start() { if (!reducedMotion) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    function restart() { stop(); start(); }
 
-    // Init
-    try { buildDots(); setActive(0); start(); } catch(e){ /* fail open without crashing */ }
+    try { buildDots(); setActive(0); start(); } catch (e) { /* fail open */ }
 
-    // Controls (guard if missing)
-    if (prevBtn) prevBtn.addEventListener("click", function(){ go(idx - 1, true); });
-    if (nextBtn) nextBtn.addEventListener("click", function(){ go(idx + 1, true); });
+    prevBtn?.addEventListener("click", () => go(idx - 1, true));
+    nextBtn?.addEventListener("click", () => go(idx + 1, true));
 
-    // Pause on hover/touch
     track.addEventListener("mouseenter", stop);
     track.addEventListener("mouseleave", start);
-    track.addEventListener("touchstart", stop, { passive:true });
-    track.addEventListener("touchend", start,   { passive:true });
+    track.addEventListener("touchstart", stop, { passive: true });
+    track.addEventListener("touchend", start, { passive: true });
 
-    // Arrow keys
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft")  { go(idx - 1, true); }
-      if (e.key === "ArrowRight") { go(idx + 1, true); }
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") go(idx - 1, true);
+      if (e.key === "ArrowRight") go(idx + 1, true);
     });
   })();
 });
+
 // === GLOBAL HEADER LOADER ===
 (() => {
-  const path = "/profile/partials/header.html"; // correct path for your repo
+  const path = "/partials/header.html"; // ✅ Correct relative path for your current repo structure
 
   const ensureMount = () => {
     let el = document.getElementById("site-header");
@@ -140,21 +148,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const mount = ensureMount();
       mount.innerHTML = html;
 
-      // Burger toggle + sticky behavior
-      const burger = mount.querySelector(".dxp-burger");
-      const menu = mount.querySelector(".dxp-menu");
-      const header = mount.querySelector(".dxp-header");
-
-      if (burger && menu) {
-        burger.addEventListener("click", () => {
-          const open = menu.classList.toggle("open");
-          burger.setAttribute("aria-expanded", String(open));
+      // Mobile burger toggle + sticky behavior
+      const btn = mount.querySelector("#menuBtn");
+      const menu = mount.querySelector("#menu");
+      const navWrap = mount.querySelector(".nav-wrap");
+      if (btn && menu) {
+        btn.addEventListener("click", () => {
+          const open = menu.getAttribute("data-open") !== "true";
+          menu.setAttribute("data-open", open);
+          btn.setAttribute("aria-expanded", open);
         });
       }
 
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 8) header?.classList.add("is-scrolled");
-        else header?.classList.remove("is-scrolled");
+        if (window.scrollY > 8) navWrap?.classList.add("is-scrolled");
+        else navWrap?.classList.remove("is-scrolled");
       });
     } catch (err) {
       console.error("Header load failed:", err);
@@ -165,4 +173,3 @@ document.addEventListener("DOMContentLoaded", function () {
     ? document.addEventListener("DOMContentLoaded", loadHeader)
     : loadHeader();
 })();
-
