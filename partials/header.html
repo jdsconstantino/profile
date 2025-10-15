@@ -4,16 +4,23 @@
       <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
     </a>
 
-    <!-- Menu label + hamburger (works on desktop + mobile) -->
-    <button class="menu-trigger" id="menuBtn"
-            aria-label="Open menu" aria-controls="menuCurtain" aria-expanded="false">
-      <span class="menu-text">Menu</span>
-      <span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span>
+    <!-- Hamburger (no color change; inherits your header styles) -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+      <span></span><span></span><span></span>
     </button>
+
+    <!-- Desktop menu (unchanged) -->
+    <div class="menu" id="menu" data-open="false" aria-hidden="false">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/#success">Success Stories</a>
+      <a href="/about/">About</a>
+      <a class="cta" href="https://calendly.com/deskxp/30min">Book a Call</a>
+    </div>
   </div>
 
-  <!-- Slide-down curtain -->
-  <div id="menuCurtain" class="curtain" hidden>
+  <!-- Mobile slide-down curtain (only shows <900px) -->
+  <div id="navCurtain" class="curtain" hidden>
     <div class="curtain-inner">
       <ul class="curtain-menu">
         <li><a href="/">Home</a></li>
@@ -26,107 +33,91 @@
   </div>
 </nav>
 
+<!-- Scoped styles: do NOT change your header colors -->
 <style>
-/* ===== Scoped header styles (no extra links added) ===== */
-:root{
-  --dxp-green:#007236;               /* your header bg if you use green */
-  --dxp-dark:#2E424E;
-  --dxp-ink:#ffffff;
-  --dxp-border:rgba(255,255,255,.18);
-}
+  /* Keep your header look; only add what we need */
+  .hamburger{
+    --w: 22px; --bar: 2px;
+    position: relative; z-index: 10001; /* always clickable */
+    width: 40px; height: 40px; padding: 0;
+    display: grid; place-items: center;
+    background: transparent; border: 1px solid rgba(255,255,255,.18); border-radius: 10px;
+    cursor: pointer;
+  }
+  .hamburger span{
+    display:block; width: var(--w); height: var(--bar);
+    background: currentColor; border-radius: 2px;
+    transition: transform .25s ease, opacity .2s ease, translate .25s ease;
+  }
+  .hamburger span:nth-child(1){ transform-origin: left center }
+  .hamburger span:nth-child(3){ transform-origin: left center }
+  .hamburger.is-open span:nth-child(1){ transform: rotate(45deg) }
+  .hamburger.is-open span:nth-child(2){ opacity: 0; translate: -6px 0 }
+  .hamburger.is-open span:nth-child(3){ transform: rotate(-45deg) }
 
-.nav-wrap{
-  position:sticky; top:0; z-index:10000;
-  background: var(--dxp-green);     /* matches your screenshot */
-  border-bottom: 1px solid rgba(0,0,0,.12);
-}
-.nav{
-  max-width:1100px; margin:0 auto;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 16px;
-}
-.brand img{ display:block }
+  /* Hide desktop inline menu on mobile */
+  @media (max-width: 899px){
+    .menu{ display: none !important; }
+  }
 
-/* Menu trigger = "Menu" text + hamburger */
-.menu-trigger{
-  display:flex; align-items:center; gap:10px;
-  color:var(--dxp-ink); background:transparent; border:0; cursor:pointer;
-  padding:6px 8px; border-radius:10px;
-}
-.menu-text{ font-size:1.05rem; line-height:1; }
+  /* Slide-down curtain; uses your dark section color by default */
+  .curtain{
+    position: fixed; left: 0; right: 0; top: 0;
+    height: 0; overflow: hidden;
+    background: var(--dxp-curtain, #2E424E);
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    transform: translateY(-100%);
+    transition: transform .32s cubic-bezier(.2,.7,.2,1), height 0s linear .32s;
+    z-index: 10000;
+  }
+  .curtain.open{
+    height: 100vh; transform: translateY(0);
+    transition: transform .32s cubic-bezier(.2,.7,.2,1);
+  }
+  .curtain-inner{ max-width: 1100px; margin: 0 auto; padding: 18px 16px }
+  .curtain-menu{ list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px }
+  .curtain-menu a{
+    display:block; padding:14px 10px; color:#ECF3FF; text-decoration:none; font-size:1.15rem; border-radius:12px
+  }
+  .curtain-menu a:hover{ background: rgba(255,255,255,.08) }
 
-/* Hamburger icon (morphs to X) */
-.hamburger{ position:relative; width:26px; height:20px; display:inline-grid; align-content:space-between }
-.hamburger i{
-  display:block; height:2px; background:var(--dxp-ink); border-radius:2px;
-  transition:transform .25s ease, opacity .2s ease;
-}
-.menu-trigger.is-open .hamburger i:nth-child(1){ transform:translateY(9px) rotate(45deg) }
-.menu-trigger.is-open .hamburger i:nth-child(2){ opacity:0 }
-.menu-trigger.is-open .hamburger i:nth-child(3){ transform:translateY(-9px) rotate(-45deg) }
-
-/* Curtain */
-.curtain{
-  position:fixed; left:0; right:0; top:0;
-  height:0; overflow:hidden;
-  background:var(--dxp-dark);
-  border-bottom:1px solid var(--dxp-border);
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
-  transform:translateY(-100%);
-  transition:transform .32s cubic-bezier(.2,.7,.2,1), height 0s linear .32s;
-}
-.curtain.open{
-  height:100vh;
-  transform:translateY(0);
-  transition:transform .32s cubic-bezier(.2,.7,.2,1);
-}
-.curtain-inner{ max-width:1100px; margin:0 auto; padding:18px 16px }
-.curtain-menu{
-  list-style:none; margin:18px 0 0; padding:0;
-  display:flex; flex-direction:column; gap:14px;
-}
-.curtain-menu a{
-  display:block; padding:14px 10px; color:#ECF3FF; text-decoration:none; font-size:1.15rem; border-radius:12px;
-}
-.curtain-menu a:hover{ background:rgba(255,255,255,.08) }
-
-/* Same UI on desktop + mobile: no inline desktop menu */
+  /* Desktop keeps your inline menu; hide curtain */
+  @media (min-width: 900px){
+    .curtain{ display: none; }
+  }
 </style>
 
 <script>
-(() => {
-  const btn = document.getElementById('menuBtn');
-  const curtain = document.getElementById('menuCurtain');
-  const links = curtain.querySelectorAll('a');
+  (() => {
+    const btn = document.getElementById('menuBtn');
+    const curtain = document.getElementById('navCurtain');
+    const links = curtain.querySelectorAll('a');
 
-  const open = () => {
-    btn.classList.add('is-open');
-    btn.setAttribute('aria-expanded','true');
-    curtain.hidden = false;
-    void curtain.offsetHeight;            // reflow to enable transition
-    curtain.classList.add('open');
-    document.documentElement.style.overflow = 'hidden'; // lock scroll
-  };
-
-  const close = () => {
-    btn.classList.remove('is-open');
-    btn.setAttribute('aria-expanded','false');
-    curtain.classList.remove('open');
-    document.documentElement.style.overflow = '';
-    setTimeout(() => { curtain.hidden = true; }, 280);
-  };
-
-  btn.addEventListener('click', () => {
-    const isOpen = btn.classList.contains('is-open');
-    isOpen ? close() : open();
-  });
-
-  // Close on ESC
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && btn.classList.contains('is-open')) close();
-  });
-
-  // Close after navigating
-  links.forEach(a => a.addEventListener('click', close));
-})();
+    function openCurtain(){
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      curtain.hidden = false;        // make it renderable
+      void curtain.offsetHeight;     // force reflow so transition plays
+      curtain.classList.add('open');
+      document.documentElement.style.overflow = 'hidden'; // lock scroll
+    }
+    function closeCurtain(){
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      curtain.classList.remove('open');
+      document.documentElement.style.overflow = '';
+      setTimeout(() => { curtain.hidden = true; }, 280);   // after slide-up
+    }
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.contains('is-open');
+      isOpen ? closeCurtain() : openCurtain();
+    });
+    // close on ESC
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && btn.classList.contains('is-open')) closeCurtain();
+    });
+    // close after navigating
+    links.forEach(a => a.addEventListener('click', closeCurtain));
+  })();
 </script>
