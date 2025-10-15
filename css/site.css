@@ -925,5 +925,44 @@ footer::before {
     transform: none; /* reset for mobile stacked layout */
   }
 }
+/* ==== FOOTER BLEED FIX (DeskXP v202) ==== */
+
+/* make sure footer wraps its content fully */
+footer {
+  position: relative;
+  overflow: hidden;  /* prevent bleed from ::before gradient */
+  isolation: isolate; /* stop child blending into body */
+}
+
+/* stop pseudo-element bleed */
+footer::before {
+  inset: 0;
+  bottom: 0;
+  height: 100%;
+  clip-path: inset(0 0 0 0); /* enforce clipping area */
+}
+
+/* ensure body background doesn’t show below footer */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  overflow-x: hidden; /* prevent horizontal bleed */
+}
+
+/* force footer to be visually capped */
+body::after {
+  content: "";
+  display: block;
+  height: 0;  /* no extra spacing */
+  background: none;
+}
+
+/* for safety — ensure last section margin doesn't push footer off viewport */
+main > section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 
 
