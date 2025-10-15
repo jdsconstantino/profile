@@ -414,20 +414,24 @@
     </script>
   <script src="/js/main.js?v=202" defer></script>
   <script>
-  window.addEventListener('scroll', () => {
+  <script>
+  (function () {
     const nav = document.querySelector('.nav-wrap');
-    const scrollY = window.scrollY;
+    if (!nav) return;
 
-    // Smoothly morph background as you scroll down
-    if (scrollY > 60) {
-      nav.style.background = 'rgba(46, 66, 78, 0.96)';  // solid glass when scrolled
-      nav.style.backdropFilter = 'blur(10px)';
-      nav.style.transition = 'background 0.3s ease, backdrop-filter 0.3s ease';
-    } else {
-      nav.style.background = 'linear-gradient(to bottom, rgba(46,66,78,0.98) 0%, rgba(46,66,78,0) 100%)';
-      nav.style.backdropFilter = 'blur(6px)';
-    }
-  });
+    // if you previously wrote inline styles, wipe them once:
+    nav.style.background = '';
+    nav.style.backdropFilter = '';
+    nav.style.webkitBackdropFilter = '';
+
+    const update = () => {
+      const solid = window.scrollY > 60;
+      nav.classList.toggle('is-solid', solid);
+    };
+
+    update(); // set initial state
+    window.addEventListener('scroll', update, { passive: true });
+  })();
 </script>
 </body>
 </html>
