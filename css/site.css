@@ -727,4 +727,40 @@ footer::before {
 #cta .book-call:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 10px 24px rgba(0,114,54,.45); }
 
 #cta .cta-trust { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
+/* ==== FIX: stop body bg bleed after footer ==== */
+
+/* Ensure body takes the full page height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg); /* your global dark background */
+  overflow-x: hidden;    /* just in case something sticks out horizontally */
+}
+
+/* Ensure the footer sits at the very bottom, not floating mid-page */
+footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Prevent any leftover reveal / animation containers from creating blank space */
+body > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* If the page uses <div id="footer-container"> wrapper */
+#footer-container {
+  background: #2E424E;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: add this if a shadow or gradient was causing a bleed */
+footer::after {
+  content: "";
+  display: block;
+  height: 0;
+}
 
