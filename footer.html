@@ -1,135 +1,158 @@
 <footer class="dxp-footer">
   <style>
-    /* Load a cleaner UI font just for the footer (safe to @import inside <style>) */
+    /* Google font */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
-    :root{
+    :root {
       --dxp-green: #007236;
-      --dxp-ink:   #e7e9ee;
+      --dxp-ink: #e7e9ee;
       --dxp-muted: #cfd4dc;
-      --dxp-ink-2: #f6f7f9;
-      --dxp-bg-1:  #2E424E; /* brand ink */
-      --dxp-bg-2:  #1f2a30; /* deeper base */
+      --dxp-bg-1: #2E424E;
+      --dxp-bg-2: #1c262c;
     }
 
-    /* OUTER: remove bleed, keep it as a rounded surface with gradient */
-    .dxp-footer{
-      font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+    .dxp-footer {
+      font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: var(--dxp-ink);
-      margin: 40px auto 0;
-      padding: 0;                     /* handled by the surface */
+      margin: 60px auto 0;
     }
 
-    /* Rounded panel that holds the gradient — overflow hidden avoids bleed */
-    .dxp-footer .surface{
-      background: radial-gradient(120% 160% at 50% -20%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%),
-                  linear-gradient(180deg, #37535F 0%, #2E424E 32%, #24353D 70%, #1c262c 100%);
-      border: 1px solid rgba(255,255,255,.10);
+    .dxp-footer .surface {
+      background: radial-gradient(120% 160% at 50% -20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 55%),
+                  linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
-      overflow: hidden;               /* <— no gradient bleed */
-      padding: 46px 24px 22px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      padding: 60px 32px 30px;
     }
 
-    .dxp-footer .wrap{
+    .dxp-footer .wrap {
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* GRID: 4 columns as requested */
-    .dxp-footer .grid{
+    .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 180px 220px 1fr 1fr;  /* Logo | Policies | Nav | Connect */
-      gap: 36px;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 40px;
       align-items: start;
-      margin-bottom: 20px;
+      text-align: center;
     }
 
-    /* Column blocks */
-    .dxp-footer .col h4{
-      margin: 0 0 12px;
-      font-weight: 700;
-      font-size: clamp(1rem, 0.8rem + .6vw, 1.08rem);
-      color: var(--dxp-ink-2);
-      letter-spacing: .005em;
+    /* Logo column */
+    .dxp-footer .logo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .dxp-footer .logo{
-      display: block;
-      width: 120px;
+    .dxp-footer .logo {
+      width: 150px;
       height: auto;
       margin-bottom: 16px;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s ease;
     }
 
-    .dxp-footer .links{
+    .dxp-footer .logo:hover {
+      transform: scale(1.05);
+    }
+
+    /* Headings */
+    .dxp-footer .col h4 {
+      margin: 0 0 14px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f6f7f9;
+      letter-spacing: 0.01em;
+    }
+
+    /* Links */
+    .dxp-footer .links {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .dxp-footer .links li{ margin: 7px 0; }
 
-    .dxp-footer a{
+    .dxp-footer .links li {
+      margin: 7px 0;
+    }
+
+    .dxp-footer a {
       color: var(--dxp-ink);
       text-decoration: none;
-      font-size: .95rem;
+      font-size: 0.95rem;
       line-height: 1.45;
-      opacity: .92;
-      transition: color .18s ease, opacity .18s ease, text-decoration-color .18s ease;
-      text-decoration-color: transparent;
+      opacity: 0.9;
+      transition: color 0.2s ease, opacity 0.2s ease;
     }
-    .dxp-footer a:hover{
+
+    .dxp-footer a:hover {
       opacity: 1;
       color: #fff;
       text-decoration: underline;
-      text-decoration-color: rgba(255,255,255,.7);
     }
 
-    /* Hairline and copyright row */
-    .dxp-footer .rule{
+    /* Divider + Copyright */
+    .dxp-footer .rule {
       height: 1px;
-      background: linear-gradient(90deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
-      margin: 8px 0 14px;
-      opacity: .75;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+      margin: 20px 0 14px;
     }
-    .dxp-footer .copy{
+
+    .dxp-footer .copy {
       text-align: center;
       color: var(--dxp-muted);
-      font-size: .92rem;
-      letter-spacing: .01em;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
     }
-    .dxp-footer .copy a{ color: #fff; text-decoration: none; }
-    .dxp-footer .copy a:hover{ text-decoration: underline; }
 
-    /* RESPONSIVE */
-    @media (max-width: 980px){
-      .dxp-footer .grid{
-        grid-template-columns: 160px 1fr 1fr;       /* Logo + Policies share 1 row */
-        grid-auto-rows: auto;
+    .dxp-footer .copy a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .dxp-footer .copy a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .dxp-footer .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px 22px;
+        text-align: left;
       }
-      .dxp-footer .col.logo-col{ grid-column: 1; }
-      .dxp-footer .col.policies{ grid-column: 2 / 4; }
+      .dxp-footer .logo-col {
+        grid-column: 1 / -1;
+        text-align: center;
+      }
     }
-    @media (max-width: 720px){
-      .dxp-footer .grid{ grid-template-columns: 1fr 1fr; gap: 28px 22px; }
-      .dxp-footer .col.logo-col{ grid-column: 1 / -1; }
-      .dxp-footer .logo{ width: 100px; }
-    }
-    @media (max-width: 520px){
-      .dxp-footer .grid{ grid-template-columns: 1fr; gap: 22px; }
+
+    @media (max-width: 560px) {
+      .dxp-footer .grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+      }
+      .dxp-footer .logo {
+        width: 130px;
+      }
     }
   </style>
 
   <div class="surface">
     <div class="wrap">
       <div class="grid">
-        <!-- Col 1: Logo only -->
+        <!-- Column 1: Logo -->
         <div class="col logo-col">
-          <img src="/assets/logo.png" alt="DeskXP" class="logo">
+          <img src="/assets/logo.png" alt="DeskXP Logo" class="logo" />
         </div>
 
-        <!-- Col 2: Policies -->
-        <div class="col policies">
+        <!-- Column 2: Policies -->
+        <div class="col">
           <h4>Policies</h4>
           <ul class="links">
             <li><a href="/privacy/">Privacy Policy</a></li>
@@ -137,7 +160,7 @@
           </ul>
         </div>
 
-        <!-- Col 3: Navigation -->
+        <!-- Column 3: Navigation -->
         <div class="col">
           <h4>Navigation</h4>
           <ul class="links">
@@ -149,7 +172,7 @@
           </ul>
         </div>
 
-        <!-- Col 4: Connect -->
+        <!-- Column 4: Connect -->
         <div class="col">
           <h4>Connect with Me</h4>
           <ul class="links">
@@ -160,14 +183,14 @@
       </div>
 
       <div class="rule"></div>
-      <p class="copy">© <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a></p>
+      <p class="copy">
+        © <span id="dxp-year"></span> DeskXP •
+        <a href="https://deskxp.com">deskxp.com</a>
+      </p>
     </div>
   </div>
 
   <script>
-    (function(){
-      var el = document.getElementById("dxp-year");
-      if (el) el.textContent = new Date().getFullYear();
-    })();
+    document.getElementById("dxp-year").textContent = new Date().getFullYear();
   </script>
 </footer>
