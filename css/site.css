@@ -74,13 +74,18 @@ body{
 img{max-width:100%; height:auto; display:block;}
 
 /* ===== Header ===== */
+/* Header = same background as footer */
 .nav-wrap{
-  position:sticky; 
-  top:0; 
-  z-index:50;
-  background:#363e4b;               /* solid dark background */
-  border-bottom:1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--footer-bg);                 /* ← same as footer */
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  backdrop-filter: blur(6px);                   /* subtle polish */
 }
+
+/* keep your existing rules */
 .nav{max-width:1100px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;}
 .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--text); text-decoration:none;}
 .brand img{width:120px; height:120px; border-radius:6px;}
@@ -94,7 +99,6 @@ img{max-width:100%; height:auto; display:block;}
   .menu[data-open="true"]{display:block;}
   .menu a{display:block; padding:8px 0; margin:0;}
   .hamburger{display:block;}
-  /* mobile safety so header doesn't explode */
   .brand img{width:48px; height:48px;}
 }
 
