@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — DeskXP</title>
-  <meta name="description" content="DeskXP bridges the gap between business and customers: end-to-end CX—from agents and workflows to automation, analytics, and continuous improvement." />
+  <meta name="description" content="DeskXP bridges the gap between business and customers: end-to-end CX—from agent staffing and workflows to automation, analytics, and continuous improvement." />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
@@ -16,98 +16,69 @@
   <link rel="stylesheet" href="/css/site.css?v=209" />
 
   <style>
-    /* ===== About page local styles (safe to keep alongside /css/site.css) ===== */
-
+    /* ===== Page-scoped tokens (safe with your global CSS) ===== */
     :root{
-      --brand:#007236;            /* DeskXP green */
-      --accent:#ffd400;           /* bright yellow for decor */
+      --brand:#007236;          /* DeskXP green */
+      --accent:#ffd400;         /* bright yellow */
       --ink:#0f1222;
-      --muted:#6b7280;
+      --muted:#9aa3af;
       --panel:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.12);
     }
-
     .container{max-width:1100px;margin:0 auto;padding:24px 16px}
 
-    /* 1) DESKXP — About the brand */
+    /* ===== 1) DESKXP brand section ===== */
     .about-hero{
-      background:#fff;
-      color:#0b0f1a;
-      border-radius:18px;
-      border:1px solid #e6e6e6;
-      padding:36px 26px;
-      margin:20px 0 36px;
+      background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
+      padding:36px 26px;margin:20px 0 36px;
     }
-    .about-hero .logo{
-      display:block;
-      margin:6px auto 14px;
-      width:min(460px,80%);
-      height:auto;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,.08));
-    }
-    .about-hero p{
-      font-size:1.05rem; 
-      line-height:1.75;
-      margin:0 auto;
-      max-width:860px;
-      text-align:center;
-    }
-    .about-hero .pill-row{
-      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px
-    }
-    .about-hero .pill{
-      border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa
-    }
+    .about-hero .logo{display:block;margin:6px auto 14px;width:min(460px,80%);height:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.08))}
+    .about-hero p{font-size:1.05rem;line-height:1.75;margin:0 auto;max-width:860px;text-align:center}
+    .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+    .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
 
-    /* 2) Work with an Expert (photo left + yellow seam) */
+    /* ===== 2) Work with an Expert block (photo left, grounded) ===== */
     .expert{
-      background:linear-gradient(180deg, rgba(255,212,0,.06) 0%, transparent 50%);
+      background:rgba(0,0,0,.08);
       border:1px solid var(--border);
       border-radius:18px;
-      padding:26px;
-      margin:36px 0;
+      padding:34px 28px;
+      margin:40px 0;
     }
-    .expert-grid{display:grid;grid-template-columns:360px 1fr;gap:28px;align-items:center}
-    @media (max-width: 900px){.expert-grid{grid-template-columns:1fr;gap:18px}}
+    .expert-grid{
+      display:grid;
+      grid-template-columns:360px 1fr;
+      gap:34px;
+      align-items:center;
+    }
+    @media (max-width: 980px){ .expert-grid{grid-template-columns:1fr;gap:22px} }
 
-    .photo-wrap{
-      position:relative; width:100%; max-width:360px;
-      margin:0 auto;
-    }
-    .photo-wrap img{
-      width:100%; height:auto; display:block; border-radius:14px;
-      /* NO border as requested */
-    }
-    /* Yellow seamless outline + bottom curve mask */
-    .photo-wrap::before{
-      content:""; position:absolute; inset:-10px -12px -18px -12px; z-index:-1;
-      background:
-        radial-gradient(120px 40px at 60% 100%, var(--accent) 0%, transparent 70%) bottom center no-repeat,
-        conic-gradient(from 210deg, var(--accent), rgba(255,212,0,.35), transparent 60%);
-      border-radius:20px;
-      filter: blur(6px) saturate(1.1);
-    }
+    .expert h2{color:#fff;margin:0 0 10px;letter-spacing:.2px}
+    .expert p{color:var(--muted);font-size:1.06rem;line-height:1.7;margin:0 0 10px}
+
+    .photo-wrap{position:relative;width:100%;max-width:360px;margin:0 auto}
+    .photo-wrap img{width:100%;height:auto;display:block;border-radius:14px}
+    /* curved yellow base, following a natural under-foot arc */
+    .photo-wrap .swoosh{position:absolute;left:-26px;right:-26px;bottom:-8px;height:130px;pointer-events:none;opacity:.95;filter:blur(6px)}
+    .photo-wrap .swoosh svg{width:100%;height:100%;display:block}
+    /* subtle halo tight to the bottom curve */
     .photo-wrap::after{
-      content:""; position:absolute; left:0; right:0; bottom:-8px; height:18px;
-      background: radial-gradient(60% 28px at 50% 0, var(--accent) 0%, transparent 65%);
-      opacity:.85;
-      filter: blur(4px);
-      pointer-events:none;
+      content:"";position:absolute;left:12%;right:12%;bottom:-6px;height:16px;
+      background:radial-gradient(60% 22px at 50% 0, var(--accent) 0%, transparent 65%);
+      opacity:.85;filter:blur(3px);
     }
 
-    .expert h2{margin:0 0 6px 0}
-    .expert p{color:var(--muted);font-size:1.05rem}
-    .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-    .stack .tag{border:1px solid var(--border);background:var(--panel);padding:8px 10px;border-radius:999px;font-size:.92rem}
-    .badge{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:6px 10px;font-size:.85rem;margin-top:10px}
+    .badge{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:7px 12px;font-size:.86rem;margin:8px 0 14px}
+    .stack{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+    .tag{border:1px solid var(--border);background:var(--panel);padding:9px 12px;border-radius:999px;font-size:.93rem;line-height:1}
 
-    /* 3) Logos */
+    /* ===== 3) Logos ===== */
     .about-logos{margin:26px 0}
     .about-logos .logo-row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
     .about-logos img{height:42px;opacity:.9;filter:grayscale(100%) contrast(1.1)}
     .about-logos .muted{color:var(--muted)}
 
-    /* 4) Timeline */
+    /* ===== 4) Career timeline ===== */
     .about-timeline{margin:36px 0}
     .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:20px}
     .tl .tl-head{display:flex;justify-content:space-between;gap:14px;align-items:baseline}
@@ -115,27 +86,34 @@
     .tl-points{margin:8px 0 0 0;padding-left:18px}
     .tl-points li{margin:.4rem 0}
 
-    /* 5) Projects (click to expand) */
+    /* ===== 5) Certifications ===== */
+    .certs{margin:34px 0}
+    .certs h2{margin-bottom:10px}
+    .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width: 980px){ .cert-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 620px){ .cert-grid{grid-template-columns:1fr} }
+    .cert-card{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px}
+    .cert-card h3{font-size:1rem;margin:0 0 8px}
+    .cert-links a{display:inline-block;margin-top:8px}
+
+    /* ===== 6) Projects (expanders) ===== */
+    .about-cases{margin:36px 0}
     .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media (max-width: 900px){.case-grid{grid-template-columns:1fr}}
-    details.case{
-      border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden;
-    }
-    details.case>summary{
-      cursor:pointer;list-style:none;padding:14px 14px;display:flex;align-items:center;gap:12px
-    }
+    details.case{border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden}
+    details.case>summary{cursor:pointer;list-style:none;padding:14px;display:flex;align-items:center;gap:12px}
     details.case>summary::-webkit-details-marker{display:none}
     .case img{width:42px;height:42px;object-fit:contain;border-radius:8px;background:#fff;border:1px solid #eee}
     .case h3{margin:0;font-size:1rem}
     .case .meta{color:var(--muted);font-size:.92rem}
-    .case .body{padding:0 14px 14px 14px;border-top:1px dashed var(--border);background:rgba(0,0,0,.02)}
+    .case .body{padding:0 14px 14px;border-top:1px dashed var(--border);background:rgba(0,0,0,.02)}
     .body .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     @media (max-width: 800px){.body .twocol{grid-template-columns:1fr}}
-    .body h4{margin:.6rem 0 .2rem 0;font-size:.98rem}
-    .body ul{margin:.2rem 0 .8rem 0;padding-left:18px}
+    .body h4{margin:.6rem 0 .2rem;font-size:.98rem}
+    .body ul{margin:.2rem 0 .8rem;padding-left:18px}
 
-    /* CTA card */
-    .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:18px 18px;margin:38px 0}
+    /* ===== CTA ===== */
+    .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:18px;margin:38px 0}
     .btn-solid,.btn-minimal{display:inline-block;border-radius:999px;padding:10px 14px;font-weight:600;text-decoration:none}
     .btn-solid{background:var(--brand);color:#fff}
     .btn-minimal{border:1px solid var(--border)}
@@ -149,8 +127,7 @@
   <div id="site-header"></div>
 
   <div class="container">
-
-    <!-- ===== SECTION 1: DeskXP (About the brand) ===== -->
+    <!-- ===== SECTION 1: DeskXP brand ===== -->
     <section class="about-hero reveal" aria-labelledby="deskxp">
       <img class="logo" src="/assets/logo.png" alt="DeskXP" width="680" height="180" />
       <h1 id="deskxp" class="sr-only">About DeskXP</h1>
@@ -158,7 +135,7 @@
         <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
         We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
         workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
-        automation & AI assistants, analytics, and continuous improvement. The outcome: faster response, lower cost-per-resolution,
+        automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
         and a support experience customers actually trust.
       </p>
       <div class="pill-row" aria-label="Capabilities">
@@ -179,6 +156,26 @@
       <div class="expert-grid">
         <div class="photo-wrap">
           <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
+          <!-- Yellow swoosh grounding path -->
+          <div class="swoosh" aria-hidden="true">
+            <svg viewBox="0 0 820 280" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="yGlow" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%"  stop-color="#ffd400" stop-opacity="0.85"/>
+                  <stop offset="70%" stop-color="#ffd400" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#ffd400" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Curved base: starts left, dips under jacket, rises right -->
+              <path d="M10,210
+                       C 180,250 330,260 470,225
+                       S 790,110 810,130"
+                    fill="none" stroke="url(#yGlow)" stroke-width="38" stroke-linecap="round"/>
+              <!-- Soft fill halo under the stroke -->
+              <path d="M0,240 C220,300 420,300 820,180 L820,280 L0,280 Z"
+                    fill="#ffd400" opacity="0.18"/>
+            </svg>
+          </div>
         </div>
 
         <div>
@@ -194,6 +191,7 @@
             <em>messaging</em> (Sunshine Conversations, Viber/TikTok connectors), and <em>analytics</em>
             (Explore, Looker Studio, GA4). If it routes, measures, or automates a customer touchpoint, I can make it work.
           </p>
+
           <div class="stack" aria-label="Tool stack">
             <span class="tag">Zendesk (Support/Guide/Explore)</span>
             <span class="tag">Sunshine Conversations</span>
@@ -203,18 +201,10 @@
             <span class="tag">Looker Studio</span>
             <span class="tag">Freshdesk / Intercom</span>
             <span class="tag">Viber / TikTok APIs</span>
+            <span class="tag">API / REST / GraphQL</span>
+            <span class="tag">n8n</span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== Logos ===== -->
-    <section class="about-logos reveal">
-      <p class="muted">Selected brands & projects</p>
-      <div class="logo-row">
-        <img src="/assets/palawanpay.png" alt="PalawanPay" />
-        <img src="/assets/unison.png" alt="Unison" />
-        <img src="/assets/boutiqu-de-sophie.png" alt="Boutique de Sophie" />
       </div>
     </section>
 
@@ -260,10 +250,52 @@
       </ol>
     </section>
 
-    <!-- ===== SECTION 4: Projects (click to expand for details) ===== -->
+    <!-- ===== SECTION 4: Certifications ===== -->
+    <section class="certs reveal" aria-labelledby="certs-title">
+      <h2 id="certs-title">Certifications</h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <h3>Zendesk Explore</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Foundational Support</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Zendesk Guide</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Zendesk Messaging</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Zendesk Omnichannel</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Sunshine Conversations (Developer)</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+        <div class="cert-card">
+          <h3>Zendesk Professional Certificate</h3>
+          <div class="cert-links">
+            <a class="btn-minimal" href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924&u=139858924&success=true&authUUID=z3uqz5PmQK6DcMNfHv8ZAA%3D%3D" target="_blank" rel="noopener">View credential</a>
+          </div>
+        </div>
+        <div class="cert-card">
+          <h3>Professional Certificate in Operations Management</h3>
+          <div class="cert-links">
+            <a class="btn-minimal" href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 5: Projects (click to expand) ===== -->
     <section class="about-cases reveal">
       <h2>Projects</h2>
-
       <div class="case-grid">
 
         <!-- PalawanPay -->
@@ -351,7 +383,7 @@
         <!-- Boutique de Sophie -->
         <details class="case">
           <summary>
-            <img src="/assets/bds.png" alt="Boutique de Sophie" />
+            <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie" />
             <div>
               <h3>Boutique de Sophie — E-commerce Scaling</h3>
               <div class="meta">Shopify ↔ Zendesk, post-purchase macros, deflection</div>
@@ -411,6 +443,9 @@
       .then(r => r.text())
       .then(html => document.getElementById("footer").innerHTML = html);
   </script>
+
+  <!-- Credly embed (load once for all badges) -->
+  <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
   <!-- Global JS (injects header, handles sliders/reveal, etc.) -->
   <script src="/js/main.js?v=210" defer></script>
