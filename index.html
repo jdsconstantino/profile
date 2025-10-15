@@ -21,135 +21,170 @@
 
   <!-- Fonts + Main CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/site.css?v=206" />
+  <link rel="stylesheet" href="/css/site.css?v=209" />
 
-  <!-- SUCCESS STORIES (2-column redesign) -->
+  <!-- SUCCESS STORIES refined PalawanPay layout -->
   <style id="success-hotfix">
-    #success.success-slider{
-      max-width:1320px!important;margin:80px auto!important;padding:36px 0 52px!important;
-      border-radius:20px!important;background:linear-gradient(180deg,#fbfbfb 0%,#ffffff 60%,#f7f9f7 100%)!important;
-      border:1px solid rgba(0,0,0,.06)!important;box-shadow:0 14px 44px rgba(0,0,0,.16)!important;
-      width:auto!important;position:relative!important;overflow:hidden!important;
+    #success.success-slider {
+      max-width: 1320px !important;
+      margin: 80px auto !important;
+      padding: 22px 0 34px !important;
+      border-radius: 20px !important;
+      background: linear-gradient(180deg,#fbfbfb 0%,#ffffff 60%,#f7f9f7 100%) !important;
+      border: 1px solid rgba(0,0,0,.06) !important;
+      box-shadow: 0 14px 44px rgba(0,0,0,.16) !important;
+      position: relative !important;
+      overflow: hidden !important;
     }
-    #success .success-head{margin-bottom:20px!important;text-align:center;}
-    #success .success-head h2{font-size:2.05rem!important;letter-spacing:-.01em!important;font-weight:800!important;color:var(--accent)!important;}
 
-    /* === Success: 2-column layout === */
-    #success .ss-row{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:center;}
-    #success .ss-left{display:flex;align-items:center;justify-content:center;}
-    #success .ss-logo{width:220px;height:auto;object-fit:contain;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0 auto;}
-    #success .ss-right h3{margin:0 0 10px;font-size:1.3rem;font-weight:800;color:#111;}
-    #success .ss-metrics{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:12px;list-style:none;padding:0;margin:12px 0 0;}
-    #success .metric{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e8eaef;border-radius:12px;padding:10px 12px;}
-    #success .metric .m-num{font-weight:800;color:#0b7a3a;white-space:nowrap;}
-    #success .metric .m-label{color:#1f2937;}
-    @media (max-width:900px){#success .ss-row{grid-template-columns:1fr;text-align:left;}#success .ss-logo{width:160px;}#success .ss-metrics{grid-template-columns:1fr;}}
+    #success .success-head {
+      margin-bottom: 14px !important;
+      text-align: center !important;
+    }
+    #success .success-head h2 {
+      font-size: 2.05rem !important;
+      font-weight: 800 !important;
+      color: var(--accent) !important;
+      letter-spacing: -0.01em !important;
+    }
 
-    /* slider core */
-    #success .success-track{position:relative;max-width:980px;margin:0 auto;min-height:340px;display:flex;align-items:center;justify-content:center;}
-    #success .success-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s ease;transform:translateY(6px);}
-    #success .success-slide.is-active{opacity:1;pointer-events:auto;transform:translateY(0);}
-    #success .success-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;background:rgba(0,0,0,.10);color:#111;border:none;box-shadow:0 3px 10px rgba(0,0,0,.08);z-index:5;cursor:pointer;}
-    #success .success-nav:hover{background:var(--accent);color:#fff;transform:translateY(-50%) scale(1.06);}
-    #success .success-nav.prev{left:24px;}#success .success-nav.next{right:24px;}
-    #success .success-dots{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:10px;}
-    #success .success-dots button{width:9px;height:9px;background:rgba(0,0,0,.22);border:0;border-radius:999px;}
-    #success .success-dots button.active{background:var(--accent);box-shadow:0 0 0 4px rgba(0,114,54,.12);}
-    /* ===== PalawanPay refined layout ===== */
-#success .ss-row--ppay {
-  grid-template-columns: 380px 1fr;
-  align-items: center;
-}
+    /* PalawanPay layout */
+    #success .ss-row--ppay {
+      display: grid;
+      grid-template-columns: 320px 1fr !important;
+      align-items: center !important;
+    }
+    #success .ss-left {
+      display: flex;
+      justify-content: flex-start !important;
+      padding-left: 8px !important;
+    }
+    #success .ss-logo--xl {
+      width: 320px !important;
+      height: auto !important;
+      object-fit: contain !important;
+    }
+    #success .ss-right--sep {
+      border-left: 1px solid #e6e9ef !important;
+      padding-left: 36px !important;
+    }
 
-#success .ss-left {
-  display: flex;
-  justify-content: flex-start; /* move logo to the far left */
-  padding-left: 40px;
-}
+    /* Wins grid (3+2 layout, no boxes) */
+    #success .wins {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 16px 22px;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+    }
+    #success .win {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    #success .win img {
+      width: 140px !important;
+      height: 140px !important;
+      object-fit: contain;
+    }
+    #success .win p {
+      margin: 0;
+      text-align: center;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      max-width: 240px;
+    }
+    #success .wins .win:nth-child(5) {
+      grid-column: 2; /* centers last two */
+    }
 
-#success .ss-logo--xl {
-  width: 480px; /* bigger logo */
-  height: auto;
-  object-fit: contain;
-}
+    /* Shorter track */
+    #success .success-track {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: 220px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #success .success-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(6px);
+    }
+    #success .success-slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
 
-#success .ss-right--sep {
-  border-left: 1px solid #e6e9ef;
-  padding-left: 36px;
-}
+    /* Navigation */
+    #success .success-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.1);
+      color: #111;
+      border: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      z-index: 5;
+      cursor: pointer;
+    }
+    #success .success-nav:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-50%) scale(1.06);
+    }
+    #success .success-nav.prev { left: 24px; }
+    #success .success-nav.next { right: 24px; }
 
-/* Wins grid — 3 on first row, 2 on next row */
-#success .wins {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: auto;
-  gap: 20px 22px;
-}
+    #success .success-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    #success .success-dots button {
+      width: 9px;
+      height: 9px;
+      background: rgba(0,0,0,0.22);
+      border: 0;
+      border-radius: 999px;
+    }
+    #success .success-dots button.active {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,114,54,0.12);
+    }
 
-#success .win {
-  background: #fff;
-  border: 1px solid #e8eaef;
-  border-radius: 14px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.25s ease;
-}
-
-#success .win:hover {
-  transform: translateY(-3px);
-}
-
-#success .win img {
-  width: 110px; /* larger icons */
-  height: 110px;
-  object-fit: contain;
-}
-
-#success .win p {
-  margin: 0;
-  text-align: center;
-  color: #0f172a;
-  line-height: 1.35;
-  font-weight: 600;
-  font-size: 0.95rem;
-  max-width: 220px;
-}
-
-/* --- Responsive adjustments --- */
-@media (max-width: 900px) {
-  #success .ss-row--ppay {
-    grid-template-columns: 1fr;
-  }
-  #success .ss-logo--xl {
-    width: 240px;
-    margin: 0 auto 20px;
-  }
-  #success .ss-right--sep {
-    border-left: 0;
-    padding-left: 0;
-  }
-  #success .wins {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-}
-
-@media (max-width: 520px) {
-  #success .wins {
-    grid-template-columns: 1fr;
-  }
-  #success .ss-left {
-    padding-left: 0;
-    justify-content: center;
-  }
-}
+    /* Responsive */
+    @media (max-width: 900px) {
+      #success .ss-row--ppay { grid-template-columns: 1fr !important; }
+      #success .ss-logo--xl { width: 220px !important; margin: 6px auto 14px; }
+      #success .ss-right--sep { border-left: 0 !important; padding-left: 0 !important; }
+      #success .wins { grid-template-columns: repeat(2, minmax(140px,1fr)); }
+      #success .wins .win:nth-child(5) { grid-column: auto; }
+    }
+    @media (max-width: 520px) {
+      #success .wins { grid-template-columns: 1fr; }
+      #success .ss-left { padding-left: 0; justify-content: center; }
+    }
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -192,44 +227,28 @@
     </section>
   </div>
 
-  <!-- Success Stories (redesigned layout) -->
+  <!-- Success Stories -->
   <section id="success" class="success-slider">
     <div class="success-head"><h2>Success Stories</h2></div>
     <div class="success-track" id="successTrack">
 
-      <!-- PalawanPay (logo left, big; wins as illustrated tiles; no title) -->
+      <!-- PalawanPay -->
       <article class="success-slide is-active">
         <div class="ss-row ss-row--ppay">
-        <div class="ss-left">
-          <img class="ss-logo ss-logo--xl" src="/assets/palawanpay.png" alt="PalawanPay">
+          <div class="ss-left">
+            <img class="ss-logo ss-logo--xl" src="/assets/palawanpay.png" alt="PalawanPay">
+          </div>
+          <div class="ss-right ss-right--sep">
+            <ul class="wins">
+              <li class="win"><img src="/assets/5Msavings.png" alt="₱5M annual savings"><p>₱5M annual savings with chatbot implementation</p></li>
+              <li class="win"><img src="/assets/routingppay.png" alt="+30% efficiency"><p>+30% efficiency in omnichannel routing</p></li>
+              <li class="win"><img src="/assets/onetouch.png" alt="Reduced one-touch tickets"><p>Reduced one-touch tickets</p></li>
+              <li class="win"><img src="/assets/kb.png" alt="Help Center"><p>Help Center implementation</p></li>
+              <li class="win"><img src="/assets/cc.png" alt="Customer Care org"><p>Customer Care team established from the ground up</p></li>
+            </ul>
+          </div>
         </div>
-
-        <div class="ss-right ss-right--sep">
-          <ul class="wins">
-            <li class="win">
-              <img src="/assets/5Msavings.png" alt="₱5M annual savings">
-              <p>₱5M annual savings with chatbot implementation</p>
-            </li>
-            <li class="win">
-              <img src="/assets/routingppay.png" alt="+30% efficiency in routing">
-              <p>+30% efficiency in omnichannel routing</p>
-            </li>
-            <li class="win">
-              <img src="/assets/onetouch.png" alt="Reduced one-touch tickets">
-              <p>Reduced one-touch tickets</p>
-            </li>
-            <li class="win">
-              <img src="/assets/kb.png" alt="Help Center">
-              <p>Help Center implementation</p>
-            </li>
-            <li class="win">
-              <img src="/assets/cc.png" alt="Customer Care org">
-              <p>Customer Care team established from the ground up</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </article>
+      </article>
 
       <!-- Unison -->
       <article class="success-slide">
@@ -265,8 +284,8 @@
       </article>
 
     </div>
-    <button class="success-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
-    <button class="success-nav next" id="nextBtn" aria-label="Next slide">›</button>
+    <button class="success-nav prev" id="prevBtn">‹</button>
+    <button class="success-nav next" id="nextBtn">›</button>
     <div class="success-dots" id="successDots"></div>
   </section>
 
@@ -274,13 +293,13 @@
   <div class="container">
     <section class="about-teaser reveal v2">
       <div class="about-wrap">
-      <h4>About</h4>
-      <h2><span class="accent">Expert.</span> Seasoned. Tech-driven. Customer-First.</h2>
-      <p class="tagline">Systems that scale people, not just processes.</p>
-      <a class="btn-outline" href="/about.html">Learn more</a>
-    </div>
-  </section>
-    
+        <h4>About</h4>
+        <h2><span class="accent">Expert.</span> Seasoned. Tech-driven. Customer-First.</h2>
+        <p class="tagline">Systems that scale people, not just processes.</p>
+        <a class="btn-outline" href="/about.html">Learn more</a>
+      </div>
+    </section>
+
     <section id="cta" class="reveal">
       <h2>Book a discovery call</h2>
       <div class="cta-grid">
@@ -299,7 +318,6 @@
   </div>
 
   <footer>© <span id="y"></span> DeskXP • <a href="https://deskxp.com" style="color:var(--accent)">deskxp.com</a></footer>
-
   <script src="/js/main.js?v=202" defer></script>
 </body>
 </html>
