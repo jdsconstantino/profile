@@ -657,4 +657,74 @@ footer::before {
     transform: none;
   }
 }
+/* ==== CTA (v2) ==== */
+#cta.reveal.v2 {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 36px min(5vw, 48px);
+  max-width: 1100px;      /* match About width */
+  margin: 32px auto 64px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+#cta .cta-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: center;
+}
+@media (max-width: 980px){
+  #cta .cta-wrap { grid-template-columns: 1fr; }
+}
+
+/* Left column */
+#cta h2 { margin: 0 0 10px; line-height: 1.2; font-size: clamp(1.8rem, 1.6rem + 2vw, 2.4rem); }
+#cta .accent { color: var(--accent, #007236); }
+
+#cta .lede { margin: 6px 0 16px; font-size: 1.2rem; color: var(--muted); }
+
+#cta .cta-list { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 10px; }
+#cta .cta-list li {
+  position: relative; padding-left: 28px; color: var(--text);
+}
+#cta .cta-list li::before {
+  content: "✓";
+  position: absolute; left: 0; top: 0;
+  width: 20px; height: 20px; line-height: 20px; text-align: center;
+  border: 1px solid var(--border); border-radius: 50%;
+  color: var(--accent, #007236);
+}
+
+/* Chips */
+#cta .cta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px; }
+#cta .cta-chips span {
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px;
+  font-size: .9rem; color: var(--muted); background: rgba(255,255,255,.02);
+}
+
+#cta .cta-note { margin: 8px 0 0; color: var(--muted); }
+
+/* Right column card */
+#cta .cta-right { display: flex; justify-content: center; }
+#cta .cta-card {
+  width: 100%; border: 1px solid var(--border); border-radius: 14px;
+  padding: 18px; display: grid; gap: 10px;
+  background: linear-gradient(180deg, rgba(0,114,54,.08), rgba(0,0,0,0));
+}
+
+#cta .cta-title { margin: 0; font-weight: 700; color: var(--text); }
+#cta .cta-copy { margin: -4px 0 8px; color: var(--muted); font-size: .95rem; }
+
+/* Button (auto width, centered in card) */
+#cta .book-call {
+  display: inline-block; justify-self: start;
+  padding: 12px 18px; border-radius: 10px;
+  background: var(--accent, #007236); color: #fff; text-decoration: none; font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,114,54,.35);
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+}
+#cta .book-call:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 10px 24px rgba(0,114,54,.45); }
+
+#cta .cta-trust { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
 
