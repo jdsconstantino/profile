@@ -6,133 +6,163 @@
   <title>Services — DeskXP</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Main site styles (use the latest) -->
+  <!-- Main site styles (match homepage version) -->
   <link rel="stylesheet" href="/css/site.css?v=209">
 
   <style>
-    body { font-family: "Inter", system-ui, sans-serif; }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: none; }
-
-    /* Layout */
-    .svc-layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 28px;
-      align-items: start;
-      margin-top: 24px;
-      animation: fadeIn 0.4s ease;
+    :root{
+      --accent: #007236;
+      --accent-weak: rgba(0,114,54,.18);
+      --spine: rgba(0,114,54,.45);
+      --node: #0ea35a;
+      --card-text: #0f172a;     /* slate-900 */
+      --card-muted:#475569;     /* slate-600 */
+      --card-border:#e6e9ef;
     }
-    @media (max-width: 900px) {
-      .svc-layout { grid-template-columns: 1fr; }
-    }
+    body{ font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
 
-    /* Sidebar */
-    .svc-sidebar {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      position: sticky;
-      top: 100px;
-      align-self: start;
-      animation: slideInLeft 0.6s ease;
+    /* HEADER (reuse your global nav classes) */
+    .nav-wrap .brand img{ height: 24px; }
+
+    /* PAGE WRAPPER */
+    .svc-page{
+      max-width: 1200px;
+      margin: 48px auto 80px;
+      padding: 0 20px;
     }
 
-    .svc-item {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:transparent;
-      cursor:pointer;
-      width:100%;
-      text-align:left;
-      margin:10px 0;
-      transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
+    /* TITLE */
+    .svc-head{
+      text-align: center;
+      margin-bottom: 24px;
     }
-    .svc-item:hover {
-      background: var(--glass);
-      transform: translateY(-1px);
+    .svc-head h1{
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 1.2rem + 2.6vw, 2.6rem);
+      font-weight: 800;
+      color: var(--text, #e6e6e6);
+      letter-spacing: -0.01em;
     }
-    .svc-item.selected {
-      background: rgba(0,114,54,.1);
-      box-shadow: 0 0 0 2px rgba(0,114,54,.25) inset;
-      animation: selectPulse 0.4s ease;
-    }
-    @keyframes selectPulse {
-      0% { box-shadow: 0 0 0 0 rgba(0,114,54,.25); }
-      70% { box-shadow: 0 0 0 6px rgba(0,114,54,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,114,54,0); }
+    .svc-head p{
+      margin: 0;
+      color: var(--muted, #a3aab8);
+      font-size: 1.05rem;
     }
 
-    .svc-thumb {
-      width:36px; height:36px;
-      border-radius:8px; border:1px solid var(--border);
-      object-fit:cover; background:#fff;
+    /* FLOW: central “circuit” spine + alternating cards */
+    .svc-flow{
+      position: relative;
+      margin-top: 38px;
     }
 
-    /* Body */
-    .svc-body {
-      background: var(--panel);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:24px;
-      opacity:0;
-      transform: translateY(10px);
-      transition: opacity .35s ease, transform .35s ease;
-    }
-    .svc-body.visible {
-      opacity:1;
-      transform: translateY(0);
+    /* subtle circuit grid background */
+    .svc-flow::before{
+      content:"";
+      position: absolute;
+      inset: -12px -12px;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 50% 0, rgba(0,114,54,.08), transparent 40%) top center/100% 60px no-repeat,
+        linear-gradient(transparent 31px, rgba(0,114,54,.06) 32px, transparent 33px) 0 0/36px 36px repeat;
+      pointer-events:none;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9), rgba(0,0,0,0.4) 60%, transparent 80%);
     }
 
-    .svc-title {
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:8px;
+    /* vertical spine */
+    .svc-spine{
+      position: absolute;
+      top: 0; bottom: 0; left: 50%;
+      width: 4px; transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--spine), rgba(0,114,54,.15));
+      border-radius: 999px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 0 12px rgba(0,114,54,.25);
     }
-    .svc-title img {
-      width:56px;
-      height:56px;
-      border-radius:12px;
-      object-fit:cover;
-      border:1px solid var(--border);
-    }
-    .chip {
-      display:inline-block;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:var(--glass);
-      margin-right:6px;
-      font-size:.8rem;
-    }
-    .svc-body h3 { margin: 18px 0 8px; }
-    .svc-body ul { margin-left: 18px; }
 
-    /* Make markdown-style <strong> obvious on dark bg */
-    .svc-body strong { font-weight: 700; }
+    /* node dots along the spine (pure CSS, positioned per card) */
+    .svc-node{
+      position: absolute;
+      left: 50%; transform: translate(-50%,-50%);
+      width: 14px; height: 14px; border-radius: 999px;
+      background: var(--node);
+      box-shadow: 0 0 0 6px var(--accent-weak), 0 2px 10px rgba(0,0,0,.25);
+    }
 
-    @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:none;} }
-    @keyframes slideInLeft { from {opacity:0; transform:translateX(-20px);} to {opacity:1; transform:none;} }
+    /* CARD BASE */
+    .svc-card{
+      position: relative;
+      z-index: 1;
+      width: 48%;
+      background: #fff;             /* white to balance the dark page */
+      color: var(--card-text);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px 22px 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .svc-card:hover{ transform: translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.24); }
+
+    /* alternate left/right */
+    .svc-row{ display:flex; justify-content:space-between; margin: 36px 0; align-items: flex-start; }
+    .svc-row:nth-child(odd)  .svc-card{ margin-right: auto; }    /* left */
+    .svc-row:nth-child(even) .svc-card{ margin-left:  auto; }    /* right */
+
+    /* connector from spine to card */
+    .svc-card::before{
+      content:"";
+      position: absolute;
+      top: 44px; width: 70px; height: 2px; background: var(--spine);
+    }
+    .svc-row:nth-child(odd)  .svc-card::before{ right: -70px; }
+    .svc-row:nth-child(even) .svc-card::before{ left:  -70px; }
+
+    /* small elbow (SVG) */
+    .svc-card::after{
+      content:"";
+      position: absolute; top: 42px;
+      width: 18px; height: 18px;
+      background:
+        radial-gradient(circle at 100% 50%, var(--spine) 2px, transparent 3px) no-repeat;
+      opacity:.9;
+    }
+    .svc-row:nth-child(odd)  .svc-card::after{ right: -88px; transform: rotate(180deg); }
+    .svc-row:nth-child(even) .svc-card::after{ left:  -88px; }
+
+    /* CARD CONTENT */
+    .svc-meta{ display:flex; align-items:center; gap:12px; margin-bottom:4px; }
+    .svc-meta img{ width:44px; height:44px; border-radius:12px; border:1px solid var(--card-border); object-fit:cover; }
+    .svc-meta h2{ margin:0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
+    .chips{ margin:6px 0 10px; display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      display:inline-block; padding:6px 10px; font-size:.85rem; border-radius:999px;
+      border:1px solid var(--card-border); background:#f8fafc; color:#0f172a;
+    }
+    .svc-card p{ color: var(--card-muted); margin: 0 0 10px; }
+    .svc-card h3{ margin: 12px 0 6px; font-size:1rem; color:#0f172a; }
+    .svc-card ul{ margin: 0 0 8px 18px; color:#111827; }
+    .svc-card li{ margin: 4px 0; }
+    .svc-card strong{ font-weight:700; }
+
+    /* MOBILE */
+    @media (max-width: 980px){
+      .svc-spine{ left: 12px; transform:none; }
+      .svc-node{ left: 12px; transform: translate(-50%,-50%); }
+      .svc-row{ margin: 28px 0 24px; }
+      .svc-card{ width: 100%; }
+      .svc-card::before{ display:none; }
+      .svc-card::after{ display:none; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header (reuses your global nav) -->
   <div class="nav-wrap">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="/">
-        <!-- Fix: correct asset so “logo” alt text doesn’t render -->
-        <img src="/assets/logo.png" alt="DeskXP">
-        <span>DeskXP</span>
+        <img src="/assets/logo.png" alt="DeskXP"><span>DeskXP</span>
       </a>
       <div class="menu" id="menu">
         <a href="/">Home</a>
@@ -143,226 +173,197 @@
     </nav>
   </div>
 
-  <!-- Banner (uses your global .banner styles) -->
-  <header class="banner">
-    <div class="inner">
-      <h1 class="headline">Services</h1>
-      <p class="subhead">Operational design meets automation — built to scale your CX engine.</p>
-    </div>
-  </header>
+  <!-- NO banner on this page by request -->
 
-  <!-- Main -->
-  <main class="container">
-    <section class="visible">
-      <div class="svc-layout">
-        <aside class="svc-sidebar" id="svc-sidebar">
-          <button class="svc-item" data-slug="operations-design"><img class="svc-thumb" src="/assets/svc-1.jpg" alt="Operations Design icon"><span>Operations Design</span></button>
-          <button class="svc-item" data-slug="systems-architecture"><img class="svc-thumb" src="/assets/svc-2.jpg" alt="Systems Architecture icon"><span>Systems Architecture</span></button>
-          <button class="svc-item" data-slug="automation-ai"><img class="svc-thumb" src="/assets/svc-3.jpg" alt="Automation &amp; AI icon"><span>Automation &amp; AI</span></button>
-          <button class="svc-item" data-slug="reporting-analytics"><img class="svc-thumb" src="/assets/svc-4.jpg" alt="Reporting &amp; Analytics icon"><span>Reporting &amp; Analytics</span></button>
-          <button class="svc-item" data-slug="ecommerce-integrations"><img class="svc-thumb" src="/assets/svc-5.jpg" alt="eCommerce Integrations icon"><span>eCommerce Integrations</span></button>
-          <button class="svc-item" data-slug="customer-experience-servicing"><img class="svc-thumb" src="/assets/svc-6.jpg" alt="Customer Experience &amp; Servicing icon"><span>Customer Experience &amp; Servicing</span></button>
-        </aside>
+  <main class="svc-page">
+    <header class="svc-head">
+      <h1>Services</h1>
+      <p>Operational design × automation — six focused tracks that connect like a circuit.</p>
+    </header>
 
-        <article class="svc-body" id="svc-body" aria-live="polite"></article>
+    <section class="svc-flow" aria-label="Automation flow of services">
+      <span class="svc-spine" aria-hidden="true"></span>
+
+      <!-- 1: Operations Design -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:34px" aria-hidden="true"></span>
+        <article class="svc-card" id="operations-design">
+          <div class="svc-meta">
+            <img src="/assets/svc-1.jpg" alt="">
+            <h2>Operations Design</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Playbooks</span><span class="chip">SLAs</span><span class="chip">Escalations</span><span class="chip">CX Strategy</span>
+          </div>
+          <p>Backbone first: we turn reactive support into a structured, data-driven operation with clear flows and ownership.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Omnichannel triage maps</strong> that route to the right queue instantly.</li>
+            <li><strong>RACI & escalation</strong> frameworks with crystal-clear ownership.</li>
+            <li><strong>SLAs, schedules, and clock rules</strong> that reflect reality.</li>
+            <li>Macro libraries aligned with brand and compliance.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li>Up to <strong>50% faster FRT</strong> and reduced AHT.</li>
+            <li><strong>Lower reopen rates</strong> via clean routing and ownership.</li>
+            <li>New agents ramp faster with playbooks.</li>
+          </ul>
+        </article>
       </div>
+
+      <!-- 2: Systems Architecture -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:420px" aria-hidden="true"></span>
+        <article class="svc-card" id="systems-architecture">
+          <div class="svc-meta">
+            <img src="/assets/svc-2.jpg" alt="">
+            <h2>Systems Architecture</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Zendesk</span><span class="chip">Workflows</span><span class="chip">Data Governance</span>
+          </div>
+          <p>Clean, intentional setup — fewer triggers, better data, faster agents.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Multi-brand form design</strong> without duplication or drift.</li>
+            <li><strong>Triggers & automations</strong> that respect SLAs and languages.</li>
+            <li><strong>Guide/KB framework</strong> with permissions and approvals.</li>
+            <li>API & webhook mapping across CRM/chat/orders.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li><strong>Simpler admin</strong> and higher reliability.</li>
+            <li><strong>Cleaner analytics</strong> from purposeful fields/tags.</li>
+            <li><strong>Fewer misroutes</strong> → better CSAT & handle time.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- 3: Automation & AI -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:806px" aria-hidden="true"></span>
+        <article class="svc-card" id="automation-ai">
+          <div class="svc-meta">
+            <img src="/assets/svc-3.jpg" alt="">
+            <h2>Automation &amp; AI</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Bots</span><span class="chip">Deflection</span><span class="chip">Workflows</span>
+          </div>
+          <p>Kill repetitive work without killing the human touch. Bots do the predictable; your team handles the meaningful.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Intent detection & auto-classification</strong> with smart tagging.</li>
+            <li><strong>Auto-responses & prefill</strong> for common inquiries.</li>
+            <li><strong>Human-in-the-loop</strong> safeguards and review queues.</li>
+            <li>Continuous learning loops from every convo.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li><strong>20–40% deflection</strong> on high-volume issues.</li>
+            <li><strong>Shorter AHT</strong> via summaries and context.</li>
+            <li>Happier agents; less grunt work.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- 4: Reporting & Analytics -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:1192px" aria-hidden="true"></span>
+        <article class="svc-card" id="reporting-analytics">
+          <div class="svc-meta">
+            <img src="/assets/svc-4.jpg" alt="">
+            <h2>Reporting &amp; Analytics</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Dashboards</span><span class="chip">SLA</span><span class="chip">QA</span><span class="chip">Insights</span>
+          </div>
+          <p>From exports to insight: real-time performance, trendlines, and ROI — no spreadsheet circus.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Explore & Looker Studio</strong> dashboards by audience.</li>
+            <li><strong>SLA/backlog monitors</strong> with breach prediction.</li>
+            <li><strong>CSAT × QA correlation</strong> for root causes.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li><strong>Decision clarity</strong> on what’s breaking and why.</li>
+            <li><strong>Better forecasts</strong> for staffing & SLAs.</li>
+            <li><strong>ROI visibility</strong> managers can defend.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- 5: eCommerce Integrations -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:1578px" aria-hidden="true"></span>
+        <article class="svc-card" id="ecommerce-integrations">
+          <div class="svc-meta">
+            <img src="/assets/svc-5.jpg" alt="">
+            <h2>eCommerce Integrations</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Shopify</span><span class="chip">Magento</span><span class="chip">Payments</span><span class="chip">APIs</span>
+          </div>
+          <p>Pull order, shipping, and payment context into every ticket. Less tab-switching, more resolving.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Store apps</strong> that surface live orders & tracking in Zendesk.</li>
+            <li><strong>RMA/refund flows</strong> that create tickets automatically.</li>
+            <li><strong>Dispute integrations</strong> (PayPal/Klarna/Stripe) with auto-docs.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li><strong>Faster resolutions</strong> — full context in one place.</li>
+            <li><strong>Fewer refunds & disputes</strong> via proactive comms.</li>
+            <li><strong>Higher post-purchase CSAT</strong>.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- 6: Customer Experience & Servicing -->
+      <div class="svc-row">
+        <span class="svc-node" style="top:1964px" aria-hidden="true"></span>
+        <article class="svc-card" id="customer-experience-servicing">
+          <div class="svc-meta">
+            <img src="/assets/svc-6.jpg" alt="">
+            <h2>Customer Experience &amp; Servicing</h2>
+          </div>
+          <div class="chips">
+            <span class="chip">Hiring</span><span class="chip">Training</span><span class="chip">QA</span><span class="chip">Policies</span>
+          </div>
+          <p>Zero ➜ scaled care org. People, process, tools, and governance — launched fast and built to last.</p>
+          <h3>What we do</h3>
+          <ul>
+            <li><strong>Team build-out</strong>: roles, hiring, onboarding plans.</li>
+            <li><strong>Training curriculum</strong> with certification paths.</li>
+            <li><strong>QA program & calibration</strong> tied to business outcomes.</li>
+          </ul>
+          <h3>Outcomes</h3>
+          <ul>
+            <li><strong>Launch a functioning care org</strong> in weeks.</li>
+            <li><strong>Consistent quality</strong> via training + QA + policy.</li>
+            <li><strong>Lower cost-to-serve</strong> with right-sizing and automation.</li>
+          </ul>
+        </article>
+      </div>
+
     </section>
   </main>
 
   <footer>© 2025 DeskXP • <a href="https://deskxp.com">deskxp.com</a></footer>
 
-  <!-- Scripts -->
   <script>
-    // Mobile menu
-    const hamburger = document.getElementById('hamburger');
+    // Mobile menu toggle (reuse pattern from home)
+    const hamburger = document.querySelector('.hamburger');
     const menu = document.getElementById('menu');
-    hamburger.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    // --- Data ---
-    const services = {
-      "operations-design": {
-        title: "Operations Design",
-        img: "/assets/svc-1.jpg",
-        tags: ["Playbooks", "SLAs", "Escalations", "CX Strategy"],
-        intro: "We transform reactive support teams into structured, data-driven CX operations. Our Operations Design builds the backbone of your support ecosystem — so every ticket, chat, and call flows through a clear, scalable process.",
-        what: [
-          "✅ **Omnichannel triage maps** that route tickets instantly to the right team — no more guesswork or ping-pong.",
-          "✅ **Escalation frameworks and RACI ownership models** to define who acts, who approves, and who informs.",
-          "✅ **Custom SLA policies, schedules, and clock rules** that actually reflect your business hours and priorities.",
-          "✅ **Macro and template libraries** aligned with your brand tone and compliance standards.",
-          "✅ **QA scorecards and calibration rubrics** that connect quality scores to real coaching insights."
-        ],
-        outcomes: [
-          "📈 Up to **50% faster First Response Time (FRT)** and measurable AHT reduction.",
-          "🧭 Clear ownership and routing reduce reopen rates by 30–40%.",
-          "🚀 New agents ramp faster through detailed playbooks and guided macros.",
-          "📊 Unified CX metrics across all channels — one source of truth.",
-          "💡 Built to scale: your team can double ticket volume without doubling headcount."
-        ]
-      },
-      "systems-architecture": {
-        title: "Systems Architecture",
-        img: "/assets/svc-2.jpg",
-        tags: ["Zendesk", "Workflows", "Data Governance"],
-        intro: "We design CX systems that make agents faster and managers smarter. No redundant forms, no duplicate triggers — just clean, intentional architecture.",
-        what: [
-          "✅ **Zendesk / Freshdesk stack design** built for multi-brand, multi-form environments.",
-          "✅ **Triggers, automations, and routing logic** that adapt to your SLAs, languages, and product lines.",
-          "✅ **Guide & knowledge base frameworks** with permission tiers and approval workflows.",
-          "✅ **Data capture blueprints** — every field, tag, and custom object with purpose.",
-          "✅ **API & webhook mapping** to connect CRM, chat, and order systems seamlessly."
-        ],
-        outcomes: [
-          "⚙️ **Simplified admin load** — fewer automations, higher reliability.",
-          "🔍 **Cleaner analytics** — data captured once, structured forever.",
-          "🤝 **Smooth collaboration** between support, ops, and engineering.",
-          "📊 **Fewer misroutes and reassignments**, improving CSAT and handle time."
-        ]
-      },
-      "automation-ai": {
-        title: "Automation & AI",
-        img: "/assets/svc-3.jpg",
-        tags: ["Bots", "Deflection", "Workflows"],
-        intro: "We use automation to eliminate repetitive work — without killing personalization. AI and bots handle the predictable, your team handles the meaningful.",
-        what: [
-          "🤖 **AI bots and intent routing** that detect customer purpose and auto-classify tickets.",
-          "⚡ **Auto-tagging and auto-responses** for common inquiries (order status, refunds, etc.).",
-          "💬 **Dynamic macros and side conversations** to speed up collaboration.",
-          "🧠 **Human-in-the-loop safeguards** to ensure accuracy and empathy remain intact.",
-          "📚 **Continuous learning loops** so bots evolve from every conversation."
-        ],
-        outcomes: [
-          "📉 **20–40% ticket deflection** on high-volume issues.",
-          "⏱️ **Shorter handle times** through smart pre-filling and automated summaries.",
-          "🧾 **Cleaner data** with standardized tagging and intents.",
-          "💬 **Happier agents** — less grunt work, more meaningful cases."
-        ]
-      },
-      "reporting-analytics": {
-        title: "Reporting & Analytics",
-        img: "/assets/svc-4.jpg",
-        tags: ["Dashboards", "SLA", "QA", "Insights"],
-        intro: "We turn your Zendesk data into executive-grade insight. No exports, no spreadsheets — just real-time visibility into performance and ROI.",
-        what: [
-          "📊 **Zendesk Explore & Looker Studio dashboards** tailored to leadership, ops, and QA levels.",
-          "📈 **SLA and backlog monitoring** with trend lines and breach prediction.",
-          "🧮 **CSAT, DSAT, and QA correlation reports** that reveal root causes behind satisfaction swings.",
-          "📅 **Monthly business review (MBR) packs** with insights and recommendations.",
-          "📦 **Data pipelines & exports** for BI or finance reporting."
-        ],
-        outcomes: [
-          "🧠 **Decision clarity:** know what’s breaking, what’s improving, and why.",
-          "📆 **Forecast accuracy:** staffing and SLA projections backed by data.",
-          "💸 **ROI visibility:** show cost savings and productivity gains in real numbers."
-        ]
-      },
-      "ecommerce-integrations": {
-        title: "eCommerce Integrations",
-        img: "/assets/svc-5.jpg",
-        tags: ["Shopify", "Magento", "Payments", "APIs"],
-        intro: "We bridge your eCommerce and support systems so agents have full order context in every ticket. Less tab-switching, more resolving.",
-        what: [
-          "🛍️ **Shopify & Magento app integrations** that pull live order, tracking, and payment details directly into Zendesk.",
-          "🔁 **RMA & refund workflows** that create tickets automatically from customer actions.",
-          "🚚 **Shipping and fulfillment updates** synced to tickets in real time.",
-          "💳 **Payment and dispute integrations** (PayPal, Klarna, Stripe) with automated documentation capture.",
-          "🧩 **Custom webhooks & APIs** to fit your exact store logic."
-        ],
-        outcomes: [
-          "📦 **Faster resolutions** — agents see everything without leaving Zendesk.",
-          "💰 **Reduced refunds & disputes** through proactive, data-backed communication.",
-          "📈 **Higher post-purchase CSAT** from faster, transparent support."
-        ]
-      },
-      "customer-experience-servicing": {
-        title: "Customer Experience & Servicing",
-        img: "/assets/svc-6.jpg",
-        tags: ["Hiring", "Training", "QA", "Policies", "Operations"],
-        intro: "Zero to scaled Customer Care. We build your entire CX operation end-to-end — people, process, tools, and governance — so you can support growth without chaos.",
-        what: [
-          "🧑‍🤝‍🧑 **Team build-out:** role design, hiring scorecards, interviews, onboarding plans, and shadowing frameworks.",
-          "📘 **Training program:** curriculum, LMS structure, nested modules (product, tools, soft skills), and certification paths.",
-          "✅ **QA program & calibration:** scorecards tied to business outcomes, coaching loops, and trend reporting.",
-          "📜 **Policy & process establishment:** returns/refunds/DMCA/KYC/etc. with clear exception handling.",
-          "🧭 **Daily operations:** WFM basics, queue management, playbook rollouts, release/change management.",
-          "🧰 **Tooling & access:** Zendesk/Freshdesk setup, permissions, SSO, integrations (Shopify/Magento/voice/chat).",
-          "📣 **Feedback → roadmap:** structured VOC to product/ops with impact tracking."
-        ],
-        outcomes: [
-          "🚀 **Launch a functioning Customer Care org** in weeks, not quarters.",
-          "👥 **Predictable quality & consistency** via training + QA + policy alignment.",
-          "📉 **Lower cost-to-serve** through right-sizing, automation, and clean routing.",
-          "🔁 **Continuous improvement engine** — issues feed policy, training, and product fixes."
-        ]
-      }
-    };
-
-    // URL aliases
-    const ALIASES = {
-      "ongoing-ops": "customer-experience-servicing",
-      "ecom-integrations": "ecommerce-integrations"
-    };
-
-    const contentEl = document.getElementById('svc-body');
-    const sidebarEl = document.getElementById('svc-sidebar');
-
-    // Tiny markdown -> HTML for **bold**
-    const mdBold = (s) => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-    function render(slug, push=false) {
-      const key = ALIASES[slug] || slug;
-      const svc = services[key] || services["operations-design"];
-
-      // Sidebar selection
-      document.querySelectorAll('.svc-item').forEach(b => {
-        b.classList.toggle('selected', b.dataset.slug === key);
+    if (hamburger && menu){
+      hamburger.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
-
-      contentEl.classList.remove('visible');
-      setTimeout(() => {
-        const whatLis = svc.what.map(i => `<li>${mdBold(i)}</li>`).join('');
-        const outLis  = svc.outcomes.map(i => `<li>${mdBold(i)}</li>`).join('');
-
-        contentEl.innerHTML = `
-          <div class="svc-title">
-            <img src="${svc.img}" alt="${svc.title}">
-            <div>
-              <h2>${svc.title}</h2>
-              <div>${svc.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
-            </div>
-          </div>
-          <p class="muted" style="margin-bottom:14px;">${svc.intro}</p>
-          <h3>What we do</h3>
-          <ul>${whatLis}</ul>
-          <h3>Outcomes</h3>
-          <ul>${outLis}</ul>
-        `;
-        contentEl.classList.add('visible');
-
-        // mobile: ensure body is in view
-        if (window.innerWidth < 900) {
-          contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        // update URL param without reload
-        const url = new URL(window.location);
-        url.searchParams.set('s', key);
-        if (push) history.replaceState({}, '', url);
-      }, 120);
     }
-
-    // Sidebar click
-    sidebarEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('.svc-item'); if (!btn) return;
-      e.preventDefault(); render(btn.dataset.slug, true);
-    });
-
-    // Init from URL
-    const params = new URLSearchParams(window.location.search);
-    render(params.get('s') || 'automation-ai', false); // default to the sexiest section
   </script>
 </body>
 </html>
