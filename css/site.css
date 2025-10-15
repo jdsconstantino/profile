@@ -1,29 +1,67 @@
 /* DeskXP — Full Stylesheet (v202+, dark-first, refined slider) */
 
 /* ===== Theme (dark global) ===== */
-:root{
-  --bg:#363e4b;
-  --panel:#21252d;
-  --text:#e7e9ee;
-  --muted:#9aa2b4;
+/* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
+:root {
+  /* ===== Core Backgrounds ===== */
+  --bg: #363e4b;            /* main dark body background */
+  --panel: #21252d;         /* inner panels / section cards */
+  --border: #1b1f26;        /* subtle divider tone */
+  --glass: rgba(255,255,255,.08);        /* frosted translucency */
+  --glass-border: rgba(255,255,255,.16); /* glass edge highlights */
 
-  /* NEW accent system — base + tints derived from #2E424E */
-  --accent:#2E424E;               /* base */
-  --accent-strong:#1C2B33;        /* darker */
-  --accent-light:#3A5562;         /* lighter */
-  --accent-bright:#5FA7C7;        /* for highlights/wires on dark bg */
-  --accent-glow:rgba(46,66,78,.45); /* soft glow */
+  /* ===== Text ===== */
+  --text: #e7e9ee;          /* primary readable text on dark */
+  --muted: #9aa2b4;         /* secondary / descriptive text */
 
-  --border:#1b1f26;
-  --glass:rgba(255,255,255,.08);
-  --glass-border:rgba(255,255,255,.16);
+  /* ===== Accent System (Base: #2E424E) ===== */
+  --accent: #2E424E;               /* base brand tone */
+  --accent-strong: #1C2B33;        /* darker shade for deep sections */
+  --accent-light: #3A5562;         /* lighter tint for contrast text */
+  --accent-bright: #5FA7C7;        /* electric highlight / circuits / links */
+  --accent-glow: rgba(46,66,78,.45); /* soft glow / backdrop layer */
 
-  /* neutrals for light cards inside dark pages */
-  --card:#ffffff;
-  --card-text:#0f172a;
-  --card-muted:#2f3642;
-  --shadow:0 10px 30px rgba(0,0,0,.25);
+  /* ===== Gradients / Special Effects ===== */
+  --accent-gradient: linear-gradient(135deg, #2E424E 0%, #3A5562 40%, #5FA7C7 100%);
+  --accent-radial: radial-gradient(circle at 50% 50%, #2E424E 0%, #1C2B33 80%);
+  --accent-shadow: 0 0 22px rgba(95,167,199,.35);
+
+  /* ===== Cards (Light Elements Inside Dark Context) ===== */
+  --card: #ffffff;
+  --card-text: #0f172a;
+  --card-muted: #2f3642;
+  --shadow: 0 10px 30px rgba(0,0,0,.25);
+
+  /* ===== Banner / Hero ===== */
+  --banner-img: url("/assets/hero.jpg");
+  --banner-tint: #2E424E;     /* dark teal tone for overlay */
+  --banner-tint-2: #1C2B33;   /* deeper tone for gradient end */
+  --banner-overlay: linear-gradient(90deg, var(--banner-tint), var(--banner-tint-2));
+
+  /* ===== Footer ===== */
+  --footer-bg: linear-gradient(180deg, #2E424E 0%, #1C2B33 100%);
+  --footer-text: #e7e9ee;
+  --footer-link: #b6c3cc;
+  --footer-link-hover: #ffffff;
+
+  /* ===== System Spacing / Rounding ===== */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition: all .25s ease;
 }
+#cta h2,
+#cta .accent {
+  color: var(--accent-light);
+}
+footer {
+  background: var(--footer-bg);
+}
+
+.banner {
+  background: var(--banner-overlay);
+}
+
 
 /* We’re forcing dark globally; no auto light-mode flip */
 *{box-sizing:border-box;margin:0;padding:0;}
