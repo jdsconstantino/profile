@@ -787,7 +787,7 @@ footer { overflow: hidden; }
 .footer-links li{ margin: 8px 0; line-height: 1.6; }
 
 /* brand column */
-.footer-logo{ display:block; margin: 0 0 20px; }
+.footer-logo{ display:block; margin: 0 0 0px; }
 
 /* full-height vertical separators between columns */
 .footer-col::before{ display:none; }                  /* kill any old rules */
