@@ -1256,3 +1256,50 @@ section.reveal h2 {
   .dc-card{flex-direction:column; align-items:stretch; text-align:left}
   .btn-cta{width:100%; text-align:center}
 }
+/* Hamburger: always on top & tight bars */
+.hamburger{
+  position: relative;
+  z-index: 10010;           /* clickable even under overlays */
+  width: 40px; height: 40px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  gap: 6px;                 /* bar spacing (tighter) */
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;              /* inherits header color */
+}
+.hamburger span{
+  width: 22px; height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.hamburger.is-open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2){ opacity: 0; }
+.hamburger.is-open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+/* Hide inline menu on mobile */
+@media (max-width: 900px){ .menu{ display:none !important; } }
+
+/* Curtain drawer */
+.curtain{
+  position: fixed; left:0; right:0; top:0;
+  height: 0; overflow: hidden;
+  background: #2E424E;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  transform: translateY(-100%);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+  z-index: 10000;
+}
+.curtain.open{ height: 100vh; transform: translateY(0); }
+.curtain-inner{
+  max-width:1100px; margin:0 auto; padding:32px 16px;
+  font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+}
+.curtain-menu{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px }
+.curtain-menu a{ display:block; padding:12px 8px; color:#ECF3FF; text-decoration:none; font-size:1.1rem; border-radius:8px }
+.curtain-menu a:hover{ background:rgba(255,255,255,.08) }
+
+@media (min-width: 901px){ .curtain{ display:none } }
