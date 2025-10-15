@@ -7,8 +7,8 @@
   --text:#e7e9ee;
   --muted:#9aa2b4;
 
-  /* NEW accent system — base + tints derived from #2E424E */
-  --accent:#2E424E;               /* base */
+  /* NEW accent system — base + tints */
+  --accent:#2A4137;               /* base */
   --accent-strong:#1C2B33;        /* darker */
   --accent-light:#3A5562;         /* lighter */
   --accent-bright:#5FA7C7;        /* for highlights/wires on dark bg */
