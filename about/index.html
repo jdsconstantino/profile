@@ -69,12 +69,6 @@
     .photo-wrap{position:relative;width:100%;max-width:360px;margin:0 auto}
     .photo-wrap img{width:100%;height:auto;display:block;border-radius:14px}
 
-    /* SOLID YELLOW WAVE: taller + higher crest so it fully tucks under your PNG’s curved cut */
-    .expert-wave{
-      position:absolute; left:0; right:0; bottom:0; height:230px; z-index:1; pointer-events:none;
-    }
-    .expert-wave svg{width:100%; height:100%; display:block}
-
     /* Skill tags */
     .stack{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
     .tag{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);
@@ -222,24 +216,6 @@
 
     <!-- ===== SECTION: Work with an Expert (patched) ===== -->
 <section class="expert reveal" aria-labelledby="expert-title">
-  <!-- Solid yellow wave. Lower crest under chips; clipped by card radius. -->
-  <div class="expert-wave" aria-hidden="true">
-    <svg viewBox="0 0 1440 260" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="wavy" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"  stop-color="#FFD400"/>
-          <stop offset="100%" stop-color="#FFC400"/>
-        </linearGradient>
-      </defs>
-      <!-- Crest stays away from right corner; enough height to tuck under jacket -->
-      <path d="M0,130
-               C 240,185 460,210 700,198
-               S 1120,150 1440,175
-               L1440,260 L0,260 Z"
-            fill="url(#wavy)"/>
-    </svg>
-  </div>
-
   <div class="expert-grid">
     <div class="photo-wrap">
       <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
