@@ -1196,3 +1196,25 @@ section.reveal h2 {
 @media (max-width:980px){
   .stack{ margin-bottom:16px }
 }
+/* Remove any glass/overlay/fx inside the banner only */
+.banner::before,
+.banner::after {
+  content: none !important;
+  background: none !important;
+}
+
+.banner [class*="overlay"],
+.banner .overlay {
+  background: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Ensure the banner image itself is never dimmed or post-processed */
+.banner,
+.banner * {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
