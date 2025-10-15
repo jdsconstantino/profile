@@ -1,45 +1,141 @@
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-inner">
-    
-    <!-- Column 1 -->
-    <div class="footer-col first">
-      <img src="/assets/logo.png" alt="DeskXP" class="footer-logo" />
-      <ul>
-        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="/cookie-policy.html">Cookie Policy</a></li>
-      </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeskXP Footer</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #2E424E;
+      --muted: #cfd4dc;
+    }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #fff;
+    }
+
+    footer {
+      background: var(--accent);
+      color: #fff;
+      padding: 48px 24px 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto 24px;
+    }
+
+    .footer-col h4 {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .footer-logo {
+      width: 120px;
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 6px;
+    }
+
+    .footer-links a {
+      color: #e7e9ee;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 16px;
+    }
+
+    .copyright a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .footer-grid {
+        text-align: center;
+      }
+      .footer-col h4 {
+        margin-top: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <footer>
+    <div class="footer-grid">
+      <!-- Column 1: Logo + Policies -->
+      <div class="footer-col">
+        <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-logo">
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Navigation -->
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="#cta">Book a Call</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Connect -->
+      <div class="footer-col">
+        <h4>Connect with Me</h4>
+        <ul class="footer-links">
+          <li><a href="https://linkedin.com/in/jamesconstantino" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.upwork.com/freelancers/~yourlink" target="_blank">Upwork</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Column 2 -->
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="#home">https://jdsc.deskxp.com/</a></li>
-        <li><a href="https://jdsc.deskxp.com/services/">Services</a></li>
-        <li><a href="https://jdsc.deskxp.com/#success">Success Stories</a></li>
-        <li><a href="/about/">https://jdsc.deskxp.com/about/</a></li>
-        <li><a href="https://jdsc.deskxp.com/#cta">Book a Call</a></li>
-      </ul>
-    </div>
+    <!-- Copyright -->
+    <p class="copyright">
+      © <span id="y"></span> DeskXP • 
+      <a href="https://deskxp.com">deskxp.com</a>
+    </p>
+  </footer>
 
-    <!-- Column 3 -->
-    <div class="footer-col">
-      <h4>Connect with me</h4>
-      <ul class="social-links">
-        <li><a href="https://www.linkedin.com/in/jdsconstantino" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.upwork.com/freelancers/~019be0250d1b9db328" target="_blank">Upwork</a></li>
-      </ul>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © <span id="y"></span> DeskXP. All rights reserved.
-  </div>
-</footer>
-
-<script>
-  // Auto year
-  document.getElementById("y").textContent = new Date().getFullYear();
-</script>
+  <script>
+    document.getElementById(
