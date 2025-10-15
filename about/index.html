@@ -17,9 +17,9 @@
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
-
 <body>
-  <!-- Global header mount -->
+
+  <!-- Global header mount (loaded by /js/main.js) -->
   <div id="site-header"></div>
 
   <div class="container">
@@ -30,7 +30,7 @@
           <h1 id="name" class="ap-title">James Daniel Constantino</h1>
           <p class="ap-tag">CX Systems & Operations — Fintech • E-commerce</p>
           <p class="ap-blurb">
-            I build scalable Customer Care systems — architecture, automation, and analytics — then operationalize them with clean data, clear SLAs, and ruthless follow-through.
+            I build scalable Customer Care systems—architecture, automation, and analytics—then operationalize them with clean data, clear SLAs, and ruthless follow-through.
           </p>
 
           <div class="ap-stats">
@@ -155,7 +155,7 @@
       .then(html => document.getElementById("footer").innerHTML = html);
   </script>
 
-  <!-- Global JS (handles header injection + behaviors) -->
-  <script src="/js/main.js?v=202" defer></script>
+  <!-- Global JS (injects header, handles sliders/reveal, etc.) -->
+  <script src="/js/main.js?v=210" defer></script>
 </body>
 </html>
