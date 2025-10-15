@@ -164,88 +164,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", loadHeader) : loadHeader();
 })();
-// ---------- Header mount with fallback ----------
+// ---------- Mount header (tries /partials/header.html) ----------
 (async function mountHeader() {
   const mount = document.getElementById("site-header");
   if (!mount) return;
 
-  // CHANGE THIS if your file is not at site root:
-  const HEADER_PATH = "/header.html"; // e.g. "/partials/header.html"
+  // Try absolute then relative (covers subpages like /about/)
+  const tryPaths = [
+    "/partials/header.html",
+    new URL("./partials/header.html", window.location.origin + window.location.pathname).href
+  ];
 
-  const fallback = `
-<nav class="nav-wrap" role="navigation" aria-label="Primary">
-  <div class="nav">
-    <a class="brand" href="/" aria-label="DeskXP Home">
-      <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
-    </a>
-
-    <button class="hamburger" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <div class="menu" id="menu">
-      <a href="/">Home</a>
-      <a href="/services/">Services</a>
-      <a href="/#success">Success Stories</a>
-      <a href="/about/">About</a>
-      <a class="cta" href="https://calendly.com/deskxp/30min">Book a Call</a>
-    </div>
-  </div>
-
-  <div id="navCurtain" class="curtain" hidden>
-    <div class="curtain-inner">
-      <ul class="curtain-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/services/">Services</a></li>
-        <li><a href="/#success">Success Stories</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="https://calendly.com/deskxp/30min">Book a Call</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>`.trim();
-
-  try {
-    const res = await fetch(HEADER_PATH, { cache: "no-store" });
-    if (!res.ok) throw new Error("header 404");
-    mount.innerHTML = await res.text();
-  } catch (e) {
-    // fallback so the site still works if the path is wrong
-    mount.innerHTML = fallback;
-    console.warn("Using fallback header:", e.message);
+  let html = null;
+  for (const p of tryPaths) {
+    try {
+      const res = await fetch(p, { cache: "no-store" });
+      if (res.ok) { html = await res.text(); break; }
+    } catch {}
   }
 
-  initCurtainMenu(); // bind events to the injected DOM
+  if (!html) {
+    console.error("Cannot load /partials/header.html (404). Put the file at that path or update the fetch path.");
+    // Minimal fallback so the site still has a header
+    html = `
+<nav class="nav-wrap"><div class="nav">
+  <a class="brand" href="/"><img src="/assets/logo.png" alt="DeskXP" width="120" height="32"/></a>
+  <button class="hamburger" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="menu" id="menu"><a href="/">Home</a><a href="/services/">Services</a><a href="/#success">Success Stories</a><a href="/about/">About</a><a class="cta" href="https://calendly.com/deskxp/30min">Book a Call</a></div>
+</div>
+<div id="navCurtain" class="curtain" hidden><div class="curtain-inner">
+  <ul class="curtain-menu"><li><a href="/">Home</a></li><li><a href="/services/">Services</a></li><li><a href="/#success">Success Stories</a></li><li><a href="/about/">About</a></li><li><a href="https://calendly.com/deskxp/30min">Book a Call</a></li></ul>
+</div></div></nav>`;
+  }
+
+  mount.innerHTML = html;
+  initCurtainMenu();
 })();
 
-function initCurtainMenu() {
-  const btn = document.getElementById("menuBtn");
-  const curtain = document.getElementById("navCurtain");
-  if (!btn || !curtain) return;
+function initCurtainMenu(){
+  const btn = document.getElementById('menuBtn');
+  const curtain = document.getElementById('navCurtain');
+  if(!btn || !curtain) return;
 
-  const links = curtain.querySelectorAll("a");
+  const links = curtain.querySelectorAll('a');
 
   const open = () => {
-    btn.classList.add("is-open");
-    btn.setAttribute("aria-expanded", "true");
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded','true');
     curtain.hidden = false;
-    void curtain.offsetHeight; // force reflow so transition plays
-    curtain.classList.add("open");
-    document.documentElement.style.overflow = "hidden";
+    void curtain.offsetHeight;             // trigger transition
+    curtain.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
   };
   const close = () => {
-    btn.classList.remove("is-open");
-    btn.setAttribute("aria-expanded", "false");
-    curtain.classList.remove("open");
-    document.documentElement.style.overflow = "";
-    setTimeout(() => (curtain.hidden = true), 280);
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+    curtain.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    setTimeout(() => { curtain.hidden = true; }, 280);
   };
 
-  btn.addEventListener("click", () =>
-    btn.classList.contains("is-open") ? close() : open()
-  );
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && btn.classList.contains("is-open")) close();
-  });
-  links.forEach((a) => a.addEventListener("click", close));
+  btn.addEventListener('click', () => (btn.classList.contains('is-open') ? close() : open()));
+  window.addEventListener('keydown', e => { if (e.key === 'Escape' && btn.classList.contains('is-open')) close(); });
+  links.forEach(a => a.addEventListener('click', close));
 }
