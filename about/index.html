@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — DeskXP</title>
-  <meta name="description" content="James Constantino — CX systems & operations portfolio. Relevant experience, outcomes, and tools." />
+  <meta name="description" content="DeskXP bridges the gap between business and customers: end-to-end CX—from agents and workflows to automation, analytics, and continuous improvement." />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
@@ -15,6 +15,132 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css?v=209" />
 
+  <style>
+    /* ===== About page local styles (safe to keep alongside /css/site.css) ===== */
+
+    :root{
+      --brand:#007236;            /* DeskXP green */
+      --accent:#ffd400;           /* bright yellow for decor */
+      --ink:#0f1222;
+      --muted:#6b7280;
+      --panel:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:24px 16px}
+
+    /* 1) DESKXP — About the brand */
+    .about-hero{
+      background:#fff;
+      color:#0b0f1a;
+      border-radius:18px;
+      border:1px solid #e6e6e6;
+      padding:36px 26px;
+      margin:20px 0 36px;
+    }
+    .about-hero .logo{
+      display:block;
+      margin:6px auto 14px;
+      width:min(460px,80%);
+      height:auto;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.08));
+    }
+    .about-hero p{
+      font-size:1.05rem; 
+      line-height:1.75;
+      margin:0 auto;
+      max-width:860px;
+      text-align:center;
+    }
+    .about-hero .pill-row{
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px
+    }
+    .about-hero .pill{
+      border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa
+    }
+
+    /* 2) Work with an Expert (photo left + yellow seam) */
+    .expert{
+      background:linear-gradient(180deg, rgba(255,212,0,.06) 0%, transparent 50%);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:26px;
+      margin:36px 0;
+    }
+    .expert-grid{display:grid;grid-template-columns:360px 1fr;gap:28px;align-items:center}
+    @media (max-width: 900px){.expert-grid{grid-template-columns:1fr;gap:18px}}
+
+    .photo-wrap{
+      position:relative; width:100%; max-width:360px;
+      margin:0 auto;
+    }
+    .photo-wrap img{
+      width:100%; height:auto; display:block; border-radius:14px;
+      /* NO border as requested */
+    }
+    /* Yellow seamless outline + bottom curve mask */
+    .photo-wrap::before{
+      content:""; position:absolute; inset:-10px -12px -18px -12px; z-index:-1;
+      background:
+        radial-gradient(120px 40px at 60% 100%, var(--accent) 0%, transparent 70%) bottom center no-repeat,
+        conic-gradient(from 210deg, var(--accent), rgba(255,212,0,.35), transparent 60%);
+      border-radius:20px;
+      filter: blur(6px) saturate(1.1);
+    }
+    .photo-wrap::after{
+      content:""; position:absolute; left:0; right:0; bottom:-8px; height:18px;
+      background: radial-gradient(60% 28px at 50% 0, var(--accent) 0%, transparent 65%);
+      opacity:.85;
+      filter: blur(4px);
+      pointer-events:none;
+    }
+
+    .expert h2{margin:0 0 6px 0}
+    .expert p{color:var(--muted);font-size:1.05rem}
+    .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .stack .tag{border:1px solid var(--border);background:var(--panel);padding:8px 10px;border-radius:999px;font-size:.92rem}
+    .badge{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:6px 10px;font-size:.85rem;margin-top:10px}
+
+    /* 3) Logos */
+    .about-logos{margin:26px 0}
+    .about-logos .logo-row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+    .about-logos img{height:42px;opacity:.9;filter:grayscale(100%) contrast(1.1)}
+    .about-logos .muted{color:var(--muted)}
+
+    /* 4) Timeline */
+    .about-timeline{margin:36px 0}
+    .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:20px}
+    .tl .tl-head{display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+    .tl .tl-time{color:var(--muted);font-size:.95rem}
+    .tl-points{margin:8px 0 0 0;padding-left:18px}
+    .tl-points li{margin:.4rem 0}
+
+    /* 5) Projects (click to expand) */
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width: 900px){.case-grid{grid-template-columns:1fr}}
+    details.case{
+      border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden;
+    }
+    details.case>summary{
+      cursor:pointer;list-style:none;padding:14px 14px;display:flex;align-items:center;gap:12px
+    }
+    details.case>summary::-webkit-details-marker{display:none}
+    .case img{width:42px;height:42px;object-fit:contain;border-radius:8px;background:#fff;border:1px solid #eee}
+    .case h3{margin:0;font-size:1rem}
+    .case .meta{color:var(--muted);font-size:.92rem}
+    .case .body{padding:0 14px 14px 14px;border-top:1px dashed var(--border);background:rgba(0,0,0,.02)}
+    .body .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width: 800px){.body .twocol{grid-template-columns:1fr}}
+    .body h4{margin:.6rem 0 .2rem 0;font-size:.98rem}
+    .body ul{margin:.2rem 0 .8rem 0;padding-left:18px}
+
+    /* CTA card */
+    .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:18px 18px;margin:38px 0}
+    .btn-solid,.btn-minimal{display:inline-block;border-radius:999px;padding:10px 14px;font-weight:600;text-decoration:none}
+    .btn-solid{background:var(--brand);color:#fff}
+    .btn-minimal{border:1px solid var(--border)}
+  </style>
+
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
@@ -23,36 +149,66 @@
   <div id="site-header"></div>
 
   <div class="container">
-    <!-- White section, photo RIGHT -->
-    <section class="about-profile reveal" aria-labelledby="name">
-      <div class="ap-grid">
-        <div class="ap-copy">
-          <h1 id="name" class="ap-title">James Daniel Constantino</h1>
-          <p class="ap-tag">CX Systems & Operations — Fintech • E-commerce</p>
-          <p class="ap-blurb">
-            I build scalable Customer Care systems—architecture, automation, and analytics—then operationalize them with clean data, clear SLAs, and ruthless follow-through.
-          </p>
 
-          <div class="ap-stats">
-            <div class="kpi"><div class="kpi-num">₱5M+</div><div class="kpi-label">saved via bot deflection</div></div>
-            <div class="kpi"><div class="kpi-num">7 days</div><div class="kpi-label">to MVP value</div></div>
-            <div class="kpi"><div class="kpi-num">95%+</div><div class="kpi-label">SLA on priority queues</div></div>
-            <div class="kpi"><div class="kpi-num">AHT ↓</div><div class="kpi-label">intent routing + macros</div></div>
-          </div>
+    <!-- ===== SECTION 1: DeskXP (About the brand) ===== -->
+    <section class="about-hero reveal" aria-labelledby="deskxp">
+      <img class="logo" src="/assets/logo.png" alt="DeskXP" width="680" height="180" />
+      <h1 id="deskxp" class="sr-only">About DeskXP</h1>
+      <p>
+        <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
+        We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
+        workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
+        automation & AI assistants, analytics, and continuous improvement. The outcome: faster response, lower cost-per-resolution,
+        and a support experience customers actually trust.
+      </p>
+      <div class="pill-row" aria-label="Capabilities">
+        <span class="pill">Agent staffing & playbooks</span>
+        <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
+        <span class="pill">Skills-based routing & SLAs</span>
+        <span class="pill">Bots & Sunshine Conversations</span>
+        <span class="pill">Help Center / KB</span>
+        <span class="pill">QA, training, coaching</span>
+        <span class="pill">Reporting (Explore/Looker)</span>
+        <span class="pill">Process & policy design</span>
+        <span class="pill">Continuous improvement</span>
+      </div>
+    </section>
 
-          <div class="ap-actions">
-            <a class="btn-minimal" href="/assets/James-Constantino-CV.pdf" download>Download CV</a>
-            <a class="btn-solid" href="https://calendly.com/deskxp/30min">Book 30-min Call</a>
-          </div>
+    <!-- ===== SECTION 2: Work with an Expert ===== -->
+    <section class="expert reveal" aria-labelledby="expert-title">
+      <div class="expert-grid">
+        <div class="photo-wrap">
+          <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
         </div>
 
-        <div class="ap-photo">
-          <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
+        <div>
+          <h2 id="expert-title">Work with an Expert</h2>
+          <p>
+            I’m <strong>James Constantino</strong>—13+ years across Operations, Quality, Training, Onboarding, Hiring,
+            tech implementation, and end-to-end CX. I translate business goals into clean workflows, measurable SLAs,
+            and automation that actually sticks. <span class="badge">5+ years hands-on with Zendesk</span>
+          </p>
+          <p>
+            Tools & ecosystems I’ve led: <em>any modern CRM/ticketing stack</em> (Zendesk, Freshdesk, Intercom),
+            <em>commerce</em> (Shopify, Magento), <em>automation</em> (Make, Zapier, Apps Script),
+            <em>messaging</em> (Sunshine Conversations, Viber/TikTok connectors), and <em>analytics</em>
+            (Explore, Looker Studio, GA4). If it routes, measures, or automates a customer touchpoint, I can make it work.
+          </p>
+          <div class="stack" aria-label="Tool stack">
+            <span class="tag">Zendesk (Support/Guide/Explore)</span>
+            <span class="tag">Sunshine Conversations</span>
+            <span class="tag">Shopify / Magento</span>
+            <span class="tag">Make / Zapier</span>
+            <span class="tag">Google Apps Script</span>
+            <span class="tag">Looker Studio</span>
+            <span class="tag">Freshdesk / Intercom</span>
+            <span class="tag">Viber / TikTok APIs</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Logos -->
+    <!-- ===== Logos ===== -->
     <section class="about-logos reveal">
       <p class="muted">Selected brands & projects</p>
       <div class="logo-row">
@@ -62,7 +218,7 @@
       </div>
     </section>
 
-    <!-- Professional Career -->
+    <!-- ===== SECTION 3: Professional Career ===== -->
     <section class="about-timeline reveal">
       <h2>Professional Career</h2>
       <ol class="tl tl-pro">
@@ -104,37 +260,138 @@
       </ol>
     </section>
 
-    <!-- Projects -->
+    <!-- ===== SECTION 4: Projects (click to expand for details) ===== -->
     <section class="about-cases reveal">
       <h2>Projects</h2>
-      <div class="card-grid">
-        <a class="card" href="/#success">
-          <img class="card-img" src="/assets/palawanpay.png" alt="PalawanPay" loading="lazy" />
-          <div class="card-body">
-            <h3>PalawanPay — CX Org & Advanced Zendesk</h3>
-            <p>Zero-to-one Customer Care; skills routing, SLAs, bots; Explore dashboards; measurable savings.</p>
-          </div>
-        </a>
 
-        <a class="card" href="/#success">
-          <img class="card-img" src="/assets/unison.png" alt="Unison" loading="lazy" />
-          <div class="card-body">
-            <h3>Unison — Workflows & Help Center</h3>
-            <p>Ticket flow overhaul, Guide UX, SLA discipline, and productivity/satisfaction reporting.</p>
-          </div>
-        </a>
+      <div class="case-grid">
 
-        <a class="card" href="/#success">
-          <img class="card-img" src="/assets/bds.png" alt="Boutique de Sophie" loading="lazy" />
-          <div class="card-body">
-            <h3>Boutique de Sophie — E-commerce Scaling</h3>
-            <p>Shopify ↔ Zendesk integration, targeted automations, and self-serve to reduce repetitive tickets.</p>
+        <!-- PalawanPay -->
+        <details class="case">
+          <summary>
+            <img src="/assets/palawanpay.png" alt="PalawanPay" />
+            <div>
+              <h3>PalawanPay — CX Org & Advanced Zendesk</h3>
+              <div class="meta">Zero-to-one org, routing discipline, bots, savings impact</div>
+            </div>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>What they needed</h4>
+                <ul>
+                  <li>Build Customer Care from scratch with strict SLAs across channels.</li>
+                  <li>Standardized macros/policies, clear escalation paths, vendor governance.</li>
+                  <li>Lower cost per resolution via automation and self-service.</li>
+                </ul>
+                <h4>What we built</h4>
+                <ul>
+                  <li>Zendesk Support/Guide/Explore with skills-based routing & capacity rules.</li>
+                  <li>Sunshine Conversations bots for authentication, FAQs, and intent handoff.</li>
+                  <li>Explore dashboards for FRT/AHT/CSAT, backlog hygiene, deflection.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Results</h4>
+                <ul>
+                  <li>₱5M+ annualized savings from bot/self-serve deflection.</li>
+                  <li>95%+ SLA on priority queues; AHT down through intent-based macros.</li>
+                  <li>7-day MVP from kickoff to first value; scalable process & naming discipline.</li>
+                </ul>
+                <h4>Stack</h4>
+                <ul>
+                  <li>Zendesk (Support/Guide/Explore), Sunshine Conversations</li>
+                  <li>Make, Apps Script, Looker Studio</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </a>
+        </details>
+
+        <!-- Unison -->
+        <details class="case">
+          <summary>
+            <img src="/assets/unison.png" alt="Unison" />
+            <div>
+              <h3>Unison — Workflows & Help Center</h3>
+              <div class="meta">Workflow overhaul, Guide UX, reporting discipline</div>
+            </div>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>What they needed</h4>
+                <ul>
+                  <li>Ticket chaos—no ownership, poor macro hygiene, weak reporting.</li>
+                  <li>Help Center not driving deflection.</li>
+                </ul>
+                <h4>What we built</h4>
+                <ul>
+                  <li>Clean field architecture, routing by intent + skills, macro library.</li>
+                  <li>Guide UX revamp with actionable categories and forms.</li>
+                  <li>Productivity & Satisfaction dashboards in Explore.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Results</h4>
+                <ul>
+                  <li>+18% one-touch resolutions; backlog stabilized.</li>
+                  <li>Self-serve adoption up; fewer repeat tickets.</li>
+                  <li>Managers finally governing with the right metrics.</li>
+                </ul>
+                <h4>Stack</h4>
+                <ul>
+                  <li>Zendesk Support/Guide/Explore</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Boutique de Sophie -->
+        <details class="case">
+          <summary>
+            <img src="/assets/bds.png" alt="Boutique de Sophie" />
+            <div>
+              <h3>Boutique de Sophie — E-commerce Scaling</h3>
+              <div class="meta">Shopify ↔ Zendesk, post-purchase macros, deflection</div>
+            </div>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>What they needed</h4>
+                <ul>
+                  <li>Order status, returns, and refunds flooding the inbox.</li>
+                  <li>No linkage between tickets and orders.</li>
+                </ul>
+                <h4>What we built</h4>
+                <ul>
+                  <li>Shopify ↔ Zendesk app & order surface in the sidebar.</li>
+                  <li>Transactional comms and macros for common post-purchase intents.</li>
+                  <li>SOPs for disputes/refunds with SLA gates and QA review.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Results</h4>
+                <ul>
+                  <li>Meaningful AHT reduction on post-purchase intents.</li>
+                  <li>Fewer status tickets via proactive updates & Help Center flows.</li>
+                  <li>Clear visibility from ticket → order → refund outcomes.</li>
+                </ul>
+                <h4>Stack</h4>
+                <ul>
+                  <li>Zendesk, Shopify, Make/Zapier, Looker Studio</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ===== CTA ===== -->
     <section class="dc-card reveal">
       <div>
         <h3>Let’s diagnose your CX in 30 minutes.</h3>
