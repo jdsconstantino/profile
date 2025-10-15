@@ -763,4 +763,55 @@ footer::after {
   display: block;
   height: 0;
 }
+/* ===== Footer alignment fix ===== */
+footer { overflow: hidden; }
+
+.footer-grid{
+  /* three even columns, brand column can be narrower */
+  grid-template-columns: minmax(220px, 320px) 1fr 1fr;
+  align-items: start;      /* align to same top baseline */
+  justify-items: start;    /* left align content */
+  gap: 48px;
+}
+
+/* normalize spacing inside columns */
+.footer-col{
+  position: relative;
+  text-align: left;
+}
+.footer-col h4{
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.footer-links{ margin: 0; padding: 0; }
+.footer-links li{ margin: 8px 0; line-height: 1.6; }
+
+/* brand column */
+.footer-logo{ display:block; margin: 0 0 14px; }
+
+/* full-height vertical separators between columns */
+.footer-col::before{ display:none; }                  /* kill any old rules */
+.footer-col:not(:first-child)::before{
+  content:"";
+  position:absolute;
+  left:-24px;            /* space from content */
+  top:0; bottom:0;       /* full height of column */
+  width:1px;
+  background: rgba(255,255,255,.10);
+}
+
+/* remove old right-borders so we don't double up */
+.footer-col{ border-right: none !important; padding-right: 0 !important; }
+
+/* mobile: stack, center, hide separators */
+@media (max-width: 900px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+  .footer-col:not(:first-child)::before{ display:none; }
+}
+
 
