@@ -2,11 +2,18 @@
 
 /* ===== Theme (dark global) ===== */
 :root{
-  --bg:#363e4b;           /* near-black, not pure */
+  --bg:#363e4b;
   --panel:#21252d;
   --text:#e7e9ee;
   --muted:#9aa2b4;
-  --accent:#007236;
+
+  /* NEW accent system — base + tints derived from #2E424E */
+  --accent:#2E424E;               /* base */
+  --accent-strong:#1C2B33;        /* darker */
+  --accent-light:#3A5562;         /* lighter */
+  --accent-bright:#5FA7C7;        /* for highlights/wires on dark bg */
+  --accent-glow:rgba(46,66,78,.45); /* soft glow */
+
   --border:#1b1f26;
   --glass:rgba(255,255,255,.08);
   --glass-border:rgba(255,255,255,.16);
