@@ -1218,3 +1218,41 @@ section.reveal h2 {
   filter: none !important;
   mix-blend-mode: normal !important;
 }
+/* CTA layout/hierarchy fixes */
+.dc-card{
+  display:flex;
+  align-items:center;              /* centers vertically */
+  justify-content:space-between;   /* clean left text / right button */
+  gap:24px;
+  padding:24px 28px;               /* more breathing room */
+  background:#2E424E;
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+
+.cta-text h3{
+  margin:0 0 6px;                  /* headline on top */
+  color:#ECF3FF;
+  font-size:1.35rem;
+  line-height:1.2;
+}
+
+.cta-text p{
+  margin:0;
+  color:#CFE2F2;                    /* secondary line */
+  font-size:1.02rem;
+  line-height:1.5;
+}
+
+.btn-cta{
+  align-self:center;                /* vertical alignment */
+  white-space:nowrap;
+  padding:14px 20px;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
+}
+
+/* Mobile: stack + full-width button */
+@media (max-width: 720px){
+  .dc-card{flex-direction:column; align-items:stretch; text-align:left}
+  .btn-cta{width:100%; text-align:center}
+}
