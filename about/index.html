@@ -16,14 +16,16 @@
   <link rel="stylesheet" href="/css/site.css?v=209" />
 
   <style>
-    /* ===== Page-scoped tokens (safe with your global CSS) ===== */
+    /* ===== Page-scoped tokens ===== */
     :root{
       --brand:#007236;          /* DeskXP green */
       --accent:#ffd400;         /* bright yellow */
       --ink:#0f1222;
-      --muted:#9aa3af;
+      --muted:#a3adba;
       --panel:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.12);
+      --panel-strong:rgba(255,255,255,.10);
+      --border:rgba(255,255,255,.14);
+      --overlay:rgba(10,12,16,.55);
     }
     .container{max-width:1100px;margin:0 auto;padding:24px 16px}
 
@@ -37,7 +39,7 @@
     .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
     .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
 
-    /* ===== 2) Work with an Expert block (photo left, grounded) ===== */
+    /* ===== 2) Work with an Expert block ===== */
     .expert{
       background:rgba(0,0,0,.08);
       border:1px solid var(--border);
@@ -58,10 +60,8 @@
 
     .photo-wrap{position:relative;width:100%;max-width:360px;margin:0 auto}
     .photo-wrap img{width:100%;height:auto;display:block;border-radius:14px}
-    /* curved yellow base, following a natural under-foot arc */
     .photo-wrap .swoosh{position:absolute;left:-26px;right:-26px;bottom:-8px;height:130px;pointer-events:none;opacity:.95;filter:blur(6px)}
     .photo-wrap .swoosh svg{width:100%;height:100%;display:block}
-    /* subtle halo tight to the bottom curve */
     .photo-wrap::after{
       content:"";position:absolute;left:12%;right:12%;bottom:-6px;height:16px;
       background:radial-gradient(60% 22px at 50% 0, var(--accent) 0%, transparent 65%);
@@ -75,7 +75,7 @@
     /* ===== 3) Logos ===== */
     .about-logos{margin:26px 0}
     .about-logos .logo-row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
-    .about-logos img{height:42px;opacity:.9;filter:grayscale(100%) contrast(1.1)}
+    .about-logos img{height:42px;opacity:.95;filter:grayscale(100%) contrast(1.1)}
     .about-logos .muted{color:var(--muted)}
 
     /* ===== 4) Career timeline ===== */
@@ -86,7 +86,56 @@
     .tl-points{margin:8px 0 0 0;padding-left:18px}
     .tl-points li{margin:.4rem 0}
 
-    /* ===== 5) Certifications ===== */
+    /* ===== 5) Projects (Cards + Modal) ===== */
+    .about-cases{margin:36px 0}
+    .about-cases h2{color:#bcd3ff} /* readable header */
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width: 900px){.case-grid{grid-template-columns:1fr}}
+    .case-card{
+      display:flex;gap:12px;align-items:center;text-align:left;
+      border:1px solid var(--border);background:var(--panel);
+      border-radius:18px;padding:16px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      color:#e9eef6; text-decoration:none;
+    }
+    .case-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25);border-color:var(--panel-strong)}
+    .case-card img{width:46px;height:46px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #ececec}
+    .case-title{margin:0;font-size:1.02rem;line-height:1.3;color:#fff}
+    .case-sub{margin:2px 0 0;color:#c4ceda;font-size:.95rem}
+
+    /* Modal shell */
+    .modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      background:var(--overlay);backdrop-filter:blur(6px);z-index:1000;padding:20px;
+    }
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(980px,95vw);max-height:min(86vh,1200px);overflow:auto;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.45);
+      color:#eef3f9;
+    }
+    .modal-head{
+      position:sticky;top:0;z-index:1;padding:16px 18px;border-bottom:1px solid var(--border);
+      background:linear-gradient(90deg,var(--brand-accent, var(--brand)) 0%, rgba(0,0,0,0) 60%);
+      border-radius:18px 18px 0 0;
+    }
+    .modal-title{margin:0; font-size:1.2rem; color:#fff}
+    .modal-meta{margin:6px 0 0;color:#e6f6ff; opacity:.9}
+    .modal-body{padding:16px 18px 20px}
+    .mb-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width: 800px){.mb-grid{grid-template-columns:1fr}}
+    .mb-col{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:12px}
+    .mb-col h4{margin:.2rem 0 .4rem;font-size:1rem;color:#fff}
+    .mb-col ul{margin:.2rem 0 .6rem;padding-left:18px;color:#c8d3df}
+    .mb-stack{margin-top:8px}
+    .chip{display:inline-block;border:1px solid var(--border);background:var(--panel-strong);border-radius:999px;padding:7px 10px;margin:4px 6px 0 0;font-size:.9rem;color:#e7eef7}
+
+    .modal-close{
+      position:absolute;right:10px;top:10px;border:1px solid var(--border);background:var(--panel);color:#fff;
+      border-radius:999px;padding:6px 10px;font-weight:700;cursor:pointer
+    }
+
+    /* ===== 6) Certifications ===== */
     .certs{margin:34px 0}
     .certs h2{margin-bottom:10px}
     .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -96,27 +145,11 @@
     .cert-card h3{font-size:1rem;margin:0 0 8px}
     .cert-links a{display:inline-block;margin-top:8px}
 
-    /* ===== 6) Projects (expanders) ===== */
-    .about-cases{margin:36px 0}
-    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width: 900px){.case-grid{grid-template-columns:1fr}}
-    details.case{border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden}
-    details.case>summary{cursor:pointer;list-style:none;padding:14px;display:flex;align-items:center;gap:12px}
-    details.case>summary::-webkit-details-marker{display:none}
-    .case img{width:42px;height:42px;object-fit:contain;border-radius:8px;background:#fff;border:1px solid #eee}
-    .case h3{margin:0;font-size:1rem}
-    .case .meta{color:var(--muted);font-size:.92rem}
-    .case .body{padding:0 14px 14px;border-top:1px dashed var(--border);background:rgba(0,0,0,.02)}
-    .body .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    @media (max-width: 800px){.body .twocol{grid-template-columns:1fr}}
-    .body h4{margin:.6rem 0 .2rem;font-size:.98rem}
-    .body ul{margin:.2rem 0 .8rem;padding-left:18px}
-
     /* ===== CTA ===== */
     .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--panel);border-radius:14px;padding:18px;margin:38px 0}
     .btn-solid,.btn-minimal{display:inline-block;border-radius:999px;padding:10px 14px;font-weight:600;text-decoration:none}
     .btn-solid{background:var(--brand);color:#fff}
-    .btn-minimal{border:1px solid var(--border)}
+    .btn-minimal{border:1px solid var(--border);color:#eaf0f7}
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -166,12 +199,8 @@
                   <stop offset="100%" stop-color="#ffd400" stop-opacity="0"/>
                 </linearGradient>
               </defs>
-              <!-- Curved base: starts left, dips under jacket, rises right -->
-              <path d="M10,210
-                       C 180,250 330,260 470,225
-                       S 790,110 810,130"
+              <path d="M10,210 C 180,250 330,260 470,225 S 790,110 810,130"
                     fill="none" stroke="url(#yGlow)" stroke-width="38" stroke-linecap="round"/>
-              <!-- Soft fill halo under the stroke -->
               <path d="M0,240 C220,300 420,300 820,180 L820,280 L0,280 Z"
                     fill="#ffd400" opacity="0.18"/>
             </svg>
@@ -205,6 +234,16 @@
             <span class="tag">n8n</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Logos ===== -->
+    <section class="about-logos reveal">
+      <p class="muted">Selected brands & projects</p>
+      <div class="logo-row">
+        <img src="/assets/palawanpay.png" alt="PalawanPay" />
+        <img src="/assets/unison.png" alt="Unison" />
+        <img src="/assets/boutiqu-de-sophie.png" alt="Boutique de Sophie" />
       </div>
     </section>
 
@@ -254,174 +293,99 @@
     <section class="certs reveal" aria-labelledby="certs-title">
       <h2 id="certs-title">Certifications</h2>
       <div class="cert-grid">
-        <div class="cert-card">
-          <h3>Zendesk Explore</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-        <div class="cert-card">
-          <h3>Foundational Support</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-        <div class="cert-card">
-          <h3>Zendesk Guide</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-        <div class="cert-card">
-          <h3>Zendesk Messaging</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-        <div class="cert-card">
-          <h3>Zendesk Omnichannel</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-        <div class="cert-card">
-          <h3>Sunshine Conversations (Developer)</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+        <div class="cert-card"><h3>Zendesk Explore</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="cert-card"><h3>Foundational Support</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="cert-card"><h3>Zendesk Guide</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="cert-card"><h3>Zendesk Messaging</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="cert-card"><h3>Zendesk Omnichannel</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="cert-card"><h3>Sunshine Conversations (Developer)</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div></div>
         <div class="cert-card">
           <h3>Zendesk Professional Certificate</h3>
-          <div class="cert-links">
-            <a class="btn-minimal" href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924&u=139858924&success=true&authUUID=z3uqz5PmQK6DcMNfHv8ZAA%3D%3D" target="_blank" rel="noopener">View credential</a>
-          </div>
+          <div class="cert-links"><a class="btn-minimal" href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924&u=139858924&success=true&authUUID=z3uqz5PmQK6DcMNfHv8ZAA%3D%3D" target="_blank" rel="noopener">View credential</a></div>
         </div>
         <div class="cert-card">
           <h3>Professional Certificate in Operations Management</h3>
-          <div class="cert-links">
-            <a class="btn-minimal" href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
-          </div>
+          <div class="cert-links"><a class="btn-minimal" href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== SECTION 5: Projects (click to expand) ===== -->
+    <!-- ===== SECTION 5: Projects (cards open modal) ===== -->
     <section class="about-cases reveal">
       <h2>Projects</h2>
       <div class="case-grid">
 
         <!-- PalawanPay -->
-        <details class="case">
-          <summary>
-            <img src="/assets/palawanpay.png" alt="PalawanPay" />
-            <div>
-              <h3>PalawanPay — CX Org & Advanced Zendesk</h3>
-              <div class="meta">Zero-to-one org, routing discipline, bots, savings impact</div>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="twocol">
-              <div>
-                <h4>What they needed</h4>
-                <ul>
-                  <li>Build Customer Care from scratch with strict SLAs across channels.</li>
-                  <li>Standardized macros/policies, clear escalation paths, vendor governance.</li>
-                  <li>Lower cost per resolution via automation and self-service.</li>
-                </ul>
-                <h4>What we built</h4>
-                <ul>
-                  <li>Zendesk Support/Guide/Explore with skills-based routing & capacity rules.</li>
-                  <li>Sunshine Conversations bots for authentication, FAQs, and intent handoff.</li>
-                  <li>Explore dashboards for FRT/AHT/CSAT, backlog hygiene, deflection.</li>
-                </ul>
-              </div>
-              <div>
-                <h4>Results</h4>
-                <ul>
-                  <li>₱5M+ annualized savings from bot/self-serve deflection.</li>
-                  <li>95%+ SLA on priority queues; AHT down through intent-based macros.</li>
-                  <li>7-day MVP from kickoff to first value; scalable process & naming discipline.</li>
-                </ul>
-                <h4>Stack</h4>
-                <ul>
-                  <li>Zendesk (Support/Guide/Explore), Sunshine Conversations</li>
-                  <li>Make, Apps Script, Looker Studio</li>
-                </ul>
-              </div>
-            </div>
+        <button class="case-card" data-brand="#007236" data-title="PalawanPay — CX Org & Advanced Zendesk"
+                data-meta="Zero-to-one org, routing discipline, bots, savings impact"
+                data-need='["Build Customer Care from scratch with strict SLAs across channels.","Standardized macros/policies, clear escalation paths, vendor governance.","Lower cost per resolution via automation and self-service."]'
+                data-built='["Zendesk Support/Guide/Explore with skills-based routing & capacity rules.","Sunshine Conversations bots for authentication, FAQs, and intent handoff.","Explore dashboards for FRT/AHT/CSAT, backlog hygiene, deflection."]'
+                data-results='["₱5M+ annualized savings from bot/self-serve deflection.","95%+ SLA on priority queues; AHT down through intent-based macros.","7-day MVP from kickoff to first value; scalable process & naming discipline."]'
+                data-stack='["Zendesk (Support/Guide/Explore)","Sunshine Conversations","Make","Apps Script","Looker Studio"]'>
+          <img src="/assets/palawanpay.png" alt="PalawanPay" />
+          <div>
+            <h3 class="case-title">PalawanPay — CX Org & Advanced Zendesk</h3>
+            <p class="case-sub">Zero-to-one org, routing discipline, bots, savings impact</p>
           </div>
-        </details>
+        </button>
 
-        <!-- Unison -->
-        <details class="case">
-          <summary>
-            <img src="/assets/unison.png" alt="Unison" />
-            <div>
-              <h3>Unison — Workflows & Help Center</h3>
-              <div class="meta">Workflow overhaul, Guide UX, reporting discipline</div>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="twocol">
-              <div>
-                <h4>What they needed</h4>
-                <ul>
-                  <li>Ticket chaos—no ownership, poor macro hygiene, weak reporting.</li>
-                  <li>Help Center not driving deflection.</li>
-                </ul>
-                <h4>What we built</h4>
-                <ul>
-                  <li>Clean field architecture, routing by intent + skills, macro library.</li>
-                  <li>Guide UX revamp with actionable categories and forms.</li>
-                  <li>Productivity & Satisfaction dashboards in Explore.</li>
-                </ul>
-              </div>
-              <div>
-                <h4>Results</h4>
-                <ul>
-                  <li>+18% one-touch resolutions; backlog stabilized.</li>
-                  <li>Self-serve adoption up; fewer repeat tickets.</li>
-                  <li>Managers finally governing with the right metrics.</li>
-                </ul>
-                <h4>Stack</h4>
-                <ul>
-                  <li>Zendesk Support/Guide/Explore</li>
-                </ul>
-              </div>
-            </div>
+        <!-- Unison (blue) -->
+        <button class="case-card" data-brand="#0A4A9E" data-title="Unison — Workflows & Help Center"
+                data-meta="Workflow overhaul, Guide UX, reporting discipline"
+                data-need='["Ticket chaos—no ownership, poor macro hygiene, weak reporting.","Help Center not driving deflection."]'
+                data-built='["Clean field architecture, routing by intent + skills, macro library.","Guide UX revamp with actionable categories and forms.","Productivity & Satisfaction dashboards in Explore."]'
+                data-results='["+18% one-touch resolutions; backlog stabilized.","Self-serve adoption up; fewer repeat tickets.","Managers finally governing with the right metrics."]'
+                data-stack='["Zendesk Support/Guide/Explore"]'>
+          <img src="/assets/unison.png" alt="Unison" />
+          <div>
+            <h3 class="case-title">Unison — Workflows & Help Center</h3>
+            <p class="case-sub">Workflow overhaul, Guide UX, reporting discipline</p>
           </div>
-        </details>
+        </button>
 
-        <!-- Boutique de Sophie -->
-        <details class="case">
-          <summary>
-            <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie" />
-            <div>
-              <h3>Boutique de Sophie — E-commerce Scaling</h3>
-              <div class="meta">Shopify ↔ Zendesk, post-purchase macros, deflection</div>
-            </div>
-          </summary>
-          <div class="body">
-            <div class="twocol">
-              <div>
-                <h4>What they needed</h4>
-                <ul>
-                  <li>Order status, returns, and refunds flooding the inbox.</li>
-                  <li>No linkage between tickets and orders.</li>
-                </ul>
-                <h4>What we built</h4>
-                <ul>
-                  <li>Shopify ↔ Zendesk app & order surface in the sidebar.</li>
-                  <li>Transactional comms and macros for common post-purchase intents.</li>
-                  <li>SOPs for disputes/refunds with SLA gates and QA review.</li>
-                </ul>
-              </div>
-              <div>
-                <h4>Results</h4>
-                <ul>
-                  <li>Meaningful AHT reduction on post-purchase intents.</li>
-                  <li>Fewer status tickets via proactive updates & Help Center flows.</li>
-                  <li>Clear visibility from ticket → order → refund outcomes.</li>
-                </ul>
-                <h4>Stack</h4>
-                <ul>
-                  <li>Zendesk, Shopify, Make/Zapier, Looker Studio</li>
-                </ul>
-              </div>
-            </div>
+        <!-- Boutique de Sophie (rose) -->
+        <button class="case-card" data-brand="#D6A89E" data-title="Boutique de Sophie — E-commerce Scaling"
+                data-meta="Shopify ↔ Zendesk, post-purchase macros, deflection"
+                data-need='["Order status, returns, and refunds flooding the inbox.","No linkage between tickets and orders."]'
+                data-built='["Shopify ↔ Zendesk app & order surface in the sidebar.","Transactional comms and macros for common post-purchase intents.","SOPs for disputes/refunds with SLA gates and QA review."]'
+                data-results='["Meaningful AHT reduction on post-purchase intents.","Fewer status tickets via proactive updates & Help Center flows.","Clear visibility from ticket → order → refund outcomes."]'
+                data-stack='["Zendesk","Shopify","Make/Zapier","Looker Studio"]'>
+          <img src="/assets/bds.png" alt="Boutique de Sophie" />
+          <div>
+            <h3 class="case-title">Boutique de Sophie — E-commerce Scaling</h3>
+            <p class="case-sub">Shopify ↔ Zendesk, post-purchase macros, deflection</p>
           </div>
-        </details>
+        </button>
 
       </div>
     </section>
+
+    <!-- Modal root -->
+    <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card">
+        <div class="modal-head">
+          <button class="modal-close" aria-label="Close">✕</button>
+          <h3 class="modal-title">Title</h3>
+          <p class="modal-meta">Meta</p>
+        </div>
+        <div class="modal-body">
+          <div class="mb-grid">
+            <div class="mb-col">
+              <h4>What they needed</h4>
+              <ul id="mb-need"></ul>
+              <h4>What we built</h4>
+              <ul id="mb-built"></ul>
+            </div>
+            <div class="mb-col">
+              <h4>Results</h4>
+              <ul id="mb-results"></ul>
+              <h4>Stack</h4>
+              <div id="mb-stack" class="mb-stack"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ===== CTA ===== -->
     <section class="dc-card reveal">
@@ -439,13 +403,86 @@
   <!-- Global footer -->
   <div id="footer"></div>
   <script>
-    fetch("/footer.html")
-      .then(r => r.text())
-      .then(html => document.getElementById("footer").innerHTML = html);
+    fetch("/footer.html").then(r => r.text()).then(html => document.getElementById("footer").innerHTML = html);
   </script>
 
   <!-- Credly embed (load once for all badges) -->
   <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+
+  <!-- Modal logic -->
+  <script>
+    (function(){
+      const qs = s => document.querySelector(s);
+      const qsa = s => Array.from(document.querySelectorAll(s));
+      const modal = qs('#caseModal');
+      const title = modal.querySelector('.modal-title');
+      const meta  = modal.querySelector('.modal-meta');
+      const listNeed = qs('#mb-need');
+      const listBuilt = qs('#mb-built');
+      const listResults = qs('#mb-results');
+      const stackWrap = qs('#mb-stack');
+      const closeBtn = modal.querySelector('.modal-close');
+
+      function setBrandAccent(hex){
+        modal.style.setProperty('--brand-accent', hex || 'var(--brand)');
+      }
+
+      function fillList(ul, arr){
+        ul.innerHTML = '';
+        (arr||[]).forEach(txt=>{
+          const li = document.createElement('li');
+          li.textContent = txt;
+          ul.appendChild(li);
+        });
+      }
+
+      function fillChips(el, arr){
+        el.innerHTML = '';
+        (arr||[]).forEach(txt=>{
+          const span = document.createElement('span');
+          span.className = 'chip';
+          span.textContent = txt;
+          el.appendChild(span);
+        });
+      }
+
+      function openModal(card){
+        const brand = card.getAttribute('data-brand') || '';
+        const t = card.getAttribute('data-title') || '';
+        const m = card.getAttribute('data-meta') || '';
+        const need = JSON.parse(card.getAttribute('data-need') || '[]');
+        const built = JSON.parse(card.getAttribute('data-built') || '[]');
+        const results = JSON.parse(card.getAttribute('data-results') || '[]');
+        const stack = JSON.parse(card.getAttribute('data-stack') || '[]');
+
+        setBrandAccent(brand);
+        title.textContent = t;
+        meta.textContent = m;
+        fillList(listNeed, need);
+        fillList(listBuilt, built);
+        fillList(listResults, results);
+        fillChips(stackWrap, stack);
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      qsa('.case-card').forEach(card=>{
+        card.addEventListener('click',()=>openModal(card));
+        card.addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openModal(card);} });
+      });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    })();
+  </script>
 
   <!-- Global JS (injects header, handles sliders/reveal, etc.) -->
   <script src="/js/main.js?v=210" defer></script>
