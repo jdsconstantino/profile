@@ -220,58 +220,59 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 2: Work with an Expert (SOLID wave) ===== -->
-    <section class="expert reveal" aria-labelledby="expert-title">
-      <!-- solid wave backdrop across bottom; *high crest* so it fully covers image cut -->
-      <div class="expert-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 260" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="wavy" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"  stop-color="#FFD400"/>
-              <stop offset="100%" stop-color="#FFC400"/>
-            </linearGradient>
-          </defs>
-          <path d="M0,80
-                   C 240,160 460,210 690,190
-                   S 1140,120 1440,160
-                   L1440,260 L0,260 Z"
-                fill="url(#wavy)"/>
-        </svg>
+    <!-- ===== SECTION: Work with an Expert (patched) ===== -->
+<section class="expert reveal" aria-labelledby="expert-title">
+  <!-- Solid yellow wave. Lower crest under chips; clipped by card radius. -->
+  <div class="expert-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 260" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="wavy" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="#FFD400"/>
+          <stop offset="100%" stop-color="#FFC400"/>
+        </linearGradient>
+      </defs>
+      <!-- Crest stays away from right corner; enough height to tuck under jacket -->
+      <path d="M0,130
+               C 240,185 460,210 700,198
+               S 1120,150 1440,175
+               L1440,260 L0,260 Z"
+            fill="url(#wavy)"/>
+    </svg>
+  </div>
+
+  <div class="expert-grid">
+    <div class="photo-wrap">
+      <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
+    </div>
+
+    <div class="expert-copy">
+      <h2 id="expert-title">Work with an Expert</h2>
+      <p>
+        I’m <strong>James Constantino</strong>—13+ years across Operations, Quality, Training, Onboarding, Hiring,
+        tech implementation, and end-to-end CX. I translate business goals into clean workflows, measurable SLAs,
+        and automation that actually sticks. <span class="badge">5+ years hands-on with Zendesk</span>
+      </p>
+      <p>
+        Tools & ecosystems I’ve led: <em>any modern CRM/ticketing stack</em> (Zendesk, Freshdesk, Intercom),
+        <em>commerce</em> (Shopify, Magento), <em>automation</em> (Make, Zapier, Apps Script, n8n),
+        <em>messaging</em> (Sunshine Conversations, Viber/TikTok connectors), <em>APIs</em> (REST/GraphQL),
+        and <em>analytics</em> (Explore, Looker Studio, GA4).
+      </p>
+
+      <div class="stack" aria-label="Tool stack">
+        <span class="tag">Zendesk (Support/Guide/Explore)</span>
+        <span class="tag">Sunshine Conversations</span>
+        <span class="tag">Shopify / Magento</span>
+        <span class="tag">Make / Zapier / n8n</span>
+        <span class="tag">Google Apps Script</span>
+        <span class="tag">API / REST / GraphQL</span>
+        <span class="tag">Looker Studio</span>
+        <span class="tag">Freshdesk / Intercom</span>
+        <span class="tag">Viber / TikTok APIs</span>
       </div>
-
-      <div class="expert-grid">
-        <div class="photo-wrap">
-          <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
-        </div>
-
-        <div>
-          <h2 id="expert-title">Work with an Expert</h2>
-          <p>
-            I’m <strong>James Constantino</strong>—13+ years across Operations, Quality, Training, Onboarding, Hiring,
-            tech implementation, and end-to-end CX. I translate business goals into clean workflows, measurable SLAs,
-            and automation that actually sticks. <span class="badge">5+ years hands-on with Zendesk</span>
-          </p>
-          <p>
-            Tools & ecosystems I’ve led: <em>any modern CRM/ticketing stack</em> (Zendesk, Freshdesk, Intercom),
-            <em>commerce</em> (Shopify, Magento), <em>automation</em> (Make, Zapier, Apps Script, n8n),
-            <em>messaging</em> (Sunshine Conversations, Viber/TikTok connectors), <em>APIs</em> (REST/GraphQL),
-            and <em>analytics</em> (Explore, Looker Studio, GA4).
-          </p>
-
-          <div class="stack" aria-label="Tool stack">
-            <span class="tag">Zendesk (Support/Guide/Explore)</span>
-            <span class="tag">Sunshine Conversations</span>
-            <span class="tag">Shopify / Magento</span>
-            <span class="tag">Make / Zapier / n8n</span>
-            <span class="tag">Google Apps Script</span>
-            <span class="tag">API / REST / GraphQL</span>
-            <span class="tag">Looker Studio</span>
-            <span class="tag">Freshdesk / Intercom</span>
-            <span class="tag">Viber / TikTok APIs</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- ===== Logos (dark) ===== -->
     <section class="about-logos reveal">
