@@ -1062,5 +1062,24 @@ body > section:last-child {
   bottom: 0;   /* exactly column height */
   height: auto;
 }
+/* ==== Section Headings ==== */
+section h2,
+section h3,
+#cta h2 {
+  color: var(--text);                 /* Primary readable text color */
+  font-weight: 700;
+  transition: color .3s ease;
+}
+
+/* If you want section titles (like CTA or Services) to have the accent tint */
+section h2.accent,
+#cta h2 {
+  color: var(--accent-light);         /* #3A5562 from your root */
+}
+
+/* Optional hover/scroll reveal styling (if you’re using .reveal animations) */
+section.reveal h2 {
+  color: var(--accent-bright);        /* subtle glow tone #5FA7C7 */
+}
 
 
