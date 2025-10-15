@@ -3,7 +3,7 @@
   <div class="footer-inner">
     
     <!-- Column 1 -->
-    <div class="footer-col">
+    <div class="footer-col first">
       <img src="/assets/logo.png" alt="DeskXP" class="footer-logo" />
       <ul>
         <li><a href="/privacy-policy.html">Privacy Policy</a></li>
@@ -27,13 +27,19 @@
     <div class="footer-col">
       <h4>Connect with me</h4>
       <ul class="social-links">
-        <li><a href="https://www.linkedin.com/in/jamesconstantino" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.upwork.com/freelancers/~01234abcd567efg" target="_blank">Upwork</a></li>
+        <li><a href="https://www.linkedin.com/in/jdsconstantino" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.upwork.com/freelancers/~019be0250d1b9db328" target="_blank">Upwork</a></li>
       </ul>
     </div>
 
   </div>
+
   <div class="footer-bottom">
     © <span id="y"></span> DeskXP. All rights reserved.
   </div>
 </footer>
+
+<script>
+  // Auto year
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
