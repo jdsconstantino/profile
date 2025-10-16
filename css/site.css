@@ -2380,3 +2380,27 @@ body .container > section.dc-card .btn-cta {
 body .container > section.dc-card:last-of-type {
   margin-bottom: 40px !important;
 }
+/* === FINAL FIX: Center-align CTA vertically === */
+section.dc-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important; /* centers content vertically */
+  align-items: center !important;
+  text-align: center !important;
+  gap: 20px !important;
+  padding: 48px 32px !important;
+  min-height: 240px !important;
+}
+
+/* Give footer breathing space */
+section.dc-card:last-of-type {
+  margin-bottom: 48px !important;
+}
+
+/* Center button nicely */
+section.dc-card .btn-cta {
+  align-self: center !important;
+  margin-top: 12px !important;
+  padding: 14px 36px !important;
+  border-radius: 9999px !important;
+}
