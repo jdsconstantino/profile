@@ -1,11 +1,15 @@
-// ======================= DeskXP main.js (v212) =======================
-// Year
+// ======================= DeskXP main.js (v213) =======================
+
+// Enable .js gate for reveal transitions
+document.documentElement.classList.add("js");
+
+// -------------------- YEAR ----------------------
 document.addEventListener("DOMContentLoaded", () => {
   const y = document.getElementById("y");
   if (y) y.textContent = new Date().getFullYear();
 });
 
-// -------------------- Reveal on scroll (simple) ----------------------
+// -------------------- Reveal on scroll ----------------------
 (() => {
   const els = document.querySelectorAll(".reveal");
   if (!els.length) return;
@@ -102,8 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCurtainMenu();
   adjustCurtainOffset();
   if (document.fonts?.ready) document.fonts.ready.then(adjustCurtainOffset);
-
-  // ✅ Run one more offset fix once all assets (logo etc.) are fully loaded
   window.addEventListener("load", adjustCurtainOffset);
 })();
 
@@ -135,7 +137,6 @@ async function fetchHeaderHTML() {
     } catch {}
   }
   console.warn("Header partial not found — using inline fallback");
-  // Fallback header (Menu trigger + curtain + critical CSS)
   return `
 <nav class="nav-wrap" role="navigation" aria-label="Primary">
   <div class="nav">
@@ -190,7 +191,6 @@ async function fetchHeaderHTML() {
   .curtain-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
   .curtain-menu a{display:block;padding:12px 8px;color:#ECF3FF;text-decoration:none;border-radius:8px;font-size:1.1rem}
   .curtain-menu a:hover{background:rgba(255,255,255,.08)}
-  .banner::before,.banner::after,.hero::before,.hero::after{pointer-events:none!important}
 </style>`;
 }
 
