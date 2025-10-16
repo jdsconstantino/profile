@@ -1,4 +1,4 @@
-// ======================= DeskXP main.js (v211) =======================
+// ======================= DeskXP main.js (v212) =======================
 // Year
 document.addEventListener("DOMContentLoaded", () => {
   const y = document.getElementById("y");
@@ -31,31 +31,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = root.querySelector("#successTrack");
   if (!track) return;
 
-  const dotsWrap = root.querySelector("#successDots") || Object.assign(document.createElement("div"), { id: "successDots", className: "success-dots" });
+  const dotsWrap =
+    root.querySelector("#successDots") ||
+    Object.assign(document.createElement("div"), {
+      id: "successDots",
+      className: "success-dots",
+    });
   if (!root.querySelector("#successDots")) root.appendChild(dotsWrap);
 
-  const slides = Array.from(track.children).filter(s => s.classList.contains("success-slide"));
+  const slides = Array.from(track.children).filter((s) =>
+    s.classList.contains("success-slide")
+  );
   if (!slides.length) return;
 
-  let idx = 0, timer = null;
+  let idx = 0,
+    timer = null;
   const INTERVAL = 6000;
-  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
+  const reduced =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
 
   function setActive(i) {
     slides.forEach((s, j) => s.classList.toggle("is-active", j === i));
-    Array.from(dotsWrap.children).forEach((d, j) => d.classList.toggle("active", j === i));
+    Array.from(dotsWrap.children).forEach((d, j) =>
+      d.classList.toggle("active", j === i)
+    );
   }
-  function go(i, user) { idx = (i + slides.length) % slides.length; setActive(idx); if (user) restart(); }
+  function go(i, user) {
+    idx = (i + slides.length) % slides.length;
+    setActive(idx);
+    if (user) restart();
+  }
   function buildDots() {
-    dotsWrap.innerHTML = slides.map((_, i) => `<button aria-label="Go to slide ${i + 1}" type="button"></button>`).join("");
-    Array.from(dotsWrap.children).forEach((dot, j) => dot.addEventListener("click", () => go(j, true)));
+    dotsWrap.innerHTML = slides
+      .map(
+        (_, i) =>
+          `<button aria-label="Go to slide ${i + 1}" type="button"></button>`
+      )
+      .join("");
+    Array.from(dotsWrap.children).forEach((dot, j) =>
+      dot.addEventListener("click", () => go(j, true))
+    );
     dotsWrap.children[0]?.classList.add("active");
   }
-  function start() { if (!reduced) { stop(); timer = setInterval(() => go(idx + 1, false), INTERVAL); } }
-  function stop() { if (timer) clearInterval(timer), timer = null; }
-  function restart() { stop(); start(); }
+  function start() {
+    if (!reduced) {
+      stop();
+      timer = setInterval(() => go(idx + 1, false), INTERVAL);
+    }
+  }
+  function stop() {
+    if (timer) clearInterval(timer), (timer = null);
+  }
+  function restart() {
+    stop();
+    start();
+  }
 
-  buildDots(); setActive(0); start();
+  buildDots();
+  setActive(0);
+  start();
   track.addEventListener("mouseenter", stop);
   track.addEventListener("mouseleave", start);
 })();
@@ -68,6 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCurtainMenu();
   adjustCurtainOffset();
   if (document.fonts?.ready) document.fonts.ready.then(adjustCurtainOffset);
+
+  // ✅ Run one more offset fix once all assets (logo etc.) are fully loaded
+  window.addEventListener("load", adjustCurtainOffset);
 })();
 
 // Ensure a mount exists at the top of <body>
@@ -86,7 +123,10 @@ async function fetchHeaderHTML() {
   const bust = `?v=${Date.now()}`;
   const paths = [
     `/partials/header.html${bust}`,
-    new URL(`./partials/header.html${bust}`, window.location.origin + window.location.pathname).href
+    new URL(
+      `./partials/header.html${bust}`,
+      window.location.origin + window.location.pathname
+    ).href,
   ];
   for (const p of paths) {
     try {
@@ -154,7 +194,7 @@ async function fetchHeaderHTML() {
 </style>`;
 }
 
-// Bind curtain behaviour and keep it below the header
+// ---------------- Curtain behaviour + offset handling ----------------
 function bindCurtainMenu() {
   const trigger = document.getElementById("cdMenuTrigger");
   const curtain = document.getElementById("navCurtain");
@@ -188,7 +228,6 @@ function bindCurtainMenu() {
   });
   links.forEach((a) => a.addEventListener("click", close));
 
-  // keep offset correct as header resizes
   const header = document.querySelector(".nav-wrap");
   if (header && "ResizeObserver" in window) {
     new ResizeObserver(adjustCurtainOffset).observe(header);
@@ -196,7 +235,7 @@ function bindCurtainMenu() {
   window.addEventListener("resize", adjustCurtainOffset);
 }
 
-// Curtain below header; use inline !important to beat older CSS
+// ---------------- Curtain below header (inline !important) ----------------
 function adjustCurtainOffset() {
   const header = document.querySelector(".nav-wrap");
   const curtain = document.getElementById("navCurtain");
