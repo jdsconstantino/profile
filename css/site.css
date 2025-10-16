@@ -2137,3 +2137,19 @@ section#services .service-card,
   .about-cases .case-grid{ gap:18px; }
   .about-cases .case-card{ padding:16px 18px !important; }
 }
+/* Brand-tinted hover overlay */
+.about-cases .case-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  pointer-events: none;
+  background: linear-gradient(145deg, var(--card-accent, var(--brand)) 0%, rgba(255,255,255,0) 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.about-cases .case-card:hover::before {
+  opacity: 0.8;
+  transform: scale(1.03);
+  filter: saturate(1.3);
+}
