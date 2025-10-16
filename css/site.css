@@ -1497,4 +1497,81 @@ section.reveal h2 {
 
 /* Safety: generic img defaults */
 img { max-width: 100%; height: auto; display: block; }
+/* =======================
+   FIXES: CTA + Services
+   ======================= */
+
+/* 1) Make "Book a discovery call" same color as the Expert panel */
+#cta.reveal.v2 {
+  background: var(--panel) !important;                 /* dark green container */
+  border: 1px solid var(--glass-border) !important;    /* subtle, not black */
+  box-shadow: 0 18px 38px rgba(0,0,0,.25);
+}
+#cta.reveal.v2::before,
+#cta.reveal.v2::after { display:none !important; }     /* kill any stray overlays */
+
+/* 2) Kill black borders on generic containers (keep subtle glass border) */
+.section, .panel, .card, .dc-card {
+  border-color: var(--glass-border) !important;
+}
+
+/* 3) "Ready to move?" box: no cover; restore green gradient glow */
+#cta .cta-right {
+  background: linear-gradient(135deg, rgba(0,114,54,.28), rgba(0,114,54,.12)) !important;
+  border: 1px solid rgba(0,114,54,.35) !important;
+  box-shadow: 0 10px 26px rgba(0,114,54,.22), inset 0 0 0 1px rgba(255,255,255,.05);
+}
+#cta .cta-right::before,
+#cta .cta-right::after { display:none !important; }
+
+/* Button inside the "Ready to move?" box */
+#cta .cta-right a, #cta .cta-right .btn, #cta .cta-right button {
+  background: #0a7a3a !important;
+  border: 1px solid rgba(0,114,54,.55) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(0,114,54,.28);
+}
+
+/* 4) Bullet list under CTA: green checkmarks (same as Expert) */
+#cta .cta-list { list-style: none; margin: 0 0 14px; padding: 0; }
+#cta .cta-list li {
+  position: relative; padding-left: 28px;
+}
+#cta .cta-list li::before {
+  content: "✓";
+  position: absolute; left: 0; top: .15em;
+  width: 20px; height: 20px; line-height: 20px;
+  text-align: center; border-radius: 50%;
+  font-weight: 800;
+  color: var(--accent);                          /* #007236 */
+  background: rgba(0,114,54,.14);
+  box-shadow: 0 0 0 1px rgba(0,114,54,.25) inset;
+}
+
+/* 5) CTA tags/chips: highlight in green */
+#cta .cta-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+#cta .cta-chips .chip, #cta .cta-chips .tag, #cta .cta-chips .pill {
+  background: rgba(0,114,54,.18) !important;
+  color: #e8f5ee !important;
+  border: 1px solid rgba(0,114,54,.35) !important;
+}
+#cta .cta-chips .chip:hover { background: rgba(0,114,54,.26) !important; }
+
+/* 6) Services section: black border on the container; cards touch the edge */
+section#services, .services.section, .section.services {
+  background: var(--panel);
+  border: 1px solid rgba(0,0,0,.55) !important;   /* black-ish border only here */
+  padding: 0 !important;                          /* let cards touch the edge */
+}
+section#services .container, .section.services .container { padding: 0 !important; }
+
+section#services .service-grid, .services .grid {
+  gap: 24px;                                      /* adjust if you want tighter */
+  padding: 24px;                                  /* retains breathing room inside border */
+}
+
+section#services .service-card, .services .service-card, .services .card {
+  margin: 0 !important;
+  border-color: var(--glass-border) !important;   /* no heavy black on cards */
+}
 
