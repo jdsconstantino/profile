@@ -172,4 +172,44 @@
   font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 .curtain-menu a:hover { background: rgba(255,255,255,.08); }
+
+/* === Header fixes: thinner on desktop, bigger logo on mobile === */
+
+/* 1) Force a sane header height and tighter layout */
+.nav-wrap{
+  position: sticky !important;
+  top: 0;
+  background: #2E424E;
+}
+.nav{
+  height: 64px;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+/* 2) Logo sizing controlled by CSS */
+.brand img{
+  height: 34px !important;
+  width: auto !important;
+}
+
+/* 3) Menu links don’t add vertical bulk */
+.menu a{
+  line-height: 1 !important;
+  padding: 0 !important;
+}
+
+/* 4) Trigger button isn’t a pillow */
+.cd-primary-nav-trigger{
+  padding: 6px 10px !important;
+  border-radius: 8px;
+}
+
+/* 5) Mobile adjustments */
+@media (max-width: 600px){
+  .nav{ height: 56px; padding: 0 12px; gap: 10px; }
+  .brand img{ height: 44px !important; }
+  .cd-menu-text{ font-size: .95rem; }
+  .menu{ gap: 14px; }
+}
 </style>
