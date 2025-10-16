@@ -241,6 +241,15 @@
       position:absolute;right:10px;top:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;
       border-radius:999px;padding:6px 10px;font-weight:700;cursor:pointer
     }
+    <script>
+      document.querySelectorAll('.about-cases .case-card').forEach(card=>{
+        const color = card.getAttribute('data-brand');
+        if(color){
+          card.style.setProperty('--card-accent', color);
+       }
+      });
+    </script>
+
 
     /* ===== CTA (dark) ===== */
     .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--dark);border-radius:14px;padding:22px 18px;margin:38px 0}
