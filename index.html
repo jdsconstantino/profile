@@ -250,5 +250,51 @@
 
   <!-- Global JS (injects header + all behaviors) -->
   <script src="/js/main.js?v=212" defer></script>
+  <script>
+function initSuccessSlider() {
+  const slider = document.querySelector('.success-slider');
+  const slides = slider?.querySelectorAll('.slide');
+  const left = document.querySelector('.arrow-left');
+  const right = document.querySelector('.arrow-right');
+
+  if (!slider || !slides?.length) {
+    console.warn("⚠️ Success Stories slider not found — check .success-slider markup");
+    return;
+  }
+
+  let index = 0;
+  function showSlide(i) {
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  }
+
+  // Click arrows
+  left?.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+  });
+  right?.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  });
+
+  // Keyboard arrows
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    }
+    if (e.key === 'ArrowRight') {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+  });
+
+  console.log("✅ Success Stories slider initialized with", slides.length, "slides");
+}
+
+// Wait until everything (including footer/header) is in DOM
+window.addEventListener('load', initSuccessSlider);
+</script>
+
 </body>
 </html>
