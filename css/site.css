@@ -1316,7 +1316,7 @@ section.reveal h2 {
 /* When open */
 .curtain.open {
   transform: translateY(0);
-  height: calc(100vh - 60px);
+  height: calc(100vh - 69px);
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
