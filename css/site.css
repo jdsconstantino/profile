@@ -2153,3 +2153,52 @@ section#services .service-card,
   transform: scale(1.03);
   filter: saturate(1.3);
 }
+/* --- CTA card: breathing room + grid layout --- */
+.dc-card{
+  display:grid;
+  grid-template-columns: 1fr auto;   /* text | button */
+  align-items:center;
+  gap:24px;
+  padding:28px 28px;                 /* more top/btm padding */
+  border-radius:20px;
+}
+
+/* brand the headline */
+.dc-card h3{
+  color:#007236;                     /* DeskXP green */
+  margin:0 0 8px;
+  letter-spacing:-.2px;
+}
+
+/* keep the paragraph from crowding the edges */
+.dc-card p{
+  margin:0;
+  line-height:1.6;
+}
+
+/* --- CTA button: not edge-to-edge, looks like a button --- */
+.dc-card .btn-cta{
+  justify-self:end;                  /* hug the right on desktop */
+  padding:14px 22px;
+  min-width:260px;                   /* readable target */
+  border-radius:9999px;
+  background:linear-gradient(180deg,#2a8d53 0%, #007236 60%);
+  box-shadow:0 4px 18px rgba(0,114,54,.35), inset 0 -1px 0 rgba(255,255,255,.12);
+  transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+/* hover/focus states */
+.dc-card .btn-cta:hover{ 
+  transform:translateY(-1px);
+  box-shadow:0 8px 28px rgba(0,114,54,.45);
+  filter:saturate(1.05);
+}
+.dc-card .btn-cta:focus-visible{
+  outline:3px solid #57c68b; outline-offset:2px;
+}
+
+/* --- Mobile: stack + full-width button --- */
+@media (max-width:900px){
+  .dc-card{ grid-template-columns:1fr; gap:14px; padding:22px 18px; }
+  .dc-card .btn-cta{ justify-self:stretch; }
+}
