@@ -205,11 +205,10 @@
     .btn-minimal{border:1px solid var(--border);color:#eaf0f7}
 
     .highlight {
-  background: linear-gradient(90deg, rgba(255,212,0,0.25) 0%, rgba(255,212,0,0.15) 100%);
-  padding: 0 3px;
-  border-radius: 4px;
-}
-
+      background: linear-gradient(90deg, rgba(255,212,0,0.25) 0%, rgba(255,212,0,0.15) 100%);
+      padding: 0 3px;
+      border-radius: 4px;
+    }
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -252,8 +251,7 @@
     <section class="expert reveal" aria-labelledby="expert-title">
       <div class="expert-grid">
         <div class="photo-wrap">
-          <img src="/assets/CXExpert.png" alt="
-            Daniel Constantino" width="380" height="480" loading="eager" />
+          <img src="/assets/CXExpert.png" alt="James Daniel Constantino" width="380" height="480" loading="eager" />
         </div>
 
         <div class="expert-copy">
@@ -400,8 +398,6 @@
         <div class="cert-card"><h3>Zendesk Omnichannel</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div></div>
         <div class="cert-card"><h3>Sunshine Conversations (Developer)</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div></div>
       </div>
-
-      <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
     </section>
 
     <!-- ===== SECTION 5: Projects ===== -->
@@ -483,17 +479,19 @@
 
     <!-- ===== CTA ===== -->
     <section class="dc-card reveal" aria-labelledby="cta-title">
-  <div class="cta-text">
-    <h3 id="cta-title">Need tailored specifications? We got you!</h3>
-    <p>Let’s diagnose your CX in 30 minutes.</p>
-  </div>
+      <div class="cta-text">
+        <h3 id="cta-title">Need tailored specifications? We got you!</h3>
+        <p>Let’s diagnose your CX in 30 minutes.</p>
+      </div>
 
-  <a class="btn-solid btn-cta" href="https://calendly.com/deskxp/30min">
-    Tell Us What You Need!
-  </a>
-</section>
+      <a class="btn-solid btn-cta" href="https://calendly.com/deskxp/30min">
+        Tell Us What You Need!
+      </a>
+    </section>
 
-  <!-- Footer -->
+  </div> <!-- 🔥 CLOSE .container so the footer isn’t trapped -->
+
+  <!-- Footer (full-bleed again) -->
   <div id="footer"></div>
   <script>
     fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
