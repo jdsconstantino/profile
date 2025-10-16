@@ -3,6 +3,20 @@
 /* ===== Theme (dark global) ===== */
 /* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
 :root {
+  /* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
+:root {
+  --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* ===== Core Backgrounds ===== */
+  --bg: #363e4b;              /* main dark body background */
+  --panel: #2E424E;           /* dark green section container */
+  --border: #1b1f26;
+  --glass: rgba(255,255,255,.08);
+  --glass-border: rgba(255,255,255,.16);
+  --accent: #007236;          /* DeskXP brand green */
+  --text: #ECF3FF;            /* light text for dark bg */
+}
+
   /* ===== Fonts ===== */
   --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
