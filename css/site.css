@@ -1350,3 +1350,47 @@ section.reveal h2 {
     display: none;
   }
 }
+/* ==== FORCE HEADER ABOVE EVERYTHING & CLICKABLE ==== */
+.nav-wrap{ position: relative !important; z-index: 2147483647 !important; pointer-events: auto !important; }
+.nav{ display:flex; align-items:center; gap:14px; }
+#cdMenuTrigger{
+  display: inline-flex; align-items:center; gap:8px;
+  margin-left: auto;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif !important;
+  color:#fff; text-decoration:none;
+  padding:8px 10px; border:1px solid rgba(255,255,255,.15);
+  border-radius:10px; cursor:pointer;
+  position: relative !important; z-index: 2147483647 !important; pointer-events: auto !important;
+}
+
+/* Three-bar icon (if not present already) */
+#cdMenuTrigger .cd-menu-icon{ position:relative; width:22px; height:14px; display:inline-block; }
+#cdMenuTrigger .cd-menu-icon::before,
+#cdMenuTrigger .cd-menu-icon::after,
+#cdMenuTrigger .cd-menu-icon i{
+  content:""; position:absolute; left:0; right:0; height:2px;
+  background: currentColor; border-radius:2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+#cdMenuTrigger .cd-menu-icon::before{ top:0; }
+#cdMenuTrigger .cd-menu-icon::after{ bottom:0; }
+#cdMenuTrigger .cd-menu-icon i{ top:50%; transform: translateY(-50%); }
+#cdMenuTrigger.is-open .cd-menu-icon::before{ top:50%; transform: translateY(-50%) rotate(45deg); }
+#cdMenuTrigger.is-open .cd-menu-icon::after{ bottom:50%; transform: translateY(50%) rotate(-45deg); }
+#cdMenuTrigger.is-open .cd-menu-icon i{ opacity:0; }
+
+/* Hide the old inline menu everywhere so it can't push layout over the trigger */
+.menu{ display:none !important; }
+
+/* Curtain should also sit high and be clickable */
+.curtain{ z-index: 2147483600 !important; pointer-events:auto !important; }
+
+/* ==== KILL OVERLAYS STEALING CLICKS ==== */
+.banner, .hero, .banner *, .hero *{ pointer-events:auto; } /* keep their children interactive */
+.banner::before, .banner::after,
+.hero::before, .hero::after{
+  pointer-events: none !important;   /* pseudo overlays won’t block header */
+}
+
+/* If you have a fixed top bar/gradient layer, neuter it too */
+.header-overlay, .top-gradient, .site-gradient{ pointer-events: none !important; }
