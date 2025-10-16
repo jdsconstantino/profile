@@ -1394,3 +1394,40 @@ section.reveal h2 {
 
 /* If you have a fixed top bar/gradient layer, neuter it too */
 .header-overlay, .top-gradient, .site-gradient{ pointer-events: none !important; }
+/* --- Curtain must be visible on desktop too --- */
+@media (min-width: 901px){
+  .curtain { 
+    display: block !important;   /* stop desktop hide */
+  }
+}
+
+/* Always above hero overlays; clickable */
+.curtain{
+  position: fixed !important;
+  left: 0; right: 0; top: 0;
+  height: 0;
+  overflow: hidden;
+  background: #2E424E;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  transform: translateY(-100%);
+  transition: transform .32s cubic-bezier(.2,.7,.2,1);
+  z-index: 2147483600 !important;   /* sit on top */
+  pointer-events: auto !important;
+}
+
+.curtain.open{
+  height: 100vh;
+  transform: translateY(0);
+  display: block !important;        /* belt-and-suspenders */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* If a hero/banner overlay is blocking it, neuter its pseudos */
+.banner::before, .banner::after,
+.hero::before, .hero::after{
+  pointer-events: none !important;
+}
+
+/* Hide the inline menu everywhere so it doesn’t shove layout */
+.menu{ display: none !important; }
