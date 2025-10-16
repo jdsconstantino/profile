@@ -6,7 +6,7 @@
   <title>DeskXP — End-to-End CX Solutions</title>
   <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
 
-  <!-- Open Graph -->
+  <!-- OG + Meta -->
   <meta property="og:title" content="DeskXP — CX Operations & Systems" />
   <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
   <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
@@ -19,18 +19,17 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-32.jpg">
   <meta name="theme-color" content="#0d0f12">
 
+  <!-- Fonts + CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="/css/site.css?v=217">
+  <link rel="stylesheet" href="/css/site.css?v=218">
 
   <style>
-    #cta .accent { color: #ffffff !important; }
+    #cta .accent { color: #fff !important; }
     span.accent { color: #007236 !important; }
 
-    /* === Success Stories (revised layout) === */
+    /* === Success Stories === */
     #success.success-slider {
       max-width: 1320px;
       margin: 80px auto;
@@ -42,6 +41,7 @@
       position: relative;
       overflow: hidden;
     }
+
     #success .success-head {
       margin-bottom: 14px;
       text-align: center;
@@ -51,11 +51,12 @@
       font-weight: 800;
       color: #007236;
     }
+
     #success .success-track {
       position: relative;
       max-width: 980px;
       margin: 0 auto;
-      min-height: 420px;
+      min-height: 440px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -74,73 +75,66 @@
       transform: translateY(0);
     }
 
-    /* Navigation */
+    /* Nav buttons */
     #success .success-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
+      width: 44px; height: 44px;
       border-radius: 12px;
       background: rgba(0,0,0,0.1);
       color: #111;
       border: none;
       box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      z-index: 5;
       cursor: pointer;
+      z-index: 5;
     }
     #success .success-nav:hover {
-      background: #007236;
-      color: #fff;
+      background: #007236; color: #fff;
       transform: translateY(-50%) scale(1.06);
     }
     #success .success-nav.prev { left: 24px; }
     #success .success-nav.next { right: 24px; }
 
+    /* Dots */
     #success .success-dots {
       position: absolute;
       left: 50%;
       bottom: 16px;
       transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
+      display: flex; gap: 10px;
     }
     #success .success-dots button {
-      width: 9px;
-      height: 9px;
+      width: 9px; height: 9px;
+      border-radius: 999px;
       background: rgba(0,0,0,0.22);
       border: 0;
-      border-radius: 999px;
     }
     #success .success-dots button.active {
       background: #007236;
       box-shadow: 0 0 0 4px rgba(0,114,54,0.12);
     }
 
-    /* === Generic layout: logo top, wins grid === */
+    /* Common layout */
     .ss-board {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
       text-align: center;
-      justify-content: center;
+      gap: 18px;
     }
     .ss-logo {
-      width: 240px;
+      width: 240px; height: auto;
       max-width: 90%;
-      height: auto;
       object-fit: contain;
     }
     .wins {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+      list-style: none; margin: 0; padding: 0;
       display: grid;
       grid-template-columns: repeat(3, minmax(160px, 1fr));
       gap: 18px 22px;
-      align-items: start;
       justify-items: center;
+      align-items: start;
       width: 100%;
     }
     .win {
@@ -150,50 +144,33 @@
       gap: 8px;
       text-align: center;
     }
-    .win img {
-      width: 96px;
-      height: 96px;
-      object-fit: contain;
-    }
-    .win p {
-      margin: 0;
-      font-weight: 700;
-      font-size: 0.98rem;
-      line-height: 1.35;
-      color: #0f172a;
-      max-width: 240px;
-    }
+    .win img { width: 96px; height: 96px; object-fit: contain; }
+    .win p { margin: 0; font-weight: 700; font-size: .98rem; color: #0f172a; line-height: 1.35; max-width: 240px; }
 
-    /* === PalawanPay specific: last row centered === */
+    /* PalawanPay: 3 top, 2 centered below */
     .wins--palawan {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(180px, 1fr));
-      gap: 18px 22px;
-      justify-items: center;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
     }
-    .wins--palawan .win:nth-last-child(-n+2) {
-      grid-column: 2 span;
-      justify-self: center;
-    }
+    .wins--palawan .win:nth-child(4) { grid-column: 2; }
+    .wins--palawan .win:nth-child(5) { grid-column: 3; }
 
     @media (max-width: 900px) {
       #success .success-track { min-height: 520px; }
       .ss-logo { width: 200px; }
-      .wins, .wins--palawan { grid-template-columns: repeat(2, 1fr); }
+      .wins { grid-template-columns: repeat(2, 1fr); }
+      .wins--palawan .win:nth-child(4),
+      .wins--palawan .win:nth-child(5) { grid-column: auto; }
     }
     @media (max-width: 520px) {
       .ss-logo { width: 180px; }
-      .wins, .wins--palawan { grid-template-columns: 1fr; }
+      .wins { grid-template-columns: 1fr; }
       .win img { width: 80px; height: 80px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header mount -->
   <div id="site-header"></div>
-
-  <!-- Hero -->
   <div class="banner" id="home"><div class="inner"></div></div>
 
   <!-- Services -->
@@ -258,6 +235,7 @@
       </article>
 
     </div>
+
     <button class="success-nav prev" id="prevBtn">‹</button>
     <button class="success-nav next" id="nextBtn">›</button>
     <div class="success-dots" id="successDots"></div>
@@ -279,22 +257,18 @@
         <div class="cta-left">
           <h2><span class="accent">Book a discovery call</span></h2>
           <p class="lede">We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
-
           <ul class="cta-list">
             <li>MVP or prototype in <strong>7 days</strong></li>
             <li>Cut repetitive inquiries with automation & self-serve</li>
             <li>Eliminate manual busywork in daily ops</li>
           </ul>
-
           <div class="cta-chips">
             <span>7-day MVP</span>
             <span>Automation-first</span>
             <span>Zendesk × Shopify</span>
           </div>
-
           <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
         </div>
-
         <aside class="cta-right">
           <div class="cta-card">
             <p class="cta-title">Ready to move?</p>
@@ -313,10 +287,9 @@
     fetch("/footer.html").then(r => r.text()).then(html => document.getElementById("footer").innerHTML = html);
   </script>
 
-  <!-- Main JS -->
   <script src="/js/main.js?v=212" defer></script>
 
-  <!-- Success slider -->
+  <!-- Slider Script -->
   <script>
     (function(){
       const track = document.getElementById('successTrack');
