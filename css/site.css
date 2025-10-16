@@ -2032,89 +2032,77 @@ section#services .service-card,
   color:#1e3b2e;
   white-space: nowrap;
 }
-/* ——— Projects: make it feel designed ——— */
-.about-cases{ background:var(--dark); border:1px solid var(--border); border-radius:14px; padding:26px 22px; }
-
-/* Responsive grid: 3 → 2 → 1 */
-.case-grid{
-  display:grid;
+/* ===== Projects: premium cards, keep existing HTML/JS ===== */
+.about-cases .case-grid{
+  display: grid !important;
   grid-template-columns: repeat(3, minmax(280px,1fr));
-  gap:18px;
+  gap: 18px;
 }
-@media (max-width: 1200px){ .case-grid{ grid-template-columns: repeat(2, minmax(280px,1fr)); } }
-@media (max-width: 780px){ .case-grid{ grid-template-columns: 1fr; } }
+@media (max-width:1200px){ .about-cases .case-grid{ grid-template-columns: repeat(2, minmax(280px,1fr)); } }
+@media (max-width:780px){  .about-cases .case-grid{ grid-template-columns: 1fr; } }
 
-/* Card = glass + depth + motion (keep as <button class="case-card">) */
-.case-card{
-  position:relative;
-  display:grid;
-  grid-template-columns: 64px 1fr;
-  align-items:center;
-  gap:14px;
-  padding:18px 20px;
-  border-radius:20px;
+/* Card */
+.about-cases .case-card{
+  position: relative;
+  display: grid !important;                 /* kill the old flex */
+  grid-template-columns: 64px 1fr !important;
+  align-items: center;
+  gap: 14px !important;
+  padding: 18px 20px !important;
+  border-radius: 20px !important;
 
+  /* glass + depth */
   background:
     radial-gradient(120% 140% at -10% -20%, rgba(255,255,255,.16) 0%, rgba(255,255,255,.06) 55%, rgba(255,255,255,.04) 100%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.18);
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06)) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.06),
-    0 10px 24px rgba(0,0,0,.28);
-  color:#fff; text-align:left; cursor:pointer;
+    0 10px 24px rgba(0,0,0,.28) !important;
+
+  color: #fff !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  cursor: pointer;
   transition: transform .14s ease, box-shadow .16s ease, border-color .16s ease, background .2s ease;
 }
 
-/* accent sheen on hover */
-.case-card::before{
+/* sheen */
+.about-cases .case-card::before{
   content:"";
   position:absolute; inset:-1px;
-  border-radius:21px;
+  border-radius: 21px;
   pointer-events:none;
-  background: linear-gradient(140deg, rgba(0,114,54,.35), rgba(255,255,255,0) 40%);
-  opacity:.0; transition:opacity .18s ease;
+  background: linear-gradient(140deg, var(--card-accent, var(--brand)), rgba(255,255,255,0) 45%);
+  opacity: 0; transition: opacity .18s ease;
 }
 
-/* chevron affordance */
-.case-card::after{
+/* chevron */
+.about-cases .case-card::after{
   content:"→";
-  position:absolute; right:14px; top:50%; transform:translateY(-50%);
-  font-weight:800; font-size:1.1rem; opacity:.55; transition:transform .14s ease, opacity .14s ease;
+  position:absolute; right: 14px; top:50%; transform: translateY(-50%);
+  font-weight: 800; font-size: 1.1rem; opacity: .55;
+  transition: transform .14s ease, opacity .14s ease;
 }
 
-.case-card:hover{
+.about-cases .case-card:hover{
   transform: translateY(-2px);
-  border-color: rgba(255,255,255,.28);
+  border-color: rgba(255,255,255,.28) !important;
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.10),
-    0 14px 28px rgba(0,0,0,.35);
+    0 14px 28px rgba(0,0,0,.35) !important;
 }
-.case-card:hover::before{ opacity:.7; }
-.case-card:hover::after{ transform:translate(4px,-50%); opacity:.85; }
-.case-card:active{ transform: translateY(0); }
+.about-cases .case-card:hover::before{ opacity: .7; }
+.about-cases .case-card:hover::after{ transform: translate(4px, -50%); opacity: .85; }
 
-/* Better logo treatment */
-.case-card img{
-  width:56px; height:56px; border-radius:14px;
-  background:#fff; border:1px solid #ececec; object-fit:contain;
+/* logo box */
+.about-cases .case-card img{
+  width: 56px !important; height: 56px !important;
+  border-radius: 14px !important;
+  background:#fff; border:1px solid #ececec !important; object-fit: contain;
   box-shadow: 0 4px 10px rgba(0,0,0,.18);
 }
 
-/* Typography hierarchy */
-.case-title{
-  margin:0; color:#fff;
-  font-size:1.15rem; line-height:1.25; font-weight:800; letter-spacing:.2px;
-}
-.case-sub{
-  margin:6px 18px 0 0; color:#DCE8F3; font-size:.98rem; line-height:1.45;
-}
-
-/* Focus-visible for accessibility */
-.case-card:focus-visible{
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,.25),
-    0 0 0 6px rgba(0,114,54,.45),
-    0 12px 26px rgba(0,0,0,.35);
-}
-
+/* type */
+.about-cases .case-title{
+  margin:0 !important; color:#fff !important;
