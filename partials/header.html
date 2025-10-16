@@ -5,7 +5,7 @@
       <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
     </a>
 
-    <!-- Single trigger used on ALL sizes -->
+    <!-- Menu Trigger (shows on all sizes) -->
     <a href="#"
        id="cdMenuTrigger"
        class="cd-primary-nav-trigger"
@@ -17,7 +17,7 @@
       <span class="cd-menu-icon" aria-hidden="true"><i></i></span>
     </a>
 
-    <!-- Desktop menu -->
+    <!-- Desktop Menu -->
     <div class="menu" id="menu">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <!-- Slide-down curtain (mobile) -->
+  <!-- Slide-down Curtain (Mobile Menu) -->
   <div id="navCurtain" class="curtain" hidden>
     <div class="curtain-inner">
       <ul class="curtain-menu">
@@ -43,9 +43,11 @@
 
 <!-- ===== Inline Critical Styles ===== -->
 <style>
-/* --- Base header structure --- */
+/* --- Base Header --- */
 .nav-wrap {
-  position: relative !important;
+  position: sticky !important;
+  top: 0;
+  background: #2E424E;
   z-index: 10100;
   pointer-events: auto;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -55,11 +57,19 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  height: 64px;
+  padding: 0 16px;
 }
 
-.brand img { display:block; }
+/* --- Logo --- */
+.brand img {
+  display: block;
+  height: 36px !important;      /* desktop default */
+  width: auto !important;
+  max-height: 36px;
+}
 
-/* --- Desktop menu --- */
+/* --- Desktop Menu --- */
 .menu {
   display: flex;
   gap: 18px;
@@ -83,25 +93,22 @@
   font-weight: 600;
 }
 
-/* --- Trigger button --- */
+/* --- Trigger Button --- */
 .cd-primary-nav-trigger {
   display: flex;
   align-items: center;
   gap: 8px;
   color: #fff;
   text-decoration: none;
-  padding: 8px 10px;
+  padding: 6px 10px !important;
   border: 1px solid rgba(255,255,255,.15);
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   position: relative;
   z-index: 10110;
-  pointer-events: auto;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
-.cd-menu-text { font-size: 1rem; line-height: 1; }
 
-/* --- Icon (hamburger / close) --- */
+/* --- Icon (Hamburger / Close) --- */
 .cd-menu-icon {
   position: relative;
   width: 22px;
@@ -131,7 +138,7 @@
 }
 .cd-primary-nav-trigger.is-open .cd-menu-icon i { opacity: 0; }
 
-/* --- Mobile curtain menu --- */
+/* --- Mobile Curtain Menu --- */
 .curtain {
   position: absolute !important;
   left: 0; right: 0;
@@ -145,7 +152,6 @@
   z-index: 5 !important;
   pointer-events: none;
 }
-
 .curtain.open {
   transform: translateY(0);
   opacity: 1;
@@ -153,7 +159,6 @@
   display: block !important;
   visibility: visible !important;
 }
-
 .curtain-menu {
   list-style: none;
   margin: 0;
@@ -173,43 +178,14 @@
 }
 .curtain-menu a:hover { background: rgba(255,255,255,.08); }
 
-/* === Header fixes: thinner on desktop, bigger logo on mobile === */
-
-/* 1) Force a sane header height and tighter layout */
-.nav-wrap{
-  position: sticky !important;
-  top: 0;
-  background: #2E424E;
-}
-.nav{
-  height: 64px;
-  padding: 0 16px;
-  gap: 12px;
-}
-
-/* 2) Logo sizing controlled by CSS */
-.brand img{
-  height: 34px !important;
-  width: auto !important;
-}
-
-/* 3) Menu links don’t add vertical bulk */
-.menu a{
-  line-height: 1 !important;
-  padding: 0 !important;
-}
-
-/* 4) Trigger button isn’t a pillow */
-.cd-primary-nav-trigger{
-  padding: 6px 10px !important;
-  border-radius: 8px;
-}
-
-/* 5) Mobile adjustments */
+/* === Mobile & Small Devices === */
 @media (max-width: 600px){
-  .nav{ height: 56px; padding: 0 12px; gap: 10px; }
-  .brand img{ height: 44px !important; }
-  .cd-menu-text{ font-size: .95rem; }
-  .menu{ gap: 14px; }
+  .nav { height: 56px; padding: 0 12px; gap: 10px; }
+  .brand img {
+    height: 70px !important;      /* boosted logo size */
+    max-height: 72px;
+    margin-top: 6px;
+  }
+  .cd-menu-text { font-size: .95rem; }
 }
 </style>
