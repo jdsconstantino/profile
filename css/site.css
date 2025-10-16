@@ -1948,4 +1948,88 @@ section#services .service-card,
   .about-illustration{ min-width:0; max-width:100% }
   .stats-row{ grid-template-columns:1fr; gap:10px }
 }
+/* --- Career timeline: fix global bullets and spacing --- */
+.about-timeline .tl-points{
+  list-style: none;           /* nuke default markers */
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+/* If your global CSS adds li::before bullets, cancel them here. */
+.about-timeline .tl-points li::before{
+  content: none !important;
+}
+
+/* Our own bullets */
+.about-timeline .tl-points li{
+  position: relative;
+  margin: .55rem 0;
+  padding-left: 20px;         /* space from custom bullet */
+  line-height: 1.6;
+}
+.about-timeline .tl-points li::after{
+  content: "";
+  position: absolute;
+  left: 0; top: .62em;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFD400, #007236);
+  box-shadow: 0 0 0 2px #fff; /* crisp on white card */
+}
+
+/* Title row breathing room */
+.about-timeline .tl .tl-head{ 
+  margin-bottom: 6px;         /* space between title and bullets */
+}
+
+/* The small yellow “title-dot” beside role — give it air or hide it */
+.about-timeline .tl .title-dot{ 
+  margin-right: 10px;
+}
+/* If you prefer only one dot style, hide the title-dot entirely: */
+/* .about-timeline .tl .title-dot{ display:none } */
+/* Card polish */
+.about-timeline .tl-card{
+  background: #fff;
+  border: 1px solid #e9eef3;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px rgba(20,30,40,.06);
+}
+
+/* Vertical rhythm between roles */
+.about-timeline .tl > li{
+  padding: 14px 12px;
+  border-radius: 12px;
+  transition: background .2s ease, transform .06s ease;
+}
+.about-timeline .tl > li + li{ border-top: 1px dashed #e9eef3; }
+
+/* Subtle hover affordance */
+.about-timeline .tl > li:hover{
+  background: rgba(0,114,54,.035);
+  transform: translateY(-1px);
+}
+
+/* Role line: make the company/title feel like a “module header” */
+.about-timeline .tl .tl-head strong{
+  font-weight: 800;
+  letter-spacing: .1px;
+}
+.about-timeline .tl .tl-time{
+  color:#6b7785;
+  font-weight: 600;
+}
+
+/* Optional: tiny “stack chips” feel for keywords inside bullets (auto) */
+.about-timeline .tl-points em{
+  background: rgba(0,114,54,.08);
+  border: 1px solid rgba(0,114,54,.18);
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-style: normal;
+  font-weight: 600;
+  color:#1e3b2e;
+  white-space: nowrap;
+}
 
