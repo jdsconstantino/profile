@@ -1596,4 +1596,31 @@ section#services .service-card, .services .service-card, .services .card {
 section.about-hero {
   padding-block: clamp(12px, 2vw, 20px) !important;
 }
+/* === SERVICES SECTION FIX === */
+section#services,
+.section.services {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 48px 56px !important;   /* adds breathing room inside container */
+  margin: 48px auto !important;    /* space outside container */
+  box-shadow: 0 8px 22px rgba(0,0,0,.25);
+}
+
+/* Service grid spacing */
+section#services .service-grid,
+.services .grid {
+  display: grid;
+  gap: 32px;                       /* more space between cards */
+}
+
+/* Service cards */
+section#services .service-card,
+.services .service-card,
+.services .card {
+  margin: 0 !important;
+  border-color: var(--glass-border) !important;
+  border-radius: 12px;
+  background: var(--panel);
+}
 
