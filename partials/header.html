@@ -16,7 +16,7 @@
       <span class="cd-menu-icon" aria-hidden="true"><i></i></span>
     </a>
 
-    <!-- Keep markup; we’ll hide it -->
+    <!-- Keep markup; hidden by CSS -->
     <div class="menu" id="menu">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
@@ -40,46 +40,66 @@
   </div>
 </nav>
 
-<!-- CRITICAL STYLES INLINE so you actually see the change -->
+<!-- Inline critical styles -->
 <style>
-  .nav{display:flex;align-items:center;gap:14px}
-  .cd-primary-nav-trigger{margin-left:auto}
+  /* Ensure header sits above hero/overlays and accepts clicks */
+  .nav-wrap{ position:relative; z-index:10100; pointer-events:auto; }
+  .nav{ display:flex; align-items:center; gap:14px; }
+  .cd-primary-nav-trigger{ margin-left:auto; }
 
-  /* hide the old inline menu everywhere so it stops shoving layout */
-  .menu{display:none !important}
+  /* Hide the old inline menu everywhere */
+  .menu{ display:none !important; }
 
-  /* trigger: “Menu” text + three bars -> X */
+  /* Trigger: force Plus Jakarta Sans + top z-index + pointer events */
   .cd-primary-nav-trigger{
-    display:flex;align-items:center;gap:8px;
-    color:#fff;text-decoration:none;
-    padding:8px 10px;border:1px solid rgba(255,255,255,.15);
-    border-radius:10px;cursor:pointer;position:relative;z-index:10010
+    display:flex; align-items:center; gap:8px;
+    color:#fff; text-decoration:none;
+    padding:8px 10px; border:1px solid rgba(255,255,255,.15);
+    border-radius:10px; cursor:pointer;
+    position:relative; z-index:10110; pointer-events:auto;
+    font-family:'Plus Jakarta Sans', Inter, system-ui, sans-serif; /* <-- enforce Jakarta */
   }
-  .cd-primary-nav-trigger .cd-menu-text{font-size:1rem;line-height:1}
+  .cd-primary-nav-trigger .cd-menu-text{ font-size:1rem; line-height:1; }
 
-  .cd-menu-icon{position:relative;width:22px;height:14px;display:inline-block}
-  .cd-menu-icon::before,.cd-menu-icon::after,.cd-menu-icon i{
-    content:"";position:absolute;left:0;right:0;height:2px;background:currentColor;
-    border-radius:2px;transition:transform .25s ease,opacity .2s ease
+  /* Icon (three bars) */
+  .cd-menu-icon{ position:relative; width:22px; height:14px; display:inline-block; }
+  .cd-menu-icon::before,
+  .cd-menu-icon::after,
+  .cd-menu-icon i{
+    content:""; position:absolute; left:0; right:0; height:2px;
+    background: currentColor; border-radius:2px;
+    transition: transform .25s ease, opacity .2s ease;
   }
-  .cd-menu-icon::before{top:0}
-  .cd-menu-icon::after{bottom:0}
-  .cd-menu-icon i{top:50%;transform:translateY(-50%)}
+  .cd-menu-icon::before{ top:0; }
+  .cd-menu-icon::after{ bottom:0; }
+  .cd-menu-icon i{ top:50%; transform: translateY(-50%); }
 
-  .cd-primary-nav-trigger.is-open .cd-menu-icon::before{top:50%;transform:translateY(-50%) rotate(45deg)}
-  .cd-primary-nav-trigger.is-open .cd-menu-icon::after{bottom:50%;transform:translateY(50%) rotate(-45deg)}
-  .cd-primary-nav-trigger.is-open .cd-menu-icon i{opacity:0}
+  /* Morph to X */
+  .cd-primary-nav-trigger.is-open .cd-menu-icon::before{
+    top:50%; transform: translateY(-50%) rotate(45deg);
+  }
+  .cd-primary-nav-trigger.is-open .cd-menu-icon::after{
+    bottom:50%; transform: translateY(50%) rotate(-45deg);
+  }
+  .cd-primary-nav-trigger.is-open .cd-menu-icon i{ opacity:0; }
 
-  /* curtain */
+  /* Curtain */
   .curtain{
-    position:fixed;left:0;right:0;top:0;height:0;overflow:hidden;background:#2E424E;
-    border-bottom:1px solid rgba(255,255,255,.14);transform:translateY(-100%);
-    transition:transform .32s cubic-bezier(.2,.7,.2,1);z-index:10000
+    position:fixed; left:0; right:0; top:0;
+    height:0; overflow:hidden;
+    background:#2E424E;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    transform: translateY(-100%);
+    transition: transform .32s cubic-bezier(.2,.7,.2,1);
+    z-index:10100; pointer-events:auto;
   }
-  .curtain.open{height:100vh;transform:translateY(0)}
-  .curtain-inner{max-width:1100px;margin:0 auto;padding:32px 16px;
-    font-family:"Plus Jakarta Sans",Inter,system-ui,sans-serif}
-  .curtain-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
-  .curtain-menu a{display:block;padding:12px 8px;color:#ECF3FF;text-decoration:none;border-radius:8px;font-size:1.1rem}
-  .curtain-menu a:hover{background:rgba(255,255,255,.08)}
+  .curtain.open{ height:100vh; transform: translateY(0); }
+
+  .curtain-inner{
+    max-width:1100px; margin:0 auto; padding:32px 16px;
+    font-family:'Plus Jakarta Sans', Inter, system-ui, sans-serif; /* enforce Jakarta */
+  }
+  .curtain-menu{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:18px; }
+  .curtain-menu a{ display:block; padding:12px 8px; color:#ECF3FF; text-decoration:none; border-radius:8px; font-size:1.1rem; }
+  .curtain-menu a:hover{ background:rgba(255,255,255,.08); }
 </style>
