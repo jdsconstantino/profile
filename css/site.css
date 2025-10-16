@@ -2352,3 +2352,31 @@ section#services .service-card,
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0,114,54,0.45);
 }
+/* === CTA card: kill space-between, center everything, restore padding === */
+body .container > section.dc-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;  /* <-- fixes the “button hugging bottom” */
+  align-items: center !important;
+  text-align: center !important;
+  gap: 18px !important;
+  padding: 48px 32px 48px !important;  /* bottom padding was being stripped */
+  min-height: 220px !important;
+}
+
+/* CTA text spacing */
+body .container > section.dc-card .cta-text {
+  margin: 0 !important;
+}
+
+/* Button: center, keep pill look */
+body .container > section.dc-card .btn-cta {
+  align-self: center !important;
+  padding: 14px 36px !important;
+  border-radius: 9999px !important;
+}
+
+/* Ensure the last section still has breathing room above footer */
+body .container > section.dc-card:last-of-type {
+  margin-bottom: 40px !important;
+}
