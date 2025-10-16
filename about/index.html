@@ -259,6 +259,12 @@
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
+<script>
+document.querySelectorAll('.about-cases .case-card').forEach(card=>{
+  const c = card.getAttribute('data-brand');
+  if(c) card.style.setProperty('--card-accent', c);
+});
+</script>
 <body>
 
   <!-- Global header mount -->
