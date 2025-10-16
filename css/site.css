@@ -1567,7 +1567,7 @@ section#services .container, .section.services .container { padding: 0 !importan
 
 section#services .service-grid, .services .grid {
   gap: 24px;                                      /* adjust if you want tighter */
-  padding: 24px;                                  /* retains breathing room inside border */
+  padding: 12px 16px;                                  /* retains breathing room inside border */
 }
 
 section#services .service-card, .services .service-card, .services .card {
