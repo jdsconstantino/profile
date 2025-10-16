@@ -1,66 +1,85 @@
-/* Layout: push trigger to the right; keep brand on left */
-.nav{ display:flex; align-items:center; gap:14px; }
-.cd-primary-nav-trigger{ margin-left:auto; }
+<nav class="nav-wrap" role="navigation" aria-label="Primary">
+  <div class="nav">
+    <a class="brand" href="/" aria-label="DeskXP Home">
+      <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
+    </a>
 
-/* Hide the old inline menu on ALL sizes */
-.menu{ display:none !important; }
+    <!-- Single trigger used on ALL sizes -->
+    <a href="#"
+       id="cdMenuTrigger"
+       class="cd-primary-nav-trigger"
+       role="button"
+       aria-label="Toggle menu"
+       aria-controls="navCurtain"
+       aria-expanded="false">
+      <span class="cd-menu-text">Menu</span>
+      <span class="cd-menu-icon" aria-hidden="true"><i></i></span>
+    </a>
 
-/* ===== “Menu” trigger (text + icon) ===== */
-.cd-primary-nav-trigger{
-  display:flex; align-items:center; gap:8px;
-  color:#fff; text-decoration:none;
-  padding:8px 10px;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:10px;
-  cursor:pointer;
-  position:relative; z-index:10010;       /* always clickable */
-}
-.cd-primary-nav-trigger .cd-menu-text{ font-size:1rem; line-height:1; }
+    <!-- Keep markup; we’ll hide it -->
+    <div class="menu" id="menu">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/#success">Success Stories</a>
+      <a href="/about/">About</a>
+      <a class="cta" href="https://calendly.com/deskxp/30min">Book a Call</a>
+    </div>
+  </div>
 
-/* Icon (three bars) */
-.cd-menu-icon{ position:relative; width:22px; height:14px; display:inline-block; }
-.cd-menu-icon::before,
-.cd-menu-icon::after,
-.cd-menu-icon i{
-  content:""; position:absolute; left:0; right:0; height:2px;
-  background: currentColor; border-radius:2px;
-  transition: transform .25s ease, opacity .2s ease;
-}
-.cd-menu-icon::before{ top:0; }
-.cd-menu-icon::after{ bottom:0; }
-.cd-menu-icon i{ top:50%; transform: translateY(-50%); }
+  <!-- Slide-down curtain -->
+  <div id="navCurtain" class="curtain" hidden>
+    <div class="curtain-inner">
+      <ul class="curtain-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/#success">Success Stories</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="https://calendly.com/deskxp/30min">Book a Call</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-/* Morph to X */
-.cd-primary-nav-trigger.is-open .cd-menu-icon::before{
-  top:50%; transform: translateY(-50%) rotate(45deg);
-}
-.cd-primary-nav-trigger.is-open .cd-menu-icon::after{
-  bottom:50%; transform: translateY(50%) rotate(-45deg);
-}
-.cd-primary-nav-trigger.is-open .cd-menu-icon i{ opacity:0; }
+<!-- CRITICAL STYLES INLINE so you actually see the change -->
+<style>
+  .nav{display:flex;align-items:center;gap:14px}
+  .cd-primary-nav-trigger{margin-left:auto}
 
-/* ===== Curtain ===== */
-.curtain{
-  position:fixed; left:0; right:0; top:0;
-  height:0; overflow:hidden;
-  background:#2E424E;
-  border-bottom:1px solid rgba(255,255,255,.14);
-  transform: translateY(-100%);
-  transition: transform .32s cubic-bezier(.2,.7,.2,1);
-  z-index:10000;
-}
-.curtain.open{ height:100vh; transform: translateY(0); }
+  /* hide the old inline menu everywhere so it stops shoving layout */
+  .menu{display:none !important}
 
-.curtain-inner{
-  max-width:1100px; margin:0 auto; padding:32px 16px;
-  font-family:"Plus Jakarta Sans", Inter, system-ui, sans-serif;
-}
-.curtain-menu{
-  list-style:none; margin:0; padding:0;
-  display:flex; flex-direction:column; gap:18px;
-}
-.curtain-menu a{
-  display:block; padding:12px 8px; color:#ECF3FF;
-  text-decoration:none; border-radius:8px; font-size:1.1rem;
-}
-.curtain-menu a:hover{ background:rgba(255,255,255,.08); }
+  /* trigger: “Menu” text + three bars -> X */
+  .cd-primary-nav-trigger{
+    display:flex;align-items:center;gap:8px;
+    color:#fff;text-decoration:none;
+    padding:8px 10px;border:1px solid rgba(255,255,255,.15);
+    border-radius:10px;cursor:pointer;position:relative;z-index:10010
+  }
+  .cd-primary-nav-trigger .cd-menu-text{font-size:1rem;line-height:1}
+
+  .cd-menu-icon{position:relative;width:22px;height:14px;display:inline-block}
+  .cd-menu-icon::before,.cd-menu-icon::after,.cd-menu-icon i{
+    content:"";position:absolute;left:0;right:0;height:2px;background:currentColor;
+    border-radius:2px;transition:transform .25s ease,opacity .2s ease
+  }
+  .cd-menu-icon::before{top:0}
+  .cd-menu-icon::after{bottom:0}
+  .cd-menu-icon i{top:50%;transform:translateY(-50%)}
+
+  .cd-primary-nav-trigger.is-open .cd-menu-icon::before{top:50%;transform:translateY(-50%) rotate(45deg)}
+  .cd-primary-nav-trigger.is-open .cd-menu-icon::after{bottom:50%;transform:translateY(50%) rotate(-45deg)}
+  .cd-primary-nav-trigger.is-open .cd-menu-icon i{opacity:0}
+
+  /* curtain */
+  .curtain{
+    position:fixed;left:0;right:0;top:0;height:0;overflow:hidden;background:#2E424E;
+    border-bottom:1px solid rgba(255,255,255,.14);transform:translateY(-100%);
+    transition:transform .32s cubic-bezier(.2,.7,.2,1);z-index:10000
+  }
+  .curtain.open{height:100vh;transform:translateY(0)}
+  .curtain-inner{max-width:1100px;margin:0 auto;padding:32px 16px;
+    font-family:"Plus Jakarta Sans",Inter,system-ui,sans-serif}
+  .curtain-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+  .curtain-menu a{display:block;padding:12px 8px;color:#ECF3FF;text-decoration:none;border-radius:8px;font-size:1.1rem}
+  .curtain-menu a:hover{background:rgba(255,255,255,.08)}
+</style>
