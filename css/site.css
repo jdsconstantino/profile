@@ -1558,8 +1558,6 @@ img { max-width: 100%; height: auto; display: block; }
 /* 6) Services section: black border on the container; cards touch the edge */
 section#services, .services.section, .section.services {
   background: var(--panel);
-  border: 1px solid rgba(0,0,0,.55) !important;   /* black-ish border only here */
-  padding: 0 !important;                          /* let cards touch the edge */
 }
 section#services .container, .section.services .container { padding: 0 !important; }
 
@@ -1600,7 +1598,6 @@ section.about-hero {
 section#services,
 .section.services {
   background: var(--panel);
-  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 48px 56px !important;   /* adds breathing room inside container */
   margin: 48px auto !important;    /* space outside container */
