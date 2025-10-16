@@ -39,28 +39,41 @@
       padding:28px 22px;margin:20px 0 36px; overflow:hidden;
     }
     /* subtle grid so it doesn’t feel like Word */
-    .about-hero::before{
-      content:""; position:absolute; inset:0;
-      background:
-        radial-gradient(circle at 1px 1px, rgba(46,66,78,.08) 1px, transparent 0) 0 0/18px 18px;
-      pointer-events:none;
-      mask: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.12) 28%, rgba(0,0,0,0) 60%);
+    .about-hero .about-media {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto 24px;
+      padding: 20px;
+      max-width: 700px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f7fa 100%);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .about-hero .about-title{
-      position:relative; z-index:1;
-      margin:4px 0 14px; font-size:clamp(26px,3.2vw,36px); line-height:1.15; letter-spacing:-0.02em; color:#2E424E;
+
+    .about-hero .about-media:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
     }
-    .about-hero .about-media{
-      position:relative; z-index:1;
-      margin:0 0 14px; padding:10px; border-radius:14px;
-      background:linear-gradient(180deg,#ffffff, #f7f9fb);
-      border:1px solid #eef2f6;
-      box-shadow:0 10px 22px rgba(0,0,0,.06);
+
+    .about-hero .about-media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
     }
-    .about-hero .about-media img { 
-      max-height: 520px; }   /* or 600px if you’re feeling bold */
-      @media (max-width:900px){ .about-hero .about-media img { max-height: 360px; } 
+
+    .about-hero .about-media:hover img {
+      transform: scale(1.02);
     }
+
 
     .about-hero p{font-size:1.06rem;line-height:1.72;margin:0 0 12px; max-width:860px}
     .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
