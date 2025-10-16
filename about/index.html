@@ -53,21 +53,22 @@
       justify-content: center;
 
       /* ✅ Key layout adjustments */
-      max-width: 100%;       /* fills most of the container width */
-      height: 260px;        /* reduced vertical space */
+      max-width: 1000%;       /* fills most of the container width */
+      aspect-ratio: 16/7
       overflow: hidden;
     }
 
     .about-hero .about-media img {
-      width: 90%;
-      height: auto%;
-      object-fit: contain;
       display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+      transition: transform 0.3s ease;
     }
 
-
     .about-hero .about-media:hover img {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
 
