@@ -74,15 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
     track.addEventListener("mouseleave", start);
   })();
 });
-
-// === GLOBAL HEADER (curtain-style menu) ===
+// ---------- Mount header (with cache-bust) & bind ----------
 (async function mountHeader() {
   const mount = document.getElementById("site-header");
   if (!mount) return;
 
+  // force fresh fetch so you’re not stuck on stale partials
+  const bust = `?v=${Date.now()}`;
   const paths = [
-    "/partials/header.html",
-    new URL("./partials/header.html", window.location.origin + window.location.pathname).href
+    `/partials/header.html${bust}`,
+    new URL(`./partials/header.html${bust}`, window.location.origin + window.location.pathname).href
   ];
 
   let html = null;
@@ -92,45 +93,42 @@ document.addEventListener("DOMContentLoaded", function () {
       if (res.ok) { html = await res.text(); break; }
     } catch {}
   }
-
-  if (!html) {
-    console.error("❌ Could not load header from /partials/header.html");
-    return;
-  }
+  if (!html) { console.error("❌ Could not load /partials/header.html"); return; }
 
   mount.innerHTML = html;
-  initCurtainMenu();
+  bindCurtainMenu();
 })();
 
-function initCurtainMenu() {
-  const btn = document.getElementById("menuBtn");
+function bindCurtainMenu() {
+  const trigger = document.getElementById("cdMenuTrigger");
   const curtain = document.getElementById("navCurtain");
-  if (!btn || !curtain) return;
+  if (!trigger || !curtain) return;
 
   const links = curtain.querySelectorAll("a");
 
   const open = () => {
-    btn.classList.add("is-open");
-    btn.setAttribute("aria-expanded", "true");
+    trigger.classList.add("is-open");
+    trigger.setAttribute("aria-expanded", "true");
     curtain.hidden = false;
     void curtain.offsetHeight;
     curtain.classList.add("open");
     document.documentElement.style.overflow = "hidden";
   };
-
   const close = () => {
-    btn.classList.remove("is-open");
-    btn.setAttribute("aria-expanded", "false");
+    trigger.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", "false");
     curtain.classList.remove("open");
     document.documentElement.style.overflow = "";
-    setTimeout(() => (curtain.hidden = true), 280);
+    setTimeout(() => (curtain.hidden = true), 250);
   };
 
-  btn.addEventListener("click", () =>
-    btn.classList.contains("is-open") ? close() : open()
-  );
+  trigger.addEventListener("click", (e) => {
+    e.preventDefault();                 // anchor trigger – don’t jump to top
+    trigger.classList.contains("is-open") ? close() : open();
+  });
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && btn.classList.contains("is-open")) close();
+    if (e.key === "Escape" && trigger.classList.contains("is-open")) close();
   });
   links.forEach((a) => a.addEventListener("click", close));
 }
+
