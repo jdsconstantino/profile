@@ -1499,9 +1499,28 @@ section.reveal h2 {
   align-items: center;
 }
 
-.about-cycle img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  display: block;
+/* About image: stop the ballooning */
+.about-hero .about-media {        /* the <figure> */
+  flex: 0 0 auto;                 /* don't stretch in flex layouts */
+  max-width: 680px;               /* cap width on desktop */
+  margin: 12px auto 20px;         /* center */
+  padding: 0;
 }
+
+.about-hero .about-media img {
+  width: 100%;
+  height: auto !important;        /* override your height:100% */
+  max-height: clamp(220px, 32vh, 380px); /* scale but never huge */
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+/* Tighter on very large screens */
+@media (min-width: 1400px) {
+  .about-hero .about-media { max-width: 620px; }
+  .about-hero .about-media img { max-height: 340px; }
+}
+
+/* Safety: generic img defaults */
+img { max-width: 100%; height: auto; display: block; }
+
