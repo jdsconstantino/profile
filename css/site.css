@@ -2295,3 +2295,28 @@ section#services .service-card,
     width: 100% !important;
   }
 }
+/* Restore bottom padding for the CTA even when it's the last section */
+.container > section.dc-card:last-child {
+  padding-bottom: 36px !important;  /* give it breathing room */
+}
+
+/* Center the stack + add vertical spacing */
+.dc-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+}
+
+/* Brand the headline */
+.dc-card h3 {
+  color: #007236 !important;
+  margin: 0 !important;
+}
+
+/* Keep the button off the border */
+.dc-card .btn-cta {
+  align-self: center !important;
+  margin-top: 4px !important;
+}
