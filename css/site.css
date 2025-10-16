@@ -249,7 +249,7 @@ h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
 .success-dots button.active{ background:var(--accent); }
 
 /* ===== CTA ===== */
-#cta{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(0,0,0,.25);}
+#cta{background:var(--panel); border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(0,0,0,.25);}
 #cta h2{margin-bottom:8px;}
 .cta-grid{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;}
 .cta-list{margin:10px 0 10px 1rem; color:var(--text);}
