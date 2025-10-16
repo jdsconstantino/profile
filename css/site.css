@@ -1502,7 +1502,6 @@ img { max-width: 100%; height: auto; display: block; }
 /* 1) Make "Book a discovery call" same color as the Expert panel */
 #cta.reveal.v2 {
   background: var(--panel) !important;                 /* dark green container */
-  border: 1px solid var(--glass-border) !important;    /* subtle, not black */
   box-shadow: 0 18px 38px rgba(0,0,0,.25);
 }
 #cta.reveal.v2::before,
