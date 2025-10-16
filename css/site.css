@@ -2202,3 +2202,50 @@ section#services .service-card,
   .dc-card{ grid-template-columns:1fr; gap:14px; padding:22px 18px; }
   .dc-card .btn-cta{ justify-self:stretch; }
 }
+/* ===== CTA: force correct layout & spacing ===== */
+.dc-card{
+  display: flex !important;              /* beat older rules */
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  padding: 32px 28px !important;         /* more top/bottom padding */
+  border-radius: 20px !important;
+}
+
+.dc-card h3{
+  color: #007236 !important;             /* brand green */
+  margin: 0 0 8px !important;
+  letter-spacing: -0.2px;
+}
+
+.dc-card p{ margin: 0 !important; line-height: 1.6 !important; }
+
+/* Button must stop acting like a bar */
+.dc-card .btn-cta{
+  margin-left: auto !important;          /* push to the right in flex */
+  flex: 0 0 auto !important;             /* do NOT grow */
+  width: auto !important;                /* override width:100% somewhere */
+  padding: 14px 22px !important;
+  min-width: 260px;
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg,#2a8d53 0%, #007236 60%) !important;
+  box-shadow: 0 4px 18px rgba(0,114,54,.35),
+              inset 0 -1px 0 rgba(255,255,255,.12) !important;
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+.dc-card .btn-cta:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(0,114,54,.45);
+  filter: saturate(1.05);
+}
+
+.dc-card .btn-cta:focus-visible{
+  outline: 3px solid #57c68b; outline-offset: 2px;
+}
+
+/* Mobile: stack text over full-width button */
+@media (max-width: 900px){
+  .dc-card{ flex-direction: column !important; align-items: stretch !important; }
+  .dc-card .btn-cta{ margin-left: 0 !important; width: 100% !important; }
+}
