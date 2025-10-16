@@ -2320,3 +2320,35 @@ section#services .service-card,
   align-self: center !important;
   margin-top: 4px !important;
 }
+/* === CTA Alignment Fix === */
+.dc-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;   /* center content vertically */
+  text-align: center !important;
+  padding: 48px 32px !important;        /* restore full padding */
+  gap: 20px !important;
+}
+
+/* Restore bottom padding when last section before footer */
+.container > section.dc-card:last-child {
+  margin-bottom: 40px !important;
+  padding-bottom: 48px !important;
+}
+
+/* Button perfectly centered and not floating off */
+.dc-card .btn-cta {
+  align-self: center !important;
+  margin-top: 10px !important;
+  padding: 14px 36px !important;
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg, #28a04f 0%, #007236 80%) !important;
+  box-shadow: 0 8px 20px rgba(0,114,54,0.35) !important;
+  transition: all .2s ease-in-out;
+}
+
+.dc-card .btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,114,54,0.45);
+}
