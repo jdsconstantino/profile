@@ -2,70 +2,62 @@
 
 /* ===== Theme (dark global) ===== */
 /* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
+/* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
 :root {
-  /* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
+  /* ===== Fonts ===== */
   --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* ===== Core Backgrounds ===== */
   --bg: #363e4b;              /* main dark body background */
   --panel: #2E424E;           /* dark green section container */
   --border: #1b1f26;
   --glass: rgba(255,255,255,.08);
   --glass-border: rgba(255,255,255,.16);
+
+  /* ===== Brand & Text ===== */
   --accent: #007236;          /* DeskXP brand green */
   --text: #ECF3FF;            /* light text for dark bg */
-}
-
-  /* ===== Fonts ===== */
-  --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-
-/* Apply global font */
-body {
-  font-family: var(--font-base);
-}
-
-/* ===== Tokens ===== */
-:root {
-  /* Fonts */
-  --font-base: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-
-  /* Text */
-  --text: #e7e9ee;
   --muted: #9aa2b4;
 
-  /* Accent System (Base: #2E424E) */
-  --accent: #2E424E;
+  /* ===== Accent System (Extended) ===== */
   --accent-strong: #1C2B33;
   --accent-light: #3A5562;
   --accent-bright: #5FA7C7;
   --accent-glow: rgba(46,66,78,.45);
 
-  /* Gradients / Special Effects */
+  /* ===== Gradients / Special Effects ===== */
   --accent-gradient: linear-gradient(135deg, #2E424E 0%, #3A5562 40%, #5FA7C7 100%);
   --accent-radial: radial-gradient(circle at 50% 50%, #2E424E 0%, #1C2B33 80%);
   --accent-shadow: 0 0 22px rgba(95,167,199,.35);
 
-  /* Cards */
+  /* ===== Cards ===== */
   --card: #ffffff;
   --card-text: #0f172a;
   --card-muted: #2f3642;
   --shadow: 0 10px 30px rgba(0,0,0,.25);
 
-  /* Banner / Hero */
+  /* ===== Banner / Hero ===== */
   --banner-img: url("/assets/hero.jpg");
   --banner-tint: #2E424E;
   --banner-tint-2: #1C2B33;
   --banner-overlay: linear-gradient(90deg, var(--banner-tint), var(--banner-tint-2));
 
-  /* Footer */
+  /* ===== Footer ===== */
   --footer-bg: linear-gradient(180deg, #2E424E 0%, #1C2B33 100%);
   --footer-text: #e7e9ee;
   --footer-link: #b6c3cc;
   --footer-link-hover: #ffffff;
 
-  /* System */
+  /* ===== System ===== */
   --radius: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
   --transition: all .25s ease;
+}
+
+/* ===== Global Font ===== */
+body {
+  font-family: var(--font-base);
 }
 
 /* Global font + base colors */
