@@ -1789,4 +1789,29 @@ section#services .service-card,
   0% { opacity: 0.4; transform: scale(1); }
   100% { opacity: 0.7; transform: scale(1.08); }
 }
+/* Built-for: keep horizontal on desktop, graceful on mobile */
+.built-for{
+  display:flex;
+  justify-content:center;
+  align-items:baseline;
+  gap:12px;
+  white-space:nowrap;        /* no wrap on wide screens */
+  margin-top:14px;
+  font-size:1rem;
+  color:#2E424E;
+  font-weight:500;
+}
+.built-for span{ display:inline-block; color:var(--brand); font-weight:600; }
+
+/* Auto separators (use this only if you remove the literal dots in HTML) */
+.built-for span + span::before{
+  content:"·";
+  margin:0 6px 0 2px;
+  color:#7a8a96;
+  font-weight:400;
+}
+
+@media (max-width:900px){
+  .built-for{ flex-wrap:wrap; white-space:normal; row-gap:6px; }
+}
 
