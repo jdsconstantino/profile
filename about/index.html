@@ -210,6 +210,29 @@
       padding: 0 3px;
       border-radius: 4px;
     }
+
+    /* ===== SECTION 1: Compact override (keeps your classes; adds new ones) ===== */
+    .about-hero { padding: 28px 18px; }
+    .about-hero .about-wrap{
+      max-width:1100px;margin:0 auto;
+      display:grid;grid-template-columns:1.15fr 0.85fr;gap:24px;align-items:center;
+    }
+    .about-hero .about-title{
+      margin:0 0 10px;font-size:clamp(26px,3.2vw,36px);line-height:1.15;letter-spacing:-0.02em;color:#2E424E;
+    }
+    .about-hero .about-lede{margin:0 0 12px;font-size:clamp(15px,1.2vw,17px);line-height:1.6}
+    .about-hero .pill-row{justify-content:flex-start}
+    .about-hero .about-media{
+      margin:0;padding:10px;border-radius:14px;background:var(--panel,#fff);border:1px solid var(--border,#e9ecef)
+    }
+    .about-hero .about-media img{
+      display:block;width:100%;height:auto;max-height:360px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.06))
+    }
+    @media (max-width:900px){
+      .about-hero .about-wrap{grid-template-columns:1fr;gap:16px}
+      .about-hero .pill-row{justify-content:center}
+      .about-hero .about-media img{max-height:300px}
+    }
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -222,29 +245,32 @@
   <div class="container">
     <!-- ===== SECTION 1: About DeskXP ===== -->
     <section class="about-hero reveal" aria-labelledby="deskxp">
-      <div class="grid">
-        <img class="side-img" src="/assets/about-business.png" alt="Business" />
-        <img class="logo" src="/assets/logo.png" alt="DeskXP" width="680" height="180" />
-        <img class="side-img" src="/assets/about-customer.png" alt="Customer" />
-      </div>
-      <h1 id="deskxp">About DeskXP</h1>
-      <p>
-        <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
-        We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
-        workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
-        automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
-        and a support experience customers actually trust.
-      </p>
-      <div class="pill-row" aria-label="Capabilities">
-        <span class="pill">Agent staffing & playbooks</span>
-        <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
-        <span class="pill">Skills-based routing & SLAs</span>
-        <span class="pill">Bots & Sunshine Conversations</span>
-        <span class="pill">Help Center / KB</span>
-        <span class="pill">QA, training, coaching</span>
-        <span class="pill">Reporting (Explore/Looker)</span>
-        <span class="pill">Process & policy design</span>
-        <span class="pill">Continuous improvement</span>
+      <div class="about-wrap">
+        <div class="about-copy">
+          <h1 id="deskxp" class="about-title">About DeskXP</h1>
+          <p class="about-lede">
+            <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
+            We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
+            workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
+            automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
+            and a support experience customers actually trust.
+          </p>
+          <div class="pill-row" aria-label="Capabilities">
+            <span class="pill">Agent staffing & playbooks</span>
+            <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
+            <span class="pill">Skills-based routing & SLAs</span>
+            <span class="pill">Bots & Sunshine Conversations</span>
+            <span class="pill">Help Center / KB</span>
+            <span class="pill">QA, training, coaching</span>
+            <span class="pill">Reporting (Explore/Looker)</span>
+            <span class="pill">Process & policy design</span>
+            <span class="pill">Continuous improvement</span>
+          </div>
+        </div>
+
+        <figure class="about-media">
+          <img src="/assets/about-cycle.png" alt="DeskXP operations cycle: design → implement → automate → improve" loading="lazy" />
+        </figure>
       </div>
     </section>
 
