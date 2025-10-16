@@ -19,46 +19,69 @@ body {
   font-family: var(--font-base);
 }
 
-  /* ===== Text ===== */
-  --text: #e7e9ee;          /* primary readable text on dark */
-  --muted: #9aa2b4;         /* secondary / descriptive text */
+/* ===== Tokens ===== */
+:root {
+  /* Fonts */
+  --font-base: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
-  /* ===== Accent System (Base: #2E424E) ===== */
-  --accent: #2E424E;               /* base brand tone */
-  --accent-strong: #1C2B33;        /* darker shade for deep sections */
-  --accent-light: #3A5562;         /* lighter tint for contrast text */
-  --accent-bright: #5FA7C7;        /* electric highlight / circuits / links */
-  --accent-glow: rgba(46,66,78,.45); /* soft glow / backdrop layer */
+  /* Core Backgrounds */
+  --bg: #363e4b;
+  --panel: #21252d;
+  --border: #1b1f26;
+  --glass: rgba(255,255,255,.08);
+  --glass-border: rgba(255,255,255,.16);
 
-  /* ===== Gradients / Special Effects ===== */
+  /* Text */
+  --text: #e7e9ee;
+  --muted: #9aa2b4;
+
+  /* Accent System (Base: #2E424E) */
+  --accent: #2E424E;
+  --accent-strong: #1C2B33;
+  --accent-light: #3A5562;
+  --accent-bright: #5FA7C7;
+  --accent-glow: rgba(46,66,78,.45);
+
+  /* Gradients / Special Effects */
   --accent-gradient: linear-gradient(135deg, #2E424E 0%, #3A5562 40%, #5FA7C7 100%);
   --accent-radial: radial-gradient(circle at 50% 50%, #2E424E 0%, #1C2B33 80%);
   --accent-shadow: 0 0 22px rgba(95,167,199,.35);
 
-  /* ===== Cards (Light Elements Inside Dark Context) ===== */
+  /* Cards */
   --card: #ffffff;
   --card-text: #0f172a;
   --card-muted: #2f3642;
   --shadow: 0 10px 30px rgba(0,0,0,.25);
 
-  /* ===== Banner / Hero ===== */
+  /* Banner / Hero */
   --banner-img: url("/assets/hero.jpg");
-  --banner-tint: #2E424E;     /* dark teal tone for overlay */
-  --banner-tint-2: #1C2B33;   /* deeper tone for gradient end */
+  --banner-tint: #2E424E;
+  --banner-tint-2: #1C2B33;
   --banner-overlay: linear-gradient(90deg, var(--banner-tint), var(--banner-tint-2));
 
-  /* ===== Footer ===== */
+  /* Footer */
   --footer-bg: linear-gradient(180deg, #2E424E 0%, #1C2B33 100%);
   --footer-text: #e7e9ee;
   --footer-link: #b6c3cc;
   --footer-link-hover: #ffffff;
 
-  /* ===== System Spacing / Rounding ===== */
+  /* System */
   --radius: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
   --transition: all .25s ease;
 }
+
+/* Global font + base colors */
+body{
+  font-family: var(--font-base);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 #cta h2,
 #cta .accent {
   color: var(--accent-light);
