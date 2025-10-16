@@ -6,7 +6,7 @@
   <title>DeskXP — End-to-End CX Solutions</title>
   <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
 
-  <!-- OG + Meta -->
+  <!-- Open Graph -->
   <meta property="og:title" content="DeskXP — CX Operations & Systems" />
   <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
   <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
@@ -19,21 +19,24 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-32.jpg">
   <meta name="theme-color" content="#0d0f12">
 
-  <!-- Fonts + CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=218">
+  <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    #cta .accent { color: #fff !important; }
+    /* Minor text color tweaks requested */
+    #cta .accent { color: #ffffff !important; }
     span.accent { color: #007236 !important; }
+  </style>
 
-    /* === Success Stories === */
+  <!-- ===== SUCCESS STORIES (scoped) ===== -->
+  <style>
+    /* Slider shell */
     #success.success-slider {
       max-width: 1320px;
       margin: 80px auto;
-      padding: 22px 0 34px;
+      padding: 22px 0 42px;
       border-radius: 20px;
       background: linear-gradient(180deg,#fbfbfb 0%,#ffffff 60%,#f7f9f7 100%);
       border: 1px solid rgba(0,0,0,.06);
@@ -41,149 +44,78 @@
       position: relative;
       overflow: hidden;
     }
+    #success .success-head { margin-bottom: 14px; text-align: center; }
+    #success .success-head h2 { font-size: 2.05rem; font-weight: 800; color: var(--accent,#007236); letter-spacing: -0.01em; }
 
-    #success .success-head {
-      margin-bottom: 14px;
-      text-align: center;
-    }
-    #success .success-head h2 {
-      font-size: 2.05rem;
-      font-weight: 800;
-      color: #007236;
-    }
+    /* Track + Slides */
+    #success .success-track { position: relative; max-width: 1080px; margin: 0 auto; min-height: 280px; display: flex; align-items: center; justify-content: center; }
+    #success .success-slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease, transform .6s ease; transform: translateY(6px); }
+    #success .success-slide.is-active { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
-    #success .success-track {
-      position: relative;
-      max-width: 980px;
-      margin: 0 auto;
-      min-height: 440px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #success .success-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    #success .success-slide.is-active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
+    /* Logo on top, wins below (common layout) */
+    #success .ss-row { display: grid; grid-template-rows: auto 1fr; gap: 26px; align-items: start; justify-items: center; padding: 0 18px; }
+    #success .ss-top { display: flex; justify-content: center; }
+    #success .ss-logo--xl { width: 280px; height: auto; object-fit: contain; }
 
-    /* Nav buttons */
-    #success .success-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.1);
-      color: #111;
-      border: none;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      cursor: pointer;
-      z-index: 5;
-    }
-    #success .success-nav:hover {
-      background: #007236; color: #fff;
-      transform: translateY(-50%) scale(1.06);
-    }
+    /* Base wins grid */
+    #success .wins { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px 28px; justify-items: center; }
+    #success .win { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    #success .win img { width: 120px; height: 120px; object-fit: contain; }
+    #success .win p { margin: 0; color: #0f172a; font-weight: 700; line-height: 1.35; max-width: 280px; }
+
+    /* PalawanPay 3×2 (6) */
+    #success .wins--palawan { grid-template-columns: repeat(3, minmax(200px,1fr)); }
+    /* Unison 2×2 (3rd centered) */
+    #success .wins--unison { grid-template-columns: repeat(2, minmax(220px,1fr)); }
+    #success .wins--unison .single-centered { grid-column: 1 / -1; }
+    /* BDS 3×2 (6) */
+    #success .wins--bds { grid-template-columns: repeat(3, minmax(200px,1fr)); }
+
+    /* Nav */
+    #success .success-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 12px; background: rgba(0,0,0,0.1); color: #111; border: none; box-shadow: 0 3px 10px rgba(0,0,0,0.08); z-index: 5; cursor: pointer; }
+    #success .success-nav:hover { background: var(--accent,#007236); color: #fff; transform: translateY(-50%) scale(1.06); }
     #success .success-nav.prev { left: 24px; }
     #success .success-nav.next { right: 24px; }
 
     /* Dots */
-    #success .success-dots {
-      position: absolute;
-      left: 50%;
-      bottom: 16px;
-      transform: translateX(-50%);
-      display: flex; gap: 10px;
-    }
-    #success .success-dots button {
-      width: 9px; height: 9px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.22);
-      border: 0;
-    }
-    #success .success-dots button.active {
-      background: #007236;
-      box-shadow: 0 0 0 4px rgba(0,114,54,0.12);
-    }
+    #success .success-dots { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 10px; }
+    #success .success-dots button { width: 9px; height: 9px; background: rgba(0,0,0,0.22); border: 0; border-radius: 999px; }
+    #success .success-dots button.active { background: var(--accent,#007236); box-shadow: 0 0 0 4px rgba(0,114,54,0.12); }
 
-    /* Common layout */
-    .ss-board {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 18px;
+    /* Responsive */
+    @media (max-width: 1024px){
+      #success .ss-logo--xl { width: 240px; }
+      #success .wins--palawan, #success .wins--bds { grid-template-columns: repeat(2, minmax(200px,1fr)); }
     }
-    .ss-logo {
-      width: 240px; height: auto;
-      max-width: 90%;
-      object-fit: contain;
-    }
-    .wins {
-      list-style: none; margin: 0; padding: 0;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(160px, 1fr));
-      gap: 18px 22px;
-      justify-items: center;
-      align-items: start;
-      width: 100%;
-    }
-    .win {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-    }
-    .win img { width: 96px; height: 96px; object-fit: contain; }
-    .win p { margin: 0; font-weight: 700; font-size: .98rem; color: #0f172a; line-height: 1.35; max-width: 240px; }
-
-    /* PalawanPay: 3 top, 2 centered below */
-    .wins--palawan {
-      grid-template-columns: repeat(3, minmax(160px, 1fr));
-    }
-    .wins--palawan .win:nth-child(4) { grid-column: 2; }
-    .wins--palawan .win:nth-child(5) { grid-column: 3; }
-
-    @media (max-width: 900px) {
-      #success .success-track { min-height: 520px; }
-      .ss-logo { width: 200px; }
-      .wins { grid-template-columns: repeat(2, 1fr); }
-      .wins--palawan .win:nth-child(4),
-      .wins--palawan .win:nth-child(5) { grid-column: auto; }
-    }
-    @media (max-width: 520px) {
-      .ss-logo { width: 180px; }
-      .wins { grid-template-columns: 1fr; }
-      .win img { width: 80px; height: 80px; }
+    @media (max-width: 560px){
+      #success .wins--palawan, #success .wins--bds { grid-template-columns: 1fr; }
+      #success .wins--unison { grid-template-columns: 1fr; }
     }
   </style>
+
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 
 <body>
+  <!-- Global header mount -->
   <div id="site-header"></div>
-  <div class="banner" id="home"><div class="inner"></div></div>
+
+  <!-- Hero / Banner -->
+  <div class="banner" id="home">
+    <div class="inner"></div>
+  </div>
 
   <!-- Services -->
   <div class="container">
     <section id="services">
       <h2>Services</h2>
       <div class="card-grid">
-        <a class="card" href="/services/?s=operations-design"><img class="card-img" src="/assets/svc-1.jpg"><div class="card-body"><h3>Operations Design</h3><p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p></div></a>
-        <a class="card" href="/services/?s=systems-architecture"><img class="card-img" src="/assets/svc-2.jpg"><div class="card-body"><h3>Systems Architecture</h3><p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p></div></a>
-        <a class="card" href="/services/?s=automation-ai"><img class="card-img" src="/assets/svc-3.jpg"><div class="card-body"><h3>Automation & AI</h3><p>Deflection, classification, intent routing, and bots that shorten handle time.</p></div></a>
-        <a class="card" href="/services/?s=reporting-analytics"><img class="card-img" src="/assets/svc-4.jpg"><div class="card-body"><h3>Reporting & Analytics</h3><p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p></div></a>
-        <a class="card" href="/services/?s=ecommerce-integrations"><img class="card-img" src="/assets/svc-5.jpg"><div class="card-body"><h3>eCommerce Integrations</h3><p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p></div></a>
-        <a class="card" href="/services/?s=customer-experience-servicing"><img class="card-img" src="/assets/svc-6.jpg"><div class="card-body"><h3>Customer Experience & Servicing</h3><p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p></div></a>
+        <a class="card" href="/services/?s=operations-design"><img class="card-img" src="/assets/svc-1.jpg" alt="Operations Design"><div class="card-body"><h3>Operations Design</h3><p>Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p></div></a>
+        <a class="card" href="/services/?s=systems-architecture"><img class="card-img" src="/assets/svc-2.jpg" alt="Systems Architecture"><div class="card-body"><h3>Systems Architecture</h3><p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p></div></a>
+        <a class="card" href="/services/?s=automation-ai"><img class="card-img" src="/assets/svc-3.jpg" alt="Automation & AI"><div class="card-body"><h3>Automation & AI</h3><p>Deflection, classification, intent routing, and bots that shorten handle time.</p></div></a>
+        <a class="card" href="/services/?s=reporting-analytics"><img class="card-img" src="/assets/svc-4.jpg" alt="Reporting & Analytics"><div class="card-body"><h3>Reporting & Analytics</h3><p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p></div></a>
+        <a class="card" href="/services/?s=ecommerce-integrations"><img class="card-img" src="/assets/svc-5.jpg" alt="eCommerce Integrations"><div class="card-body"><h3>eCommerce Integrations</h3><p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p></div></a>
+        <a class="card" href="/services/?s=customer-experience-servicing"><img class="card-img" src="/assets/svc-6.jpg" alt="Customer Experience & Servicing"><div class="card-body"><h3>Customer Experience & Servicing</h3><p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p></div></a>
       </div>
     </section>
   </div>
@@ -193,52 +125,65 @@
     <div class="success-head"><h2>Success Stories</h2></div>
     <div class="success-track" id="successTrack">
 
-      <!-- PalawanPay -->
+      <!-- PalawanPay (3×2) -->
       <article class="success-slide is-active">
-        <div class="ss-board">
-          <img class="ss-logo" src="/assets/palawanpay.png" alt="PalawanPay">
-          <ul class="wins wins--palawan">
-            <li class="win"><img src="/assets/5Msavings.png"><p>₱5M annual savings with chatbot implementation</p></li>
-            <li class="win"><img src="/assets/routingppay.png"><p>+30% efficiency in omnichannel routing</p></li>
-            <li class="win"><img src="/assets/onetouch.png"><p>Reduced one-touch tickets</p></li>
-            <li class="win"><img src="/assets/kb.png"><p>Help Center implementation</p></li>
-            <li class="win"><img src="/assets/cc.png"><p>Customer Care team established from the ground up</p></li>
-          </ul>
+        <div class="ss-row">
+          <div class="ss-top">
+            <img class="ss-logo ss-logo--xl" src="/assets/palawanpay.png" alt="PalawanPay">
+          </div>
+          <div class="ss-bottom">
+            <ul class="wins wins--palawan">
+              <li class="win"><img src="/assets/5Msavings.png" alt="₱5M annual savings"><p>₱5M annual savings with chatbot implementation</p></li>
+              <li class="win"><img src="/assets/routingppay.png" alt="+30% efficiency"><p>+30% efficiency in omnichannel routing</p></li>
+              <li class="win"><img src="/assets/onetouch.png" alt="Reduced one-touch tickets"><p>Reduced one-touch tickets</p></li>
+              <li class="win"><img src="/assets/kb.png" alt="Help Center"><p>Help Center implementation</p></li>
+              <li class="win"><img src="/assets/cc.png" alt="Customer Care org"><p>Customer Care team established from the ground up</p></li>
+              <li class="win"><img src="/assets/dashboard-ppay.png" alt="Analytics dashboards"><p>Custom analytics dashboards for SLA, CSAT, and volume</p></li>
+            </ul>
+          </div>
         </div>
       </article>
 
       <!-- Unison -->
       <article class="success-slide">
-        <div class="ss-board">
-          <img class="ss-logo" src="/assets/unison.png" alt="Unison">
-          <ul class="wins">
-            <li class="win"><img src="/assets/unisonpdf.png"><p>+100% efficiency in PDF automation</p></li>
-            <li class="win"><img src="/assets/kb.png"><p>Zendesk Guide full advanced setup</p></li>
-            <li class="win"><img src="/assets/zendeskunison.png"><p>End-to-end Zendesk implementation</p></li>
-          </ul>
+        <div class="ss-row">
+          <div class="ss-top">
+            <img class="ss-logo ss-logo--xl" src="/assets/unison.png" alt="Unison">
+          </div>
+          <div class="ss-bottom">
+            <ul class="wins wins--unison">
+              <li class="win"><img src="/assets/unisonpdf.png" alt="+100% efficiency"><p>+100% efficiency in PDF automation</p></li>
+              <li class="win"><img src="/assets/kb.png" alt="Zendesk Guide"><p>Zendesk Guide full advanced setup</p></li>
+              <li class="win single-centered"><img src="/assets/zendeskunison.png" alt="End-to-end Zendesk"><p>End-to-end Zendesk implementation</p></li>
+            </ul>
+          </div>
         </div>
       </article>
 
-      <!-- Boutique de Sophie -->
+      <!-- Boutique de Sophie (3×2) -->
       <article class="success-slide">
-        <div class="ss-board">
-          <img class="ss-logo" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
-          <ul class="wins">
-            <li class="win"><img src="/assets/zendeskunison.png"><p>End-to-End Zendesk implementation</p></li>
-            <li class="win"><img src="/assets/workflow-automate.png"><p>Workflow automation</p></li>
-            <li class="win"><img src="/assets/bds-csat.png"><p>CSAT program implementation</p></li>
-            <li class="win"><img src="/assets/onetouch.png"><p>Dashboards & reporting</p></li>
-            <li class="win"><img src="/assets/disputes-bds.png"><p>−30% disputes reduced</p></li>
-            <li class="win"><img src="/assets/bds-sla.png"><p>+50% SLA score increase</p></li>
-          </ul>
+        <div class="ss-row">
+          <div class="ss-top">
+            <img class="ss-logo ss-logo--xl" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+          </div>
+          <div class="ss-bottom">
+            <ul class="wins wins--bds">
+              <li class="win"><img src="/assets/zendeskunison.png" alt="Zendesk"><p>End-to-End Zendesk implementation</p></li>
+              <li class="win"><img src="/assets/workflow-automate.png" alt="Workflow"><p>Workflow automation</p></li>
+              <li class="win"><img src="/assets/bds-csat.png" alt="CSAT"><p>CSAT program implementation</p></li>
+              <li class="win"><img src="/assets/onetouch.png" alt="Dashboards"><p>Dashboards & reporting</p></li>
+              <li class="win"><img src="/assets/disputes-bds.png" alt="Disputes"><p>−30% disputes reduced</p></li>
+              <li class="win"><img src="/assets/bds-sla.png" alt="SLA"><p>+50% SLA score increase</p></li>
+            </ul>
+          </div>
         </div>
       </article>
 
     </div>
 
-    <button class="success-nav prev" id="prevBtn">‹</button>
-    <button class="success-nav next" id="nextBtn">›</button>
-    <div class="success-dots" id="successDots"></div>
+    <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
+    <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
+    <div class="success-dots" id="successDots" aria-label="Slide indicators"></div>
   </section>
 
   <!-- About + CTA -->
@@ -257,18 +202,22 @@
         <div class="cta-left">
           <h2><span class="accent">Book a discovery call</span></h2>
           <p class="lede">We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+
           <ul class="cta-list">
             <li>MVP or prototype in <strong>7 days</strong></li>
             <li>Cut repetitive inquiries with automation & self-serve</li>
             <li>Eliminate manual busywork in daily ops</li>
           </ul>
+
           <div class="cta-chips">
             <span>7-day MVP</span>
             <span>Automation-first</span>
             <span>Zendesk × Shopify</span>
           </div>
+
           <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
         </div>
+
         <aside class="cta-right">
           <div class="cta-card">
             <p class="cta-title">Ready to move?</p>
@@ -287,51 +236,51 @@
     fetch("/footer.html").then(r => r.text()).then(html => document.getElementById("footer").innerHTML = html);
   </script>
 
+  <!-- Global JS (injects header + behaviors) -->
   <script src="/js/main.js?v=212" defer></script>
 
-  <!-- Slider Script -->
+  <!-- Success slider logic -->
   <script>
     (function(){
-      const track = document.getElementById('successTrack');
+      const slider = document.getElementById('success');
+      const track  = document.getElementById('successTrack');
       const slides = Array.from(track.querySelectorAll('.success-slide'));
-      const prev = document.getElementById('prevBtn');
-      const next = document.getElementById('nextBtn');
-      const dotsWrap = document.getElementById('successDots');
-      if (!slides.length) return;
+      const prev   = document.getElementById('prevBtn');
+      const next   = document.getElementById('nextBtn');
+      const dotsEl = document.getElementById('successDots');
 
-      let i = slides.findIndex(s => s.classList.contains('is-active'));
-      if (i < 0) i = 0;
+      if (!slider || !track || !slides.length) return;
 
-      dotsWrap.innerHTML = '';
-      const dots = slides.map((_, idx) => {
+      let index = slides.findIndex(s => s.classList.contains('is-active'));
+      if (index < 0) index = 0;
+
+      // Dots
+      const dots = slides.map((_, i) => {
         const b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
-        b.addEventListener('click', () => go(idx));
-        dotsWrap.appendChild(b);
+        b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        b.addEventListener('click', () => go(i));
+        dotsEl.appendChild(b);
         return b;
       });
 
-      function go(idx){
-        slides[i].classList.remove('is-active');
-        i = (idx + slides.length) % slides.length;
-        slides[i].classList.add('is-active');
-        updateDots();
+      function render(){
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
       }
-      function updateDots(){
-        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-      }
-      function nextSlide(){ go(i + 1); }
-      function prevSlide(){ go(i - 1); }
+      function go(i){ index = (i + slides.length) % slides.length; render(); }
+      function nextSlide(){ go(index + 1); }
+      function prevSlide(){ go(index - 1); }
 
       prev.addEventListener('click', prevSlide);
       next.addEventListener('click', nextSlide);
-      document.addEventListener('keydown', e => {
+
+      // Keyboard access
+      slider.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prevSlide();
         if (e.key === 'ArrowRight') nextSlide();
       });
-
-      go(i);
+      // Start
+      render();
     })();
   </script>
 </body>
