@@ -265,14 +265,19 @@
   <div id="site-header"></div>
 
   <div class="container">
-    <!-- ===== SECTION 1: About DeskXP ===== -->
-    <section class="about-hero reveal" aria-labelledby="deskxp">
-      <h1 id="deskxp" class="about-title">About DeskXP</h1>
+    <section class="about-hero" aria-labelledby="deskxp">
+  <h1 id="deskxp" class="about-title">About DeskXP</h1>
 
-      <figure class="about-media">
-        <img src="/assets/about-cycle.png" alt="DeskXP operations cycle: design → implement → automate → improve" loading="eager" />
-      </figure>
+  <div class="about-grid">
+    <!-- Image shares the same container—no wrapper “card” -->
+    <img
+      class="about-illustration"
+      src="/assets/about-cycle.png"
+      alt="DeskXP operations cycle: design → implement → automate → improve"
+      loading="eager"
+    />
 
+    <div class="about-body">
       <p>
         <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
         We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
@@ -293,13 +298,15 @@
         <span class="pill">Continuous improvement</span>
       </div>
 
-      <!-- visual interest: quick proof points -->
       <div class="stats-row" aria-label="Proof points">
         <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
         <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
         <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     <!-- ===== SECTION 2: Work with an Expert (wave removed) ===== -->
     <section class="expert reveal" aria-labelledby="expert-title">
