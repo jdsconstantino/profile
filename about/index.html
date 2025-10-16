@@ -14,105 +14,116 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Include italics too, because your About copy uses <em> -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=212">
+  <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
     /* ===== Tokens ===== */
     :root{
-      --brand:#007236;      /* DeskXP green */
-      --accent:#FFD400;     /* brand yellow */
+      --brand:#007236;                  /* DeskXP green */
+      --accent:#FFD400;                 /* optional brand yellow (not used as a wave) */
       --ink:#0f1222;
       --muted:#a3adba;
       --panel:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.14);
       --overlay:rgba(10,12,16,.72);
-      --dark:#2E424E;
+      --dark:#2E424E;                   /* requested dark background */
     }
     .container{max-width:1100px;margin:0 auto;padding:24px 16px}
 
-    /* ===== SECTION 1: About DeskXP (merged) ===== */
+    /* ===== SECTION 1: DeskXP brand (white card) ===== */
     .about-hero{
-      position:relative;background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
-      padding:28px 22px;margin:20px 0 36px;
+      position:relative;
+      background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
+      padding:28px 22px;margin:20px 0 36px; overflow:hidden;
     }
-    .about-hero .about-title{ margin:0 0 14px; }
-    .about-tagline{ font-size:1.2rem;font-weight:600;color:#2E424E;margin:-6px 0 18px;letter-spacing:-.2px }
+    
+    .about-hero .about-media {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto 24px;
+      padding: 16px 0;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+      border: 1px solid #eef2f6;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    .about-grid{
-      display:grid;
-      grid-template-columns:minmax(360px,520px) 1fr;
-      gap:28px; align-items:center;
+      /* ✅ Key layout adjustments */
+      max-width: 100%;       /* fills most of the container width */
+      aspect-ratio: 16/7
+      overflow: hidden;
     }
-    .about-visual{ position:relative; display:flex; justify-content:center; align-items:center; }
-    .about-visual::before{
-      content:""; position:absolute; inset:-40px; border-radius:50%;
-      background:radial-gradient(circle at center, rgba(0,114,54,.18), transparent 70%);
-      filter:blur(30px); animation:pulseGlow 4s ease-in-out infinite alternate; z-index:0;
+
+    .about-hero .about-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+      transition: transform 0.3s ease;
     }
-    @keyframes pulseGlow{0%{opacity:.4;transform:scale(1)}100%{opacity:.7;transform:scale(1.08)}}
 
-    .about-illustration{
-      position:relative; z-index:1; width:100%; height:auto; max-width:820px; min-width:420px;
-      display:block; border-radius:14px; box-shadow:0 8px 18px rgba(0,0,0,.06); transition:transform .25s ease;
+    .about-hero .about-media:hover img {
+      transform: scale(1.02);
     }
-    .about-illustration:hover{ transform:scale(1.015); }
 
-    .about-body{ max-width:620px; overflow-wrap:break-word; word-break:break-word; }
-    .about-hero .about-body p{ font-size:1.06rem; line-height:1.72; margin:0 0 12px; }
 
-    /* Pills & stats */
-    .pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px }
-    .pill{
-      --pill-bg:rgba(255,255,255,.78); --pill-border:rgba(15,18,34,.10);
-      backdrop-filter:saturate(115%) blur(2px);
-      background:var(--pill-bg); border:1px solid var(--pill-border);
-      box-shadow:0 2px 6px rgba(15,18,34,.06); border-radius:999px; padding:8px 14px;
-      font-size:.95rem; line-height:1; color:#2b3742; display:inline-flex; align-items:center; gap:.5ch;
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    .about-hero p{font-size:1.06rem;line-height:1.72;margin:0 0 12px; max-width:860px}
+    .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
+    .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
+
+    /* Stats row to add visual interest */
+    .stats-row{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px;
     }
-    .pill:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(15,18,34,.08); border-color:rgba(15,18,34,.18) }
-    .pill::before{ content:""; width:6px;height:6px;border-radius:50%; background:radial-gradient(circle at 30% 30%, #75d39a, #007236) }
-
-    .stats-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px }
     .stat{
-      position:relative; display:flex; align-items:center; gap:12px; min-height:72px;
-      border:1px solid rgba(15,18,34,.10); background:rgba(255,255,255,.9);
-      border-radius:14px; padding:16px; box-shadow:0 8px 20px rgba(15,18,34,.06);
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      display:flex; align-items:center; gap:10px;
+      border:1px solid #e9edf2; background:#f9fbfc; border-radius:12px; padding:12px 14px;
     }
-    .stat:hover{ transform:translateY(-1px); box-shadow:0 12px 26px rgba(15,18,34,.1); border-color:rgba(15,18,34,.18) }
-    .stat::before{ content:""; width:10px;height:10px;border-radius:50%; background:radial-gradient(circle at 30% 30%, #7fe0a6, #007236) }
-    .stat .n{ font-weight:900; font-size:1.35rem; letter-spacing:-.02em; color:#0f1222 }
-    .stat .t{ font-size:.95rem; color:#4b5a66 }
+    .stat .n{font-weight:800; font-size:1.15rem; color:#2E424E;}
+    .stat .t{font-size:.92rem; color:#475466}
 
-    /* Built-for row */
-    .built-for{
-      display:flex; justify-content:center; align-items:baseline; gap:10px; white-space:nowrap;
-      margin:12px 0 0; color:#2E424E; font-weight:500;
-    }
-    .built-for span{ color:var(--brand); font-weight:700 }
-    .built-for span + span::before{ content:"•"; color:#8fa1ad; opacity:.6; margin:0 8px 0 2px; font-weight:600 }
-
+    /* Mobile tweaks */
     @media (max-width:900px){
-      .about-hero{ padding:22px 16px }
-      .about-grid{ grid-template-columns:1fr; gap:18px }
-      .about-illustration{ min-width:0; max-width:100% }
-      .stats-row{ grid-template-columns:1fr; gap:10px }
-      .built-for{ flex-wrap:wrap; white-space:normal; row-gap:6px }
+      .about-hero{padding:22px 16px}
+      .about-hero .about-media img{max-height:300px}
+      .stats-row{grid-template-columns:1fr; gap:10px}
+      .pill-row{justify-content:center}
     }
 
-    /* ===== SECTION 2: Work with an Expert ===== */
-    .expert{ position:relative; background:var(--dark); border:1px solid var(--border); border-radius:18px; padding:44px 32px; margin:40px 0 }
-    .expert-grid{ display:grid; grid-template-columns:360px 1fr; gap:36px; align-items:center }
-    @media (max-width:980px){ .expert-grid{ grid-template-columns:1fr; gap:22px } }
+    /* ===== SECTION 2: Work with an Expert (dark bg — wave removed) ===== */
+    .expert{
+      position:relative;
+      background:var(--dark);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:44px 32px 44px;
+      margin:40px 0;
+    }
+    .expert-grid{
+      display:grid; grid-template-columns:360px 1fr; gap:36px; align-items:center;
+    }
+    @media (max-width:980px){ .expert-grid{grid-template-columns:1fr;gap:22px} }
+
     .expert p{ color:#E1E7EE; font-size:1.06rem; line-height:1.72; margin:0 0 12px }
     .badge{ display:inline-block; background:var(--brand); color:#fff; border-radius:999px; padding:7px 12px; font-size:.86rem; margin:8px 0 14px }
-    .photo-wrap{ width:100%; max-width:360px; margin:0 auto }
+
+    .photo-wrap{ width:100%; max-width:360px; margin:0 auto; }
     .photo-wrap img{ width:100%; height:auto; display:block; border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,.35) }
+
     .expert-copy{ max-width:700px }
-    .stack{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px }
-    .tag{ border:1px solid rgba(255,255,255,.30); background:rgba(255,255,255,.16); color:#fff; padding:9px 12px; border-radius:999px; font-size:.93rem; line-height:1 }
+
+    .stack{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+    .tag{
+      border:1px solid rgba(255,255,255,.30);
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      padding:9px 12px; border-radius:999px; font-size:.93rem; line-height:1;
+    }
 
     /* ===== Logos (dark) ===== */
     .about-logos{margin:26px 0; background:var(--dark); padding:18px; border-radius:14px; border:1px solid var(--border)}
@@ -120,7 +131,7 @@
     .about-logos img{height:42px;opacity:.95;filter:grayscale(100%) contrast(1.1)}
     .about-logos .muted{color:#D8E3EB}
 
-    /* ===== Career timeline ===== */
+    /* ===== Career timeline (dark section > white card with dark text) ===== */
     .about-timeline{margin:36px 0; background:var(--dark); padding:22px; border:1px solid var(--border); border-radius:14px}
     .about-timeline h2{color:#ECF3FF;margin-bottom:12px}
     .tl-card{background:#fff;border:1px solid #e6e6e6;border-radius:16px;padding:18px}
@@ -128,86 +139,122 @@
     .tl .tl-head{display:flex;justify-content:space-between;gap:18px;align-items:baseline}
     .tl .tl-head strong{font-weight:700}
     .tl .tl-time{color:#556070;font-size:.95rem}
-    .title-dot{ display:inline-block; width:10px;height:10px; background:var(--accent); border-radius:50%; margin-right:12px; vertical-align:middle }
-    /* bullets (override any global li::before) */
-    .tl-points{ margin:8px 0 0 0; padding-left:0; list-style:none }
-    .tl-points li{ position:relative; padding-left:20px; margin:.48rem 0 }
-    .tl-points li::before{ content:"•"; position:absolute; left:0; top:0; line-height:1.1; color:#2E424E; font-weight:700 }
+    .tl-points{margin:8px 0 0 0;padding-left:28px}
+    .tl-points li{margin:.45rem 0}
+    .tl .title-dot{display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:50%;margin-right:10px;vertical-align:middle}
 
-    /* ===== Certifications ===== */
-    .cert-section{ background:#2E424E; border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:60px 32px 80px; margin:50px 0; text-align:center; color:#E6ECF2; overflow:hidden; position:relative }
-    .cert-section h2{ color:#7FC6FF; font-weight:700; font-size:1.8rem; margin-bottom:38px; letter-spacing:.5px }
-    .cert-slider{ display:flex; gap:32px; justify-content:flex-start; align-items:center; animation:certScroll 80s linear infinite; width:max-content }
-    @keyframes certScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    .cert-card{ background:rgba(255,255,255,0.06); border-radius:16px; padding:20px 16px 24px; min-width:260px; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:space-between; box-shadow:0 4px 16px rgba(0,0,0,0.25); transition:transform .3s ease, box-shadow .3s ease }
-    .cert-card:hover{ transform:scale(1.05); box-shadow:0 8px 24px rgba(255,255,255,0.15) }
-    .cert-card h3{ color:#fff; font-size:1rem; font-weight:600; margin-bottom:14px; text-align:center }
-    .cert-card a{ color:#FFD400; text-decoration:none; font-weight:500; font-size:.95rem; margin-top:12px; transition:color .2s ease }
-    .cert-card a:hover{ color:#fff }
-    .cert-card iframe, .cert-card div[data-share-badge-id]{ border-radius:8px; width:180px; height:260px; background:#fff; display:flex; justify-content:center; align-items:center }
-    @media (max-width:900px){ .cert-section{ padding:40px 20px 60px } .cert-card{ min-width:220px } }
-    .cert-slider:hover{ animation-play-state:paused }
+    /* ===== Certifications (dark, readable, autoscroll) ===== */
+    .cert-section {
+      background: #2E424E;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 60px 32px 80px;
+      margin: 50px 0;
+      text-align: center;
+      color: #E6ECF2;
+      overflow: hidden;
+      position: relative;
+    }
+    .cert-section h2 {
+      color: #7FC6FF;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 38px;
+      letter-spacing: .5px;
+    }
+    .cert-slider {
+      display: flex;
+      gap: 32px;
+      justify-content: flex-start;
+      align-items: center;
+      animation: certScroll 80s linear infinite;
+      width: max-content;
+    }
+    @keyframes certScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .cert-card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px 16px 24px;
+      min-width: 260px;
+      flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .cert-card:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+    .cert-card h3 { color:#fff; font-size:1rem; font-weight:600; margin-bottom:14px; text-align:center }
+    .cert-card a { color:#FFD400; text-decoration:none; font-weight:500; font-size:.95rem; margin-top:12px; transition:color .2s ease }
+    .cert-card a:hover { color:#fff; }
+    .cert-card iframe, .cert-card div[data-share-badge-id]{
+      border-radius:8px; width:180px; height:260px; background:#fff; display:flex; justify-content:center; align-items:center;
+    }
+    @media (max-width: 900px) {
+      .cert-section { padding: 40px 20px 60px; }
+      .cert-card { min-width: 220px; }
+    }
+    .cert-slider:hover { animation-play-state: paused; }
 
-    /* ===== Projects (make it look expert) ===== */
-    .about-cases{ margin:36px 0; background:var(--dark); padding:26px; border:1px solid var(--border); border-radius:18px }
-    .about-cases h2{ color:#ECF3FF; margin:0 0 16px }
-    .case-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px }
-    @media (max-width:900px){ .case-grid{ grid-template-columns:1fr } }
-
+    /* ===== Projects + modal (genie) ===== */
+    .about-cases{margin:36px 0; background:var(--dark); padding:22px; border:1px solid var(--border); border-radius:14px}
+    .about-cases h2{color:#ECF3FF}
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width: 900px){.case-grid{grid-template-columns:1fr}}
     .case-card{
-      position:relative; display:flex; gap:14px; align-items:center; text-align:left;
-      border:1px solid rgba(255,255,255,.22);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border-radius:20px; padding:18px 18px 18px 18px; cursor:pointer;
-      transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease;
-      color:#fff; text-decoration:none; isolation:isolate;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 28px rgba(0,0,0,.28);
+      display:flex;gap:12px;align-items:center;text-align:left;
+      border:1px solid var(--border);background:rgba(255,255,255,.08);
+      border-radius:18px;padding:16px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      color:#fff; text-decoration:none;
     }
-    .case-card::after{
-      content:""; position:absolute; inset:0; border-radius:20px; pointer-events:none;
-      box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 18px 36px rgba(0,0,0,.30);
-      opacity:.0; transition:opacity .14s ease;
+    .case-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25);border-color:rgba(255,255,255,.22)}
+    .case-card img{width:46px;height:46px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #ececec}
+    .case-title{margin:0;font-size:1.02rem;line-height:1.3;color:#fff}
+    .case-sub{margin:2px 0 0;color:#E2ECF6;font-size:.95rem}
+
+    .modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      background:var(--overlay);backdrop-filter:blur(8px);z-index:1000;padding:20px;
     }
-    .case-card:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.30) }
-    .case-card:hover::after{ opacity:1 }
-
-    .case-card img{ width:54px;height:54px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid #ececec; box-shadow:0 6px 16px rgba(0,0,0,.25) }
-    .case-title{ margin:0; font-size:1.08rem; line-height:1.25; color:#fff }
-    .case-sub{ margin:4px 0 0; color:#DDE8F4; font-size:.98rem }
-    /* subtle inner container feel */
-    .case-card > div{ flex:1; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); border-radius:16px; padding:14px }
-
-    /* ===== Modal (unchanged logic) ===== */
-    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:var(--overlay); backdrop-filter:blur(8px); z-index:1000; padding:20px }
-    .modal.open{ display:flex }
-    .modal-card{ width:min(980px,95vw); max-height:min(86vh,1200px); overflow:auto; background:linear-gradient(180deg, rgba(53,70,80,1), rgba(46,66,78,1)); border:1px solid rgba(255,255,255,.18); border-radius:22px; box-shadow:0 20px 60px rgba(0,0,0,.55); color:#F4F9FF; transform-origin:top left }
-    .modal-head{ position:sticky; top:0; z-index:1; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,.16); background:linear-gradient(90deg,var(--brand-accent, var(--brand)) 0%, rgba(0,0,0,0) 60%); border-radius:22px 22px 0 0 }
-    .modal-title{ margin:0; font-size:1.2rem; color:#fff }
-    .modal-meta{ margin:6px 0 0; color:#EAF6FF; opacity:.95 }
-    .modal-body{ padding:16px 18px 20px }
-    .mb-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px }
-    @media (max-width:800px){ .mb-grid{ grid-template-columns:1fr } }
-    .mb-col{ border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); border-radius:12px; padding:12px }
-    .mb-col h4{ margin:.2rem 0 .4rem; font-size:1rem; color:#fff }
-    .mb-col ul{ margin:.2rem 0 .6rem; padding-left:18px; color:#F0F6FB }
-    .mb-stack{ margin-top:8px }
-    .chip{ display:inline-block; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.12); border-radius:999px; padding:7px 10px; margin:4px 6px 0 0; font-size:.9rem; color:#fff }
-    .modal-close{ position:absolute; right:10px; top:10px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff; border-radius:999px; padding:6px 10px; font-weight:700; cursor:pointer }
-
-    /* ===== CTA (spacing & color) ===== */
-    .dc-card{
-      display:flex; align-items:center; justify-content:space-between; gap:18px;
-      border:1px solid var(--border); background:var(--dark); border-radius:14px;
-      padding:30px 22px 30px;  /* more vertical padding */
-      margin:38px 0;
-      box-shadow:0 12px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(980px,95vw);max-height:min(86vh,1200px);overflow:auto;
+      background:linear-gradient(180deg, rgba(53,70,80,1), rgba(46,66,78,1));
+      border:1px solid rgba(255,255,255,.18);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.55);
+      color:#F4F9FF;
+      transform-origin: top left; /* updated dynamically for genie */
     }
-    .dc-card h3{ color:var(--brand); margin:0 0 10px }  /* brand green title */
-    .dc-card p{ color:#DCE8F3; margin:0 0 4px }
-    .btn-solid,.btn-minimal{ display:inline-block; border-radius:999px; padding:14px 20px; font-weight:600; text-decoration:none }
-    .btn-solid{ background:var(--brand); color:#fff; box-shadow:0 8px 20px rgba(0,114,54,.35) }
-    .btn-solid:hover{ transform:translateY(-1px) }
-    .btn-minimal{ border:1px solid var(--border); color:#eaf0f7 }
+    .modal-head{
+      position:sticky;top:0;z-index:1;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(90deg,var(--brand-accent, var(--brand)) 0%, rgba(0,0,0,0) 60%);
+      border-radius:22px 22px 0 0;
+    }
+    .modal-title{margin:0; font-size:1.2rem; color:#fff}
+    .modal-meta{margin:6px 0 0;color:#EAF6FF; opacity:.95}
+    .modal-body{padding:16px 18px 20px}
+    .mb-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width: 800px){.mb-grid{grid-template-columns:1fr}}
+    .mb-col{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:12px;padding:12px}
+    .mb-col h4{margin:.2rem 0 .4rem;font-size:1rem;color:#fff}
+    .mb-col ul{margin:.2rem 0 .6rem;padding-left:18px;color:#F0F6FB}
+    .mb-stack{margin-top:8px}
+    .chip{display:inline-block;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;margin:4px 6px 0 0;font-size:.9rem;color:#fff}
+    .modal-close{
+      position:absolute;right:10px;top:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;
+      border-radius:999px;padding:6px 10px;font-weight:700;cursor:pointer
+    }
+
+    /* ===== CTA (dark) ===== */
+    .dc-card{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--border);background:var(--dark);border-radius:14px;padding:22px 18px;margin:38px 0}
+    .dc-card h3{color:#ECF3FF;margin:0 0 6px}
+    .dc-card p{color:#DCE8F3;margin:0 0 8px}
+    .btn-solid,.btn-minimal{display:inline-block;border-radius:999px;padding:12px 16px;font-weight:600;text-decoration:none}
+    .btn-solid{background:var(--brand);color:#fff}
+    .btn-minimal{border:1px solid var(--border);color:#eaf0f7}
+
+    .highlight {
+      background: linear-gradient(90deg, rgba(255,212,0,0.25) 0%, rgba(255,212,0,0.15) 100%);
+      padding: 0 3px;
+      border-radius: 4px;
+    }
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -221,48 +268,40 @@
     <!-- ===== SECTION 1: About DeskXP ===== -->
     <section class="about-hero reveal" aria-labelledby="deskxp">
       <h1 id="deskxp" class="about-title">About DeskXP</h1>
-      <p class="about-tagline">We turn chaotic support operations into clean, automated customer experiences.</p>
 
-      <div class="about-grid">
-        <div class="about-visual">
-          <img class="about-illustration" src="/assets/about-cycle.png" alt="DeskXP operations cycle: design → implement → automate → improve" loading="eager" />
-        </div>
+      <figure class="about-media">
+        <img src="/assets/about-cycle.png" alt="DeskXP operations cycle: design → implement → automate → improve" loading="eager" />
+      </figure>
 
-        <div class="about-body">
-          <p>
-            <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
-            We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
-            workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
-            automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
-            and a support experience customers actually trust.
-          </p>
+      <p>
+        <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
+        We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
+        workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
+        automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
+        and a support experience customers actually trust.
+      </p>
 
-          <div class="pill-row" aria-label="Capabilities">
-            <span class="pill">Agent staffing & playbooks</span>
-            <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
-            <span class="pill">Skills-based routing & SLAs</span>
-            <span class="pill">Bots & Sunshine Conversations</span>
-            <span class="pill">Help Center / KB</span>
-            <span class="pill">QA, training, coaching</span>
-            <span class="pill">Reporting (Explore/Looker)</span>
-            <span class="pill">Process & policy design</span>
-            <span class="pill">Continuous improvement</span>
-          </div>
+      <div class="pill-row" aria-label="Capabilities">
+        <span class="pill">Agent staffing & playbooks</span>
+        <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
+        <span class="pill">Skills-based routing & SLAs</span>
+        <span class="pill">Bots & Sunshine Conversations</span>
+        <span class="pill">Help Center / KB</span>
+        <span class="pill">QA, training, coaching</span>
+        <span class="pill">Reporting (Explore/Looker)</span>
+        <span class="pill">Process & policy design</span>
+        <span class="pill">Continuous improvement</span>
+      </div>
 
-          <div class="stats-row" aria-label="Proof points">
-            <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
-            <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
-            <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
-          </div>
-
-          <p class="built-for">
-            Built for: <span>Fintech</span><span>E-commerce</span><span>SaaS</span><span>BPO</span>
-          </p>
-        </div>
+      <!-- visual interest: quick proof points -->
+      <div class="stats-row" aria-label="Proof points">
+        <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
+        <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
+        <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
       </div>
     </section>
 
-    <!-- ===== SECTION 2: Work with an Expert ===== -->
+    <!-- ===== SECTION 2: Work with an Expert (wave removed) ===== -->
     <section class="expert reveal" aria-labelledby="expert-title">
       <div class="expert-grid">
         <div class="photo-wrap">
@@ -345,23 +384,67 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 4: Certifications ===== -->
+    <!-- ===== SECTION 4: Certifications — full-width auto slider with embeds ===== -->
     <section class="cert-section reveal">
       <h2>Certifications</h2>
-      <div class="cert-slider">
-        <div class="cert-card"><h3>Zendesk Explore</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Foundational Support</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Guide</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Messaging</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Omnichannel</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Sunshine Conversations (Developer)</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Professional Certificate</h3><a href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924" target="_blank" rel="noopener">View credential</a></div>
-        <div class="cert-card"><h3>Professional Certificate in Operations Management</h3><a href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a></div>
-        <div class="cert-card"><h3>Developing Secure Software</h3><a href="https://www.linkedin.com/learning/certificates/156c283d2605a6301dd3cd0439bcdfde245ba618a6751f6f240c1ba705bff8fd?u=139858924" target="_blank" rel="noopener">View credential</a></div>
-        <div class="cert-card"><h3>Secure Coding</h3><a href="https://www.linkedin.com/learning/certificates/ab0d38f79985d464a87a69128b199d8b61f1eb9d7e4d83957ed333a38e7745ba?u=139858924" target="_blank" rel="noopener">View credential</a></div>
-        <div class="cert-card"><h3>Customer Service Foundation</h3><a href="https://www.linkedin.com/learning/certificates/1edeecfc781813343a2145770422d6f41c9158a382af61772d0904a4f01e4979?u=139858924" target="_blank" rel="noopener">View credential</a></div>
 
-        <!-- duplicates for loop -->
+      <div class="cert-slider">
+        <div class="cert-card">
+          <h3>Zendesk Explore</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Foundational Support</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Zendesk Guide</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Zendesk Messaging</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Zendesk Omnichannel</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Sunshine Conversations (Developer)</h3>
+          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
+        </div>
+
+        <div class="cert-card">
+          <h3>Zendesk Professional Certificate</h3>
+          <a href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924" target="_blank" rel="noopener">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <h3>Professional Certificate in Operations Management</h3>
+          <a href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <h3>Developing Secure Software</h3>
+          <a href="https://www.linkedin.com/learning/certificates/156c283d2605a6301dd3cd0439bcdfde245ba618a6751f6f240c1ba705bff8fd?u=139858924" target="_blank" rel="noopener">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <h3>Secure Coding</h3>
+          <a href="https://www.linkedin.com/learning/certificates/ab0d38f79985d464a87a69128b199d8b61f1eb9d7e4d83957ed333a38e7745ba?u=139858924" target="_blank" rel="noopener">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <h3>Customer Service Foundation</h3>
+          <a href="https://www.linkedin.com/learning/certificates/1edeecfc781813343a2145770422d6f41c9158a382af61772d0904a4f01e4979?u=139858924" target="_blank" rel="noopener">View credential</a>
+        </div>
+
+        <!-- duplicate for seamless loop -->
         <div class="cert-card"><h3>Zendesk Explore</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div></div>
         <div class="cert-card"><h3>Foundational Support</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div></div>
         <div class="cert-card"><h3>Zendesk Guide</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div></div>
@@ -375,6 +458,7 @@
     <section class="about-cases reveal">
       <h2>Projects</h2>
       <div class="case-grid">
+
         <!-- PalawanPay -->
         <button class="case-card" data-brand="#007236" data-title="PalawanPay — CX Org & Advanced Zendesk"
                 data-meta="Zero-to-one org, routing discipline, bots, savings impact"
@@ -416,10 +500,11 @@
             <p class="case-sub">Shopify ↔ Zendesk, post-purchase macros, deflection</p>
           </div>
         </button>
+
       </div>
     </section>
 
-    <!-- Modal root (unchanged) -->
+    <!-- Modal root -->
     <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal-card">
         <div class="modal-head">
@@ -452,21 +537,24 @@
         <h3 id="cta-title">Need tailored specifications? We got you!</h3>
         <p>Let’s diagnose your CX in 30 minutes.</p>
       </div>
-      <a class="btn-solid btn-cta" href="https://calendly.com/deskxp/30min">Tell Us What You Need!</a>
+
+      <a class="btn-solid btn-cta" href="https://calendly.com/deskxp/30min">
+        Tell Us What You Need!
+      </a>
     </section>
 
-  </div> <!-- CLOSE .container -->
+  </div> <!-- 🔥 CLOSE .container so the footer isn’t trapped -->
 
-  <!-- Footer -->
+  <!-- Footer (full-bleed again) -->
   <div id="footer"></div>
   <script>
     fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
   </script>
 
-  <!-- Credly embed -->
+  <!-- Credly embed (once) -->
   <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
-  <!-- Modal logic (unchanged) -->
+  <!-- Modal logic with GENIE effect -->
   <script>
     (function(){
       const qs = s => document.querySelector(s);
@@ -501,6 +589,7 @@
         modal.setAttribute('aria-hidden','false');
         document.body.style.overflow='hidden';
 
+        // Genie effect
         const rect = card.getBoundingClientRect();
         const mc = modalCard.getBoundingClientRect();
         modalCard.style.transformOrigin = `${rect.left}px ${rect.top}px`;
@@ -546,6 +635,7 @@
     })();
   </script>
 
+  <!-- Global JS -->
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
