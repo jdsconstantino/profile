@@ -1574,4 +1574,28 @@ section#services .service-card, .services .service-card, .services .card {
   margin: 0 !important;
   border-color: var(--glass-border) !important;   /* no heavy black on cards */
 }
+/* ===== About image: STOP THE BALLOONING ===== */
+.about-hero .about-media {              /* the <figure> */
+  flex: 0 0 auto;                       /* don't stretch in flex layouts */
+  max-width: 620px;                     /* cap width on desktop */
+  margin: 12px auto 18px;               /* center it */
+  padding: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.about-hero .about-media img {
+  display: block;
+  width: 100%;
+  height: auto !important;              /* override height:100% */
+  max-height: clamp(220px, 32vh, 340px);/* scale but never huge */
+  object-fit: contain;
+  border-radius: 14px;
+  transition: transform .3s ease;
+}
+
+/* Optional: tighten the white card/panel around it */
+section.about-hero {
+  padding-block: clamp(12px, 2vw, 20px) !important;
+}
 
