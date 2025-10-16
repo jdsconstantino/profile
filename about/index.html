@@ -38,37 +38,34 @@
       background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
       padding:28px 22px;margin:20px 0 36px; overflow:hidden;
     }
-    /* subtle grid so it doesn’t feel like Word */
+    
     .about-hero .about-media {
       position: relative;
       z-index: 1;
       margin: 0 auto 24px;
-      padding: 20px;
-      max-width: 700px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f3f7fa 100%);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      padding: 16px 0;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+      border: 1px solid #eef2f6;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
 
-    .about-hero .about-media:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+      /* ✅ Key layout adjustments */
+      max-width: 95%;       /* fills most of the container width */
+      height: 260px;        /* reduced vertical space */
+      overflow: hidden;
     }
 
     .about-hero .about-media img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
       object-fit: contain;
-      transition: transform 0.3s ease;
+      display: block;
     }
+
 
     .about-hero .about-media:hover img {
       transform: scale(1.02);
