@@ -1,251 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About — DeskXP</title>
-  <meta name="description" content="DeskXP bridges the gap between business and customers: end-to-end CX—from agent staffing and workflows to automation, analytics, and continuous improvement." />
+/* CTA card: rounded, clipped, with subtle green border */
+#cta .cta-card{
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;                         /* clip everything to the radius */
+  background: transparent !important;       /* gradient painted by ::before */
+  border: 1px solid rgba(0,114,54,.28);     /* optional subtle border */
+  box-shadow: 0 10px 24px rgba(0,0,0,.22),
+              inset 0 1px 0 rgba(255,255,255,.06);
+  isolation: isolate;                        /* own stacking context */
+}
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/favicon-32.jpg">
-  <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/favicon-16.jpg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-32.jpg">
-  <meta name="theme-color" content="#0d0f12">
+/* Actual gradient layer, inherits the radius so NO sharp corners */
+#cta .cta-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(140deg, rgba(0,114,54,.25) 0%, rgba(0,114,54,.10) 45%, rgba(0,0,0,0) 100%),
+    radial-gradient(120% 80% at 12% 12%, rgba(255,255,255,.06), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=223">
+/* Optional soft vignette for nicer edges */
+#cta .cta-card::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 38px rgba(0,0,0,.18);
+  z-index: 0;
+  pointer-events: none;
+}
 
-  <style>
-    :root{
-      --brand:#007236;
-      --accent:#FFD400;
-      --ink:#0f1222;
-      --muted:#a3adba;
-      --panel:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.14);
-      --overlay:rgba(10,12,16,.72);
-      --dark:#2E424E;
-    }
-    .container{max-width:1100px;margin:0 auto;padding:24px 16px}
-
-    /* ===== SECTION 1: DeskXP brand ===== */
-    .about-hero{
-      position:relative;
-      background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
-      padding:28px 22px;margin:20px 0 36px;overflow:hidden;
-    }
-    .about-hero .about-title{margin:0 0 14px;}
-    .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;}
-    .about-illustration{width:100%;height:auto;max-width:980px;justify-self:center;}
-    @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:18px}}
-
-    .about-hero .about-media{
-      position:relative;z-index:1;margin:0 auto 24px;padding:16px 0;border-radius:16px;
-      background:linear-gradient(180deg,#ffffff 0%,#f7f9fb 100%);
-      border:1px solid #eef2f6;
-      box-shadow:0 8px 18px rgba(0,0,0,0.06);
-      display:flex;align-items:center;justify-content:center;
-      max-width:100%;aspect-ratio:16/7;overflow:hidden;
-    }
-    .about-hero .about-media img{
-      display:block;width:100%;height:100%;object-fit:contain;border-radius:14px;
-      transition:transform .3s ease;
-    }
-    .about-hero .about-media:hover img{transform:scale(1.02);}
-    .about-hero p{font-size:1.06rem;line-height:1.72;margin:0 0 12px;max-width:860px}
-    .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
-    .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-    .stat{display:flex;align-items:center;gap:10px;border:1px solid #e9edf2;background:#f9fbfc;border-radius:12px;padding:12px 14px}
-    .stat .n{font-weight:800;font-size:1.15rem;color:#2E424E}
-    .stat .t{font-size:.92rem;color:#475466}
-    @media(max-width:900px){.about-hero{padding:22px 16px}.stats-row{grid-template-columns:1fr;gap:10px}.pill-row{justify-content:center}}
-
-    /* ===== SECTION 2: Expert ===== */
-    .expert{position:relative;background:var(--dark);border:1px solid var(--border);
-      border-radius:18px;padding:44px 32px;margin:40px 0;}
-    .expert-grid{display:grid;grid-template-columns:360px 1fr;gap:36px;align-items:center;}
-    @media(max-width:980px){.expert-grid{grid-template-columns:1fr;gap:22px}}
-    .expert p{color:#E1E7EE;font-size:1.06rem;line-height:1.72;margin:0 0 12px}
-    .badge{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:7px 12px;font-size:.86rem;margin:8px 0 14px}
-    .photo-wrap{width:100%;max-width:360px;margin:0 auto;}
-    .photo-wrap img{width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
-    .stack{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
-    .tag{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.16);color:#fff;padding:9px 12px;border-radius:999px;font-size:.93rem}
-
-    /* ===== SECTION 3: Career timeline ===== */
-    .about-timeline{margin:36px 0;background:var(--dark);padding:22px;border:1px solid var(--border);border-radius:14px}
-    .about-timeline h2{color:#ECF3FF;margin-bottom:12px}
-    .tl-card{background:#fff;border:1px solid #e6e6e6;border-radius:16px;padding:18px}
-    .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px;color:#0b0f1a}
-    .tl .tl-head{display:flex;justify-content:space-between;gap:18px;align-items:baseline;margin-bottom:8px}
-    .tl .tl-head strong{font-weight:700}
-    .tl .tl-time{color:#556070;font-size:.95rem}
-    .tl-points{list-style:none;margin:10px 0 0;padding:0}
-    .tl-points li{position:relative;margin:.55rem 0;padding-left:20px}
-    .tl-points li::before{content:none!important}
-    .tl-points li::after{
-      content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;
-      background:radial-gradient(circle at 30% 30%,#FFD400,#007236);box-shadow:0 0 0 2px #fff;
-    }
-
-    /* ===== SECTION 4: Certifications ===== */
-    .cert-section{background:#2E424E;border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;padding:60px 32px 80px;margin:50px 0;text-align:center;color:#E6ECF2;overflow:hidden;position:relative}
-    .cert-section h2{color:#7FC6FF;font-weight:700;font-size:1.8rem;margin-bottom:38px}
-    .cert-slider{display:flex;gap:32px;justify-content:flex-start;align-items:center;animation:certScroll 80s linear infinite;width:max-content}
-    @keyframes certScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    .cert-card{background:rgba(255,255,255,0.06);border-radius:16px;padding:20px 16px 24px;min-width:260px;flex-shrink:0;
-      display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-      box-shadow:0 4px 16px rgba(0,0,0,0.25);transition:transform .3s ease,box-shadow .3s ease}
-    .cert-card:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(255,255,255,0.15)}
-    .cert-card h3{color:#fff;font-size:1rem;font-weight:600;margin-bottom:14px;text-align:center}
-    .cert-card a{color:#FFD400;text-decoration:none;font-weight:500;font-size:.95rem;margin-top:12px;transition:color .2s ease}
-    .cert-card a:hover{color:#fff}
-    @media(max-width:900px){.cert-section{padding:40px 20px 60px}.cert-card{min-width:220px}}
-    .cert-slider:hover{animation-play-state:paused}
-
-    /* ===== SECTION 5: Projects ===== */
-    .about-cases{margin:36px 0;background:var(--dark);padding:22px;border:1px solid var(--border);border-radius:14px}
-    .about-cases h2{color:#ECF3FF}
-    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media(max-width:900px){.case-grid{grid-template-columns:1fr}}
-    .case-card{display:flex;gap:12px;align-items:center;text-align:left;border:1px solid var(--border);
-      background:rgba(255,255,255,.08);border-radius:18px;padding:16px;cursor:pointer;
-      transition:transform .16s ease,box-shadow .18s ease,border-color .18s ease,background .2s ease;color:#fff;text-decoration:none;position:relative;overflow:hidden}
-    .case-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:0;
-      background:linear-gradient(145deg,var(--card-accent,#007236),rgba(255,255,255,0) 55%);
-      transition:opacity .22s ease,transform .22s ease,filter .22s ease;}
-    .case-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.28);box-shadow:0 14px 28px rgba(0,0,0,.35)}
-    .case-card:hover::before{opacity:.75;transform:scale(1.03);filter:saturate(1.2);}
-    .case-card img{width:46px;height:46px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #ececec}
-    .case-title{margin:0;font-size:1.02rem;line-height:1.3;color:#fff}
-    .case-sub{margin:2px 0 0;color:#E2ECF6;font-size:.95rem}
-
-    /* ===== SECTION 6: CTA ===== */
-    .about-page .dc-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-      gap:20px;padding:48px 32px;min-height:240px;margin:40px 0;background:var(--dark);border:1px solid var(--border);border-radius:14px}
-    .about-page .dc-card h3{color:#007236;margin:0}
-    .about-page .dc-card p{color:#DCE8F3;margin:0}
-    .about-page .btn-cta{align-self:center;margin-top:12px;padding:14px 36px;border-radius:9999px;
-      background:linear-gradient(180deg,#2a8d53 0%,#007236 60%);box-shadow:0 6px 18px rgba(0,114,54,.35);
-      transition:all .2s ease;color:#fff;text-decoration:none;font-weight:700}
-    .about-page .btn-cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,114,54,.45)}
-    .about-page section.dc-card:last-of-type{margin-bottom:48px}
-  </style>
-
-  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
-</head>
-
-<body class="about-page">
-  <div id="site-header"></div>
-
-  <div class="container">
-    <!-- ===== HERO ===== -->
-    <section class="about-hero" aria-labelledby="deskxp">
-      <h1 id="deskxp" class="about-title">About DeskXP</h1>
-      <div class="about-grid">
-        <img class="about-illustration" src="/assets/about-cycle.png" alt="DeskXP operations cycle" loading="eager" />
-        <div class="about-body">
-          <p><strong>DeskXP</strong> is a CX consultancy bridging businesses and customers...</p>
-          <div class="pill-row">
-            <span class="pill">Agent staffing & playbooks</span>
-            <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
-            <span class="pill">Skills-based routing & SLAs</span>
-            <span class="pill">Bots & Sunshine Conversations</span>
-            <span class="pill">Help Center / KB</span>
-            <span class="pill">QA, training, coaching</span>
-            <span class="pill">Reporting (Explore/Looker)</span>
-            <span class="pill">Process & policy design</span>
-            <span class="pill">Continuous improvement</span>
-          </div>
-          <div class="stats-row">
-            <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
-            <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
-            <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== EXPERT ===== -->
-    <section class="expert reveal" aria-labelledby="expert-title">
-      <div class="expert-grid">
-        <div class="photo-wrap"><img src="/assets/CXExpert.png" alt="James Constantino" /></div>
-        <div class="expert-copy">
-          <h2 id="expert-title">Work with an Expert</h2>
-          <p>Zendesk-led CX architect with <strong>13+ years</strong> experience...</p>
-          <div class="stack">
-            <span class="tag">Zendesk (Support/Guide/Explore)</span><span class="tag">Sunshine Conversations</span>
-            <span class="tag">Shopify / Magento</span><span class="tag">Make / Zapier / n8n</span>
-            <span class="tag">Google Apps Script</span><span class="tag">API / REST / GraphQL</span>
-            <span class="tag">Looker Studio</span><span class="tag">Freshdesk / Intercom</span>
-            <span class="tag">Viber / TikTok APIs</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CAREER ===== -->
-    <section class="about-timeline reveal">
-      <h2>Professional Career</h2>
-      <div class="tl-card">
-        <ol class="tl tl-pro">
-          <li>
-            <div class="tl-head"><div><strong>Zendesk Lead Consultant — ValueHub IT</strong></div><span class="tl-time">2025–Present</span></div>
-            <ul class="tl-points"><li>Own end-to-end CX implementations...</li></ul>
-          </li>
-          <li>
-            <div class="tl-head"><div><strong>Operations Lead (B2C) — PalawanPay</strong></div><span class="tl-time">2021–2025</span></div>
-            <ul class="tl-points"><li>Built Customer Care from zero...</li></ul>
-          </li>
-          <li>
-            <div class="tl-head"><div><strong>Independent CX Systems Consultant — E-commerce</strong></div><span class="tl-time">2022–Present</span></div>
-            <ul class="tl-points"><li>Implemented Shopify/Magento ↔ Zendesk integrations...</li></ul>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== CERTIFICATIONS ===== -->
-    <section class="cert-section reveal">
-      <h2>Certifications</h2>
-      <div class="cert-slider">
-        <!-- badges -->
-      </div>
-    </section>
-
-    <!-- ===== PROJECTS ===== -->
-    <section class="about-cases reveal">
-      <h2>Projects</h2>
-      <div class="case-grid">
-        <button class="case-card" data-brand="#007236" data-title="PalawanPay"><img src="/assets/palawanpay.png" alt=""><div><h3 class="case-title">PalawanPay</h3><p class="case-sub">CX Org & Advanced Zendesk</p></div></button>
-        <button class="case-card" data-brand="#0A4A9E" data-title="Unison"><img src="/assets/unison.png" alt=""><div><h3 class="case-title">Unison</h3><p class="case-sub">Workflows & Help Center</p></div></button>
-        <button class="case-card" data-brand="#D6A89E" data-title="Boutique de Sophie"><img src="/assets/boutique-de-sophie.png" alt=""><div><h3 class="case-title">Boutique de Sophie</h3><p class="case-sub">E-commerce Scaling</p></div></button>
-      </div>
-    </section>
-
-    <!-- ===== CTA ===== -->
-    <section class="dc-card reveal" aria-labelledby="cta-title">
-      <div class="cta-text">
-        <h3 id="cta-title">Need tailored specifications? We got you!</h3>
-        <p>Let’s diagnose your CX in 30 minutes.</p>
-      </div>
-      <a class="btn-solid btn-cta" href="https://calendly.com/deskxp/30min">Tell Us What You Need!</a>
-    </section>
-  </div>
-
-  <div id="footer"></div>
-  <script>
-    fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
-    document.querySelectorAll('.about-cases .case-card').forEach(card=>{
-      const c=card.getAttribute('data-brand');
-      if(c) card.style.setProperty('--card-accent',c);
-    });
-  </script>
-  <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-  <script src="/js/main.js?v=211" defer></script>
-</body>
-</html>
+/* Ensure content sits above the background layers */
+#cta .cta-card > *{ position: relative; z-index: 1; }
