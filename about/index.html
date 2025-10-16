@@ -14,88 +14,69 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Include italics too, because your About copy uses <em> -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
     /* ===== Tokens ===== */
     :root{
-      --brand:#007236;                  /* DeskXP green */
-      --accent:#FFD400;                 /* optional brand yellow (not used as a wave) */
+      --brand:#007236;      /* DeskXP green */
+      --accent:#FFD400;     /* optional brand yellow */
       --ink:#0f1222;
       --muted:#a3adba;
       --panel:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.14);
       --overlay:rgba(10,12,16,.72);
-      --dark:#2E424E;                   /* requested dark background */
+      --dark:#2E424E;       /* requested dark background */
     }
     .container{max-width:1100px;margin:0 auto;padding:24px 16px}
 
-    /* ===== SECTION 1: DeskXP brand (white card) ===== */
+    /* ===== SECTION 1: About DeskXP (merged image + copy, scoped) ===== */
     .about-hero{
       position:relative;
-      background:#fff;color:#0b0f1a;border-radius:18px;border:1px solid #e6e6e6;
-      padding:28px 22px;margin:20px 0 36px; overflow:hidden;
+      background:#fff; color:#0b0f1a;
+      border-radius:18px; border:1px solid #e6e6e6;
+      padding:28px 22px; margin:20px 0 36px;
     }
-    
-    .about-hero .about-media {
-      position: relative;
-      z-index: 1;
-      margin: 0 auto 24px;
-      padding: 16px 0;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
-      border: 1px solid #eef2f6;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .about-hero .about-title{ margin:0 0 14px; }
 
-      /* ✅ Key layout adjustments */
-      max-width: 100%;       /* fills most of the container width */
-      aspect-ratio: 16/7
-      overflow: hidden;
+    .about-hero .about-grid{
+      display:grid;
+      grid-template-columns:1.1fr 1fr; /* image given more room */
+      gap:28px;
+      align-items:center;
     }
-
-    .about-hero .about-media img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 14px;
-      transition: transform 0.3s ease;
+    .about-hero .about-illustration{
+      width:100%;
+      height:auto;
+      max-width:820px;   /* lets it get big on desktop */
+      min-width:420px;   /* stops it becoming “postage stamp” on wide screens */
+      justify-self:center;
+      display:block;
+      border-radius:14px;
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
+      transition:transform .25s ease;
     }
+    .about-hero .about-illustration:hover{ transform:scale(1.015); }
+    .about-hero .about-body p{ font-size:1.06rem; line-height:1.72; margin:0 0 12px; }
 
-    .about-hero .about-media:hover img {
-      transform: scale(1.02);
-    }
+    /* pills + stats (reuse your existing feel) */
+    .pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px }
+    .pill{ border:1px solid #e5e7eb; border-radius:999px; padding:8px 12px; font-size:.92rem; background:#fafafa }
+    .stats-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px }
+    .stat{ display:flex; align-items:center; gap:10px; border:1px solid #e9edf2; background:#f9fbfc; border-radius:12px; padding:12px 14px }
+    .stat .n{ font-weight:800; font-size:1.15rem; color:#2E424E }
+    .stat .t{ font-size:.92rem; color:#475466 }
 
-
-    .about-hero p{font-size:1.06rem;line-height:1.72;margin:0 0 12px; max-width:860px}
-    .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
-    .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
-
-    /* Stats row to add visual interest */
-    .stats-row{
-      display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px;
-    }
-    .stat{
-      display:flex; align-items:center; gap:10px;
-      border:1px solid #e9edf2; background:#f9fbfc; border-radius:12px; padding:12px 14px;
-    }
-    .stat .n{font-weight:800; font-size:1.15rem; color:#2E424E;}
-    .stat .t{font-size:.92rem; color:#475466}
-
-    /* Mobile tweaks */
+    /* Mobile tweaks for About */
     @media (max-width:900px){
-      .about-hero{padding:22px 16px}
-      .about-hero .about-media img{max-height:300px}
-      .stats-row{grid-template-columns:1fr; gap:10px}
-      .pill-row{justify-content:center}
+      .about-hero{ padding:22px 16px }
+      .about-hero .about-grid{ grid-template-columns:1fr; gap:18px }
+      .about-hero .about-illustration{ min-width:0; max-width:100% }
+      .stats-row{ grid-template-columns:1fr; gap:10px }
     }
 
-    /* ===== SECTION 2: Work with an Expert (dark bg — wave removed) ===== */
+    /* ===== SECTION 2: Work with an Expert (dark bg) ===== */
     .expert{
       position:relative;
       background:var(--dark);
@@ -139,9 +120,16 @@
     .tl .tl-head{display:flex;justify-content:space-between;gap:18px;align-items:baseline}
     .tl .tl-head strong{font-weight:700}
     .tl .tl-time{color:#556070;font-size:.95rem}
-    .tl-points{margin:8px 0 0 0;padding-left:28px}
-    .tl-points li{margin:.45rem 0}
     .tl .title-dot{display:inline-block;width:10px;height:10px;background:var(--accent);border-radius:50%;margin-right:10px;vertical-align:middle}
+
+    /* ✅ Force single bullet style (prevents duplicate bullets from global li::before rules) */
+    .tl-points{ margin:8px 0 0 0; padding-left:0; list-style:none; }
+    .tl-points li{
+      position:relative; padding-left:18px; margin:.45rem 0;
+    }
+    .tl-points li::before{
+      content:"•"; position:absolute; left:0; top:0; line-height:1.1; color:#2E424E; font-weight:700;
+    }
 
     /* ===== Certifications (dark, readable, autoscroll) ===== */
     .cert-section {
@@ -265,43 +253,49 @@
   <div id="site-header"></div>
 
   <div class="container">
-    <!-- ===== SECTION 1: About DeskXP ===== -->
+    <!-- ===== SECTION 1: About DeskXP (merged) ===== -->
     <section class="about-hero reveal" aria-labelledby="deskxp">
       <h1 id="deskxp" class="about-title">About DeskXP</h1>
 
-      <figure class="about-media">
-        <img src="/assets/about-cycle.png" alt="DeskXP operations cycle: design → implement → automate → improve" loading="eager" />
-      </figure>
+      <div class="about-grid">
+        <img
+          class="about-illustration"
+          src="/assets/about-cycle.png"
+          alt="DeskXP operations cycle: design → implement → automate → improve"
+          loading="eager"
+        />
 
-      <p>
-        <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
-        We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
-        workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
-        automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
-        and a support experience customers actually trust.
-      </p>
+        <div class="about-body">
+          <p>
+            <strong>DeskXP</strong> is a CX consultancy that closes the gap between your business and your customers.
+            We deliver <em>end-to-end support operations</em>—from building teams to shipping systems—covering agent staffing,
+            workflow design, ticketing/CRM implementation, Help Center & knowledge, QA and training programs, SLAs and routing,
+            automation & AI assistants, analytics, and continuous improvement. Outcome: faster response, lower cost-per-resolution,
+            and a support experience customers actually trust.
+          </p>
 
-      <div class="pill-row" aria-label="Capabilities">
-        <span class="pill">Agent staffing & playbooks</span>
-        <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
-        <span class="pill">Skills-based routing & SLAs</span>
-        <span class="pill">Bots & Sunshine Conversations</span>
-        <span class="pill">Help Center / KB</span>
-        <span class="pill">QA, training, coaching</span>
-        <span class="pill">Reporting (Explore/Looker)</span>
-        <span class="pill">Process & policy design</span>
-        <span class="pill">Continuous improvement</span>
-      </div>
+          <div class="pill-row" aria-label="Capabilities">
+            <span class="pill">Agent staffing & playbooks</span>
+            <span class="pill">Ticketing (Zendesk/Freshdesk/…)</span>
+            <span class="pill">Skills-based routing & SLAs</span>
+            <span class="pill">Bots & Sunshine Conversations</span>
+            <span class="pill">Help Center / KB</span>
+            <span class="pill">QA, training, coaching</span>
+            <span class="pill">Reporting (Explore/Looker)</span>
+            <span class="pill">Process & policy design</span>
+            <span class="pill">Continuous improvement</span>
+          </div>
 
-      <!-- visual interest: quick proof points -->
-      <div class="stats-row" aria-label="Proof points">
-        <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
-        <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
-        <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
+          <div class="stats-row" aria-label="Proof points">
+            <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
+            <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
+            <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ===== SECTION 2: Work with an Expert (wave removed) ===== -->
+    <!-- ===== SECTION 2: Work with an Expert ===== -->
     <section class="expert reveal" aria-labelledby="expert-title">
       <div class="expert-grid">
         <div class="photo-wrap">
@@ -384,10 +378,9 @@
       </div>
     </section>
 
-    <!-- ===== SECTION 4: Certifications — full-width auto slider with embeds ===== -->
+    <!-- ===== SECTION 4: Certifications ===== -->
     <section class="cert-section reveal">
       <h2>Certifications</h2>
-
       <div class="cert-slider">
         <div class="cert-card">
           <h3>Zendesk Explore</h3>
@@ -543,7 +536,7 @@
       </a>
     </section>
 
-  </div> <!-- 🔥 CLOSE .container so the footer isn’t trapped -->
+  </div> <!-- CLOSE .container -->
 
   <!-- Footer (full-bleed again) -->
   <div id="footer"></div>
