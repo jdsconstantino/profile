@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     track.addEventListener("mouseleave", start);
   })();
 });
+
 // ---------- Mount header (with cache-bust) & bind ----------
 (async function mountHeader() {
   const mount = document.getElementById("site-header");
@@ -131,4 +132,3 @@ function bindCurtainMenu() {
   });
   links.forEach((a) => a.addEventListener("click", close));
 }
-
