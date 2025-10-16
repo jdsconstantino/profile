@@ -1476,3 +1476,18 @@ section.reveal h2 {
 
 /* Hide the inline menu everywhere so it doesn’t shove layout */
 .menu{ display: none !important; }
+.about-cycle {
+  max-width: 600px;        /* keeps it from ballooning */
+  margin: 40px auto;       /* centers horizontally */
+  padding: 0;              /* remove excess space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-cycle img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
