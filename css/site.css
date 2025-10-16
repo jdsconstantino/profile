@@ -2278,3 +2278,95 @@ section#services .service-card,
   border-color: var(--brand, #007236);
   color: #fff;
 }
+/* ==== Success Stories: formatting restore (safe override) ==== */
+#success.success-slider{
+  padding: 10px 0 28px !important;           /* less vertical air */
+}
+
+#success .success-head{ 
+  margin-bottom: 8px !important;
+}
+
+/* Balanced two-column layout: logo | details */
+#success .ss-row{
+  display: grid !important;
+  grid-template-columns: 280px 1fr !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+/* Logo sizing (smaller, consistent) */
+#success .ss-logo--xl{
+  width: 220px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* Subtle separator on desktop only */
+#success .ss-right--sep{
+  border-left: 1px solid #e6e9ef !important;
+  padding-left: 28px !important;
+  margin-left: 28px !important;
+}
+
+/* Wins grid: tighter and consistent */
+#success .wins{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(180px, 1fr)) !important;
+  gap: 18px 22px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+#success .win{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+#success .win img{
+  width: 96px !important;
+  height: 96px !important;
+  object-fit: contain !important;
+}
+#success .win p{
+  margin: 0 !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  font-size: .95rem !important;
+  line-height: 1.35 !important;
+  color: #0f172a !important;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+  #success .ss-row{
+    grid-template-columns: 1fr !important;
+  }
+  #success .ss-right--sep{
+    border-left: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  #success .ss-logo--xl{
+    width: 180px !important;
+    margin: 0 auto 10px !important;
+  }
+  #success .wins{
+    grid-template-columns: repeat(2, minmax(140px, 1fr)) !important;
+  }
+}
+@media (max-width: 520px){
+  #success .wins{
+    grid-template-columns: 1fr !important;
+  }
+  #success .win img{
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
