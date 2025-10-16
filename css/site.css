@@ -2249,3 +2249,49 @@ section#services .service-card,
   .dc-card{ flex-direction: column !important; align-items: stretch !important; }
   .dc-card .btn-cta{ margin-left: 0 !important; width: 100% !important; }
 }
+/* === Fix misaligned CTA button === */
+.dc-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 18px !important;
+  padding: 40px 28px !important;
+}
+
+.dc-card h3 {
+  margin: 0 !important;
+  color: #fff !important;
+}
+
+.dc-card p {
+  margin: 0 !important;
+  opacity: 0.9;
+}
+
+/* Center the button perfectly */
+.dc-card .btn-cta {
+  align-self: center !important;
+  width: auto !important;
+  padding: 14px 30px !important;
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg,#2a8d53 0%, #007236 60%) !important;
+  box-shadow: 0 6px 18px rgba(0,114,54,.35) !important;
+  transition: all .2s ease;
+}
+
+.dc-card .btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,114,54,.45);
+}
+
+/* Mobile full width */
+@media (max-width: 800px) {
+  .dc-card {
+    padding: 32px 22px !important;
+  }
+  .dc-card .btn-cta {
+    width: 100% !important;
+  }
+}
