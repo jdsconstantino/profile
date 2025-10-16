@@ -30,13 +30,6 @@ body {
   /* Fonts */
   --font-base: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
-  /* Core Backgrounds */
-  --bg: #363e4b;
-  --panel: #21252d;
-  --border: #1b1f26;
-  --glass: rgba(255,255,255,.08);
-  --glass-border: rgba(255,255,255,.16);
-
   /* Text */
   --text: #e7e9ee;
   --muted: #9aa2b4;
