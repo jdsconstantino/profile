@@ -1731,7 +1731,6 @@ section#services .service-card,
   border-radius: 14px;
   overflow: hidden;                 /* hard-clip all inner layers to the radius */
   background: transparent !important; /* stop painting gradient on the element */
-  border: 1px solid rgba(0,114,54,.28);
   box-shadow: 0 10px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
   isolation: isolate;               /* keep blending/filters from parents out */
 }
