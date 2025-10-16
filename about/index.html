@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -75,6 +75,14 @@
       .about-hero .about-illustration{ min-width:0; max-width:100% }
       .stats-row{ grid-template-columns:1fr; gap:10px }
     }
+    .about-tagline {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2E424E;
+      margin: -6px 0 18px;
+      letter-spacing: -0.2px;
+    }
+
 
     /* ===== SECTION 2: Work with an Expert (dark bg) ===== */
     .expert{
@@ -256,14 +264,17 @@
     <!-- ===== SECTION 1: About DeskXP (merged) ===== -->
     <section class="about-hero reveal" aria-labelledby="deskxp">
       <h1 id="deskxp" class="about-title">About DeskXP</h1>
+      <p class="about-tagline">We turn chaotic support operations into clean, automated customer experiences.</p>
 
       <div class="about-grid">
-        <img
-          class="about-illustration"
-          src="/assets/about-cycle.png"
-          alt="DeskXP operations cycle: design → implement → automate → improve"
-          loading="eager"
-        />
+        <div class="about-visual">
+          <img
+            class="about-illustration"
+            src="/assets/about-cycle.png"
+            alt="DeskXP operations cycle: design → implement → automate → improve"
+            loading="eager"
+          />
+        </div>
 
         <div class="about-body">
           <p>
@@ -290,6 +301,9 @@
             <div class="stat"><span class="n">13+ yrs</span><span class="t">CX & Ops leadership</span></div>
             <div class="stat"><span class="n">30%+</span><span class="t">avg. SLA uplift</span></div>
             <div class="stat"><span class="n">₱5M+</span><span class="t">deflection savings</span></div>
+            <p class="built-for">
+             Built for: <span>Fintech</span> · <span>E-commerce</span> · <span>SaaS</span> · <span>BPO</span>
+            </p>
           </div>
         </div>
       </div>
