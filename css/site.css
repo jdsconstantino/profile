@@ -2153,254 +2153,128 @@ section#services .service-card,
   transform: scale(1.03);
   filter: saturate(1.3);
 }
-/* --- CTA card: breathing room + grid layout --- */
-.dc-card{
-  display:grid;
-  grid-template-columns: 1fr auto;   /* text | button */
-  align-items:center;
-  gap:24px;
-  padding:28px 28px;                 /* more top/btm padding */
-  border-radius:20px;
+/* ===== About Page CTA (scoped & safe) ===== */
+.about-page #cta {
+  background: var(--panel);
+  border-radius: 18px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,.12));
+  padding: 44px 32px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  margin-top: 60px;
 }
 
-/* brand the headline */
-.dc-card h3{
-  color:#007236;                     /* DeskXP green */
-  margin:0 0 8px;
-  letter-spacing:-.2px;
+.about-page #cta h2 {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--brand, #007236);
 }
 
-/* keep the paragraph from crowding the edges */
-.dc-card p{
-  margin:0;
-  line-height:1.6;
+.about-page #cta p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0 0 12px;
 }
 
-/* --- CTA button: not edge-to-edge, looks like a button --- */
-.dc-card .btn-cta{
-  justify-self:end;                  /* hug the right on desktop */
-  padding:14px 22px;
-  min-width:260px;                   /* readable target */
-  border-radius:9999px;
-  background:linear-gradient(180deg,#2a8d53 0%, #007236 60%);
-  box-shadow:0 4px 18px rgba(0,114,54,.35), inset 0 -1px 0 rgba(255,255,255,.12);
-  transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+.about-page .cta-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
 }
 
-/* hover/focus states */
-.dc-card .btn-cta:hover{ 
-  transform:translateY(-1px);
-  box-shadow:0 8px 28px rgba(0,114,54,.45);
-  filter:saturate(1.05);
-}
-.dc-card .btn-cta:focus-visible{
-  outline:3px solid #57c68b; outline-offset:2px;
-}
-
-/* --- Mobile: stack + full-width button --- */
-@media (max-width:900px){
-  .dc-card{ grid-template-columns:1fr; gap:14px; padding:22px 18px; }
-  .dc-card .btn-cta{ justify-self:stretch; }
-}
-/* ===== CTA: force correct layout & spacing ===== */
-.dc-card{
-  display: flex !important;              /* beat older rules */
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 24px !important;
-  padding: 32px 28px !important;         /* more top/bottom padding */
-  border-radius: 20px !important;
+.about-page .cta-actions .btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #28a04f 0%, #007236 90%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 6px 20px rgba(0,114,54,.35);
+  transition: all 0.2s ease;
 }
 
-.dc-card h3{
-  color: #007236 !important;             /* brand green */
-  margin: 0 0 8px !important;
-  letter-spacing: -0.2px;
-}
-
-.dc-card p{ margin: 0 !important; line-height: 1.6 !important; }
-
-/* Button must stop acting like a bar */
-.dc-card .btn-cta{
-  margin-left: auto !important;          /* push to the right in flex */
-  flex: 0 0 auto !important;             /* do NOT grow */
-  width: auto !important;                /* override width:100% somewhere */
-  padding: 14px 22px !important;
-  min-width: 260px;
-  border-radius: 9999px !important;
-  background: linear-gradient(180deg,#2a8d53 0%, #007236 60%) !important;
-  box-shadow: 0 4px 18px rgba(0,114,54,.35),
-              inset 0 -1px 0 rgba(255,255,255,.12) !important;
-  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-}
-
-.dc-card .btn-cta:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(0,114,54,.45);
-  filter: saturate(1.05);
-}
-
-.dc-card .btn-cta:focus-visible{
-  outline: 3px solid #57c68b; outline-offset: 2px;
-}
-
-/* Mobile: stack text over full-width button */
-@media (max-width: 900px){
-  .dc-card{ flex-direction: column !important; align-items: stretch !important; }
-  .dc-card .btn-cta{ margin-left: 0 !important; width: 100% !important; }
-}
-/* === Fix misaligned CTA button === */
-.dc-card {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  gap: 18px !important;
-  padding: 40px 28px !important;
-}
-
-.dc-card h3 {
-  margin: 0 !important;
-  color: #fff !important;
-}
-
-.dc-card p {
-  margin: 0 !important;
-  opacity: 0.9;
-}
-
-/* Center the button perfectly */
-.dc-card .btn-cta {
-  align-self: center !important;
-  width: auto !important;
-  padding: 14px 30px !important;
-  border-radius: 9999px !important;
-  background: linear-gradient(180deg,#2a8d53 0%, #007236 60%) !important;
-  box-shadow: 0 6px 18px rgba(0,114,54,.35) !important;
-  transition: all .2s ease;
-}
-
-.dc-card .btn-cta:hover {
+.about-page .cta-actions .btn-accent:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(0,114,54,.45);
+  box-shadow: 0 10px 28px rgba(0,114,54,.45);
 }
 
-/* Mobile full width */
-@media (max-width: 800px) {
-  .dc-card {
-    padding: 32px 22px !important;
+/* Bullet list (✓ style) */
+.about-page .cta-list {
+  margin: 10px 0;
+  list-style: none;
+  padding: 0;
+  color: var(--text);
+}
+
+.about-page .cta-list li {
+  margin: 6px 0;
+  position: relative;
+  padding-left: 22px;
+}
+
+.about-page .cta-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand, #007236);
+  font-weight: 700;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 700px) {
+  .about-page #cta {
+    padding: 32px 20px;
   }
-  .dc-card .btn-cta {
-    width: 100% !important;
+  .about-page .cta-actions .btn-accent {
+    width: 100%;
   }
 }
-/* Restore bottom padding for the CTA even when it's the last section */
-.container > section.dc-card:last-child {
-  padding-bottom: 36px !important;  /* give it breathing room */
+
+/* ===== Professional Career Bullets Fix ===== */
+.about-page .tl-points {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-top: 10px;
 }
 
-/* Center the stack + add vertical spacing */
-.dc-card {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 18px !important;
+.about-page .tl-points li {
+  position: relative;
+  padding-left: 22px;
+  margin: .55rem 0;
 }
 
-/* Brand the headline */
-.dc-card h3 {
-  color: #007236 !important;
-  margin: 0 !important;
+.about-page .tl-points li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand, #007236);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
-/* Keep the button off the border */
-.dc-card .btn-cta {
-  align-self: center !important;
-  margin-top: 4px !important;
-}
-/* === CTA Alignment Fix === */
-.dc-card {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;   /* center content vertically */
-  text-align: center !important;
-  padding: 48px 32px !important;        /* restore full padding */
-  gap: 20px !important;
+/* ===== Case Cards Hover Branding ===== */
+.about-page .case-card:hover {
+  border-color: rgba(0,114,54,.6);
+  box-shadow: 0 8px 24px rgba(0,114,54,.35);
 }
 
-/* Restore bottom padding when last section before footer */
-.container > section.dc-card:last-child {
-  margin-bottom: 40px !important;
-  padding-bottom: 48px !important;
-}
-
-/* Button perfectly centered and not floating off */
-.dc-card .btn-cta {
-  align-self: center !important;
-  margin-top: 10px !important;
-  padding: 14px 36px !important;
-  border-radius: 9999px !important;
-  background: linear-gradient(180deg, #28a04f 0%, #007236 80%) !important;
-  box-shadow: 0 8px 20px rgba(0,114,54,0.35) !important;
-  transition: all .2s ease-in-out;
-}
-
-.dc-card .btn-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0,114,54,0.45);
-}
-/* === CTA card: kill space-between, center everything, restore padding === */
-body .container > section.dc-card {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;  /* <-- fixes the “button hugging bottom” */
-  align-items: center !important;
-  text-align: center !important;
-  gap: 18px !important;
-  padding: 48px 32px 48px !important;  /* bottom padding was being stripped */
-  min-height: 220px !important;
-}
-
-/* CTA text spacing */
-body .container > section.dc-card .cta-text {
-  margin: 0 !important;
-}
-
-/* Button: center, keep pill look */
-body .container > section.dc-card .btn-cta {
-  align-self: center !important;
-  padding: 14px 36px !important;
-  border-radius: 9999px !important;
-}
-
-/* Ensure the last section still has breathing room above footer */
-body .container > section.dc-card:last-of-type {
-  margin-bottom: 40px !important;
-}
-/* === FINAL FIX: Center-align CTA vertically === */
-section.dc-card {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important; /* centers content vertically */
-  align-items: center !important;
-  text-align: center !important;
-  gap: 20px !important;
-  padding: 48px 32px !important;
-  min-height: 240px !important;
-}
-
-/* Give footer breathing space */
-section.dc-card:last-of-type {
-  margin-bottom: 48px !important;
-}
-
-/* Center button nicely */
-section.dc-card .btn-cta {
-  align-self: center !important;
-  margin-top: 12px !important;
-  padding: 14px 36px !important;
-  border-radius: 9999px !important;
+/* ===== Modal Close Button Hover ===== */
+.about-page .modal-close:hover {
+  background: var(--brand, #007236);
+  border-color: var(--brand, #007236);
+  color: #fff;
 }
