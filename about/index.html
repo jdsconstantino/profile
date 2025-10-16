@@ -55,10 +55,11 @@
       border:1px solid #eef2f6;
       box-shadow:0 10px 22px rgba(0,0,0,.06);
     }
-    .about-hero .about-media img{
-      display:block;width:100%;height:auto;max-height:360px;object-fit:contain;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,.06));
+    .about-hero .about-media img { 
+      max-height: 520px; }   /* or 600px if you’re feeling bold */
+      @media (max-width:900px){ .about-hero .about-media img { max-height: 360px; } 
     }
+
     .about-hero p{font-size:1.06rem;line-height:1.72;margin:0 0 12px; max-width:860px}
     .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
     .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
