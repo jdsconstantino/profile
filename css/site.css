@@ -776,7 +776,7 @@ footer::before {
 /* Right column card */
 #cta .cta-right { display: flex; justify-content: center; }
 #cta .cta-card {
-  width: 100%; border: border-radius: 14px;
+  width: 100%; border-radius: 14px;
   padding: 18px; display: grid; gap: 10px;
   background: linear-gradient(180deg, rgba(0,114,54,.08), rgba(0,0,0,0));
 }
