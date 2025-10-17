@@ -29,35 +29,32 @@
 
     .dxp-footer .wrap{ max-width:1200px; margin:0 auto; }
 
-    /* TOP ALIGN all columns by default (no vertical centering) */
+    /* Top-align columns by default; no vertical centering of text columns */
     .dxp-footer .grid{
       display:grid;
       grid-template-columns:1.2fr 1fr 1fr 1fr;
       gap:40px;
-      align-items:start;         /* <— top align columns */
-      justify-items:center;      /* horizontal centering of each cell */
+      align-items:start;          /* top align */
+      justify-items:center;       /* center each cell horizontally */
       text-align:center;
     }
 
-    /* ===== BIG LOGO that DOESN'T stretch the row ===== */
+    /* === Logo column (no absolute; big but sane) === */
     .dxp-footer .logo-col{
-      position:relative;
-      min-height:180px;          /* gives space for the floating logo */
-      overflow:visible;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:170px;           /* gives a consistent visual block without stretching */
     }
     .dxp-footer .logo{
-      position:absolute;         /* remove from normal flow so row height stays compact */
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-52%);  /* slight lift */
-      width:260px !important;    /* kill the lingering 150px rule */
+      display:block;
+      width:260px !important;     /* crush lingering 150px rules */
       height:auto !important;
-      margin:0;
+      margin:0 auto 8px;
       filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
       transition:transform .3s ease;
-      display:block;
     }
-    .dxp-footer .logo:hover{ transform:translate(-50%,-52%) scale(1.05); }
+    .dxp-footer .logo:hover{ transform:scale(1.05); }
 
     /* Headings */
     .dxp-footer .col h4{
@@ -96,13 +93,13 @@
     .dxp-footer .copy a{ color:#fff; text-decoration:none; }
     .dxp-footer .copy a:hover{ text-decoration:underline; }
 
-    /* ===== Responsive ===== */
+    /* === Responsive === */
     @media (max-width:900px){
       .dxp-footer .grid{
         grid-template-columns:1fr 1fr;
         gap:28px 22px;
       }
-      .dxp-footer .logo-col{ min-height:170px; }
+      .dxp-footer .logo-col{ min-height:160px; }
       .dxp-footer .logo{ width:220px !important; }
     }
     @media (max-width:560px){
@@ -110,7 +107,7 @@
         grid-template-columns:1fr;
         gap:20px;
       }
-      .dxp-footer .logo-col{ min-height:160px; }
+      .dxp-footer .logo-col{ min-height:150px; }
       .dxp-footer .logo{ width:200px !important; }
       .dxp-footer .surface{ padding:28px 20px 16px; }
     }
