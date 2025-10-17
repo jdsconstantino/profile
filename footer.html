@@ -3,151 +3,114 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
     :root {
-      --dxp-green: #007236;
-      --dxp-ink: #e7e9ee;
-      --dxp-muted: #cfd4dc;
-      --dxp-bg-1: #2E424E;
-      --dxp-bg-2: #1c262c;
+      --dxp-green:#007236;
+      --dxp-ink:#e7e9ee;
+      --dxp-muted:#cfd4dc;
+      --dxp-bg-1:#2E424E;
+      --dxp-bg-2:#1c262c;
     }
 
-    .dxp-footer {
-      font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--dxp-ink);
-      margin: 60px auto 0;
+    .dxp-footer{
+      font-family:"Plus Jakarta Sans",Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--dxp-ink);
+      margin:60px auto 0;
     }
 
-    .dxp-footer .surface {
-      background: radial-gradient(120% 160% at 50% -20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 55%),
-                  linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-      padding: 36px 32px 20px;
+    .dxp-footer .surface{
+      background:
+        radial-gradient(120% 160% at 50% -20%,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 55%),
+        linear-gradient(180deg,#37535F 0%,#2E424E 35%,#24353D 80%,#1c262c 100%);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:16px;
+      box-shadow:0 14px 40px rgba(0,0,0,.25);
+      overflow:hidden;
+      padding:40px 32px 24px;
     }
 
-    .dxp-footer .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
+    .dxp-footer .wrap{ max-width:1200px; margin:0 auto; }
+
+    /* Grid: keep text columns top-aligned */
+    .dxp-footer .grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr 1fr;
+      gap:40px;
+      align-items:start;
+      justify-items:center;
+      text-align:center;
     }
 
-    .dxp-footer .grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-      text-align: center;
+    /* Logo column */
+    .dxp-footer .logo-col{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:260px;        /* the visual box you want to fill */
+      overflow:visible;
     }
 
-    /* === Logo Column === */
-    .dxp-footer .logo-col {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 260px; /* defines the visual height block */
+    /* Image fills height, then we scale to compensate for PNG's internal padding */
+    .dxp-footer .logo{
+      display:block;
+      height:100% !important;
+      width:auto !important;
+      max-height:260px;
+      transform:scale(1.28);          /* <— fill the box despite transparent gutter */
+      transform-origin:center;
+      filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
+      transition:transform .3s ease;
+    }
+    .dxp-footer .logo:hover{ transform:scale(1.32); }
+
+    /* Headings */
+    .dxp-footer .col h4{
+      margin:0 0 10px;
+      font-weight:700;
+      font-size:1.05rem;
+      color:#f6f7f9;
+      letter-spacing:.01em;
     }
 
-    .dxp-footer .logo {
-      display: block;
-      height: 100% !important;   /* fills the entire column height */
-      width: auto !important;    /* keep aspect ratio */
-      max-height: 260px;         /* prevent overflow */
-      object-fit: contain;       /* scale proportionally */
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-      transition: transform 0.3s ease;
+    /* Links */
+    .dxp-footer .links{ list-style:none; padding:0; margin:0; }
+    .dxp-footer .links li{ margin:6px 0; }
+    .dxp-footer a{
+      color:var(--dxp-ink);
+      text-decoration:none;
+      font-size:.95rem;
+      line-height:1.45;
+      opacity:.9;
+      transition:color .2s ease, opacity .2s ease;
     }
+    .dxp-footer a:hover{ opacity:1; color:#fff; text-decoration:underline; }
 
-    .dxp-footer .logo:hover {
-      transform: scale(1.05);
+    /* Divider + Copyright */
+    .dxp-footer .rule{
+      height:1px;
+      background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 50%,rgba(255,255,255,0) 100%);
+      margin:24px 0 14px;
     }
-
-    /* === Headings === */
-    .dxp-footer .col h4 {
-      margin: 0 0 10px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #f6f7f9;
-      letter-spacing: 0.01em;
+    .dxp-footer .copy{
+      text-align:center;
+      color:var(--dxp-muted);
+      font-size:.92rem;
+      letter-spacing:.01em;
     }
+    .dxp-footer .copy a{ color:#fff; text-decoration:none; }
+    .dxp-footer .copy a:hover{ text-decoration:underline; }
 
-    /* === Links === */
-    .dxp-footer .links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    /* Responsive */
+    @media (max-width:900px){
+      .dxp-footer .grid{ grid-template-columns:1fr 1fr; gap:28px 22px; }
+      .dxp-footer .logo-col{ min-height:220px; }
+      .dxp-footer .logo{ max-height:220px; transform:scale(1.18); }
+      .dxp-footer .logo:hover{ transform:scale(1.22); }
     }
-
-    .dxp-footer .links li {
-      margin: 6px 0;
-    }
-
-    .dxp-footer a {
-      color: var(--dxp-ink);
-      text-decoration: none;
-      font-size: 0.95rem;
-      line-height: 1.45;
-      opacity: 0.9;
-      transition: color 0.2s ease, opacity 0.2s ease;
-    }
-
-    .dxp-footer a:hover {
-      opacity: 1;
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    /* === Divider + Copyright === */
-    .dxp-footer .rule {
-      height: 1px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
-      margin: 24px 0 14px;
-    }
-
-    .dxp-footer .copy {
-      text-align: center;
-      color: var(--dxp-muted);
-      font-size: 0.92rem;
-      letter-spacing: 0.01em;
-    }
-
-    .dxp-footer .copy a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .dxp-footer .copy a:hover {
-      text-decoration: underline;
-    }
-
-    /* === Responsive === */
-    @media (max-width: 900px) {
-      .dxp-footer .grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 28px 22px;
-      }
-      .dxp-footer .logo-col {
-        min-height: 220px;
-      }
-      .dxp-footer .logo {
-        max-height: 220px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .dxp-footer .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        text-align: center;
-      }
-      .dxp-footer .logo-col {
-        min-height: 180px;
-      }
-      .dxp-footer .logo {
-        max-height: 180px;
-      }
-      .dxp-footer .surface {
-        padding: 28px 20px 16px;
-      }
+    @media (max-width:560px){
+      .dxp-footer .grid{ grid-template-columns:1fr; gap:20px; }
+      .dxp-footer .logo-col{ min-height:180px; }
+      .dxp-footer .logo{ max-height:180px; transform:scale(1.12); }
+      .dxp-footer .logo:hover{ transform:scale(1.16); }
+      .dxp-footer .surface{ padding:32px 20px 18px; }
     }
   </style>
 
@@ -192,8 +155,7 @@
 
       <div class="rule"></div>
       <p class="copy">
-        © <span id="dxp-year"></span> DeskXP •
-        <a href="https://deskxp.com">deskxp.com</a>
+        © <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a>
       </p>
     </div>
   </div>
