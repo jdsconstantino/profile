@@ -17,7 +17,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
 
-
   <style>
     #services h2, .svc-meta h2 { color: #2e424e !important; }
 
@@ -33,6 +32,14 @@
       --cardMuted:#475569;
       --cardBorder:#e6e9ef;
     }
+    /* --- Anchor offset: only on the Services page --- */
+:root { --header-offset: 84px; }          /* adjust if your header height changes */
+@media (max-width: 900px){ :root { --header-offset: 72px; } }
+
+.svc-page .svc-card {                      /* target blocks that receive the hash */
+  scroll-margin-top: calc(var(--header-offset) + 12px);
+}
+
 
     body{
       font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -283,5 +290,16 @@
   </script>
 
   <script src="/js/main.js?v=211" defer></script>
+  <script>
+  (function () {
+    const p = new URLSearchParams(location.search).get('s');
+    if (!p) return;
+    // Normalize and jump once without reloading:
+    history.replaceState(null, '', '#' + p);
+    // If the element exists, scroll it into view (respects scroll-margin-top)
+    const el = document.getElementById(p);
+    if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+  })();
+</script>
 </body>
 </html>
