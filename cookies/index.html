@@ -19,85 +19,105 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    :root { --accent:#007236; --accent2:#00b858; }
-
-    /* Page layout */
-    body{
-      background:#0d0f12;
-      color:#e6e9ef;
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
-      min-height:100vh;
-      margin:0;
-      display:flex;
-      flex-direction:column;
-      align-items:center;     /* center children horizontally */
-      justify-content:center; /* center vertically */
-      gap:14px;
-      text-align:center;
+    :root {
+      --accent: #007236;
+      --accent2: #00b858;
     }
 
-    img.cookie{
-      width:160px; height:auto; margin-bottom:10px;
-      filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
-      animation:bounce 2.2s ease-in-out infinite;
-    }
-    @media (prefers-reduced-motion: reduce){
-      img.cookie{ animation:none; }
-    }
-
-    h1{
-      font-size:clamp(1.9rem,1.2rem + 2.4vw,3.2rem);
-      font-weight:800; color:#fff; letter-spacing:-.02em; margin:0;
-    }
-
-    p.tag{
-      font-size:1.1rem; font-weight:700;
-      color:#cfead9; /* lighter for contrast; keep green badge look below */
-      margin:8px 0 28px;
+    body {
+      background: #0d0f12;
+      color: #e6e9ef;
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
     }
 
-    /* Back button — perfectly centered */
-    a.back-home{
-      display:inline-flex;          /* center content inside */
-      align-items:center;
-      justify-content:center;
-      gap:10px;                     /* space for the arrow */
-      min-width:260px;
-      padding:12px 28px;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:#fff; text-decoration:none; font-weight:800;
-      box-shadow:0 8px 26px rgba(0,184,88,.28);
-      transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
-      margin:0 auto;                /* safety if parent alignment changes */
+    /* Isolate this page from global cleanup rules */
+    body.cookies-page > *:last-child {
+      margin-bottom: auto !important;
+      padding-bottom: auto !important;
+    }
+
+    img.cookie {
+      width: 160px;
+      height: auto;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .35));
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      img.cookie { animation: none; }
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3.2rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -.02em;
+      margin: 0;
+    }
+
+    p.tag {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin: 8px 0 28px;
+    }
+
+    a.back-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 260px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 8px 26px rgba(0, 184, 88, .28);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    a.back-home::before {
+      content: "←";
+      font-size: 1.1rem;
+      line-height: 1;
+      opacity: .95;
+    }
+
+    a.back-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 184, 88, .38);
+      filter: saturate(1.05);
+    }
+
+    a.back-home:focus-visible {
+      box-shadow: 0 0 0 3px rgba(0, 184, 88, .45), 0 8px 26px rgba(0, 184, 88, .28);
       outline: none;
-    }
-    a.back-home::before{
-      content:"←";                  /* no absolute positioning = no skew */
-      font-size:1.1rem;
-      line-height:1;
-      opacity:.95;
-    }
-    a.back-home:hover{
-      transform:translateY(-2px);
-      box-shadow:0 12px 30px rgba(0,184,88,.38);
-      filter:saturate(1.05);
-    }
-    a.back-home:focus-visible{
-      box-shadow:0 0 0 3px rgba(0,184,88,.45), 0 8px 26px rgba(0,184,88,.28);
     }
 
     @keyframes bounce {
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-10px)}
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
   </style>
 </head>
 
-<body>
-  <img class="cookie" src="/assets/cookie.png" alt="Cookie">
+<body class="cookies-page">
+  <img class="cookie" src="/assets/cookie.png" alt="Cookie" />
   <h1>We don’t collect cookies here!</h1>
   <p class="tag">😂 Just pure DeskXP goodness.</p>
-  <a class="back-home" href="/" aria-label="Back to Home">Back to Home</a>
+  <a class="back-home" href="/">Back to Home</a>
 </body>
 </html>
