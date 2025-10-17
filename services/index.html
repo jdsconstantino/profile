@@ -4,196 +4,199 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
+
   <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/favicon-32.jpg">
   <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/favicon-16.jpg">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-32.jpg">
   <meta name="theme-color" content="#0d0f12">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
+
   <style>
-    #services h2, .svc-meta h2 { color: #2e424e !important; }
     :root{
+      --bg:#0d1720;
+      --panel:#0f1e27;
+      --grid:rgba(0,255,160,.07);
+      --line:#19e28e;
+      --text:#e6e9ef;
+      --muted:#9aa5b1;
+      --ink:#0f172a;
+      --chip:#eef5ef;
+      --chip-b:#dfe8e1;
       --accent:#007236;
-      --wire:#00ff88;
-      --wire2:#0aa564;
-      --wireGlow:rgba(0,255,160,.55);
-      --spineTop:#19e28e;
-      --spineBottom:#0b7c4b;
-      --bgTrace:rgba(0,114,54,.08);
-      --cardText:#0f172a;
-      --cardMuted:#475569;
-      --cardBorder:#e6e9ef;
+      --accent2:#00b858;
       --header-offset:84px;
+      --card-b:#e6e9ef;
     }
     @media (max-width:900px){ :root{ --header-offset:72px; } }
-    body{ font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; overflow-x:hidden; }
-    .svc-page{ max-width:1200px; margin:48px auto 88px; padding:0 20px; }
-    .svc-head{ text-align:center; margin-bottom:28px; }
-    .svc-head h1{ margin:0 0 6px; font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem); font-weight:800; letter-spacing:-.01em; color:var(--text,#e6e6e6); }
-    .svc-flow{ position:relative; margin-top:38px; overflow:hidden; border-radius:18px; }
-    .svc-flow::before{
-      content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at 12% 18%, rgba(0,255,160,.15) 0 2px, transparent 3px) 0 0/180px 160px,
-        radial-gradient(circle at 78% 42%, rgba(0,255,160,.12) 0 2px, transparent 3px) 0 0/220px 200px,
-        radial-gradient(circle at 30% 80%, rgba(0,255,160,.10) 0 2px, transparent 3px) 0 0/200px 220px,
-        repeating-linear-gradient(90deg, rgba(0,255,160,.08) 0 2px, transparent 2px 42px),
-        repeating-linear-gradient(0deg,  rgba(0,255,160,.06) 0 2px, transparent 2px 42px),
-        radial-gradient(circle at 50% 50%, rgba(0,200,120,.08), transparent 70%);
-      background-blend-mode: screen;
-      animation:circuitDrift 22s linear infinite;
+        linear-gradient(180deg,rgba(0,114,54,.06),rgba(0,114,54,.04)),
+        radial-gradient(circle at 30% -10%, rgba(0,184,88,.18), transparent 32%),
+        radial-gradient(circle at 100% 10%, rgba(0,184,88,.12), transparent 32%),
+        var(--bg);
+      overflow-x:hidden;
     }
-    @keyframes circuitDrift{
-      0%{background-position:0 0,0 0,0 0,0 0,0 0,0 0;}
-      50%{background-position:40px 10px,-30px 20px,20px -10px,30px 0,0 30px,0 0;}
-      100%{background-position:0 0,0 0,0 0,60px 0,0 60px,0 0;}
+
+    .page{
+      max-width:1220px;
+      margin:32px auto 80px;
+      padding:0 18px;
+      position:relative;
     }
-    .svc-spine{
-      position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%);
-      width:6px; border-radius:999px;
-      background:linear-gradient(180deg,var(--spineTop),var(--spineBottom));
-      box-shadow:0 0 20px var(--wireGlow);
-      z-index:1; animation:spinePulse 5s ease-in-out infinite;
+
+    .title{
+      text-align:center;
+      font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin:10px 0 26px;
     }
-    @keyframes spinePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
-    .svc-row{
-      position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start;
-      margin:44px 0; --icon-size:140px; --branch:190px; --icon-gap:18px;
+
+    .rail{
+      position:absolute;
+      left:50%;
+      top:110px;
+      bottom:0;
+      width:4px;
+      transform:translateX(-50%);
+      background:linear-gradient(180deg,var(--accent2),var(--accent));
+      box-shadow:0 0 22px rgba(0,255,160,.45), inset 0 0 10px rgba(0,0,0,.35);
+      border-radius:999px;
+      opacity:.7;
     }
-    .svc-card{
-      position:relative; width:48%; background:#fff; color:var(--cardText);
-      border:1px solid var(--cardBorder); border-radius:16px; padding:22px 22px 18px;
-      box-shadow:0 12px 30px rgba(0,0,0,.18); transition:transform .25s, box-shadow .25s;
-      scroll-margin-top: calc(var(--header-offset) + 12px); z-index:2;
+    @media (max-width:980px){ .rail{display:none;} }
+
+    .grid{
+      display:flex;
+      flex-direction:column;
+      gap:60px;
+      position:relative;
+      z-index:2;
     }
-    .svc-card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.24); }
-    .svc-row:nth-of-type(odd)  .svc-card{ margin-right:auto; }
-    .svc-row:nth-of-type(even) .svc-card{ margin-left:auto; }
-    .svc-card::before{
-      content:""; position:absolute; top:60px; width:96px; height:3px; border-radius:4px;
-      background:linear-gradient(90deg,var(--wire),var(--wire2));
-      box-shadow:0 0 10px var(--wireGlow),0 0 20px rgba(0,255,160,.25);
-      animation:wirePulse 4.5s ease-in-out infinite;
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:center;
     }
-    .svc-row:nth-of-type(odd)  .svc-card::before{ right:-96px; }
-    .svc-row:nth-of-type(even) .svc-card::before{ left:-96px; }
-    @keyframes wirePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
-    .svc-node{
-      position:absolute; left:50%; transform:translate(-50%,-50%);
-      width:18px; height:18px; border-radius:999px; background:#eafff6;
-      box-shadow:0 0 0 6px rgba(0,255,160,.18),0 0 0 2px var(--wire),0 6px 16px rgba(0,0,0,.25);
-      z-index:3; animation:nodeBlink 6s ease-in-out infinite;
-    }
-    @keyframes nodeBlink{
-      0%,100%{box-shadow:0 0 0 6px rgba(0,255,160,.18),0 0 0 2px var(--wire),0 6px 16px rgba(0,0,0,.25)}
-      50%{box-shadow:0 0 0 10px rgba(0,255,160,.28),0 0 0 2px var(--wire),0 10px 22px rgba(0,0,0,.35)}
-    }
-    .svc-meta{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-    .svc-meta img{ width:44px; height:44px; border-radius:12px; border:1px solid var(--cardBorder); object-fit:cover; }
-    .svc-meta h2{ margin:0; font-size:1.4rem; font-weight:800; letter-spacing:-.01em; }
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
-    .chip{ padding:6px 10px; font-size:.85rem; border-radius:999px; border:1px solid var(--cardBorder); background:#f8fafc; color:#0f172a; }
-    .svc-card p{ color:var(--cardMuted); margin:0 0 10px; }
-    .svc-card h3{ margin:12px 0 6px; font-size:1rem; color:#0f172a; }
-    .svc-card ul{ margin:0 0 8px 18px; color:#111827; }
-    .svc-card li{ margin:4px 0; }
-    .svc-card strong{ font-weight:700; }
-    .svc-icon{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:var(--icon-size); height:var(--icon-size);
-      display:grid; place-items:center; pointer-events:none; z-index:1;
-      filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)) drop-shadow(0 0 18px var(--wireGlow));
-    }
-    .svc-icon img{ width:100%; height:100%; object-fit:cover; border-radius:12px; }
-    .svc-row::after{
-      content:""; position:absolute; top:calc(50% - 1.5px); height:3px; width:var(--branch); border-radius:4px;
-      background:linear-gradient(90deg,var(--wire),var(--wire2));
-      box-shadow:0 0 10px var(--wireGlow),0 0 20px rgba(0,255,160,.25); z-index:1; animation:wirePulse 4.5s ease-in-out infinite;
-    }
-    .svc-row:nth-of-type(even) .svc-icon{ left:calc(50% - var(--branch) - var(--icon-gap) - (var(--icon-size)/2)); }
-    .svc-row:nth-of-type(odd)  .svc-icon{ left:calc(50% + var(--branch) + var(--icon-gap) - (var(--icon-size)/2)); }
-    .svc-row:nth-of-type(even)::after{ left:calc(50% - var(--branch)); }
-    .svc-row:nth-of-type(odd)::after{ left:50%; }
+    .row.flip{ grid-auto-flow:dense; }
+    .row.flip .art{ order:2 }
+    .row.flip .card{ order:1 }
+
     @media (max-width:980px){
-      .svc-page{ margin-top:28px; }
-      .svc-spine{ left:14px; transform:none; }
-      .svc-row{ margin:28px 0; }
-      .svc-card{ width:100%; }
-      .svc-card::before{ display:none; }
-      .svc-node{ left:14px; }
-      .svc-icon{ display:none; }
-      .svc-row::after{ display:none; }
+      .row{ grid-template-columns:1fr; gap:18px; }
+      .row.flip .art{ order:1 }
+      .row.flip .card{ order:2 }
     }
-    .svc-row {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 44px 0;
-  --icon-size: 190px;      /* increased from 140px */
-  --branch: 0px;           /* removes extra connecting line */
-  --icon-gap: 24px;
-}
 
-.svc-card {
-  position: relative;
-  width: 48%;
-  background: #fff;
-  color: var(--cardText);
-  border: 1px solid var(--cardBorder);
-  border-radius: 16px;
-  padding: 22px 22px 18px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.18);
-  transition: transform .25s, box-shadow .25s;
-  scroll-margin-top: calc(var(--header-offset) + 12px);
-  z-index: 2;
-}
+    .art{
+      background:linear-gradient(180deg,#0e2026,#0c1b21);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      padding:22px;
+      box-shadow:0 14px 40px rgba(0,0,0,.35), 0 0 36px rgba(0,255,160,.14);
+      position:relative;
+      min-height:260px;
+    }
+    .art::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      box-shadow:0 0 0 1px rgba(255,255,255,.04) inset;
+      pointer-events:none;
+    }
+    .art img{
+      width:min(92%,480px);
+      height:auto;
+      border-radius:14px;
+      box-shadow:0 22px 48px rgba(0,0,0,.45);
+    }
 
-.svc-card::before { display: none; }  /* disables that horizontal connector */
+    .card{
+      background:#fff;
+      color:var(--ink);
+      border:1px solid var(--card-b);
+      border-radius:18px;
+      padding:22px 22px 18px;
+      box-shadow:0 16px 36px rgba(0,0,0,.18);
+      scroll-margin-top:calc(var(--header-offset) + 12px);
+    }
+    .meta{
+      display:flex; align-items:center; gap:12px; margin-bottom:6px;
+    }
+    .meta img{ width:46px; height:46px; border-radius:12px; border:1px solid var(--card-b); object-fit:cover; }
+    .meta h2{ margin:0; font-size:1.35rem; font-weight:900; letter-spacing:-.01em; color:#2e424e; }
 
-.svc-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: var(--icon-size);
-  height: var(--icon-size);
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  z-index: 1;
-  filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)) drop-shadow(0 0 18px var(--wireGlow));
-}
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 14px; }
+    .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:600; color:#2f3b45; }
 
-.svc-row:nth-of-type(even) .svc-icon {
-  left: calc(50% - var(--icon-gap) - (var(--icon-size)/2));
-}
-.svc-row:nth-of-type(odd) .svc-icon {
-  right: calc(50% - var(--icon-gap) - (var(--icon-size)/2));
-}
+    .card p{ color:#334155; margin:0 0 12px; line-height:1.55; }
+    .card h3{ margin:14px 0 8px; font-size:1rem; color:#0f172a; }
+    .card ul{ margin:0 0 10px 18px; }
+    .card li{ margin:5px 0; }
 
-.svc-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
+    .markers{
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+      background-size:48px 48px, 48px 48px;
+      mask-image:linear-gradient(#0007,#000);
+      z-index:1;
+      border-radius:22px;
+    }
+
+    .knot{
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:16px; height:16px; border-radius:999px;
+      background:#dffdf3; box-shadow:0 0 0 8px rgba(0,255,160,.18),0 0 0 2px var(--line),0 10px 24px rgba(0,0,0,.4);
+      z-index:3;
+    }
+    .knot.t1{ top:210px } .knot.t2{ top:640px } .knot.t3{ top:1070px } .knot.t4{ top:1500px }
+    @media (max-width:980px){ .knot{display:none} }
+
+    @media (min-width:981px){
+      .row .art::before{
+        content:""; position:absolute; top:50%; width:66px; height:3px; border-radius:3px;
+        background:linear-gradient(90deg,var(--accent2),var(--accent));
+        box-shadow:0 0 14px rgba(0,255,160,.35);
+      }
+      .row:not(.flip) .art::before{ right:-66px }
+      .row.flip .art::before{ left:-66px }
+    }
   </style>
 </head>
 <body>
   <div id="site-header"></div>
-  <main class="svc-page">
-    <header class="svc-head"><h1>Services</h1></header>
-    <section class="svc-flow" id="svc-flow" aria-label="Automation flow of services">
-      <span class="svc-spine" aria-hidden="true"></span>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-1.jpg" alt=""></figure>
-        <article class="svc-card" id="operations-design">
-          <div class="svc-meta"><img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2></div>
+  <main class="page">
+    <h1 class="title">Services</h1>
+
+    <div class="markers"></div>
+    <span class="rail"></span>
+    <span class="knot t1"></span>
+    <span class="knot t2"></span>
+    <span class="knot t3"></span>
+    <span class="knot t4"></span>
+
+    <section class="grid" id="svc-flow">
+
+      <div class="row">
+        <div class="art"><img src="/assets/svc-1.jpg" alt=""></div>
+        <article class="card" id="operations-design">
+          <div class="meta"><img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2></div>
           <div class="chips"><span class="chip">Playbooks</span><span class="chip">SLAs</span><span class="chip">Escalations</span><span class="chip">CX Strategy</span></div>
           <p>Backbone first: we turn reactive support into a structured, data-driven operation with clear flows and ownership.</p>
           <h3>What we do</h3>
@@ -212,11 +215,10 @@
         </article>
       </div>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-2.jpg" alt=""></figure>
-        <article class="svc-card" id="systems-architecture">
-          <div class="svc-meta"><img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2></div>
+      <div class="row flip">
+        <div class="art"><img src="/assets/svc-2.jpg" alt=""></div>
+        <article class="card" id="systems-architecture">
+          <div class="meta"><img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2></div>
           <div class="chips"><span class="chip">Zendesk</span><span class="chip">Workflows</span><span class="chip">Data Governance</span></div>
           <p>Clean, intentional setup — fewer triggers, better data, faster agents.</p>
           <h3>What we do</h3>
@@ -235,11 +237,10 @@
         </article>
       </div>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-3.jpg" alt=""></figure>
-        <article class="svc-card" id="automation-ai">
-          <div class="svc-meta"><img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2></div>
+      <div class="row">
+        <div class="art"><img src="/assets/svc-3.jpg" alt=""></div>
+        <article class="card" id="automation-ai">
+          <div class="meta"><img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2></div>
           <div class="chips"><span class="chip">Bots</span><span class="chip">Deflection</span><span class="chip">Workflows</span></div>
           <p>Kill repetitive work without killing the human touch. Bots do the predictable; your team handles the meaningful.</p>
           <h3>What we do</h3>
@@ -258,13 +259,12 @@
         </article>
       </div>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-4.jpg" alt=""></figure>
-        <article class="svc-card" id="reporting-analytics">
-          <div class="svc-meta"><img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2></div>
+      <div class="row flip">
+        <div class="art"><img src="/assets/svc-4.jpg" alt=""></div>
+        <article class="card" id="reporting-analytics">
+          <div class="meta"><img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2></div>
           <div class="chips"><span class="chip">Dashboards</span><span class="chip">SLA</span><span class="chip">QA</span><span class="chip">Insights</span></div>
-          <p>From exports to insight: real-time performance, trendlines, and ROI.</p>
+          <p>From exports to insight: real-time performance, trendlines, and ROI — no spreadsheet circus.</p>
           <h3>What we do</h3>
           <ul>
             <li><strong>Explore & Looker Studio</strong> dashboards by audience.</li>
@@ -280,13 +280,12 @@
         </article>
       </div>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-5.jpg" alt=""></figure>
-        <article class="svc-card" id="ecommerce-integrations">
-          <div class="svc-meta"><img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2></div>
+      <div class="row">
+        <div class="art"><img src="/assets/svc-5.jpg" alt=""></div>
+        <article class="card" id="ecommerce-integrations">
+          <div class="meta"><img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2></div>
           <div class="chips"><span class="chip">Shopify</span><span class="chip">Magento</span><span class="chip">Payments</span><span class="chip">APIs</span></div>
-          <p>Pull order, shipping, and payment context into every ticket.</p>
+          <p>Pull order, shipping, and payment context into every ticket. Less tab-switching, more resolving.</p>
           <h3>What we do</h3>
           <ul>
             <li><strong>Store apps</strong> that surface live orders & tracking in Zendesk.</li>
@@ -296,24 +295,23 @@
           <h3>Outcomes</h3>
           <ul>
             <li><strong>Faster resolutions</strong> — full context in one place.</li>
-            <li><strong>Fewer refunds & disputes</strong>.</li>
+            <li><strong>Fewer refunds & disputes</strong> via proactive comms.</li>
             <li><strong>Higher post-purchase CSAT</strong>.</li>
           </ul>
         </article>
       </div>
 
-      <div class="svc-row">
-        <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-6.jpg" alt=""></figure>
-        <article class="svc-card" id="customer-experience-servicing">
-          <div class="svc-meta"><img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2></div>
+      <div class="row flip">
+        <div class="art"><img src="/assets/svc-6.jpg" alt=""></div>
+        <article class="card" id="customer-experience-servicing">
+          <div class="meta"><img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2></div>
           <div class="chips"><span class="chip">Hiring</span><span class="chip">Training</span><span class="chip">QA</span><span class="chip">Policies</span></div>
-          <p>Zero ➜ scaled care org. People, process, tools, and governance.</p>
+          <p>Zero ➜ scaled care org. People, process, tools, and governance — launched fast and built to last.</p>
           <h3>What we do</h3>
           <ul>
             <li><strong>Team build-out</strong>: roles, hiring, onboarding plans.</li>
             <li><strong>Training curriculum</strong> with certification paths.</li>
-            <li><strong>QA program & calibration</strong> tied to outcomes.</li>
+            <li><strong>QA program & calibration</strong> tied to business outcomes.</li>
           </ul>
           <h3>Outcomes</h3>
           <ul>
@@ -323,41 +321,23 @@
           </ul>
         </article>
       </div>
+
     </section>
   </main>
+
   <div id="footer"></div>
   <script>
-    fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
+    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
   <script>
     (function(){
-      function sync(){
-        document.querySelectorAll('.svc-row').forEach(row=>{
-          const card=row.querySelector('.svc-card');
-          if(!card)return;
-          const h=card.clientHeight;
-          const size=Math.max(128,Math.min(220,h-140));
-          const branch=Math.max(170,Math.min(260,size+50));
-          row.style.setProperty('--icon-size',size+'px');
-          row.style.setProperty('--branch',branch+'px');
-        });
-      }
-      window.addEventListener('load',sync);
-      window.addEventListener('resize',sync);
-      if(window.ResizeObserver){
-        new ResizeObserver(sync).observe(document.querySelector('.svc-flow'));
-      }
+      const q=new URLSearchParams(location.search).get("s");
+      if(!q) return;
+      history.replaceState(null,"","#"+q);
+      const el=document.getElementById(q);
+      if(el) el.scrollIntoView({behavior:"instant",block:"start"});
     })();
   </script>
-  <script>
-    (function(){
-      const p=new URLSearchParams(location.search).get('s');
-      if(!p)return;
-      history.replaceState(null,'','#'+p);
-      const el=document.getElementById(p);
-      if(el)el.scrollIntoView({behavior:'instant',block:'start'});
-    })();
-  </script>
-  <script src="/js/main.js?v=214" defer></script>
+  <script src="/js/main.js?v=215" defer></script>
 </body>
 </html>
