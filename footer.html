@@ -24,55 +24,59 @@
       border-radius:16px;
       box-shadow:0 14px 40px rgba(0,0,0,.25);
       overflow:hidden;
-      padding:40px 32px 24px;
+      padding:50px 32px 24px;
+      position:relative;
     }
 
-    .dxp-footer .wrap{ max-width:1200px; margin:0 auto; }
-
-    /* Grid: keep text columns top-aligned */
-    .dxp-footer .grid{
-      display:grid;
-      grid-template-columns:1.2fr 1fr 1fr 1fr;
-      gap:40px;
-      align-items:start;
-      justify-items:center;
-      text-align:center;
+    .dxp-footer .wrap{
+      max-width:1200px;
+      margin:0 auto;
     }
 
-    /* Logo column */
-    .dxp-footer .logo-col{
+    /* === Big logo floating at the top === */
+    .dxp-footer .footer-logo{
       display:flex;
-      align-items:center;
       justify-content:center;
-      min-height:260px;        /* the visual box you want to fill */
-      overflow:visible;
+      margin-bottom:30px;
     }
 
-    /* Image fills height, then we scale to compensate for PNG's internal padding */
-    .dxp-footer .logo{
-      display:block;
-      height:100% !important;
-      width:auto !important;
-      max-height:260px;
-      transform:scale(1.28);          /* <— fill the box despite transparent gutter */
-      transform-origin:center;
+    .dxp-footer .footer-logo img{
+      width:auto;
+      height:240px;
+      object-fit:contain;
+      transform:scale(1.15);
       filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
       transition:transform .3s ease;
     }
-    .dxp-footer .logo:hover{ transform:scale(1.32); }
 
-    /* Headings */
+    .dxp-footer .footer-logo img:hover{
+      transform:scale(1.2);
+    }
+
+    /* === Grid below === */
+    .dxp-footer .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:40px;
+      align-items:start;
+      text-align:center;
+    }
+
     .dxp-footer .col h4{
       margin:0 0 10px;
       font-weight:700;
       font-size:1.05rem;
       color:#f6f7f9;
-      letter-spacing:.01em;
     }
 
-    /* Links */
-    .dxp-footer .links{ list-style:none; padding:0; margin:0; }
+    .dxp-footer .links{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
     .dxp-footer .links li{ margin:6px 0; }
+
     .dxp-footer a{
       color:var(--dxp-ink);
       text-decoration:none;
@@ -81,48 +85,45 @@
       opacity:.9;
       transition:color .2s ease, opacity .2s ease;
     }
+
     .dxp-footer a:hover{ opacity:1; color:#fff; text-decoration:underline; }
 
-    /* Divider + Copyright */
     .dxp-footer .rule{
       height:1px;
       background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 50%,rgba(255,255,255,0) 100%);
       margin:24px 0 14px;
     }
+
     .dxp-footer .copy{
       text-align:center;
       color:var(--dxp-muted);
       font-size:.92rem;
       letter-spacing:.01em;
     }
+
     .dxp-footer .copy a{ color:#fff; text-decoration:none; }
     .dxp-footer .copy a:hover{ text-decoration:underline; }
 
-    /* Responsive */
+    /* === Responsive === */
     @media (max-width:900px){
+      .dxp-footer .footer-logo img{ height:200px; transform:scale(1.1); }
       .dxp-footer .grid{ grid-template-columns:1fr 1fr; gap:28px 22px; }
-      .dxp-footer .logo-col{ min-height:220px; }
-      .dxp-footer .logo{ max-height:220px; transform:scale(1.18); }
-      .dxp-footer .logo:hover{ transform:scale(1.22); }
     }
+
     @media (max-width:560px){
+      .dxp-footer .footer-logo img{ height:160px; transform:scale(1.05); }
       .dxp-footer .grid{ grid-template-columns:1fr; gap:20px; }
-      .dxp-footer .logo-col{ min-height:180px; }
-      .dxp-footer .logo{ max-height:180px; transform:scale(1.12); }
-      .dxp-footer .logo:hover{ transform:scale(1.16); }
       .dxp-footer .surface{ padding:32px 20px 18px; }
     }
   </style>
 
   <div class="surface">
     <div class="wrap">
-      <div class="grid">
-        <!-- Column 1: Logo -->
-        <div class="col logo-col">
-          <img src="/assets/logo.png" alt="DeskXP Logo" class="logo" />
-        </div>
+      <div class="footer-logo">
+        <img src="/assets/logo.png" alt="DeskXP Logo" />
+      </div>
 
-        <!-- Column 2: Policies -->
+      <div class="grid">
         <div class="col">
           <h4>Policies</h4>
           <ul class="links">
@@ -131,7 +132,6 @@
           </ul>
         </div>
 
-        <!-- Column 3: Navigation -->
         <div class="col">
           <h4>Navigation</h4>
           <ul class="links">
@@ -143,7 +143,6 @@
           </ul>
         </div>
 
-        <!-- Column 4: Connect -->
         <div class="col">
           <h4>Connect with Me</h4>
           <ul class="links">
@@ -154,9 +153,7 @@
       </div>
 
       <div class="rule"></div>
-      <p class="copy">
-        © <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a>
-      </p>
+      <p class="copy">© <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a></p>
     </div>
   </div>
 
