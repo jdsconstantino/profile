@@ -6,29 +6,34 @@
   <title>Cookies — DeskXP</title>
   <meta name="description" content="We don’t collect cookies here — only good vibes 🍪" />
 
-    <!-- Favicons -->
+  <!-- Favicons -->
   <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/favicon-32.jpg">
   <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/favicon-16.jpg">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-32.jpg">
   <meta name="theme-color" content="#0d0f12">
 
+  <!-- Font + Base CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Include italics too, because your About copy uses <em> -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
-
 
   <style>
     :root { --accent:#007236; --accent2:#00b858; }
 
+    /* Page layout */
     body{
       background:#0d0f12;
       color:#e6e9ef;
-      font-family:"Plus Jakarta Sans",sans-serif;
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column; gap:14px;
-      min-height:100vh; margin:0; text-align:center;
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      min-height:100vh;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;     /* center children horizontally */
+      justify-content:center; /* center vertically */
+      gap:14px;
+      text-align:center;
     }
 
     img.cookie{
@@ -36,39 +41,50 @@
       filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
       animation:bounce 2.2s ease-in-out infinite;
     }
+    @media (prefers-reduced-motion: reduce){
+      img.cookie{ animation:none; }
+    }
 
     h1{
-      font-size:clamp(1.8rem,1.2rem + 2vw,3.1rem);
+      font-size:clamp(1.9rem,1.2rem + 2.4vw,3.2rem);
       font-weight:800; color:#fff; letter-spacing:-.02em; margin:0;
     }
 
     p.tag{
-      font-size:1.25rem; font-weight:600; color:var(--accent2); margin:8px 0 28px;
+      font-size:1.1rem; font-weight:700;
+      color:#cfead9; /* lighter for contrast; keep green badge look below */
+      margin:8px 0 28px;
     }
 
-    /* Centered pill button with an absolutely positioned arrow */
+    /* Back button — perfectly centered */
     a.back-home{
-      position:relative;
-      display:inline-block;
-      min-width: 260px;              /* keeps a nice pill width */
-      padding:12px 38px;             /* equal left/right so text can truly center */
+      display:inline-flex;          /* center content inside */
+      align-items:center;
+      justify-content:center;
+      gap:10px;                     /* space for the arrow */
+      min-width:260px;
+      padding:12px 28px;
       border-radius:999px;
       background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:#fff; text-decoration:none; font-weight:700;
+      color:#fff; text-decoration:none; font-weight:800;
       box-shadow:0 8px 26px rgba(0,184,88,.28);
       transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      margin:0 auto;                /* safety if parent alignment changes */
+      outline: none;
     }
     a.back-home::before{
-      content:"←";
-      position:absolute; left:16px; top:50%;
-      transform:translateY(-50%);
-      font-size:1.1rem; line-height:1;
+      content:"←";                  /* no absolute positioning = no skew */
+      font-size:1.1rem;
+      line-height:1;
       opacity:.95;
     }
     a.back-home:hover{
       transform:translateY(-2px);
       box-shadow:0 12px 30px rgba(0,184,88,.38);
       filter:saturate(1.05);
+    }
+    a.back-home:focus-visible{
+      box-shadow:0 0 0 3px rgba(0,184,88,.45), 0 8px 26px rgba(0,184,88,.28);
     }
 
     @keyframes bounce {
@@ -82,6 +98,6 @@
   <img class="cookie" src="/assets/cookie.png" alt="Cookie">
   <h1>We don’t collect cookies here!</h1>
   <p class="tag">😂 Just pure DeskXP goodness.</p>
-  <a class="back-home" href="/">Back to Home</a>
+  <a class="back-home" href="/" aria-label="Back to Home">Back to Home</a>
 </body>
 </html>
