@@ -1,6 +1,5 @@
 <footer class="dxp-footer">
   <style>
-    /* Google font */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
     :root {
@@ -24,7 +23,7 @@
       border-radius: 16px;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
       overflow: hidden;
-      padding: 60px 32px 30px;
+      padding: 40px 32px 24px; /* reduced top/bottom padding */
     }
 
     .dxp-footer .wrap {
@@ -34,26 +33,26 @@
 
     .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
       gap: 40px;
-      align-items: start;
+      align-items: center;        /* centers vertically */
       text-align: center;
     }
 
-    /* Logo column */
+    /* === Logo column === */
     .dxp-footer .logo-col {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* left-align to match text columns */
-      justify-content: flex-start; /* push to top */
-      padding-top: 12px; /* nudge down slightly to align titles visually */
+      align-items: center;         /* center horizontally */
+      justify-content: center;     /* center vertically */
+      padding-top: 0;
+      text-align: center;
     }
 
-    /* Logo styling */
     .dxp-footer .logo {
-      width: 150px;  /* increased size */
+      width: 200px;
       height: auto;
-      margin-bottom: 28px; /* adds breathing room before text below */
+      margin: 0 auto 18px;         /* tighter spacing */
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       transition: transform 0.3s ease;
     }
@@ -62,16 +61,16 @@
       transform: scale(1.05);
     }
 
-    /* Headings */
+    /* === Headings === */
     .dxp-footer .col h4 {
-      margin: 0 0 14px;
+      margin: 0 0 10px;
       font-weight: 700;
       font-size: 1.05rem;
       color: #f6f7f9;
       letter-spacing: 0.01em;
     }
 
-    /* Links */
+    /* === Links === */
     .dxp-footer .links {
       list-style: none;
       padding: 0;
@@ -79,7 +78,7 @@
     }
 
     .dxp-footer .links li {
-      margin: 7px 0;
+      margin: 6px 0;
     }
 
     .dxp-footer a {
@@ -97,11 +96,11 @@
       text-decoration: underline;
     }
 
-    /* Divider + Copyright */
+    /* === Divider + Copyright === */
     .dxp-footer .rule {
       height: 1px;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
-      margin: 20px 0 14px;
+      margin: 24px 0 14px;
     }
 
     .dxp-footer .copy {
@@ -120,27 +119,40 @@
       text-decoration: underline;
     }
 
-    /* Responsive */
+    /* === Responsive === */
     @media (max-width: 900px) {
       .dxp-footer .grid {
         grid-template-columns: 1fr 1fr;
-        gap: 32px 22px;
-        text-align: left;
+        gap: 28px 22px;
+        text-align: center;
       }
       .dxp-footer .logo-col {
         grid-column: 1 / -1;
-        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
+      .dxp-footer .logo {
+        width: 180px;
+        margin-bottom: 12px;
       }
     }
 
     @media (max-width: 560px) {
       .dxp-footer .grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
         text-align: center;
       }
+      .dxp-footer .logo-col {
+        align-items: center;
+        justify-content: center;
+      }
       .dxp-footer .logo {
-        width: 130px;
+        width: 160px;
+        margin-bottom: 10px;
+      }
+      .dxp-footer .surface {
+        padding: 32px 20px 18px; /* smaller vertical spacing */
       }
     }
   </style>
