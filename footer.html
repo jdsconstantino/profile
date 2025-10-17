@@ -24,39 +24,41 @@
       border-radius:16px;
       box-shadow:0 14px 40px rgba(0,0,0,.25);
       overflow:hidden;
-      padding:36px 32px 20px;
+      padding:40px 32px 24px;
     }
 
     .dxp-footer .wrap{ max-width:1200px; margin:0 auto; }
 
-    /* Top-align columns by default; no vertical centering of text columns */
+    /* === Grid === */
     .dxp-footer .grid{
       display:grid;
       grid-template-columns:1.2fr 1fr 1fr 1fr;
       gap:40px;
-      align-items:start;          /* top align */
-      justify-items:center;       /* center each cell horizontally */
+      align-items:start;          /* keep all text columns top-aligned */
+      justify-items:center;       /* horizontally center columns */
       text-align:center;
     }
 
-    /* === Logo column (no absolute; big but sane) === */
+    /* === Logo Column === */
     .dxp-footer .logo-col{
       display:flex;
-      align-items:center;
+      align-items:center;         /* vertically center logo within its space */
       justify-content:center;
-      min-height:170px;           /* gives a consistent visual block without stretching */
+      min-height:240px;           /* taller base height for visual balance */
     }
+
     .dxp-footer .logo{
       display:block;
-      width:260px !important;     /* crush lingering 150px rules */
+      width:320px !important;     /* large and fixed width */
       height:auto !important;
-      margin:0 auto 8px;
+      margin:0 auto 6px;
       filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
       transition:transform .3s ease;
     }
+
     .dxp-footer .logo:hover{ transform:scale(1.05); }
 
-    /* Headings */
+    /* === Headings === */
     .dxp-footer .col h4{
       margin:0 0 10px;
       font-weight:700;
@@ -65,7 +67,7 @@
       letter-spacing:.01em;
     }
 
-    /* Links */
+    /* === Links === */
     .dxp-footer .links{ list-style:none; padding:0; margin:0; }
     .dxp-footer .links li{ margin:6px 0; }
     .dxp-footer a{
@@ -78,7 +80,7 @@
     }
     .dxp-footer a:hover{ opacity:1; color:#fff; text-decoration:underline; }
 
-    /* Divider + Copyright */
+    /* === Divider + Copyright === */
     .dxp-footer .rule{
       height:1px;
       background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 50%,rgba(255,255,255,0) 100%);
@@ -99,17 +101,18 @@
         grid-template-columns:1fr 1fr;
         gap:28px 22px;
       }
-      .dxp-footer .logo-col{ min-height:160px; }
-      .dxp-footer .logo{ width:220px !important; }
+      .dxp-footer .logo-col{ min-height:200px; }
+      .dxp-footer .logo{ width:260px !important; }
     }
+
     @media (max-width:560px){
       .dxp-footer .grid{
         grid-template-columns:1fr;
         gap:20px;
       }
-      .dxp-footer .logo-col{ min-height:150px; }
-      .dxp-footer .logo{ width:200px !important; }
-      .dxp-footer .surface{ padding:28px 20px 16px; }
+      .dxp-footer .logo-col{ min-height:180px; }
+      .dxp-footer .logo{ width:220px !important; }
+      .dxp-footer .surface{ padding:32px 20px 18px; }
     }
   </style>
 
