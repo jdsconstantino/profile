@@ -1,4 +1,4 @@
-// ======================= DeskXP main.js (v213) =======================
+// ======================= DeskXP main.js (v214) =======================
 
 // Enable .js gate for reveal transitions
 document.documentElement.classList.add("js");
@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   if (!slides.length) return;
 
-  let idx = 0,
-    timer = null;
+  let idx = 0, timer = null;
   const INTERVAL = 6000;
   const reduced =
     window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
@@ -67,10 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function buildDots() {
     dotsWrap.innerHTML = slides
-      .map(
-        (_, i) =>
-          `<button aria-label="Go to slide ${i + 1}" type="button"></button>`
-      )
+      .map((_, i) => `<button aria-label="Go to slide ${i + 1}" type="button"></button>`)
       .join("");
     Array.from(dotsWrap.children).forEach((dot, j) =>
       dot.addEventListener("click", () => go(j, true))
@@ -83,13 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       timer = setInterval(() => go(idx + 1, false), INTERVAL);
     }
   }
-  function stop() {
-    if (timer) clearInterval(timer), (timer = null);
-  }
-  function restart() {
-    stop();
-    start();
-  }
+  function stop() { if (timer) clearInterval(timer), (timer = null); }
+  function restart() { stop(); start(); }
 
   buildDots();
   setActive(0);
@@ -100,6 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ================== HEADER: mount + fallback + bind ==================
 (async function mountHeader() {
+  // Safety style: ANY curtain not open is inert everywhere.
+  const safety = document.createElement("style");
+  safety.textContent = `
+    .curtain:not(.open) {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  `;
+  document.head.appendChild(safety);
+
   const mount = ensureHeaderMount(); // #site-header (creates if missing)
   const html = await fetchHeaderHTML();
   mount.innerHTML = html;
@@ -125,10 +127,7 @@ async function fetchHeaderHTML() {
   const bust = `?v=${Date.now()}`;
   const paths = [
     `/partials/header.html${bust}`,
-    new URL(
-      `./partials/header.html${bust}`,
-      window.location.origin + window.location.pathname
-    ).href,
+    new URL(`./partials/header.html${bust}`, window.location.origin + window.location.pathname).href,
   ];
   for (const p of paths) {
     try {
@@ -180,13 +179,24 @@ async function fetchHeaderHTML() {
   #cdMenuTrigger.is-open .cd-menu-icon::before{top:50%;transform:translateY(-50%) rotate(45deg)}
   #cdMenuTrigger.is-open .cd-menu-icon::after{bottom:50%;transform:translateY(50%) rotate(-45deg)}
   #cdMenuTrigger.is-open .cd-menu-icon i{opacity:0}
+
+  /* Curtain defaults: CLOSED = inert */
   .curtain{
-    position:fixed;left:0;right:0;top:0;height:0;overflow:hidden;background:#2E424E;
-    border-bottom:1px solid rgba(255,255,255,.14);transform:translateY(-100%);
-    transition:transform .32s cubic-bezier(.2,.7,.2,1);
-    z-index:2147483600;pointer-events:auto
+    position:fixed; left:0; right:0; top:0;
+    background:#2E424E;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    transform:translateY(-8px);
+    height:100vh; /* real height; visibility controls exposure */
+    transition:opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+    z-index:2147483600;
+    opacity:0; visibility:hidden; pointer-events:none;
   }
-  .curtain.open{height:100vh;transform:translateY(0);display:block!important;opacity:1!important;visibility:visible!important}
+  /* OPEN state */
+  .curtain.open{
+    transform:none;
+    opacity:1; visibility:visible; pointer-events:auto;
+    transition:opacity .25s ease, transform .25s ease, visibility 0s;
+  }
   .curtain-inner{max-width:1100px;margin:0 auto;padding:32px 16px;font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif}
   .curtain-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
   .curtain-menu a{display:block;padding:12px 8px;color:#ECF3FF;text-decoration:none;border-radius:8px;font-size:1.1rem}
@@ -205,19 +215,23 @@ function bindCurtainMenu() {
   const open = () => {
     trigger.classList.add("is-open");
     trigger.setAttribute("aria-expanded", "true");
-    curtain.hidden = false;
-    void curtain.offsetHeight;
-    curtain.classList.add("open");
-    document.documentElement.style.overflow = "hidden";
+    curtain.hidden = false;                  // expose element
+    void curtain.offsetHeight;               // force reflow
+    curtain.classList.add("open");           // visible + interactive via CSS
+    document.documentElement.classList.add("no-scroll");
     adjustCurtainOffset();
   };
   const close = () => {
     trigger.classList.remove("is-open");
     trigger.setAttribute("aria-expanded", "false");
-    curtain.classList.remove("open");
-    document.documentElement.style.overflow = "";
-    setTimeout(() => (curtain.hidden = true), 250);
+    curtain.classList.remove("open");        // becomes inert via CSS
+    document.documentElement.classList.remove("no-scroll");
+    // hide after transition so it can't intercept anything
+    setTimeout(() => { curtain.hidden = true; }, 260);
   };
+
+  // Start CLOSED no matter what markup/CSS shipped
+  close();
 
   trigger.addEventListener("click", (e) => {
     e.preventDefault();
