@@ -212,4 +212,34 @@ nav.nav-wrap .brand img{
   /* give the logo a hair of breathing room so it doesn’t kiss the top edge */
   nav.nav-wrap .brand img{ margin-top: 4px; }
 }
+/* === OVERRIDE TOKEN SIZES (place at very end of the <style>) === */
+
+/* Desktop ≥1025px */
+@media (min-width:1025px){
+  :root{
+    --logo-h: 72px;   /* bump desktop logo */
+    --nav-h: 92px;    /* make bar tall enough to fit it */
+  }
+}
+
+/* Tablet / WebView 601–1024px */
+@media (min-width:601px) and (max-width:1024px){
+  :root{
+    --logo-h: 64px;
+    --nav-h: 86px;
+  }
+}
+
+/* Phone ≤600px (keep it big) */
+@media (max-width:600px){
+  :root{
+    --logo-h: 96px;
+    --nav-h: 112px;
+  }
+}
+
+/* Make sure these two rules win */
+nav.nav-wrap .brand img{ height: var(--logo-h) !important; }
+.nav{ height: var(--nav-h) !important; }
+
 </style>
