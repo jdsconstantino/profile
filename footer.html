@@ -24,7 +24,7 @@
       border-radius: 16px;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
       overflow: hidden;
-      padding: 32px 32px 20px;
+      padding: 28px 32px 18px;
     }
 
     .dxp-footer .wrap {
@@ -32,19 +32,26 @@
       margin: 0 auto;
     }
 
-    /* Desktop overlay logo */
+    /* ===== Overlay Logo (Pinned and Scalable) ===== */
     .dxp-footer .footer-brand {
       position: absolute;
-      top: 32px;
-      left: 48px;
-      height: 220px;
-      width: auto;
+      z-index: 1;
       pointer-events: none;
+      user-select: none;
+      height: clamp(140px, 18vw, 220px);
+      left: clamp(16px, 5vw, 48px);
+      top: clamp(16px, 3vw, 32px);
+      width: auto;
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
       opacity: 0.98;
-      user-select: none;
+      transition: transform 0.3s ease;
     }
 
+    .dxp-footer .footer-brand:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== Footer Grid ===== */
     .dxp-footer .grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -107,24 +114,18 @@
       text-decoration: underline;
     }
 
-    /* ===== Responsive Fix ===== */
-    @media (max-width: 900px) {
+    /* ===== Mobile Adjustment ===== */
+    @media (max-width: 640px) {
       .dxp-footer .footer-brand {
         position: static;
         display: block;
-        margin: 0 auto 20px;
-        height: 160px;
+        margin: 0 auto 12px;
+        height: 140px;
+        left: auto;
+        top: auto;
         pointer-events: auto;
-        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
       }
 
-      .dxp-footer .grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 28px 22px;
-      }
-    }
-
-    @media (max-width: 560px) {
       .dxp-footer .grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -133,17 +134,12 @@
       .dxp-footer .surface {
         padding: 32px 20px 18px;
       }
-
-      .dxp-footer .footer-brand {
-        height: 140px;
-        margin-bottom: 10px;
-      }
     }
   </style>
 
   <div class="surface">
     <div class="wrap">
-      <!-- Overlay logo on desktop, inline on mobile -->
+      <!-- Big logo overlay (doesn’t move on resize) -->
       <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-brand" />
 
       <div class="grid">
