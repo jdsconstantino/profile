@@ -27,7 +27,7 @@
       --cardBorder:#e6e9ef;
       --header-offset:84px;
     }
-    @media (max-width: 900px){ :root { --header-offset:72px; } }
+    @media (max-width:900px){ :root{ --header-offset:72px; } }
     body{ font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; overflow-x:hidden; }
     .svc-page{ max-width:1200px; margin:48px auto 88px; padding:0 20px; }
     .svc-head{ text-align:center; margin-bottom:28px; }
@@ -59,7 +59,7 @@
       z-index:1; animation:spinePulse 5s ease-in-out infinite;
     }
     @keyframes spinePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
-    .svc-row{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; margin:44px 0; --icon-size:132px; --branch:120px; --icon-gap:14px; }
+    .svc-row{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; margin:44px 0; --icon-size:132px; --branch:150px; --icon-gap:14px; }
     .svc-card{
       position:relative; width:48%; background:#fff; color:var(--cardText);
       border:1px solid var(--cardBorder); border-radius:16px; padding:22px 22px 18px;
@@ -67,16 +67,16 @@
       scroll-margin-top: calc(var(--header-offset) + 12px);
     }
     .svc-card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.24); }
-    .svc-row:nth-child(odd)  .svc-card{ margin-right:auto; }
-    .svc-row:nth-child(even) .svc-card{ margin-left:auto; }
+    .svc-row:nth-of-type(odd)  .svc-card{ margin-right:auto; }
+    .svc-row:nth-of-type(even) .svc-card{ margin-left:auto; }
     .svc-card::before{
       content:""; position:absolute; top:60px; width:96px; height:3px; border-radius:4px;
       background:linear-gradient(90deg,var(--wire),var(--wire2));
       box-shadow:0 0 10px var(--wireGlow),0 0 20px rgba(0,255,160,.25);
       animation:wirePulse 4.5s ease-in-out infinite;
     }
-    .svc-row:nth-child(odd)  .svc-card::before{ right:-96px; }
-    .svc-row:nth-child(even) .svc-card::before{ left:-96px; }
+    .svc-row:nth-of-type(odd)  .svc-card::before{ right:-96px; }
+    .svc-row:nth-of-type(even) .svc-card::before{ left:-96px; }
     @keyframes wirePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
     .svc-node{
       position:absolute; left:50%; transform:translate(-50%,-50%);
@@ -98,13 +98,13 @@
     .svc-card ul{ margin:0 0 8px 18px; color:#111827; }
     .svc-card li{ margin:4px 0; }
     .svc-card strong{ font-weight:700; }
-    .svc-icon { position:absolute; top:50%; transform:translateY(-50%); width:var(--icon-size); height:var(--icon-size); display:grid; place-items:center; pointer-events:none; z-index:2; }
-    .svc-icon img { width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)) drop-shadow(0 0 18px var(--wireGlow)); }
-    .svc-row::after { content:""; position:absolute; top:calc(50% - 1.5px); height:3px; width:var(--branch); border-radius:4px; background:linear-gradient(90deg, var(--wire), var(--wire2)); box-shadow:0 0 10px var(--wireGlow), 0 0 20px rgba(0,255,160,.25); z-index:1; animation:wirePulse 4.5s ease-in-out infinite; }
-    .svc-row:nth-child(odd) .svc-icon { left: calc(50% - var(--branch) - var(--icon-gap) - (var(--icon-size) / 2)); }
-    .svc-row:nth-child(odd)::after { left: calc(50% - var(--branch)); }
-    .svc-row:nth-child(even) .svc-icon { right: calc(50% - var(--branch) - var(--icon-gap) - (var(--icon-size) / 2)); }
-    .svc-row:nth-child(even)::after { left: 50%; }
+    .svc-icon{ position:absolute; top:50%; transform:translateY(-50%); width:var(--icon-size); height:var(--icon-size); display:grid; place-items:center; pointer-events:none; z-index:2; }
+    .svc-icon img{ width:100%; height:100%; object-fit:cover; border-radius:12px; filter:drop-shadow(0 14px 24px rgba(0,0,0,.28)) drop-shadow(0 0 18px var(--wireGlow)); }
+    .svc-row::after{ content:""; position:absolute; top:calc(50% - 1.5px); height:3px; width:var(--branch); border-radius:4px; background:linear-gradient(90deg,var(--wire),var(--wire2)); box-shadow:0 0 10px var(--wireGlow),0 0 20px rgba(0,255,160,.25); z-index:1; animation:wirePulse 4.5s ease-in-out infinite; }
+    .svc-row:nth-of-type(odd)  .svc-icon{ left:calc(50% - var(--branch) - var(--icon-gap) - (var(--icon-size)/2)); }
+    .svc-row:nth-of-type(even) .svc-icon{ right:calc(50% - var(--branch) - var(--icon-gap) - (var(--icon-size)/2)); }
+    .svc-row:nth-of-type(odd)::after{ left:calc(50% - var(--branch)); }
+    .svc-row:nth-of-type(even)::after{ left:50%; }
     @media (max-width:980px){
       .svc-page{ margin-top:28px; }
       .svc-spine{ left:14px; transform:none; }
@@ -128,7 +128,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/ops.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-1.jpg" alt=""></figure>
         <article class="svc-card" id="operations-design">
           <div class="svc-meta"><img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2></div>
           <div class="chips"><span class="chip">Playbooks</span><span class="chip">SLAs</span><span class="chip">Escalations</span><span class="chip">CX Strategy</span></div>
@@ -151,7 +151,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/systems.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-2.jpg" alt=""></figure>
         <article class="svc-card" id="systems-architecture">
           <div class="svc-meta"><img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2></div>
           <div class="chips"><span class="chip">Zendesk</span><span class="chip">Workflows</span><span class="chip">Data Governance</span></div>
@@ -174,7 +174,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/ai.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-3.jpg" alt=""></figure>
         <article class="svc-card" id="automation-ai">
           <div class="svc-meta"><img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2></div>
           <div class="chips"><span class="chip">Bots</span><span class="chip">Deflection</span><span class="chip">Workflows</span></div>
@@ -197,7 +197,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/analytics.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-4.jpg" alt=""></figure>
         <article class="svc-card" id="reporting-analytics">
           <div class="svc-meta"><img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2></div>
           <div class="chips"><span class="chip">Dashboards</span><span class="chip">SLA</span><span class="chip">QA</span><span class="chip">Insights</span></div>
@@ -219,7 +219,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/ecom.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-5.jpg" alt=""></figure>
         <article class="svc-card" id="ecommerce-integrations">
           <div class="svc-meta"><img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2></div>
           <div class="chips"><span class="chip">Shopify</span><span class="chip">Magento</span><span class="chip">Payments</span><span class="chip">APIs</span></div>
@@ -241,7 +241,7 @@
 
       <div class="svc-row">
         <span class="svc-node" aria-hidden="true"></span>
-        <figure class="svc-icon" aria-hidden="true"><img src="/assets/icons/cx.png" alt=""></figure>
+        <figure class="svc-icon" aria-hidden="true"><img src="/assets/svc-6.jpg" alt=""></figure>
         <article class="svc-card" id="customer-experience-servicing">
           <div class="svc-meta"><img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2></div>
           <div class="chips"><span class="chip">Hiring</span><span class="chip">Training</span><span class="chip">QA</span><span class="chip">Policies</span></div>
@@ -267,12 +267,29 @@
     fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
   </script>
   <script>
-    (function () {
-      const p = new URLSearchParams(location.search).get('s');
-      if (!p) return;
-      history.replaceState(null, '', '#' + p);
-      const el = document.getElementById(p);
-      if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+    (function(){
+      function sync(){
+        document.querySelectorAll('.svc-row').forEach(row=>{
+          const card=row.querySelector('.svc-card');
+          const h=card?card.clientHeight:0;
+          const size=Math.max(120,Math.min(240,h-120));
+          row.style.setProperty('--icon-size',size+'px');
+          row.style.setProperty('--branch',Math.max(120,Math.min(260,size-12))+'px');
+        });
+      }
+      window.addEventListener('load',sync);
+      window.addEventListener('resize',sync);
+      const obsTarget=document.querySelector('.svc-flow');
+      if(window.ResizeObserver&&obsTarget){ new ResizeObserver(sync).observe(obsTarget); }
+    })();
+  </script>
+  <script>
+    (function(){
+      const p=new URLSearchParams(location.search).get('s');
+      if(!p)return;
+      history.replaceState(null,'','#'+p);
+      const el=document.getElementById(p);
+      if(el)el.scrollIntoView({behavior:'instant',block:'start'});
     })();
   </script>
   <script src="/js/main.js?v=214" defer></script>
