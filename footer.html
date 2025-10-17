@@ -23,7 +23,7 @@
       border-radius: 16px;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
       overflow: hidden;
-      padding: 40px 32px 24px; /* reduced top/bottom padding */
+      padding: 36px 32px 20px; /* compact height */
     }
 
     .dxp-footer .wrap {
@@ -35,30 +35,33 @@
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr 1fr;
       gap: 40px;
-      align-items: center;        /* centers vertically */
+      align-items: center;
+      justify-items: center;
       text-align: center;
     }
 
-    /* === Logo column === */
+    /* === Logo Column (floating large logo) === */
     .dxp-footer .logo-col {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      align-items: center;         /* center horizontally */
-      justify-content: center;     /* center vertically */
-      padding-top: 0;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      height: 100%;
+      overflow: visible;
     }
 
     .dxp-footer .logo {
-      width: 200px;
+      width: 260px;
       height: auto;
-      margin: 0 auto 18px;         /* tighter spacing */
+      margin: 0 auto;
+      transform: translateY(-10px);
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       transition: transform 0.3s ease;
     }
 
     .dxp-footer .logo:hover {
-      transform: scale(1.05);
+      transform: translateY(-10px) scale(1.05);
     }
 
     /* === Headings === */
@@ -126,14 +129,10 @@
         gap: 28px 22px;
         text-align: center;
       }
-      .dxp-footer .logo-col {
-        grid-column: 1 / -1;
-        align-items: center;
-        justify-content: center;
-      }
+
       .dxp-footer .logo {
-        width: 180px;
-        margin-bottom: 12px;
+        width: 220px;
+        transform: translateY(-8px);
       }
     }
 
@@ -143,16 +142,14 @@
         gap: 20px;
         text-align: center;
       }
-      .dxp-footer .logo-col {
-        align-items: center;
-        justify-content: center;
-      }
+
       .dxp-footer .logo {
-        width: 160px;
-        margin-bottom: 10px;
+        width: 200px;
+        transform: translateY(-6px);
       }
+
       .dxp-footer .surface {
-        padding: 32px 20px 18px; /* smaller vertical spacing */
+        padding: 28px 20px 16px;
       }
     }
   </style>
