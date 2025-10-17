@@ -44,14 +44,16 @@
     .dxp-footer .logo-col {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-start; /* left-align to match text columns */
+      justify-content: flex-start; /* push to top */
+      padding-top: 12px; /* nudge down slightly to align titles visually */
     }
 
+    /* Logo styling */
     .dxp-footer .logo {
-      width: 150px;
+      width: 190px;  /* increased size */
       height: auto;
-      margin-bottom: 16px;
+      margin-bottom: 28px; /* adds breathing room before text below */
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
       transition: transform 0.3s ease;
     }
