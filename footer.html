@@ -2,113 +2,150 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
-    :root{
-      --dxp-ink:#e7e9ee;
-      --dxp-muted:#cfd4dc;
+    :root {
+      --dxp-green: #007236;
+      --dxp-ink: #e7e9ee;
+      --dxp-muted: #cfd4dc;
+      --dxp-bg-1: #2E424E;
+      --dxp-bg-2: #1c262c;
     }
 
-    .dxp-footer{
-      font-family:"Plus Jakarta Sans",Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--dxp-ink);
-      margin:60px auto 0;
+    .dxp-footer {
+      font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--dxp-ink);
+      margin: 60px auto 0;
     }
 
-    .dxp-footer .surface{
-      position:relative; /* enable overlay positioning */
-      background:
-        radial-gradient(120% 160% at 50% -20%,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 55%),
-        linear-gradient(180deg,#37535F 0%,#2E424E 35%,#24353D 80%,#1c262c 100%);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:16px;
-      box-shadow:0 14px 40px rgba(0,0,0,.25);
-      overflow:hidden;
-      padding:28px 32px 18px; /* compact; no extra height tax */
+    .dxp-footer .surface {
+      position: relative;
+      background: radial-gradient(120% 160% at 50% -20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 55%),
+                  linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      padding: 32px 32px 20px;
     }
 
-    .dxp-footer .wrap{ max-width:1200px; margin:0 auto; }
-
-    /* ===== BIG OVERLAY LOGO (does NOT affect layout) ===== */
-    .dxp-footer .footer-brand{
-      position:absolute;
-      top:28px;
-      left:48px;                 /* sits over the left area */
-      height:220px;              /* visual size */
-      width:auto;
-      pointer-events:none;       /* mouse goes through */
-      filter:drop-shadow(0 4px 12px rgba(0,0,0,.35));
-      opacity:.98;
-      user-select:none;
+    .dxp-footer .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* Grid under it — remains tight and top-aligned */
-    .dxp-footer .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:40px;
-      align-items:start;         /* top align text columns */
-      text-align:center;
+    /* Desktop overlay logo */
+    .dxp-footer .footer-brand {
+      position: absolute;
+      top: 32px;
+      left: 48px;
+      height: 220px;
+      width: auto;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+      opacity: 0.98;
+      user-select: none;
     }
 
-    .dxp-footer .col h4{
-      margin:0 0 10px;
-      font-weight:700;
-      font-size:1.05rem;
-      color:#f6f7f9;
-      letter-spacing:.01em;
+    .dxp-footer .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      text-align: center;
     }
 
-    .dxp-footer .links{ list-style:none; padding:0; margin:0; }
-    .dxp-footer .links li{ margin:6px 0; }
-    .dxp-footer a{
-      color:var(--dxp-ink);
-      text-decoration:none;
-      font-size:.95rem;
-      line-height:1.45;
-      opacity:.9;
-      transition:color .2s, opacity .2s;
+    .dxp-footer .col h4 {
+      margin: 0 0 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f6f7f9;
     }
-    .dxp-footer a:hover{ opacity:1; color:#fff; text-decoration:underline; }
 
-    .dxp-footer .rule{
-      height:1px;
-      background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 50%,rgba(255,255,255,0) 100%);
-      margin:20px 0 12px;
+    .dxp-footer .links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .dxp-footer .copy{
-      text-align:center;
-      color:var(--dxp-muted);
-      font-size:.92rem;
-      letter-spacing:.01em;
-    }
-    .dxp-footer .copy a{ color:#fff; text-decoration:none; }
-    .dxp-footer .copy a:hover{ text-decoration:underline; }
 
-    /* ===== Responsive ===== */
-    @media (max-width:1100px){
-      .dxp-footer .footer-brand{ left:24px; height:200px; }
+    .dxp-footer .links li {
+      margin: 6px 0;
     }
-    @media (max-width:900px){
-      .dxp-footer .grid{ grid-template-columns:1fr 1fr; gap:28px 22px; }
-      .dxp-footer .footer-brand{ height:180px; left:18px; top:22px; opacity:.95; }
+
+    .dxp-footer a {
+      color: var(--dxp-ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      opacity: 0.9;
+      transition: color 0.2s, opacity 0.2s;
     }
-    @media (max-width:560px){
-      .dxp-footer .grid{ grid-template-columns:1fr; gap:18px; }
-      .dxp-footer .footer-brand{
-        position:absolute;
-        left:50%;
-        transform:translateX(-50%);
-        height:160px;            /* centered above stack on phone */
-        top:18px;
+
+    .dxp-footer a:hover {
+      opacity: 1;
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .dxp-footer .rule {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+      margin: 20px 0 12px;
+    }
+
+    .dxp-footer .copy {
+      text-align: center;
+      color: var(--dxp-muted);
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+    }
+
+    .dxp-footer .copy a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .dxp-footer .copy a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Responsive Fix ===== */
+    @media (max-width: 900px) {
+      .dxp-footer .footer-brand {
+        position: static;
+        display: block;
+        margin: 0 auto 20px;
+        height: 160px;
+        pointer-events: auto;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
       }
-      .dxp-footer .surface{ padding:26px 18px 16px; }
+
+      .dxp-footer .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 22px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .dxp-footer .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .dxp-footer .surface {
+        padding: 32px 20px 18px;
+      }
+
+      .dxp-footer .footer-brand {
+        height: 140px;
+        margin-bottom: 10px;
+      }
     }
   </style>
 
   <div class="surface">
-    <!-- Decorative overlay logo; not focusable, not in layout -->
-    <img src="/assets/logo.png" alt="" aria-hidden="true" class="footer-brand" />
-
     <div class="wrap">
+      <!-- Overlay logo on desktop, inline on mobile -->
+      <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-brand" />
+
       <div class="grid">
         <div class="col">
           <h4>Policies</h4>
@@ -139,7 +176,9 @@
       </div>
 
       <div class="rule"></div>
-      <p class="copy">© <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a></p>
+      <p class="copy">
+        © <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a>
+      </p>
     </div>
   </div>
 
