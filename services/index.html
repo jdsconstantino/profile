@@ -126,6 +126,60 @@
       .svc-icon{ display:none; }
       .svc-row::after{ display:none; }
     }
+    .svc-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 44px 0;
+  --icon-size: 190px;      /* increased from 140px */
+  --branch: 0px;           /* removes extra connecting line */
+  --icon-gap: 24px;
+}
+
+.svc-card {
+  position: relative;
+  width: 48%;
+  background: #fff;
+  color: var(--cardText);
+  border: 1px solid var(--cardBorder);
+  border-radius: 16px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  transition: transform .25s, box-shadow .25s;
+  scroll-margin-top: calc(var(--header-offset) + 12px);
+  z-index: 2;
+}
+
+.svc-card::before { display: none; }  /* disables that horizontal connector */
+
+.svc-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)) drop-shadow(0 0 18px var(--wireGlow));
+}
+
+.svc-row:nth-of-type(even) .svc-icon {
+  left: calc(50% - var(--icon-gap) - (var(--icon-size)/2));
+}
+.svc-row:nth-of-type(odd) .svc-icon {
+  right: calc(50% - var(--icon-gap) - (var(--icon-size)/2));
+}
+
+.svc-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
   </style>
 </head>
 <body>
