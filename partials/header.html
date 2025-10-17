@@ -1,7 +1,6 @@
 <nav class="nav-wrap" role="navigation" aria-label="Primary">
   <div class="nav">
     <a class="brand" href="/" aria-label="DeskXP Home">
-      <!-- No fixed width/height; CSS controls size -->
       <img src="/assets/header-logo.png" alt="DeskXP" />
     </a>
 
@@ -38,16 +37,13 @@
   </div>
 </nav>
 
-
 <style>
-
 :root{
   --nav-h: 72px;
   --logo-h: 48px;
   --pad-x: 16px;
 }
 
-/* Tablet / WebView (often “too small” by default) */
 @media (min-width:601px) and (max-width:1024px){
   :root{
     --nav-h: 80px;
@@ -56,11 +52,10 @@
   }
 }
 
-/* Phone */
 @media (max-width:600px){
   :root{
     --nav-h: 96px;
-    --logo-h: 84px;   /* go big */
+    --logo-h: 84px;
     --pad-x: 12px;
   }
 }
@@ -115,12 +110,13 @@ nav.nav-wrap .brand img{
 .cd-primary-nav-trigger {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: #fff;
   text-decoration: none;
-  padding: 6px 10px !important;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 8px;
+  padding: 6px 12px !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
   cursor: pointer;
   position: relative;
   z-index: 10110;
@@ -130,7 +126,7 @@ nav.nav-wrap .brand img{
 .cd-menu-icon {
   position: relative;
   width: 22px;
-  height: 14px;
+  height: 18px;
   display: inline-block;
 }
 .cd-menu-icon::before,
@@ -182,58 +178,24 @@ nav.nav-wrap .brand img{
 }
 .curtain-menu a:hover { background: rgba(255,255,255,.08); }
 
-
-/* Desktop ≥1025px */
 @media (min-width:1025px){
+  :root{ --logo-h: 72px; --nav-h: 92px; }
   .cd-menu-text{ font-size: 1rem; }
 }
-
-/* Tablet/WebView 601–1024px */
 @media (min-width:601px) and (max-width:1024px){
+  :root{ --logo-h: 64px; --nav-h: 86px; }
   .cd-menu-text{ font-size: 1rem; }
 }
-
-/* Phone ≤600px */
 @media (max-width:600px){
+  :root{ --logo-h: 120px; --nav-h: 112px; }
   .cd-menu-text{ font-size: .95rem; }
-  /* give the logo a hair of breathing room so it doesn’t kiss the top edge */
   nav.nav-wrap .brand img{ margin-top: 4px; }
 }
-/* === OVERRIDE TOKEN SIZES (place at very end of the <style>) === */
 
-/* Desktop ≥1025px */
-@media (min-width:1025px){
-  :root{
-    --logo-h: 72px;   /* bump desktop logo */
-    --nav-h: 92px;    /* make bar tall enough to fit it */
-  }
-}
-
-/* Tablet / WebView 601–1024px */
-@media (min-width:601px) and (max-width:1024px){
-  :root{
-    --logo-h: 64px;
-    --nav-h: 86px;
-  }
-}
-
-/* Phone ≤600px (keep it big) */
-@media (max-width:600px){
-  :root{
-    --logo-h: 120px;
-    --nav-h: 112px;
-  }
-}
-
-nav.nav-wrap .brand img{ height: var(--logo-h) !important; }
-.nav{ height: var(--nav-h) !important; }
-/* stronger desktop + tablet logo sizing */
 @media (min-width:601px){
   :root{
-    --logo-h: 150px !important;   /* bigger logo */
-    --nav-h: 108px !important;   /* taller bar so it fits */
+    --logo-h: 150px !important;
+    --nav-h: 108px !important;
   }
 }
-  
-
 </style>
