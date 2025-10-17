@@ -107,90 +107,51 @@ img{max-width:100%; height:auto; display:block;}
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* keep your existing rules */
-.nav {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* --- Safe, non-conflicting layout helpers --- */
+.nav{
+  max-width:1100px;
+  margin:0 auto;                 /* center container */
+  /* no padding / flex here — header controls its own layout */
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 1000;
-  color: var(--text);
-  text-decoration: none;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;               /* dial back from 1000 */
+  color:inherit;                 /* let header decide color */
+  text-decoration:none;
 }
 
-.brand img {
-  width: 120px;
-  height: 120px;
-  border-radius: 6px;
+/* DO NOT hard-size the logo; header CSS sets size per breakpoint */
+.brand img{
+  border-radius:6px;             /* keep the rounding if you want it */
+  width:auto;                    /* no fixed width */
+  height:auto;                   /* no fixed height */
+  max-width:100%;
 }
 
-.menu {
-  display: flex;
-  gap: 14px;
+.menu{
+  display:flex;
+  gap:14px;
 }
 
-.menu a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background 0.2s, transform 0.2s;
+.menu a{
+  color:inherit;                 /* let header control color */
+  text-decoration:none;
+  font-weight:600;
+  padding:0;                     /* no vertical padding bloat */
+  border-radius:8px;
+  transition:background .2s, transform .2s;
 }
 
-.menu a:hover {
-  background: var(--glass);
-  transform: translateY(-1px);
+.menu a:hover{
+  background:var(--glass);
+  transform:translateY(-1px);
 }
 
-.hamburger {
-  display: none;
-  background: none;
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--text);
-  margin: 4px 0;
-}
-
-@media (max-width: 760px) {
-  .menu {
-    display: none;
-  }
-
-  .menu[data-open="true"] {
-    display: block;
-  }
-
-  .menu a {
-    display: block;
-    padding: 8px 0;
-    margin: 0;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .brand img {
-    width: 48px;
-    height: 48px;
-  }
-}
+/* Remove the old hamburger system entirely — your header uses .cd-primary-nav-trigger */
+/* No mobile media query that hides .menu or shrinks .brand img */
 
 
 /* ===== Banner (home only) ===== */
