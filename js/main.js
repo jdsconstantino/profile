@@ -1,6 +1,6 @@
-// ======================= DeskXP main.js (v216) =======================
+// ======================= DeskXP main.js (v215) =======================
 
-// Gate for reveal transitions
+// Enable .js gate for reveal transitions
 document.documentElement.classList.add("js");
 
 // -------------------- YEAR ----------------------
@@ -91,23 +91,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ================== HEADER: mount + fetch + bind ==================
 (async function mountHeader() {
-  // Safety: any curtain not open is inert.
+  // Safety style: ANY curtain not open is inert everywhere.
   const safety = document.createElement("style");
   safety.textContent = `
-    .curtain:not(.open) { opacity:0 !important; visibility:hidden !important; pointer-events:none !important; }
-    html.no-scroll, html.no-scroll body { overflow:hidden !important; }
+    .curtain:not(.open) {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
   `;
   document.head.appendChild(safety);
 
   const mount = ensureHeaderMount(); // #header-mount (creates if missing)
-
   const html = await fetchHeaderHTML();
   mount.innerHTML = html;
 
   bindCurtainMenu();
-  bindHeaderTransparency(); // <-- hero → transparent/solid flip
+  bindHeaderTransparency();          // ⬅ flip transparent/solid on scroll
 
-  // Recompute offsets once fonts load or on full load
+  // keep curtain offset correct if font loads/resizes
   if (document.fonts?.ready) document.fonts.ready.then(adjustCurtainOffset);
   window.addEventListener("load", adjustCurtainOffset);
 })();
@@ -123,14 +125,14 @@ function ensureHeaderMount() {
   return el;
 }
 
-// Fetch /partials/header.html (cache-busted). Fallback to a minimal header.
+// Try to fetch /partials/header.html; fallback to minimal header if 404/blocked
 async function fetchHeaderHTML() {
   const bust = `?v=${Date.now()}`;
-  const urls = [
+  const candidates = [
     `/partials/header.html${bust}`,
     new URL(`./partials/header.html${bust}`, window.location.href).href,
   ];
-  for (const url of urls) {
+  for (const url of candidates) {
     try {
       const res = await fetch(url, { cache: "no-store" });
       if (res.ok) return await res.text();
@@ -141,7 +143,7 @@ async function fetchHeaderHTML() {
 <nav class="nav-wrap transparent" role="navigation" aria-label="Primary">
   <div class="nav">
     <a class="brand" href="/" aria-label="DeskXP Home">
-      <img src="/assets/header-logo.png" alt="DeskXP" />
+      <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
     </a>
     <a href="#" id="cdMenuTrigger" class="cd-primary-nav-trigger" aria-label="Toggle menu" aria-controls="navCurtain" aria-expanded="false">
       <span class="cd-menu-text">Menu</span><span class="cd-menu-icon" aria-hidden="true"><i></i></span>
@@ -173,7 +175,7 @@ function bindCurtainMenu() {
     trigger.classList.add("is-open");
     trigger.setAttribute("aria-expanded", "true");
     curtain.hidden = false;
-    void curtain.offsetHeight;            // reflow
+    void curtain.offsetHeight;              // force reflow
     curtain.classList.add("open");
     document.documentElement.classList.add("no-scroll");
     adjustCurtainOffset();
@@ -181,4 +183,75 @@ function bindCurtainMenu() {
   const close = () => {
     trigger.classList.remove("is-open");
     trigger.setAttribute("aria-expanded", "false");
-    curtain.classList.remove
+    curtain.classList.remove("open");
+    document.documentElement.classList.remove("no-scroll");
+    setTimeout(() => { curtain.hidden = true; }, 260);
+  };
+
+  // Start CLOSED no matter what markup/CSS shipped
+  close();
+
+  trigger.addEventListener("click", (e) => {
+    e.preventDefault();
+    trigger.classList.contains("is-open") ? close() : open();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && trigger.classList.contains("is-open")) close();
+  });
+  links.forEach((a) => a.addEventListener("click", close));
+
+  const header = document.querySelector(".nav-wrap");
+  if (header && "ResizeObserver" in window) {
+    new ResizeObserver(adjustCurtainOffset).observe(header);
+  }
+  window.addEventListener("resize", adjustCurtainOffset);
+}
+
+// ---------------- Curtain below header (inline !important) ----------------
+function adjustCurtainOffset() {
+  const header = document.querySelector(".nav-wrap");
+  const curtain = document.getElementById("navCurtain");
+  if (!header || !curtain) return;
+  const h = Math.ceil(header.getBoundingClientRect().height) || 64;
+  curtain.style.setProperty("top", `${h}px`, "important");
+  curtain.style.setProperty("height", `calc(100vh - ${h}px)`, "important");
+}
+
+// ---------------- Header transparency over hero ----------------------
+function bindHeaderTransparency() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  function attach() {
+    const header = document.querySelector("nav.nav-wrap");
+    if (!header) return false;
+
+    // Start truly transparent for the “video-as-header” illusion
+    header.classList.add("transparent");
+    header.classList.remove("solid");
+
+    const io = new IntersectionObserver((entries) => {
+      const e = entries[0];
+      if (e && e.isIntersecting && e.intersectionRatio > 0.1) {
+        header.classList.add("transparent");
+        header.classList.remove("solid");
+      } else {
+        header.classList.add("solid");
+        header.classList.remove("transparent");
+      }
+    }, { threshold: [0, 0.1, 1] });
+
+    io.observe(hero);
+    return true;
+  }
+
+  // Try now; if header is injected a tick later, watch and bind when it appears
+  if (!attach()) {
+    const mo = new MutationObserver(() => { if (attach()) mo.disconnect(); });
+    mo.observe(document.getElementById("header-mount") || document.body, {
+      childList: true,
+      subtree: true,
+    });
+  }
+}
+// =====================================================================
