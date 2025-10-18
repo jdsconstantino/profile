@@ -2427,3 +2427,14 @@ body > div:first-of-type,
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
+// Hard-kill any top margin/padding the theme adds after the header
+(() => {
+  const mount = document.getElementById('header-mount');
+  const first = mount?.nextElementSibling;
+  if (first) {
+    first.style.marginTop = '0';
+    first.style.paddingTop = '0';
+  }
+  // some themes use a CSS var for header offset — zero it out
+  document.documentElement.style.setProperty('--nav-offset', '0px');
+})();
