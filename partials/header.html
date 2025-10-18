@@ -38,129 +38,174 @@
 </nav>
 
 <style>
-:root{
+:root {
   --nav-h: 92px;
   --logo-h: 72px;
   --pad-x: 16px;
 }
 
-/* Fixed, floating over the video */
-.nav-wrap{
+/* ------------------- Base Layout ------------------- */
+.nav-wrap {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 2147483647;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
-  transition: background .35s ease, backdrop-filter .35s ease, box-shadow .35s ease;
+  background: transparent; /* start transparent over hero */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-/* Transparent (video “header” illusion) */
-.nav-wrap.transparent{
-  background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+.nav-wrap.solid {
+  background: rgba(46, 66, 78, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: var(--nav-h);
+  padding: 0 var(--pad-x);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ------------------- Logo ------------------- */
+nav.nav-wrap .brand img {
+  display: block;
+  height: var(--logo-h);
+  width: auto;
+  flex: 0 0 auto;
+}
+
+/* ------------------- Menu Links ------------------- */
+.menu {
+  display: flex;
+  gap: 18px;
+  margin-left: auto;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: .01em;
+  transition: opacity .2s ease;
+  line-height: 1;
+  padding: 0;
+}
+.menu a:hover { opacity: .75; }
+
+.menu .cta {
+  background: #007236;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* ------------------- Hamburger ------------------- */
+.cd-primary-nav-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 12px;
+  background: none;
+  border: none;
   box-shadow: none;
-  border-bottom: 1px solid rgba(255,255,255,0.10);
+  cursor: pointer;
+  position: relative;
+  z-index: 10110;
+}
+.cd-menu-text { font-size: 1rem; line-height: 1; }
+
+.cd-menu-icon {
+  position: relative;
+  width: 22px;
+  height: 18px;
+  display: inline-block;
+}
+.cd-menu-icon::before,
+.cd-menu-icon::after,
+.cd-menu-icon i {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.cd-menu-icon::before { top: 0; }
+.cd-menu-icon::after  { bottom: 0; }
+.cd-menu-icon i       { top: 50%; transform: translateY(-50%); }
+.cd-primary-nav-trigger.is-open .cd-menu-icon::before {
+  top: 50%; transform: translateY(-50%) rotate(45deg);
+}
+.cd-primary-nav-trigger.is-open .cd-menu-icon::after {
+  bottom: 50%; transform: translateY(50%) rotate(-45deg);
+}
+.cd-primary-nav-trigger.is-open .cd-menu-icon i { opacity: 0; }
+
+/* ------------------- Curtain Menu ------------------- */
+.curtain {
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  background: #2E424E;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  overflow: hidden;
+  transform: translateY(-16px);
+  opacity: 0;
+  transition: all .32s cubic-bezier(.2,.7,.2,1);
+  z-index: 5;
+  pointer-events: none;
+}
+.curtain.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  display: block !important;
+  visibility: visible !important;
 }
 
-/* Solid after scroll */
-.nav-wrap.solid{
-  background: linear-gradient(
-    to bottom,
-    rgba(46,66,78,0.98) 0%,
-    rgba(46,66,78,0.95) 50%,
-    rgba(46,66,78,0.92) 100%
-  );
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+.curtain-menu {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
+.curtain-menu a {
+  display: block;
+  padding: 12px 8px;
+  color: #ECF3FF;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+.curtain-menu a:hover { background: rgba(255,255,255,.08); }
 
-/* Layout */
-.nav{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  height:var(--nav-h);
-  padding:0 var(--pad-x);
-}
-.brand img{
-  display:block;
-  height:var(--logo-h);
-  width:auto;
-  max-height:none;
-  flex:0 0 auto;
-  transition: height .3s ease, filter .3s ease;
-}
-.nav-wrap.solid .brand img{ height:calc(var(--logo-h) * 0.85); }
-.nav-wrap.transparent .brand img{ filter: drop-shadow(0 0 4px rgba(0,0,0,0.5)) brightness(1.1); }
-
-/* Menu */
-.menu{ display:flex; gap:18px; margin-left:auto; }
-.menu a{
-  color:#fff; text-decoration:none; font-weight:500; letter-spacing:.01em;
-  transition:opacity .2s ease, color .3s ease;
-  line-height:1; padding:0;
-}
-.menu a:hover{ opacity:.75; }
-.menu .cta{
-  background:#007236; padding:8px 14px; border-radius:8px;
-  color:#fff !important; font-weight:600;
-}
-
-/* Hamburger */
-.cd-primary-nav-trigger{
-  display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none;
-  padding:6px 12px; background:none; border:none; box-shadow:none; cursor:pointer;
-  position:relative; z-index:10110;
-}
-.cd-menu-text{ font-size:1rem; line-height:1; }
-.cd-menu-icon{ position:relative; width:22px; height:18px; display:inline-block; }
-.cd-menu-icon::before, .cd-menu-icon::after, .cd-menu-icon i{
-  content:""; position:absolute; left:0; right:0; height:2px; background:currentColor; border-radius:2px;
-  transition:transform .25s ease, opacity .2s ease;
-}
-.cd-menu-icon::before{ top:0; } .cd-menu-icon::after{ bottom:0; } .cd-menu-icon i{ top:50%; transform:translateY(-50%); }
-.cd-primary-nav-trigger.is-open .cd-menu-icon::before{ top:50%; transform:translateY(-50%) rotate(45deg); }
-.cd-primary-nav-trigger.is-open .cd-menu-icon::after{ bottom:50%; transform:translateY(50%) rotate(-45deg); }
-.cd-primary-nav-trigger.is-open .cd-menu-icon i{ opacity:0; }
-
-/* Curtain */
-.curtain{
-  position:absolute; left:0; right:0; top:100%;
-  background:#2E424E;
-  border-bottom:1px solid rgba(255,255,255,.14);
-  overflow:hidden;
-  transform:translateY(-16px);
-  opacity:0;
-  transition:all .32s cubic-bezier(.2,.7,.2,1);
-  z-index:5; pointer-events:none;
-}
-.curtain.open{
-  transform:translateY(0); opacity:1; pointer-events:auto;
-  display:block !important; visibility:visible !important;
-}
-.curtain-menu{
-  list-style:none; margin:0; padding:20px;
-  display:flex; flex-direction:column; gap:18px;
-}
-.curtain-menu a{
-  display:block; padding:12px 8px;
-  color:#ECF3FF; text-decoration:none; border-radius:8px;
-  font-size:1.1rem; font-family:'Plus Jakarta Sans',sans-serif !important;
-}
-.curtain-menu a:hover{ background:rgba(255,255,255,.08); }
-
-/* Responsive */
+/* ------------------- Responsive ------------------- */
 @media (min-width:1025px){
-  :root{ --logo-h:72px; --nav-h:92px; }
-  .cd-menu-text{ font-size:1rem; }
+  :root{ --logo-h: 72px; --nav-h: 92px; }
 }
 @media (min-width:601px) and (max-width:1024px){
-  :root{ --logo-h:64px; --nav-h:86px; }
-  .cd-menu-text{ font-size:1rem; }
+  :root{ --logo-h: 64px; --nav-h: 86px; }
 }
 @media (max-width:600px){
-  :root{ --logo-h:84px; --nav-h:96px; }
-  .cd-menu-text{ font-size:.95rem; }
-  nav.nav-wrap .brand img{ margin-top:4px; }
+  :root{ --logo-h: 84px; --nav-h: 96px; }
+  nav.nav-wrap .brand img{ margin-top: 4px; }
+}
+
+/* ------------------- Hero Overlay Illusion ------------------- */
+body {
+  padding-top: 0 !important;
 }
 </style>
