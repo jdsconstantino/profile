@@ -2325,3 +2325,59 @@ section#services .service-card,
   transition: opacity .2s ease, transform .2s ease, visibility 0s;
   z-index: 1000;                      /* above content when open */
 }
+/* ----- HERO MUST TOUCH THE TOP EDGE ----- */
+
+/* 0) never add default page padding */
+html, body { margin: 0 !important; padding: 0 !important; }
+
+/* 1) some global rules are adding top padding/margin; nuke them */
+body,
+main,
+.page,
+.wrapper,
+.container:first-child,
+body > section:first-of-type,
+#header-mount + section.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 2) old "banner" styles sometimes add spacing/radius; neutralize */
+.banner,
+.banner .inner,
+.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;          /* remove those rounded corners */
+  overflow: visible !important;          /* let the video fill to the edge */
+}
+
+/* 3) make sure the video itself has no radius or inset */
+.hero video,
+.hero .hero__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0 !important;
+  object-fit: cover;
+}
+
+/* 4) confirm header truly overlays (no fake spacer) */
+.nav-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: transparent;               /* transparent at top */
+  border: 0;                             
+  box-shadow: none;
+  z-index: 2147483647;
+}
+.nav-wrap.solid {
+  background: rgba(46,66,78,.96);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+/* 5) absolutely no “safety” padding to push content down */
+body { padding-top: 0 !important; }
