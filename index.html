@@ -21,23 +21,23 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#0d0f12">
 
-  <!-- Fonts + Site CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
 
-  <!-- Preload hero assets (safe if files exist) -->
+  <!-- Preload hero assets (MP4 priority + poster) -->
   <link rel="preload" as="image" href="/assets/banner.jpg" fetchpriority="high">
   <link rel="preload" as="video" href="/assets/DXP-Banner.mp4" type="video/mp4">
-  <link rel="preload" as="video/webm" href="/assets/DXP-Banner.webm" type="video/mp4">
 
   <style>
     /* Minor text color tweaks requested */
     #cta .accent { color: #ffffff !important; }
     span.accent { color: #007236 !important; }
+  </style>
 
-    /* ===== HERO VIDEO (scoped) ===== */
+  <!-- ===== HERO VIDEO (scoped) ===== -->
+  <style>
     .hero {
       position: relative;
       height: 100vh;
@@ -60,45 +60,9 @@
       background: rgba(0,0,0,.45);
       z-index: 2;
     }
-    .hero__content {
-      position: relative;
-      z-index: 3;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 0 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      text-align: center;
-      color: #fff;
-    }
-    .hero__content h1 {
-      font-size: clamp(2rem, 4.5vw, 3.25rem);
-      line-height: 1.08;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      margin: 0 0 12px;
-    }
-    .hero__content p {
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
-      opacity: .9;
-      margin: 0 0 22px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 10px;
-      background: #007236;
-      color: #fff;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    /* Mobile & reduced-motion fallback (use poster only) */
-    @media (max-width: 768px) {
-      .hero__video { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .hero__video { display: none; }
-    }
+    .hero__content { position: relative; z-index: 3; }
+    @media (max-width: 768px){ .hero__video{ display:none; } }
+    @media (prefers-reduced-motion: reduce){ .hero__video{ display:none; } }
   </style>
 
   <!-- ===== SUCCESS STORIES (scoped) ===== -->
@@ -171,19 +135,15 @@
   <!-- Global header mount -->
   <div id="site-header"></div>
 
-  <!-- ===== HERO / VIDEO BANNER (self-hosted) ===== -->
+  <!-- Hero / Video (minimal, MP4 priority) -->
   <section class="hero" id="home" aria-label="DeskXP Hero">
     <video class="hero__video" autoplay muted loop playsinline poster="/assets/banner.jpg">
-      <!-- If you have a WebM too, keep it first for smaller size -->
-      <source src="/assets/DXP-Banner.webm" type="video/webm">
       <source src="/assets/DXP-Banner.mp4" type="video/mp4">
+      <source src="/assets/DXP-Banner.webm" type="video/webm">
+      Your browser does not support HTML5 video.
     </video>
     <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__content">
-      <h1>CX systems that scale — fast</h1>
-      <p>Launch or fix your Zendesk in 30 days. Automation, analytics, and clean operations.</p>
-      <a class="btn" href="https://calendly.com/deskxp/30min">Book a 15-min audit</a>
-    </div>
+    <div class="hero__content"></div>
   </section>
 
   <!-- Services -->
@@ -195,7 +155,7 @@
         <a class="card" href="/services#systems-architecture"><img class="card-img" src="/assets/svc-2.jpg" alt="Systems Architecture"><div class="card-body"><h3>Systems Architecture</h3><p>Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p></div></a>
         <a class="card" href="/services#automation-ai"><img class="card-img" src="/assets/svc-3.jpg" alt="Automation & AI"><div class="card-body"><h3>Automation & AI</h3><p>Deflection, classification, intent routing, and bots that shorten handle time.</p></div></a>
         <a class="card" href="/services#reporting-analytics"><img class="card-img" src="/assets/svc-4.jpg" alt="Reporting & Analytics"><div class="card-body"><h3>Reporting & Analytics</h3><p>Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p></div></a>
-        <a class="card" href="/services#ecommerce-integrations"><img class="card-img" src="/assets/svc-5.jpg" alt="eCommerce Integrations"><div class="card-body"><h3>eCommerce Integrations</h3><p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p></div></a>
+        <a class="card" href="/services#ecommerce-integrations"><img class="card-img" src="/assets/svc-5.jpg" alt="eCommerce Integrations"><div class="card-body"><h3>eCommerce Integrations"><p>Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p></div></a>
         <a class="card" href="/services#customer-experience-servicing"><img class="card-img" src="/assets/svc-6.jpg" alt="Customer Experience & Servicing"><div class="card-body"><h3>Customer Experience & Servicing</h3><p>Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p></div></a>
       </div>
     </section>
@@ -365,7 +325,6 @@
     })();
   </script>
 
-  <!-- No-JS fallback for hero (shows poster) -->
   <noscript>
     <style>.hero__video{display:none}</style>
   </noscript>
