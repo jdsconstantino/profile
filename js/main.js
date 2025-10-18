@@ -259,3 +259,28 @@ function adjustCurtainOffset() {
   curtain.style.setProperty("height", `calc(100vh - ${h}px)`, "important");
 }
 // =====================================================================
+// Header transparency logic
+(function () {
+  const header = document.getElementById('site-header');
+  if (!header) return;
+
+  const hero = document.querySelector('.hero');
+  if (!hero) {
+    header.classList.remove('transparent');
+    header.classList.add('solid');
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    const e = entries[0];
+    if (e && e.isIntersecting && e.intersectionRatio > 0.2) {
+      header.classList.add('transparent');
+      header.classList.remove('solid');
+    } else {
+      header.classList.add('solid');
+      header.classList.remove('transparent');
+    }
+  }, { threshold: [0, 0.2, 1] });
+
+  io.observe(hero);
+})();
