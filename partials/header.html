@@ -204,8 +204,65 @@ nav.nav-wrap .brand img {
   nav.nav-wrap .brand img{ margin-top: 4px; }
 }
 
-/* ------------------- Hero Overlay Illusion ------------------- */
-body {
+/* ------------------- Hero Overlay Illusion (flush) ------------------- */
+
+/* 1) the element right after the mount (your .hero) must have no top gap */
+#header-mount + * {
+  margin-top: 0 !important;
   padding-top: 0 !important;
+  border-top: 0 !important;
 }
+
+/* 2) pull the hero up UNDER the fixed header so the video is the header bg */
+.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-radius: 0 !important;
+  position: relative;
+  top: calc(var(--nav-h) * -1);  /* <-- key: remove the visual gap */
+  z-index: 0;
+}
+
+/* 3) when header becomes solid, we release the hero back to normal */
+body.scrolled .hero { top: 0; }
+
+/* 4) ensure video actually fills and has no rounding */
+.hero video,
+.hero .hero__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 !important;
+}
+
+/* 5) baseline page bg so no light strip shows through */
+html, body { margin: 0; padding: 0; background: #0d0f12; }
 </style>
+
+<script>
+/* Keep body.scrolled in sync with header's .solid (your main.js adds .solid).
+   This avoids duplicate scroll logic and guarantees the hero offset resets. */
+(function(){
+  const header = document.querySelector('nav.nav-wrap');
+  if (!header) return;
+
+  const apply = () => {
+    if (header.classList.contains('solid')) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+  };
+
+  // Initial state
+  apply();
+
+  // Watch for class changes driven by main.js (IntersectionObserver)
+  const mo = new MutationObserver(apply);
+  mo.observe(header, { attributes: true, attributeFilter: ['class'] });
+
+  // Fallback in case something else toggles on scroll
+  window.addEventListener('scroll', apply, { passive: true });
+})();
+</script>
