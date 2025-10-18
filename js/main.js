@@ -261,7 +261,7 @@ function adjustCurtainOffset() {
 // =====================================================================
 // Header transparency logic
 (function () {
-  const header = document.getElementById('site-header');
+  const header = document.getElementById('header-mount');
   if (!header) return;
 
   const hero = document.querySelector('.hero');
