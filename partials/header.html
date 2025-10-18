@@ -243,6 +243,19 @@ html, body {
   padding: 0;
   background: 0d0f12; /* or your original gray */
 }
+/* === Force true fixed header === */
+#header-mount { position: static !important; transform: none !important; }
+
+.nav-wrap{
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  z-index: 2147483647 !important;
+  will-change: transform;
+}
+
+/* iOS/Safari containment quirks: make sure no ancestor creates a containing block */
+html, body { transform: none !important; }
+
 </style>
 
 <script>
