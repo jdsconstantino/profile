@@ -40,7 +40,7 @@
 <style>
 :root {
   --nav-h: 92px;
-  --logo-h: 72px;
+  --logo-h: 120px;
   --pad-x: 16px;
 }
 
@@ -237,7 +237,11 @@ body.scrolled .hero { top: 0; }
 }
 
 /* 5) baseline page bg so no light strip shows through */
-html, body { margin: 0; padding: 0; background: #0d0f12; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--site-bg, #f9fafb); /* or your original gray */
+}
 </style>
 
 <script>
