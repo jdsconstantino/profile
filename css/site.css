@@ -2541,3 +2541,6 @@ body.about-page.no-hero { padding-top: 0 !important; }
   padding-left: 16px;
   padding-right: 16px;
 }
+.about-page .about-hero {
+  border-radius: 0 !important;
+}
