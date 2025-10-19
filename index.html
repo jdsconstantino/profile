@@ -228,6 +228,24 @@
       #success .wins--palawan, #success .wins--bds { grid-template-columns: 1fr; }
       #success .wins--unison { grid-template-columns: 1fr; }
     }
+    /* kill the global section margin for the services band */
+section#servicesFW {
+  margin-top: 0 !important;     /* beats section { margin: 32px 0 } */
+  border-top: 0 !important;     /* remove the hairline I added */
+  padding-top: 0;               /* keep it flush with the hero */
+}
+
+/* just in case any theme sets bottom margin on the hero */
+.hero {
+  margin-bottom: 0 !important;
+}
+
+/* if your theme gives all sections top/bottom padding,
+   you can also clamp it specifically here: */
+#servicesFW .svc-shell {
+  padding-top: clamp(14px, 1.4vw, 18px);  /* reduce if needed */
+}
+
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
