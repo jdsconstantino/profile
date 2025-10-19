@@ -295,6 +295,48 @@
       background: linear-gradient(90deg, rgba(255,212,0,0.25) 0%, rgba(255,212,0,0.15) 100%);
       padding: 0 3px; border-radius: 4px;
     }
+    /* ===== About page: make the first section full-width, no gap ===== */
+
+/* kill the global container gutters on the About page */
+.about-page .container{
+  max-width: none;
+  padding: 0 !important;
+}
+
+/* your base site.css styles a generic `section` (bg/padding/margin/shadow).
+   Neutralize that on About so sections don't get boxed in. */
+.about-page section{
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* make the about-hero truly edge-to-edge */
+.about-page .about-hero{
+  /* full-bleed hack */
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  /* no rounding or borders at the edges */
+  border-radius: 0 !important;
+  border: 0 !important;
+
+  /* internal padding only */
+  padding: clamp(20px, 4vw, 44px) clamp(16px, 5vw, 40px) !important;
+}
+
+/* optional: keep the following sections boxed as designed */
+.about-page .expert,
+.about-page .about-timeline,
+.about-page .about-cases,
+.about-page .dc-card{
+  margin: 40px auto;            /* reintroduce spacing after the full-bleed hero */
+  max-width: 1100px;            /* keep your “card” width */
+  padding: 22px;                /* safe default if globals were removed */
+}
+
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
