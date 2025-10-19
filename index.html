@@ -249,6 +249,66 @@ section#servicesFW {
 }
 .hero{ height: 100dvh; margin-bottom: 0 !important; }
 #services, #servicesFW{ margin-top: -1px !important; }  /* insurance for sub-pixel gaps */
+/* ===== ZERO GAP: hero → services (full-width) ===== */
+
+/* 1) Nuke global spacing the theme applies to the Services section  */
+#servicesFW,                 /* your new full-width services id */
+#services {                  /* in case the old id is still used */
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: none !important;         /* kill the top seam from shadows */
+  background-clip: border-box;         /* no blending bleed */
+}
+
+/* 2) Make absolutely sure the thing that *follows* the hero hugs it */
+.hero + #servicesFW,
+.hero + #services,
+.hero + section#servicesFW,
+.hero + section#services {
+  margin-top: -2px !important;         /* hides subpixel seams on retina */
+}
+
+/* 3) Ensure the hero itself isn’t creating space */
+.hero {
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* 4) If your framework adds default spacing to *all* sections,
+      cancel it only for the Services section */
+section#servicesFW,
+section#services {
+  margin-block-start: 0 !important;
+  padding-block-start: 0 !important;
+}
+
+/* ===== IMAGE MARGIN INSIDE THE SLIDE ===== */
+
+/* If your left column is just an <img> inside the slide */
+.svc-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;                   /* big but not edge-to-edge */
+  margin: 24px 24px 24px 0;           /* ← image breathing room */
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,.25);
+}
+
+/* If you have a wrapper like .svc-media around the image, use this instead */
+.svc-media { padding: 24px; }
+
+/* Responsive: center the image and keep spacing on narrow screens */
+@media (max-width: 900px) {
+  .svc-slide img {
+    margin: 0 auto 20px;              /* center + bottom gap under image */
+    max-width: 420px;
+  }
+}
+
 
   </style>
 
