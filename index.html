@@ -58,15 +58,16 @@
     }
 
     .svc-shell {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: clamp(22px, 2vw, 28px) 88px; /* side room for arrow buttons */
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: clamp(18px, 3vw, 40px);
-      min-height: clamp(460px, 60vh, 680px);
-      align-items: center;
-    }
+  max-width: 1280px;
+  margin: -100px auto 0 auto; /* pulls up section, keeps horizontal centering */
+  padding: 0 88px; /* retain side padding */
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(18px, 3vw, 40px);
+  min-height: clamp(460px, 60vh, 680px);
+  align-items: center;
+}
+
 
     .svc-slide {
       display: none;
