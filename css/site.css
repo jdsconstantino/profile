@@ -2573,3 +2573,66 @@ body.about-page.no-hero { padding-top: 0 !important; }
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
+/* --- 1️⃣ Remove gap between hero banner and services section --- */
+
+/* Target only the container that holds the Services section */
+.container:has(> #servicesFW),
+.container:has(> #services) {
+  padding-top: 0 !important;   /* kills container’s default padding */
+  margin-top: 0 !important;    /* removes vertical gap entirely */
+}
+
+/* Prevent collapsed margins from the first heading */
+#servicesFW > h2:first-child,
+#services > h2:first-child {
+  margin-top: 0 !important;
+}
+
+/* Ensure hero doesn’t push anything down */
+.hero {
+  margin-bottom: 0 !important;
+}
+
+/* If a faint seam still shows on retina screens */
+#servicesFW,
+#services {
+  margin-top: -1px !important;
+}
+
+
+/* --- 2️⃣ Add clean internal spacing for the service image --- */
+
+.svc-slide {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 48px;                    /* gap between image and text */
+  padding: 0 64px;              /* balanced side padding for layout */
+  width: 100%;
+  min-height: 540px;
+}
+
+.svc-slide img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 12px;
+  margin-right: 24px;           /* add breathing room beside image */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .svc-slide {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 24px 32px;
+    gap: 28px;
+  }
+
+  .svc-slide img {
+    margin-right: 0;
+    margin-bottom: 20px;
+    max-width: 420px;
+  }
+}
