@@ -1,4 +1,4 @@
-// ======================= DeskXP main.js (v215) =======================
+// ======================= DeskXP main.js (v216) =======================
 
 // Enable .js gate for reveal transitions
 document.documentElement.classList.add("js");
@@ -107,11 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
   mount.innerHTML = html;
 
   bindCurtainMenu();
-  bindHeaderTransparency();          // ⬅ flip transparent/solid on scroll
-
-  // keep curtain offset correct if font loads/resizes
-  if (document.fonts?.ready) document.fonts.ready.then(adjustCurtainOffset);
-  window.addEventListener("load", adjustCurtainOffset);
+  bindHeaderTransparency();   // hero → transparent vs solid
+  bindNonHeroOffset();        // pages without hero → push content down
 })();
 
 // Ensure a mount exists at the very top of <body>
@@ -174,9 +171,9 @@ function bindCurtainMenu() {
   const open = () => {
     trigger.classList.add("is-open");
     trigger.setAttribute("aria-expanded", "true");
-    curtain.hidden = false;
-    void curtain.offsetHeight;              // force reflow
-    curtain.classList.add("open");
+    curtain.hidden = false;           // expose element
+    void curtain.offsetHeight;        // force reflow
+    curtain.classList.add("open");    // visible + interactive via CSS
     document.documentElement.classList.add("no-scroll");
     adjustCurtainOffset();
   };
@@ -188,7 +185,7 @@ function bindCurtainMenu() {
     setTimeout(() => { curtain.hidden = true; }, 260);
   };
 
-  // Start CLOSED no matter what markup/CSS shipped
+  // Start CLOSED
   close();
 
   trigger.addEventListener("click", (e) => {
@@ -220,44 +217,58 @@ function adjustCurtainOffset() {
 // ---------------- Header transparency over hero ----------------------
 function bindHeaderTransparency() {
   const hero = document.querySelector(".hero");
-  if (!hero) return;
+  const header = document.querySelector("nav.nav-wrap");
+  if (!header) return;
 
-  function attach() {
-    const header = document.querySelector("nav.nav-wrap");
-    if (!header) return false;
-
-    // Start truly transparent for the “video-as-header” illusion
-    header.classList.add("transparent");
-    header.classList.remove("solid");
-
-    const io = new IntersectionObserver((entries) => {
-      const e = entries[0];
-      if (e && e.isIntersecting && e.intersectionRatio > 0.1) {
-        header.classList.add("transparent");
-        header.classList.remove("solid");
-      } else {
-        header.classList.add("solid");
-        header.classList.remove("transparent");
-      }
-    }, { threshold: [0, 0.1, 1] });
-
-    io.observe(hero);
-    return true;
+  if (!hero) {
+    // No hero on this page → be solid
+    header.classList.remove("transparent");
+    header.classList.add("solid");
+    return;
   }
 
-  // Try now; if header is injected a tick later, watch and bind when it appears
-  if (!attach()) {
-    const mo = new MutationObserver(() => { if (attach()) mo.disconnect(); });
-    mo.observe(document.getElementById("header-mount") || document.body, {
-      childList: true,
-      subtree: true,
-    });
-  }
+  // Start transparent for the “video-as-header” illusion
+  header.classList.add("transparent");
+  header.classList.remove("solid");
+
+  const io = new IntersectionObserver((entries) => {
+    const e = entries[0];
+    if (e && e.isIntersecting && e.intersectionRatio > 0.1) {
+      header.classList.add("transparent");
+      header.classList.remove("solid");
+    } else {
+      header.classList.add("solid");
+      header.classList.remove("transparent");
+    }
+  }, { threshold: [0, 0.1, 1] });
+
+  io.observe(hero);
 }
-// =====================================================================
-// Flag pages that don't have a hero section
-document.addEventListener("DOMContentLoaded", () => {
+
+// --------------- Non-hero pages: push content below fixed header ---------------
+function bindNonHeroOffset() {
+  const header = document.querySelector(".nav-wrap");
+  if (!header) return;
+
   const hasHero = !!document.querySelector(".hero");
   document.body.classList.toggle("no-hero", !hasHero);
-});
+  document.documentElement.classList.toggle("no-hero", !hasHero);
 
+  function applyOffset() {
+    const h = Math.ceil(header.getBoundingClientRect().height) || 92;
+    // expose actual height as a CSS variable if styles want it
+    document.documentElement.style.setProperty("--nav-h-actual", h + "px");
+
+    // On pages without a hero, ensure the whole page starts below the header
+    if (!hasHero) {
+      document.body.style.paddingTop = h + "px";
+    } else {
+      // Home: no padding; hero creates the illusion
+      document.body.style.paddingTop = "";
+    }
+  }
+
+  applyOffset();
+  window.addEventListener("resize", applyOffset);
+  if ("ResizeObserver" in window) new ResizeObserver(applyOffset).observe(header);
+}
