@@ -177,13 +177,15 @@
     @media (max-width: 900px){
       .svc-shell {
         grid-template-columns: 1fr;
-        padding: 18px 64px;    /* keep side room for arrows on mobile too */
+        padding: 0 64px 18px;    /* keep side room for arrows on mobile too */
         min-height: auto;
       }
       .svc-media { grid-column: 1 / -1; order: 1; }
       .svc-copy  { grid-column: 1 / -1; order: 2; }
       .svc-media img { border-radius: 12px; }
     }
+      .svc-shell{ padding-top: 0 !important; }
+
 
     /* ===== SUCCESS STORIES (unchanged) ===== */
     #success.success-slider {
