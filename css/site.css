@@ -2503,3 +2503,19 @@ body.about-page.no-hero { padding-top: 0 !important; }
 @media (max-width: 600px) {
   .about-page .about-hero > * { padding: 0 16px; }
 }
+/* Force full-bleed About Hero even inside .container */
+.about-page .about-hero {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: #fff;
+  margin-top: calc(-1 * var(--nav-h)); /* pull up under header */
+  padding-top: calc(var(--nav-h) + 40px);
+}
