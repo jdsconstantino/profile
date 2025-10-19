@@ -255,3 +255,9 @@ function bindHeaderTransparency() {
   }
 }
 // =====================================================================
+// Flag pages that don't have a hero section
+document.addEventListener("DOMContentLoaded", () => {
+  const hasHero = !!document.querySelector(".hero");
+  document.body.classList.toggle("no-hero", !hasHero);
+});
+
