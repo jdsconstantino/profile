@@ -2449,3 +2449,52 @@ body:not(.no-hero) .hero {
   top: calc(var(--nav-h) * -1);
 }
 body.scrolled .hero { top: 0; }
+/* ======================== ABOUT PAGE (full width, no header gap) ======================== */
+
+/* Disable auto top padding added by JS for pages without .hero */
+body.about-page.no-hero {
+  padding-top: 0 !important;
+}
+
+/* About hero section — full width, no visible gap */
+.about-hero {
+  position: relative;
+  width: 100%;
+  margin-top: calc(var(--nav-h) * -1); /* pull background under fixed header */
+  padding-top: var(--nav-h);           /* prevent content from being hidden by header */
+
+  /* Visuals */
+  background: #0d0f12 url('/assets/about-hero.jpg') center/cover no-repeat;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Content alignment */
+.about-hero .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 20px;
+  text-align: center;
+}
+
+.about-hero h1 {
+  font-size: clamp(2.4rem, 3.5vw, 3.4rem);
+  font-weight: 800;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.about-hero p {
+  color: #cfd8d3;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  margin: 0 auto;
+  max-width: 720px;
+  line-height: 1.5;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .about-hero .inner {
+    padding: 56px 16px;
+  }
+}
