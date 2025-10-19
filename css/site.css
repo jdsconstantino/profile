@@ -2711,11 +2711,9 @@ main, .page, .container {
 }
 .svc-slide img {
   width: 100%;
-  height: 400px;        /* adjust until all slides look uniform */
-  object-fit: cover;    /* fills space without stretching */
-  border-radius: 12px;  /* match rest of design */
-  display: block;       /* removes inline gap spacing */
-  margin: 0 auto;       /* centers inside its column */
+  height: clamp(320px, 40vh, 440px);
+  object-fit: contain;   /* switch to cover if you prefer cropped */
+  aspect-ratio: 1 / 1;   /* forces uniform shape if images vary wildly */
 }
 
 
