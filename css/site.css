@@ -2544,3 +2544,10 @@ body.about-page.no-hero { padding-top: 0 !important; }
 .about-page .about-hero {
   border-radius: 0 !important;
 }
+/* Force-remove border radius, shadow, and border from About box */
+.about-page .about-hero {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important; /* optional — ensures no clipping from previous radius */
+}
