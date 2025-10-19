@@ -2551,3 +2551,25 @@ body.about-page.no-hero { padding-top: 0 !important; }
   box-shadow: none !important;
   overflow: visible !important; /* optional — ensures no clipping from previous radius */
 }
+/* Make the Services band butt right up to the hero */
+#services {
+  margin-top: 0 !important;      /* override global section margin */
+  padding-top: 0 !important;     /* if your section has padding */
+  background: transparent;       /* avoid a seam from background panels */
+  border-radius: 0;
+}
+
+/* Prevent margin-collapsing from the first heading causing a gap */
+#services > h2:first-child {
+  margin-top: 0 !important;
+}
+
+/* Insurance: hero shouldn’t push anything down */
+.hero { margin-bottom: 0 !important; }
+
+/* If you’re using the full-width shell I sent earlier */
+.svc-fw,
+.svc-shell {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
