@@ -2438,3 +2438,14 @@ body > div:first-of-type,
   // some themes use a CSS var for header offset — zero it out
   document.documentElement.style.setProperty('--nav-offset', '0px');
 })();
+/* Give non-hero pages breathing room under the fixed header */
+body.no-hero #header-mount + * {
+  margin-top: var(--nav-h) !important;  /* push first content block down */
+  padding-top: 0 !important;            /* avoid double spacing */
+}
+
+/* Keep home hero illusion (already in place) */
+body:not(.no-hero) .hero {
+  top: calc(var(--nav-h) * -1);
+}
+body.scrolled .hero { top: 0; }
