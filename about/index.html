@@ -319,6 +319,29 @@
 /*
 .about-page .about-hero{ border-radius: 0; border-left: 0; border-right: 0; }
 */
+    /* About page: remove the gap between the fixed header and the About hero only */
+.about-page .container { 
+  padding-top: 0 !important;        /* kill the container’s 24px top padding */
+}
+
+.about-page .container > .about-hero {
+  margin-top: 0 !important;         /* avoid margin-collapsing creating a gap */
+}
+
+/* keep full-bleed hero from earlier */
+.about-page .about-hero{
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.about-page .about-hero > .about-title,
+.about-page .about-hero > .about-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 
 
   </style>
