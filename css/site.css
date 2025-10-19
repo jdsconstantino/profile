@@ -2636,3 +2636,65 @@ body.about-page.no-hero { padding-top: 0 !important; }
     max-width: 420px;
   }
 }
+/* ===== Kill the gap between hero and Services (bulletproof) ===== */
+
+/* If your services block is #servicesFW, keep both IDs below just in case */
+.hero + #servicesFW,
+.hero + #services {
+  /* nuke spacing */
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+
+  /* break margin-collapsing from the first child inside Services */
+  border-top: 1px solid transparent !important;
+  margin-top: -1px !important; /* visually cancels that transparent border */
+}
+
+/* If the slider shell has padding, strip the top edge */
+#servicesFW .svc-shell,
+#services .svc-shell {
+  padding-top: 0 !important;
+}
+
+/* Drop any top margin the first child tries to contribute */
+#servicesFW > *:first-child,
+#services    > *:first-child {
+  margin-top: 0 !important;
+}
+
+/* Some themes assign margins to *all* sections – cancel for Services only */
+section#servicesFW,
+section#services {
+  margin-block-start: 0 !important;
+  padding-block-start: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: none !important; /* prevents a ‘seam’ line */
+}
+
+/* ===== Left image breathing room inside the slide ===== */
+#servicesFW .svc-slide img,
+#services    .svc-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+  margin: 24px 24px 24px 0;  /* ← inner spacing around the image */
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,.25);
+}
+
+/* If you wrap the image in .svc-media, use this instead (safer across layouts) */
+#servicesFW .svc-media,
+#services    .svc-media {
+  padding: 24px 24px 24px 0 !important; /* left image margin, top gap = 0 */
+}
+
+@media (max-width: 900px){
+  #servicesFW .svc-slide img,
+  #services    .svc-slide img {
+    max-width: 420px;
+    margin: 0 auto 20px; /* center image on mobile */
+  }
+}
+
