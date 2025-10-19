@@ -2449,52 +2449,57 @@ body:not(.no-hero) .hero {
   top: calc(var(--nav-h) * -1);
 }
 body.scrolled .hero { top: 0; }
-/* ======================== ABOUT PAGE (full width, no header gap) ======================== */
+/* =================== ABOUT PAGE: full-bleed hero, no gap =================== */
 
-/* Disable auto top padding added by JS for pages without .hero */
-body.about-page.no-hero {
-  padding-top: 0 !important;
-}
+/* 1) Your JS slapped inline padding-top on <body> when there’s no .hero. Nuke it here. */
+body.about-page.no-hero { padding-top: 0 !important; }
 
-/* About hero section — full width, no visible gap */
-.about-hero {
+/* 2) The page-level container adds spacing. Not for the first section on About. */
+.about-page .container { padding-top: 0 !important; }
+
+/* 3) Full-width, flush “About” hero section (ignores the site-wide rounded/boxed section UI) */
+.about-page .about-hero {
+  /* escape the centered container and go true edge-to-edge */
   position: relative;
-  width: 100%;
-  margin-top: calc(var(--nav-h) * -1); /* pull background under fixed header */
-  padding-top: var(--nav-h);           /* prevent content from being hidden by header */
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
 
-  /* Visuals */
-  background: #0d0f12 url('/assets/about-hero.jpg') center/cover no-repeat;
+  /* sit underneath the fixed header with no visual gap */
+  margin-top: calc(-1 * var(--nav-h));
+  padding-top: calc(var(--nav-h) + clamp(24px, 3vw, 56px)); /* keeps text from hiding under header */
+  padding-bottom: clamp(24px, 3vw, 56px);
+
+  /* look + reset all the boxed-section junk */
+  background: #0d0f12; /* OR: url('/assets/about-hero.jpg') center/cover no-repeat */
   color: #fff;
-  overflow: hidden;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-/* Content alignment */
-.about-hero .inner {
+/* 4) Keep the content itself aligned to your site max-width without touching HTML */
+.about-page .about-hero > * {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 72px 20px;
-  text-align: center;
+  padding: 0 20px;
 }
 
-.about-hero h1 {
-  font-size: clamp(2.4rem, 3.5vw, 3.4rem);
-  font-weight: 800;
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
+/* 5) If your generic “section” selector adds padding/shadow globally, cancel it for the hero only */
+.about-page .about-hero.section,
+.about-page section.about-hero {
+  background: transparent;      /* we already set background above */
+  box-shadow: none !important;  /* override any global section shadow */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
-.about-hero p {
-  color: #cfd8d3;
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
-  margin: 0 auto;
-  max-width: 720px;
-  line-height: 1.5;
-}
-
-/* Mobile optimization */
+/* 6) Mobile tweaks */
 @media (max-width: 600px) {
-  .about-hero .inner {
-    padding: 56px 16px;
-  }
+  .about-page .about-hero > * { padding: 0 16px; }
 }
