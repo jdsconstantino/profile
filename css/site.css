@@ -1,502 +1,2719 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DeskXP — End-to-End CX Solutions</title>
-  <meta name="description" content="CX operations built on process, data, and automation — designed to scale with your team." />
+/* ===== Theme (DeskXP v203 — Dark Global, #2E424E Accent System) ===== */
+:root {
+  /* ===== Fonts ===== */
+  --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="DeskXP — CX Operations & Systems" />
-  <meta property="og:description" content="CX systems that drive efficiency without losing the human touch." />
-  <meta property="og:image" content="https://jdsc.deskxp.com/og-image.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://jdsc.deskxp.com" />
+  /* ===== Core Backgrounds ===== */
+  --bg: #131619;              /* main dark body background */
+  --panel: #2E424E;           /* dark green section container */
+  --border: #1b1f26;
+  --glass: rgba(255,255,255,.08);
+  --glass-border: rgba(255,255,255,.16);
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#0d0f12">
+  /* ===== Brand & Text ===== */
+  --accent: #007236;          /* DeskXP brand green */
+  --text: #ECF3FF;            /* light text for dark bg */
+  --muted: #9aa2b4;
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=2120">
+  /* ===== Accent System (Extended) ===== */
+  --accent-strong: #1C2B33;
+  --accent-light: #3A5562;
+  --accent-bright: #5FA7C7;
+  --accent-glow: rgba(46,66,78,.45);
 
-  <!-- Preload hero image (high priority) -->
-  <link rel="preload" as="image" href="/assets/banner.jpg" fetchpriority="high">
+  /* ===== Gradients / Special Effects ===== */
+  --accent-gradient: linear-gradient(135deg, #2E424E 0%, #3A5562 40%, #5FA7C7 100%);
+  --accent-radial: radial-gradient(circle at 50% 50%, #2E424E 0%, #1C2B33 80%);
+  --accent-shadow: 0 0 22px rgba(95,167,199,.35);
 
-  <style>
-    /* Minor text color tweaks requested */
-    #cta .accent { color: #ffffff !important; }
-    span.accent { color: #007236 !important; }
+  /* ===== Cards ===== */
+  --card: #ffffff;
+  --card-text: #0f172a;
+  --card-muted: #2f3642;
+  --shadow: 0 10px 30px rgba(0,0,0,.25);
 
-    /* ===== HERO IMAGE ===== */
-    .hero {
-      position: relative;
-      height: 100vh;
-      height: 100dvh;
-      min-height: 540px;
-      overflow: hidden;
-      background: #0d0f12 url("/assets/banner.jpg") center/cover no-repeat;
-      isolation: isolate;
-      margin: 0 !important;                 /* ensure zero gap */
-      padding: 0 !important;
-      border: 0 !important;
-    }
-    .hero__overlay { position:absolute; inset:0; background:none; z-index:2; }
-    .hero__content  { position:relative; z-index:3; }
+  /* ===== Banner / Hero ===== */
+  --banner-img: url("/assets/hero.jpg");
+  --banner-tint: #2E424E;
+  --banner-tint-2: #1C2B33;
+  --banner-overlay: linear-gradient(90deg, var(--banner-tint), var(--banner-tint-2));
 
-    /* ===== FULL-WIDTH SERVICES SLIDER ===== */
-    #servicesFW {
-      width: 100vw;
-      margin: 0 !important;                 /* hug hero */
-      padding: 0 !important;                /* full-bleed */
-      position: relative;
-      background: #22343f;                   /* subtle dark band */
-      border: 0;
-      box-shadow: none;
-    }
+  /* ===== Footer ===== */
+  --footer-bg: linear-gradient(180deg, #2E424E 0%, #1C2B33 100%);
+  --footer-text: #e7e9ee;
+  --footer-link: #b6c3cc;
+  --footer-link-hover: #ffffff;
 
-    /* pull the inner shell up so the band visually tucks under hero edge */
-    .svc-shell {
-      max-width: 1280px;
-      margin: -110px auto 0 auto;           /* pulls up; centers horizontally */
-      padding: 0 88px;                       /* leave room for arrows */
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: clamp(18px, 3vw, 40px);
-      min-height: clamp(460px, 60vh, 680px);
-      align-items: center;
-    }
+  /* ===== System ===== */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition: all .25s ease;
+}
 
-    .svc-slide { display: none; opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; }
-    .svc-slide.active { display: contents; opacity: 1; transform: translateY(0); }
+/* ===== Global Font ===== */
+body {
+  font-family: var(--font-base);
+}
 
-    /* Left (image) */
-    .svc-media { grid-column: 1 / 2; align-self: center; }
-    .svc-media img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 14px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
-      background: #0b0f1a;
-      object-fit: cover;
-      margin: 24px 24px 24px 0;             /* image breathing room */
-      max-width: 560px;
-    }
+/* Global font + base colors */
+body{
+  font-family: var(--font-base);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-    /* Right (copy) */
-    .svc-copy { grid-column: 2 / 3; color: #ECF3FF; }
-    .svc-kicker {
-      display:inline-block; font-size:.85rem; letter-spacing:.08em; text-transform:uppercase;
-      color:#8BD3A9; margin-bottom:8px;
-    }
-    .svc-title { margin: 0 0 10px; font-size: clamp(1.8rem, 3.2vw, 2.4rem); line-height: 1.15; color: #fff; }
-    .svc-desc  { margin: 0 0 18px; font-size: clamp(1.02rem, 1.5vw, 1.12rem); line-height: 1.7; color: #D8E6F5; max-width: 56ch; }
-    .svc-cta {
-      display:inline-block; padding: 12px 18px; border-radius: 10px; background: #007236; color: #fff; font-weight: 700; text-decoration: none;
-      box-shadow: 0 10px 24px rgba(0,114,54,.35); transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .svc-cta:hover { transform: translateY(-1px); box-shadow:0 16px 34px rgba(0,114,54,.45); background:#068842; }
+#cta h2,
+#cta .accent {
+  color: var(--accent-light);
+}
+footer {
+  background: var(--footer-bg);
+}
 
-    /* Arrows */
-    .svc-nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 52px; height: 52px; display: grid; place-items: center;
-      border-radius: 12px; border: 1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.25); color: #fff; cursor: pointer; user-select: none;
-      transition: transform .15s ease, background .15s ease, color .15s ease; z-index: 3;
-    }
-    .svc-nav:hover { transform: translateY(-50%) scale(1.06); background: rgba(0,114,54,.85); }
-    .svc-prev { left: 18px; }
-    .svc-next { right: 18px; }
-    .svc-nav svg { width: 22px; height: 22px; }
+.banner {
+  background: var(--banner-overlay);
+}
 
-    /* Dots */
-    .svc-dots {
-      position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
-      display: flex; gap: 8px; z-index: 2;
-    }
-    .svc-dots button { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.35); border: 0; cursor: pointer; }
-    .svc-dots button.active { background: #00c169; box-shadow: 0 0 0 4px rgba(0,193,105,.18); }
 
-    /* Mobile */
-    @media (max-width: 900px){
-      .svc-shell { grid-template-columns: 1fr; padding: 0 64px 18px; min-height: auto; margin-top: -72px; }
-      .svc-media  { grid-column: 1 / -1; order: 1; }
-      .svc-copy   { grid-column: 1 / -1; order: 2; }
-      .svc-media img { border-radius: 12px; margin: 18px auto; max-width: 420px; }
-    }
+/* We’re forcing dark globally; no auto light-mode flip */
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{margin:0;}
+body{
+  background:var(--bg); color:var(--text); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; scroll-behavior:smooth;
+}
+img{max-width:100%; height:auto; display:block;}
 
-    /* ===== BRANDS (renamed, simplified, auto-swipe) ===== */
-    #brands.brands-slider {
-      max-width: 1180px;
-      margin: 80px auto;
-      padding: 0 18px 46px;
-      position: relative;
-    }
-    #brands .brands-head { text-align: center; margin-bottom: 18px; }
-    #brands .brands-head h2 { font-size: 2.0rem; font-weight: 800; color: var(--accent,#007236); letter-spacing: -0.01em; }
+/* ===== Header ===== */
+/* Header = same background as footer */
+.nav-wrap{
+  position: sticky;
+  top: 0;
+  z-index: 2147483647;
+  /* transparent fade so the banner shows through under it */
+  background: linear-gradient(
+    to bottom,
+    rgba(46,66,78,0.98) 0%,
+    rgba(46,66,78,0.85) 40%,
+    rgba(46,66,78,0.60) 80%,
+    rgba(46,66,78,0.00) 100%
+  );
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 
-    #brands .brands-stage { position: relative; min-height: 220px; }
-    .brand-slide { position:absolute; inset:0; opacity:0; pointer-events:none; transform: translateY(6px); transition: opacity .6s ease, transform .6s ease; display:flex; align-items:center; justify-content:center; }
-    .brand-slide.is-active { opacity:1; pointer-events:auto; transform: translateY(0); }
+/* --- Safe, non-conflicting layout helpers --- */
+.nav{
+  max-width:1100px;
+  margin:0 auto;                 /* center container */
+  /* no padding / flex here — header controls its own layout */
+}
 
-    .brand-card { display:flex; gap:18px; align-items:center; justify-content:center; background:#ffffff; border:1px solid #e9edf2; border-radius:16px; padding:18px 20px; box-shadow: 0 8px 22px rgba(0,0,0,0.08); }
-    .brand-logo { width:200px; height:auto; object-fit:contain; }
-    .brand-desc { margin:0; font-weight:600; color:#0f172a; max-width: 720px; }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;               /* dial back from 1000 */
+  color:inherit;                 /* let header decide color */
+  text-decoration:none;
+}
 
-    .brands-dots { position:absolute; left:50%; bottom:-2px; transform:translateX(-50%); display:flex; gap:8px; }
-    .brands-dots button { width:8px; height:8px; border-radius:999px; background:rgba(0,0,0,.22); border:0; cursor:pointer; }
-    .brands-dots button.active { background: var(--accent,#007236); box-shadow: 0 0 0 4px rgba(0,114,54,0.12); }
+/* DO NOT hard-size the logo; header CSS sets size per breakpoint */
+.brand img{
+  border-radius:6px;             /* keep the rounding if you want it */
+  width:auto;                    /* no fixed width */
+  height:auto;                   /* no fixed height */
+  max-width:100%;
+}
 
-    .brands-nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background: rgba(0,0,0,0.08); color:#111; border:1px solid #eaeaea; box-shadow:0 3px 10px rgba(0,0,0,0.08); cursor:pointer; z-index:5; }
-    .brands-nav:hover { background: var(--accent,#007236); color:#fff; transform: translateY(-50%) scale(1.06); }
-    .brands-prev { left: 0; }
-    .brands-next { right: 0; }
-    .brands-nav svg { width: 20px; height: 20px; }
+.menu{
+  display:flex;
+  gap:14px;
+}
 
-    /* ===== ZERO GAP: hero → services ===== */
-    #servicesFW { margin-top: 0 !important; padding-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; box-shadow: none !important; background-clip: border-box; }
-    .hero + #servicesFW { margin-top: -2px !important; } /* hide subpixel seam */
-    .hero { margin-bottom: 0 !important; }
+.menu a{
+  color:inherit;                 /* let header control color */
+  text-decoration:none;
+  font-weight:600;
+  padding:0;                     /* no vertical padding bloat */
+  border-radius:8px;
+  transition:background .2s, transform .2s;
+}
 
-  </style>
+.menu a:hover{
+  background:var(--glass);
+  transform:translateY(-1px);
+}
 
-  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
-</head>
+/* Remove the old hamburger system entirely — your header uses .cd-primary-nav-trigger */
+/* No mobile media query that hides .menu or shrinks .brand img */
 
-<body>
-  <div id="header-mount"></div>
 
-  <!-- Hero -->
-  <section class="hero" id="home" aria-label="DeskXP Hero">
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__content"></div>
-  </section>
+/* ===== Banner (home only) ===== */
+.banner {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
 
-  <!-- FULL-WIDTH Services Slider -->
-  <section id="servicesFW" aria-label="Services">
-    <button class="svc-nav svc-prev" aria-label="Previous service" id="svcPrev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <button class="svc-nav svc-next" aria-label="Next service" id="svcNext">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-    </button>
-    <div class="svc-dots" id="svcDots" aria-label="Slide indicators"></div>
+  background: url("/assets/banner.jpg") center/cover no-repeat;
+}
 
-    <div class="svc-shell">
-      <!-- 1 -->
-      <article class="svc-slide active">
-        <div class="svc-media"><img src="/assets/svc-1.jpg" alt="Operations Design"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 01</span>
-          <h3 class="svc-title">Operations Design</h3>
-          <p class="svc-desc">Playbooks, SLAs, triage flows, escalation paths — the foundations of a scalable CX org.</p>
-          <a class="svc-cta" href="/services#operations-design">Learn more</a>
-        </div>
-      </article>
-      <!-- 2 -->
-      <article class="svc-slide">
-        <div class="svc-media"><img src="/assets/svc-2.jpg" alt="Systems Architecture"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 02</span>
-          <h3 class="svc-title">Systems Architecture</h3>
-          <p class="svc-desc">Zendesk setup, routing, triggers, macros, and data hygiene for clean, efficient workflows.</p>
-          <a class="svc-cta" href="/services#systems-architecture">Learn more</a>
-        </div>
-      </article>
-      <!-- 3 -->
-      <article class="svc-slide">
-        <div class="svc-media"><img src="/assets/svc-3.jpg" alt="Automation & AI"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 03</span>
-          <h3 class="svc-title">Automation & AI</h3>
-          <p class="svc-desc">Deflection, classification, intent routing, and bots that shorten handle time.</p>
-          <a class="svc-cta" href="/services#automation-ai">Learn more</a>
-        </div>
-      </article>
-      <!-- 4 -->
-      <article class="svc-slide">
-        <div class="svc-media"><img src="/assets/svc-4.jpg" alt="Reporting & Analytics"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 04</span>
-          <h3 class="svc-title">Reporting & Analytics</h3>
-          <p class="svc-desc">Dashboards for FRT, AHT, CSAT, and QA — visibility that drives improvement.</p>
-          <a class="svc-cta" href="/services#reporting-analytics">Learn more</a>
-        </div>
-      </article>
-      <!-- 5 -->
-      <article class="svc-slide">
-        <div class="svc-media"><img src="/assets/svc-5.jpg" alt="eCommerce Integrations"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 05</span>
-          <h3 class="svc-title">eCommerce Integrations</h3>
-          <p class="svc-desc">Shopify/Magento ↔ Zendesk integrations, Make/Zapier workflows, and webhooks.</p>
-          <a class="svc-cta" href="/services#ecommerce-integrations">Learn more</a>
-        </div>
-      </article>
-      <!-- 6 -->
-      <article class="svc-slide">
-        <div class="svc-media"><img src="/assets/svc-6.jpg" alt="Customer Experience & Servicing"></div>
-        <div class="svc-copy">
-          <span class="svc-kicker">Service 06</span>
-          <h3 class="svc-title">Customer Experience & Servicing</h3>
-          <p class="svc-desc">Build Customer Care from zero to scale: hiring, training, QA, operations, policies, and processes.</p>
-          <a class="svc-cta" href="/services#customer-experience-servicing">Learn more</a>
-        </div>
-      </article>
-    </div>
-  </section>
+/* soft bottom fade */
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 70%,      /* top: no fade until near bottom */
+    rgba(54,62,75,1) 100%   /* bottom: your site bg color */
+  );
+  pointer-events: none;
+}
 
-  <!-- Brands We've Worked With -->
-  <section id="brands" class="brands-slider" aria-label="Brands We’ve Worked With">
-    <button class="brands-nav brands-prev" aria-label="Previous brand" id="brandsPrev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <button class="brands-nav brands-next" aria-label="Next brand" id="brandsNext">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-    </button>
+.banner .inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
-    <div class="brands-head"><h2>Brands We’ve Worked With</h2></div>
+/* Headline safe-space on the hero */
+.banner .inner { padding-top: 300px; } /* desktop */
+.headline { font-size: 2.2rem; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.subhead { font-size: 1.1rem; color: #d9e2d6; }
 
-    <div class="brands-stage" id="brandsStage">
-      <!-- PalawanPay -->
-      <article class="brand-slide is-active">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/palawanpay.png" alt="PalawanPay" />
-          <p class="brand-desc">Customer Care organization build-up and advanced end-to-end Zendesk Suite implementation.</p>
-        </div>
-      </article>
+@media (max-width: 600px) {
+  .banner { height: 240px; }
+  .banner .inner { padding-top: 40px; }  /* mobile */
+  .headline { font-size: 1.8rem; }
+  .subhead { font-size: 1rem; }
+}
 
-      <!-- Unison -->
-      <article class="brand-slide">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/unison.png" alt="Unison" />
-          <p class="brand-desc">Workflow automation and full Zendesk Guide deployment, driving cross-functional efficiency.</p>
-        </div>
-      </article>
+/* ===== Sections ===== */
+.container{max-width:1100px; margin:0 auto; padding:0 16px;}
+section{background:var(--panel); solid var(--border); border-radius:12px; padding:24px; margin:32px 0; box-shadow:0 6px 18px rgba(0,0,0,.25);}
+h2{font-size:1.5rem; margin:0 0 12px; color:var(--accent);}
+.muted{color:var(--muted);}
 
-      <!-- Boutique de Sophie -->
-      <article class="brand-slide">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie" />
-          <p class="brand-desc">End-to-end Zendesk setup with automation, advanced integrations, and Customer Care operations design.</p>
-        </div>
-      </article>
+/* ===== Reveal (safe) ===== */
+.reveal{opacity:1; transform:none;}
+.js .reveal{opacity:0; transform:translateY(30px); transition:opacity .6s, transform .6s;}
+.js .reveal.is-visible{opacity:1; transform:none;}
 
-      <!-- Hanni Kleider -->
-      <article class="brand-slide">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/hanni-kleider.png" alt="Hanni Kleider" />
-          <p class="brand-desc">Freshdesk implementation with intelligent automation and optimized agent workflows.</p>
-        </div>
-      </article>
+/* ===== Cards (services/projects) ===== */
+.card-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;}
+.card{background:var(--panel); border:1px solid var(--border); border-radius:12px; overflow:hidden; display:flex; flex-direction:column;}
+.card-img{width:100%; height:220px; object-fit:cover; border-bottom:1px solid var(--border); transition:transform .35s;}
+.card:hover .card-img{transform:scale(1.03);}
+.card-body{padding:16px;}
+.card h3{margin:0 0 6px; font-size:18px; color:var(--text);}
+.card p{margin:0; color:var(--muted);}
+.card,.card a{text-decoration:none; color:inherit;}
+.card:hover h3{color:var(--accent);}
 
-      <!-- Casa di Sofia -->
-      <article class="brand-slide">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/casa-di-sofia.png" alt="Casa di Sofia" />
-          <p class="brand-desc">Comprehensive Zendesk Suite implementation with built-in disputes management and escalation workflows.</p>
-        </div>
-      </article>
+/* Logo cards shouldn’t crop/blur */
+.about-cases .card-img{ height:140px; object-fit:contain; background:#fff; padding:16px; transform:none; }
+.about-cases .card:hover .card-img{ transform:none; }
 
-      <!-- US Door & More -->
-      <article class="brand-slide">
-        <div class="brand-card">
-          <img class="brand-logo" src="/assets/usdoornmore.png" alt="US Door & More" />
-          <p class="brand-desc">Complete Zendesk Guide customization and an optimized Help Center experience.</p>
-        </div>
-      </article>
-    </div>
+/* === SUCCESS STORIES (balanced width & height) === */
+.success-slider{
+  max-width:1400px;            /* wider than .container (1100px) but not full width */
+  margin:60px auto;            /* center on page */
+  background:linear-gradient(135deg,#f7f8f8,#ffffff);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:40px 0 60px;
+  box-shadow:0 6px 24px rgba(0,0,0,.12);
+  position:relative;
+  overflow:hidden;
+}
+.success-head{ text-align:center; margin-bottom:22px; }
+.success-head h2{ color:var(--accent); font-size:1.9rem; font-weight:700; }
 
-    <div class="brands-dots" id="brandsDots" aria-label="Brand indicators"></div>
-  </section>
+.success-track{
+  position:relative;
+  max-width:900px;
+  margin:0 auto;
+  padding:0 20px;
+  min-height:340px;            /* reduced height */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1;                   /* ensure content above background */
+}
+.success-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .7s ease-in-out;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 20px;
+}
+.success-slide.is-active{
+  opacity:1;
+  pointer-events:auto;
+  position:relative;
+}
+.success-logo{
+  width:100px; height:100px; object-fit:contain;
+  background:#fff; border-radius:18px; border:1px solid #e2e2e2;
+  box-shadow:0 4px 12px rgba(0,0,0,.1); margin-bottom:10px;
+}
+.success-slide h3{
+  font-size:1.2rem; font-weight:700; margin:10px 0 8px; color:#111; max-width:700px;
+}
+.success-slide p{
+  color:#333; max-width:720px; margin:0 auto; line-height:1.5;
+}
+.success-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:38px; height:38px; border-radius:10px;
+  background:rgba(0,0,0,.08); color:#000;
+  font-size:22px; line-height:36px; border:none; cursor:pointer; z-index:5;
+  transition:background .2s, transform .2s;
+}
+.success-nav:hover{ background:rgba(0,0,0,.15); transform:scale(1.05); }
+.success-nav.prev{ left:18px; } 
+.success-nav.next{ right:18px; }
+.success-dots{
+  position:absolute; left:50%; bottom:14px; transform:translateX(-50%);
+  display:flex; gap:8px;
+}
+.success-dots button{
+  width:8px; height:8px; border-radius:50%; border:0; background:rgba(0,0,0,.2); cursor:pointer;
+}
+.success-dots button.active{ background:var(--accent); }
 
-  <!-- About + CTA -->
-  <div class="container">
-    <section class="about-teaser reveal v2">
-      <div class="about-wrap">
-        <h4>About</h4>
-        <h2><span class="accent">Expert.</span> Seasoned. Tech-driven. Customer-First.</h2>
-        <p class="tagline">Systems that scale people, not just processes.</p>
-        <a class="btn-outline" href="/about/">Learn more</a>
-      </div>
-    </section>
+/* ===== CTA ===== */
+#cta{background:var(--panel); border-radius:16px; padding:28px; box-shadow:0 6px 18px rgba(0,0,0,.25);}
+#cta h2{margin-bottom:8px;}
+.cta-grid{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;}
+.cta-list{margin:10px 0 10px 1rem; color:var(--text);}
+.cta-list li{margin:6px 0;}
+.cta-note{color:var(--muted); margin-top:6px;}
+.cta-actions .btn-accent{display:inline-block; background:var(--accent); color:#fff; padding:10px 18px; border-radius:10px; text-decoration:none; font-weight:700;}
+.cta-actions .btn-accent:hover{transform:translateY(-2px);}
+@media (max-width:700px){.cta-grid{grid-template-columns:1fr;}}
 
-    <section id="cta" class="reveal v2">
-      <div class="cta-wrap">
-        <div class="cta-left">
-          <h2><span class="accent">Book a discovery call</span></h2>
-          <p class="lede">We’ll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+/* ===== Buttons used elsewhere ===== */
+.book-call{background-color:#007236; color:#fff; border:none; border-radius:8px; padding:12px 24px; cursor:pointer; font-weight:600; transition:background .2s;}
+.book-call:hover{background-color:#005a2a;}
+.btn-minimal{background:transparent; border:1.6px solid #d1d5db; color:#e7e9ee; padding:12px 28px; border-radius:10px; font-weight:600; text-decoration:none; transition:.2s;}
+.btn-minimal:hover{background:#e7e9ee; color:#111;}
+.btn-solid{display:inline-block; padding:12px 22px; border-radius:12px; background:#111; color:#fff; text-decoration:none; font-weight:700; box-shadow:0 8px 22px rgba(0,0,0,.35); transition: transform .15s, box-shadow .2s;}
+.btn-solid:hover{ transform: translateY(-1px); box-shadow:0 12px 28px rgba(0,0,0,.45); }
 
-          <ul class="cta-list">
-            <li>MVP or prototype in <strong>7 days</strong></li>
-            <li>Cut repetitive inquiries with automation & self-serve</li>
-            <li>Eliminate manual busywork in daily ops</li>
-          </ul>
+/* ===== Footer ===== */
+footer{text-align:center; margin:40px 0; color:var(--muted); font-size:.9rem;}
 
-          <div class="cta-chips">
-            <span>7-day MVP</span>
-            <span>Automation-first</span>
-            <span>Zendesk × Shopify</span>
-          </div>
+/* ===== About page ===== */
+.about-profile{
+  background:var(--card);
+  color:var(--card-text);
+  border:1px solid #e8eaef;
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  padding:40px 34px;
+}
+.ap-grid{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  align-items:center;
+  gap:34px;
+}
+.ap-copy{ color:var(--card-text); }
+.ap-title{ font-size:clamp(1.8rem,3.2vw,2.6rem); font-weight:800; line-height:1.2; margin:0 0 6px; color:#0f172a; }
+.ap-tag{ color:#374151; font-weight:600; margin:0 0 8px; }
+.ap-blurb{ color:#1f2937; margin:0 0 20px; max-width:640px; }
 
-          <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
-        </div>
+.ap-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:0 0 16px; }
+.kpi{ background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:14px; text-align:center; }
+.kpi-num{ font-weight:800; color:#111; }
+.kpi-label{ color:#374151; font-size:.92rem; }
 
-        <aside class="cta-right">
-          <div class="cta-card">
-            <p class="cta-title">Ready to move?</p>
-            <p class="cta-copy">Pick a slot that works for you.</p>
-            <a href="https://calendly.com/deskxp/30min" class="book-call">Book a Call</a>
-            <p class="cta-trust">No sales fluff. Actionable roadmap.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </div>
+.ap-photo{
+  position:relative; border-radius:22px; overflow:hidden;
+  background:linear-gradient(145deg,#fff289,#ffd600);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  animation: floatY 6s ease-in-out infinite;
+}
+.ap-photo::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:48px;
+  background:linear-gradient(to bottom, rgba(255,255,255,0), #fff 70%);
+  pointer-events:none;
+}
+.ap-photo::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(120% 70% at 50% -10%, rgba(255,255,255,.35), transparent 55%);
+  pointer-events:none;
+}
+.ap-photo img{ position:relative; z-index:1; width:100%; height:auto; object-fit:cover; border-radius:22px; }
 
-  <!-- Footer -->
-  <div id="footer"></div>
-  <script>
-    fetch("/footer.html").then(r => r.text()).then(html => document.getElementById("footer").innerHTML = html);
-  </script>
+@media (max-width:980px){
+  .ap-grid{ grid-template-columns:1fr; }
+  .ap-photo{ order:2; }
+  .ap-copy{ order:1; text-align:left; }
+  .ap-stats{ grid-template-columns:repeat(2,1fr); }
+}
 
-  <!-- Global JS (injects header + behaviors) -->
-  <script src="/js/main.js?v=215" defer></script>
+/* Float animation */
+@keyframes floatY{ 0%,100%{ transform:translateY(0px);} 50%{ transform:translateY(-6px);} }
 
-  <!-- Header transparency controller (works with image hero) -->
-  <script>
-    (function () {
-      const hero = document.querySelector('.hero');
-      if (!hero) return;
-      function initHeaderWatcher() {
-        const headerEl = document.querySelector('nav.nav-wrap');
-        if (!headerEl) return false;
-        headerEl.classList.add('transparent');
-        headerEl.classList.remove('solid');
-        const io = new IntersectionObserver((entries) => {
-          const e = entries[0];
-          if (e && e.isIntersecting && e.intersectionRatio > 0.2) {
-            headerEl.classList.add('transparent');
-            headerEl.classList.remove('solid');
-          } else {
-            headerEl.classList.add('solid');
-            headerEl.classList.remove('transparent');
-          }
-        }, { threshold: [0, 0.2, 1] });
-        io.observe(hero);
-        return true;
-      }
-      if (!initHeaderWatcher()) {
-        const mo = new MutationObserver(() => { if (initHeaderWatcher()) mo.disconnect(); });
-        mo.observe(document.body, { childList: true, subtree: true });
-      }
-    })();
-  </script>
+/* Logos strip */
+.about-logos{ padding:20px; text-align:center; background:var(--panel); border:1px solid var(--border); border-radius:12px; }
+.logo-row{ display:flex; gap:22px; flex-wrap:wrap; align-items:center; justify-content:center; }
+.logo-row img{ height:40px; width:auto; filter:grayscale(100%); opacity:.9; transition:filter .2s, opacity .2s; }
+.logo-row img:hover{ filter:none; opacity:1; }
 
-  <!-- Services slider logic -->
-  <script>
-    (function(){
-      const root   = document.getElementById('servicesFW');
-      const slides = Array.from(root.querySelectorAll('.svc-slide'));
-      const prev   = document.getElementById('svcPrev');
-      const next   = document.getElementById('svcNext');
-      const dotsEl = document.getElementById('svcDots');
-      if (!slides.length) return;
+/* Timeline */
+.about-timeline .tl{ list-style:none; margin:0; padding:0; border-left:2px solid #e8eaef; padding-left:18px; background:var(--card); color:var(--card-text); border-radius:12px; border:1px solid #e8eaef; }
+.about-timeline{ background:transparent; border:0; box-shadow:none; }
+.about-timeline .tl > li{ margin:18px 18px; position:relative; }
+.about-timeline .tl > li::before{ content:""; position:absolute; left:-11px; top:.45em; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(0,114,54,.2); }
+.tl-head{ display:flex; align-items:baseline; gap:8px; }
+.tl-time{ margin-left:auto; color:#6b7280; font-size:.95rem; }
+.tl-points{ margin:8px 0 0 0; padding-left:18px; color:#1f2937; }
 
-      let i = 0;
-      const INTERVAL = 3000; // 3s auto-advance
-      let timer = null;
+/* Skills + Bars */
+.about-skills{ background:var(--panel); }
+.about-skills .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-bottom:14px; }
+.skill-card{ background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.skill-card h3{ margin:0 0 6px; }
+.bars{ display:grid; gap:10px; margin-top:8px; }
+.bar{ display:flex; align-items:center; gap:10px; }
+.bar span{ flex:0 0 220px; font-size:.95rem; color:var(--text); }
+.bar i{ --p:80%; position:relative; display:block; height:10px; flex:1; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
+.bar i::after{ content:""; position:absolute; inset:0; width:var(--p); background:linear-gradient(90deg,var(--accent),#18a058); border-radius:999px; }
 
-      // Build dots
-      slides.forEach((_, idx) => {
-        const b = document.createElement('button');
-        b.addEventListener('click', () => go(idx, true));
-        dotsEl.appendChild(b);
-      });
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important; transition:none!important; scroll-behavior:auto!important;}
+}
+/* === Success Stories — HOTFIX v206 (force visible change) === */
+#success.success-slider{
+  max-width:1320px !important;
+  margin:80px auto !important;
+  padding:36px 0 52px !important;
+  border-radius:20px !important;
+  background:linear-gradient(180deg,#fbfbfb 0%, #ffffff 60%, #f7f9f7 100%) !important;
+  border:1px solid rgba(0,0,0,.06) !important;
+  box-shadow:0 14px 44px rgba(0,0,0,.16) !important;
+  width:auto !important;
+  position:relative !important;
+  overflow:hidden !important;
+}
+#success.success-slider::before{
+  content:""; position:absolute; inset:0; border-radius:20px;
+  box-shadow: inset 0 0 70px rgba(0,0,0,.06); pointer-events:none;
+}
+#success .success-head{ margin-bottom:14px !important; }
+#success .success-head h2{
+  font-size:2.05rem !important; letter-spacing:-0.01em !important; font-weight:800 !important; color:var(--accent) !important;
+}
+#success .success-track{
+  max-width:880px !important; min-height:300px !important;
+  margin:0 auto !important; padding:0 18px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  z-index:1 !important;
+}
+#success .success-slide{
+  position:absolute !important; inset:0 !important; opacity:0 !important; pointer-events:none !important;
+  display:flex !important; flex-direction:column !important; align-items:center !important; text-align:center !important;
+  transition:opacity .6s ease, transform .6s ease !important;
+  transform:translateY(6px) !important; padding:0 18px !important;
+}
+#success .success-slide.is-active{
+  position:relative !important; opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important;
+}
+#success .success-logo{
+  width:96px !important; height:96px !important; padding:12px !important; margin-bottom:12px !important;
+  background:#fff !important; border:1px solid #e8eaef !important; border-radius:18px !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.10) !important;
+}
+#success .success-slide h3{
+  font-size:1.28rem !important; font-weight:800 !important; color:#16181b !important;
+  margin:8px 0 6px !important; max-width:760px !important;
+}
+#success .success-slide p{
+  color:#2b2f33 !important; max-width:780px !important; line-height:1.6 !important; margin:0 auto !important;
+}
+#success .success-nav{
+  top:50% !important; transform:translateY(-50%) !important; width:44px !important; height:44px !important;
+  border-radius:12px !important; background:rgba(0,0,0,.10) !important; color:#111 !important; border:none !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.08) !important; z-index:5 !important;
+}
+#success .success-nav:hover{
+  background:var(--accent) !important; color:#fff !important; transform:translateY(-50%) scale(1.06) !important;
+  box-shadow:0 8px 18px rgba(0,114,54,.25) !important;
+}
+#success .success-nav.prev{ left:24px !important; }
+#success .success-nav.next{ right:24px !important; }
+#success .success-dots{ bottom:16px !important; gap:10px !important; }
+#success .success-dots button{
+  width:9px !important; height:9px !important; background:rgba(0,0,0,.22) !important;
+  border:0 !important; border-radius:999px !important;
+}
+#success .success-dots button.active{
+  background:var(--accent) !important;
+  box-shadow:0 0 0 4px rgba(0,114,54,.12) !important;
+}
+/* ==== PATCH: About teaser (v2) fix ==== */
+.about-teaser.reveal.v2 {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 42px 48px;
+  max-width: 1100px;
+  margin: 40px auto 64px;
+}
 
-      function render(){
-        slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-        Array.from(dotsEl.children).forEach((d, idx) => d.classList.toggle('active', idx === i));
-      }
-      function go(n, user=false){
-        i = (n + slides.length) % slides.length;
-        render();
-        if (user) restart();
-      }
-      function nextSlide(){ go(i + 1); }
-      function prevSlide(){ go(i - 1); }
-      function start(){ stop(); timer = setInterval(nextSlide, INTERVAL); }
-      function stop(){ if (timer) clearInterval(timer), (timer=null); }
-      function restart(){ start(); }
+.about-teaser.reveal.v2 s,
+.about-teaser.reveal.v2 del,
+.about-teaser.reveal.v2 p,
+.about-teaser.reveal.v2 a {
+  text-decoration: none !important;
+}
 
-      // Init
-      render(); start();
-      next.addEventListener('click', () => { nextSlide(); restart(); });
-      prev.addEventListener('click', () => { prevSlide(); restart(); });
-      root.addEventListener('mouseenter', stop);
-      root.addEventListener('mouseleave', start);
-      root.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft')  { prevSlide(); restart(); }
-        if (e.key === 'ArrowRight') { nextSlide(); restart(); }
-      });
-    })();
-  </script>
+.about-teaser.reveal.v2 .about-wrap { display: grid; gap: 12px; }
 
-  <!-- Brands slider logic (auto-swipe like certificates) -->
-  <script>
-    (function(){
-      const stage  = document.getElementById('brandsStage');
-      if (!stage) return;
-      const slides = Array.from(stage.querySelectorAll('.brand-slide'));
-      const dotsEl = document.getElementById('brandsDots');
-      const prev   = document.getElementById('brandsPrev');
-      const next   = document.getElementById('brandsNext');
+.about-teaser.reveal.v2 h4 {
+  color: var(--muted);
+  letter-spacing: .06em;
+  margin: 0 0 4px;
+}
 
-      let i = 0;
-      const INTERVAL = 3500;
-      let timer = null;
+.about-teaser.reveal.v2 h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.4vw + 1rem, 2.6rem);
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--text);
+}
 
-      // dots
-      slides.forEach((_, idx) => {
-        const b = document.createElement('button');
-        b.addEventListener('click', () => go(idx, true));
-        dotsEl.appendChild(b);
-      });
+.about-teaser.reveal.v2 .accent { color: var(--accent, #007236); }
 
-      function render(){
-        slides.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
-        Array.from(dotsEl.children).forEach((d, idx) => d.classList.toggle('active', idx === i));
-      }
-      function go(n, user=false){
-        i = (n + slides.length) % slides.length;
-        render();
-        if (user) restart();
-      }
-      function nextSlide(){ go(i + 1); }
-      function prevSlide(){ go(i - 1); }
-      function start(){ stop(); timer = setInterval(nextSlide, INTERVAL); }
-      function stop(){ if (timer) clearInterval(timer), (timer=null); }
-      function restart(){ start(); }
+.about-teaser.reveal.v2 .tagline {
+  color: var(--muted);
+  font-size: 1.125rem;
+  margin-top: 6px;
+}
 
-      // init
-      render(); start();
-      next.addEventListener('click', () => { nextSlide(); restart(); });
-      prev.addEventListener('click', () => { prevSlide(); restart(); });
-      stage.addEventListener('mouseenter', stop);
-      stage.addEventListener('mouseleave', start);
-      stage.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft')  { prevSlide(); restart(); }
-        if (e.key === 'ArrowRight') { nextSlide(); restart(); }
-      });
-    })();
-  </script>
-</body>
-</html>
+.about-teaser.reveal.v2 .btn-outline {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 22px;
+  border: 2px solid var(--text);
+  border-radius: 12px;
+  color: var(--text);
+  font-weight: 600;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.about-teaser.reveal.v2 .btn-outline:hover {
+  background: var(--accent, #007236);
+  border-color: var(--accent, #007236);
+  color: #fff;
+  transform: translateY(-1px);
+}
+/* Center the Learn More button */
+.about-teaser.reveal.v2 .btn-outline {
+  display: inline-block;
+  padding: 10px 28px;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  text-align: center;
+  transition: all 0.25s ease;
+  margin: 20px auto 0;       /* centers horizontally */
+}
+
+.about-teaser.reveal.v2 .about-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* centers everything inside */
+  text-align: center;
+}
+
+/* Hover effect */
+.about-teaser.reveal.v2 .btn-outline:hover {
+  background: var(--accent, #007236);
+  border-color: var(--accent, #007236);
+  color: #fff;
+  transform: translateY(-1px);
+}
+/* ==== CTA (v2) ==== */
+#cta.reveal.v2 {
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 36px min(5vw, 48px);
+  max-width: 1100px;      /* match About width */
+  margin: 32px auto 64px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+#cta .cta-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: center;
+}
+@media (max-width: 980px){
+  #cta .cta-wrap { grid-template-columns: 1fr; }
+}
+
+/* Left column */
+#cta h2 { margin: 0 0 10px; line-height: 1.2; font-size: clamp(1.8rem, 1.6rem + 2vw, 2.4rem); }
+#cta .accent { color: var(--accent, #007236); }
+
+#cta .lede { margin: 6px 0 16px; font-size: 1.2rem; color: var(--muted); }
+
+#cta .cta-list { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 10px; }
+#cta .cta-list li {
+  position: relative; padding-left: 28px; color: var(--text);
+}
+#cta .cta-list li::before {
+  content: "✓";
+  position: absolute; left: 0; top: 0;
+  width: 20px; height: 20px; line-height: 20px; text-align: center;
+  border: 1px solid var(--border); border-radius: 50%;
+  color: #007236;
+}
+
+/* Chips */
+#cta .cta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px; }
+#cta .cta-chips span {
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px;
+  font-size: .9rem; color: var(--muted); background: rgba(255,255,255,.02);
+}
+
+#cta .cta-note { margin: 8px 0 0; color: var(--muted); }
+
+/* Right column card */
+#cta .cta-right { display: flex; justify-content: center; }
+#cta .cta-card {
+  width: 100%; border; border-radius: 14px;
+  padding: 18px; display: grid; gap: 10px;
+  background: linear-gradient(180deg, rgba(0,114,54,.08), rgba(0,0,0,0));
+  background-clip: padding-box;
+}
+
+#cta .cta-title { margin: 0; font-weight: 700; color: var(--text); }
+#cta .cta-copy { margin: -4px 0 8px; color: var(--muted); font-size: .95rem; }
+
+/* Button (auto width, centered in card) */
+#cta .book-call {
+  display: inline-block; justify-self: start;
+  padding: 12px 18px; border-radius: 10px;
+  background: var(--accent, #007236); color: #fff; text-decoration: none; font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,114,54,.35);
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+}
+#cta .book-call:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 10px 24px rgba(0,114,54,.45); }
+
+#cta .cta-trust { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
+
+/* ==== GLOBAL FOOTER (v3, DeskXP refined) ==== */
+
+footer {
+  background: #2E424E;
+  color: #fff;
+  padding: 56px 24px 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative overlay for subtle texture */
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.06), transparent 70%),
+              radial-gradient(circle at 70% 80%, rgba(255,255,255,.04), transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 36px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Column titles */
+.footer-col h4 {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+/* Logo column */
+.footer-logo {
+  width: 140px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,.3));
+}
+
+/* Footer link list */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #e7e9ee;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+/* Divider lines for visual hierarchy */
+.footer-col:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding-right: 24px;
+}
+@media (max-width: 800px) {
+  .footer-col:not(:last-child) {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+/* Social link styling (optional future use) */
+.footer-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+}
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  transition: background .2s ease, transform .2s ease;
+}
+.footer-social a:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Copyright area */
+.copyright {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #cfd4dc;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 20px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.copyright a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.copyright a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile alignment */
+@media (max-width: 600px) {
+  .footer-grid {
+    text-align: center;
+  }
+
+  .footer-col h4 {
+    margin-top: 16px;
+  }
+
+  .footer-col:not(:last-child) {
+    border: none;
+  }
+
+  .footer-links a:hover {
+    transform: none;
+  }
+}
+/* ==== CTA (v2) ==== */
+#cta.reveal.v2 {
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 36px min(5vw, 48px);
+  max-width: 1100px;      /* match About width */
+  margin: 32px auto 64px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+#cta .cta-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: center;
+}
+@media (max-width: 980px){
+  #cta .cta-wrap { grid-template-columns: 1fr; }
+}
+
+/* Left column */
+#cta h2 { margin: 0 0 10px; line-height: 1.2; font-size: clamp(1.8rem, 1.6rem + 2vw, 2.4rem); }
+#cta .accent { color: var(--accent, #007236); }
+
+#cta .lede { margin: 6px 0 16px; font-size: 1.2rem; color: var(--muted); }
+
+#cta .cta-list { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 10px; }
+#cta .cta-list li {
+  position: relative; padding-left: 28px; color: var(--text);
+}
+#cta .cta-list li::before {
+  content: "✓";
+  position: absolute; left: 0; top: 0;
+  width: 20px; height: 20px; line-height: 20px; text-align: center;
+  border: 1px solid var(--border); border-radius: 50%;
+  color: var(--accent, #007236);
+}
+
+/* Chips */
+#cta .cta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px; }
+#cta .cta-chips span {
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px;
+  font-size: .9rem; color: var(--muted); background: rgba(255,255,255,.02);
+}
+
+#cta .cta-note { margin: 8px 0 0; color: var(--muted); }
+
+/* Right column card */
+#cta .cta-right { display: flex; justify-content: center; }
+#cta .cta-card {
+  width: 100%; border-radius: 14px;
+  padding: 18px; display: grid; gap: 10px;
+  background: linear-gradient(180deg, rgba(0,114,54,.08), rgba(0,0,0,0));
+}
+
+#cta .cta-title { margin: 0; font-weight: 700; color: var(--text); }
+#cta .cta-copy { margin: -4px 0 8px; color: var(--muted); font-size: .95rem; }
+
+/* Button (auto width, centered in card) */
+#cta .book-call {
+  display: inline-block; justify-self: start;
+  padding: 12px 18px; border-radius: 10px;
+  background: var(--accent, #007236); color: #fff; text-decoration: none; font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,114,54,.35);
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+}
+#cta .book-call:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 10px 24px rgba(0,114,54,.45); }
+
+#cta .cta-trust { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
+/* ==== FIX: stop body bg bleed after footer ==== */
+
+/* Ensure body takes the full page height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg); /* your global dark background */
+  overflow-x: hidden;    /* just in case something sticks out horizontally */
+}
+
+/* Ensure the footer sits at the very bottom, not floating mid-page */
+footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Prevent any leftover reveal / animation containers from creating blank space */
+body > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* If the page uses <div id="footer-container"> wrapper */
+#footer-container {
+  background: #2E424E;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: add this if a shadow or gradient was causing a bleed */
+footer::after {
+  content: "";
+  display: block;
+  height: 0;
+}
+/* ===== Footer alignment fix ===== */
+footer { overflow: hidden; }
+
+.footer-grid{
+  /* three even columns, brand column can be narrower */
+  grid-template-columns: minmax(220px, 320px) 1fr 1fr;
+  align-items: start;      /* align to same top baseline */
+  justify-items: start;    /* left align content */
+  gap: 48px;
+}
+
+/* normalize spacing inside columns */
+.footer-col{
+  position: relative;
+  text-align: left;
+}
+.footer-col h4{
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.footer-links{ margin: 0; padding: 0; }
+.footer-links li{ margin: 8px 0; line-height: 1.6; }
+
+/* brand column */
+.footer-logo{ display:block; margin: 0 0 0px; }
+
+/* full-height vertical separators between columns */
+.footer-col::before{ display:none; }                  /* kill any old rules */
+.footer-col:not(:first-child)::before{
+  content:"";
+  position:absolute;
+  left:-24px;            /* space from content */
+  top:0; bottom:0;       /* full height of column */
+  width:1px;
+  background: rgba(255,255,255,.10);
+}
+
+/* remove old right-borders so we don't double up */
+.footer-col{ border-right: none !important; padding-right: 0 !important; }
+
+/* mobile: stack, center, hide separators */
+@media (max-width: 900px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+  .footer-col:not(:first-child)::before{ display:none; }
+}
+/* ==== GRADIENT FOOTER BACKGROUND (DeskXP v4) ==== */
+footer {
+  background: linear-gradient(
+    180deg,
+    #2E424E 0%,
+    #1C2B33 45%,
+    #10161C 100%
+  );
+  color: #fff;
+  padding: 56px 24px 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle texture overlay */
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 15%, rgba(255,255,255,0.05), transparent 70%),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.04), transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* layout preserved */
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr 1fr;
+  align-items: start;
+  justify-items: start;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-col { text-align: left; position: relative; }
+.footer-col h4 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-links li { margin: 8px 0; }
+.footer-links a {
+  color: #e7e9ee;
+  text-decoration: none;
+  font-size: .95rem;
+  transition: color .2s ease, transform .2s ease;
+}
+.footer-links a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+/* separators */
+.footer-col:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.12);
+}
+@media (max-width: 900px){
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+    gap: 28px;
+  }
+  .footer-col:not(:first-child)::before { display:none; }
+}
+
+/* copyright */
+.copyright {
+  text-align: center;
+  font-size: .9rem;
+  color: #cfd4dc;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 18px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
+}
+.copyright a {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+}
+.copyright a:hover { text-decoration: underline; }
+/* === Footer vertical alignment tweak === */
+.footer-col:first-child {
+  transform: translateY(-10px); /* Adjust upward */
+}
+
+/* Optional: fine-tune for smaller screens */
+@media (max-width: 900px) {
+  .footer-col:first-child {
+    transform: none; /* reset for mobile stacked layout */
+  }
+}
+/* ==== FOOTER BLEED FIX (DeskXP v202) ==== */
+
+/* make sure footer wraps its content fully */
+footer {
+  position: relative;
+  overflow: hidden;  /* prevent bleed from ::before gradient */
+  isolation: isolate; /* stop child blending into body */
+}
+
+/* stop pseudo-element bleed */
+footer::before {
+  inset: 0;
+  bottom: 0;
+  height: 100%;
+  clip-path: inset(0 0 0 0); /* enforce clipping area */
+}
+
+/* ensure body background doesn’t show below footer */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  overflow-x: hidden; /* prevent horizontal bleed */
+}
+
+/* force footer to be visually capped */
+body::after {
+  content: "";
+  display: block;
+  height: 0;  /* no extra spacing */
+  background: none;
+}
+
+/* for safety — ensure last section margin doesn't push footer off viewport */
+main > section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* ===== FINAL FOOTER BLEED KILL ===== */
+
+/* 1) Clamp the footer painting region hard */
+footer {
+  position: relative;
+  overflow: hidden;     /* cut anything that tries to spill */
+  isolation: isolate;   /* stop blending into body */
+  margin-bottom: 0 !important;
+  padding-bottom: 28px; /* still gives breathing room for copyright */
+}
+
+/* make sure the decorative gradient sticks INSIDE the footer only */
+footer::before {
+  position: absolute;
+  inset: 0;             /* exactly the footer box */
+  clip-path: inset(0);  /* force clipping to the box */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2) Ensure the page below is the global bg, not a stray color */
+html, body {
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  height: auto;         /* avoid weird 100% overscroll on mobile */
+  overflow-x: hidden;
+}
+
+/* 3) If footer is injected into a wrapper, make sure it doesn't add space */
+#footer-container {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* 4) Kill any accidental margins on the last block above the footer */
+main > section:last-child,
+.container > section:last-child,
+body > section:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0;
+}
+
+/* 5) If you see a faint horizontal line at the very bottom, it’s the copyright divider.
+      Keep it if you like, or remove it here: */
+/* .copyright { border-top: 0; } */
+
+/* 6) Safety: separators never exceed column height */
+.footer-col:not(:first-child)::before {
+  top: 0;
+  bottom: 0;   /* exactly column height */
+  height: auto;
+}
+/* ==== Section Headings ==== */
+section h2,
+section h3,
+#cta h2 {
+  color: var(--text);                 /* Primary readable text color */
+  font-weight: 700;
+  transition: color .3s ease;
+}
+
+/* If you want section titles (like CTA or Services) to have the accent tint */
+section h2.accent,
+#cta h2 {
+  color: var(--accent-light);         /* #3A5562 from your root */
+}
+
+/* Optional hover/scroll reveal styling (if you’re using .reveal animations) */
+section.reveal h2 {
+  color: var(--accent-bright);        /* subtle glow tone #5FA7C7 */
+}
+/* Banner container */
+.banner{
+  position: relative;
+  min-height: clamp(360px, 44vw, 560px);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Background image layer */
+.banner::before{
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--banner-img) center/cover no-repeat;
+  z-index: 0;                   /* image sits at the back */
+  will-change: transform;
+}
+
+/* Overlay that blends header color into the image */
+.banner::after{
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 1;                   /* overlay above image, below text */
+  background:
+    /* smooth fade from header tone into transparent */
+    linear-gradient(
+      to bottom,
+      rgba(46,66,78,1.0) 0%,
+      rgba(46,66,78,0.80) 10%,
+      rgba(46,66,78,0.40) 25%,
+      rgba(46,66,78,0.15) 40%,
+      rgba(46,66,78,0.00) 60%
+    ),
+    /* keep your dark depth for text readability */
+    linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.60));
+}
+
+/* Banner content */
+.banner .inner{
+  position: relative;
+  z-index: 2;      /* always above image + overlay */
+  text-align: center;
+  color: #fff;
+  padding: calc(72px + env(safe-area-inset-top)) 20px 56px;
+}
+/* default: translucent blend so the banner shows through */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(
+    to bottom,
+    rgba(46,66,78,0.98) 0%,
+    rgba(46,66,78,0.85) 40%,
+    rgba(46,66,78,0.60) 80%,
+    rgba(46,66,78,0.00) 100%
+  );
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background .3s ease, backdrop-filter .3s ease;
+}
+
+/* scrolled: solid glass for readability */
+.nav-wrap.is-solid {
+  background: rgba(46,66,78,0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Two-column layout */
+.expert-grid{
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:360px 1fr; gap:36px; align-items:center;
+}
+@media (max-width:980px){ .expert-grid{grid-template-columns:1fr; gap:22px} }
+
+/* Keep your title color (no change). Improve body legibility. */
+.expert p{ color:#E1E7EE; font-size:1.06rem; line-height:1.72; margin:0 0 12px }
+.badge{ display:inline-block; background:var(--brand); color:#fff; border-radius:999px; padding:7px 12px; font-size:.86rem; margin:8px 0 14px }
+
+/* Photo grounding: overlap wave by ~14px + subtle depth */
+.photo-wrap{ position:relative; width:100%; max-width:360px; margin:0 auto -14px; }
+.photo-wrap img{ width:100%; height:auto; display:block; border-radius:14px; box-shadow:0 8px 22px rgba(0,0,0,.28) }
+
+/* SOLID yellow wave. Lower amplitude & responsive scaling. */
+.expert-wave{ position:absolute; left:0; right:0; bottom: -1px; height:290px; z-index:1; pointer-events:none }
+.expert-wave svg{ width:100%; height:100%; display:block }
+@media (max-width:1100px){ .expert-wave{ transform:scaleY(.9) } }
+@media (max-width:900px){  .expert-wave{ transform:scaleY(.75) } }
+
+/* Copy column width + alignment discipline */
+.expert-copy{ max-width:700px }
+
+/* Chips: stronger contrast + extra bottom margin so they don’t collide with wave */
+.stack{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; margin-bottom:10px }
+.tag{
+  border:1px solid rgba(255,255,255,.30);
+  background:rgba(255,255,255,.16);
+  color:#fff;
+  padding:9px 12px; border-radius:999px; font-size:.93rem; line-height:1;
+}
+
+/* Optional: small bottom spacer under chips at narrow widths */
+@media (max-width:980px){
+  .stack{ margin-bottom:16px }
+}
+/* Remove any glass/overlay/fx inside the banner only */
+.banner::before,
+.banner::after {
+  content: none !important;
+  background: none !important;
+}
+
+.banner [class*="overlay"],
+.banner .overlay {
+  background: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Ensure the banner image itself is never dimmed or post-processed */
+.banner,
+.banner * {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+/* CTA layout/hierarchy fixes */
+.dc-card{
+  display:flex;
+  align-items:center;              /* centers vertically */
+  justify-content:space-between;   /* clean left text / right button */
+  gap:24px;
+  padding:24px 28px;               /* more breathing room */
+  background:#2E424E;
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+
+.cta-text h3{
+  margin:0 0 6px;                  /* headline on top */
+  color:#ECF3FF;
+  font-size:1.35rem;
+  line-height:1.2;
+}
+
+.cta-text p{
+  margin:0;
+  color:#CFE2F2;                    /* secondary line */
+  font-size:1.02rem;
+  line-height:1.5;
+}
+
+.btn-cta{
+  align-self:center;                /* vertical alignment */
+  white-space:nowrap;
+  padding:14px 20px;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
+}
+
+/* Mobile: stack + full-width button */
+@media (max-width: 720px){
+  .dc-card{flex-direction:column; align-items:stretch; text-align:left}
+  .btn-cta{width:100%; text-align:center}
+}
+.hamburger {
+  position: relative;
+  z-index: 10010;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.hamburger.is-open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+  .menu {
+    display: none !important;
+  }
+}
+
+/* Keep logo & header always visible above curtain */
+.curtain {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 100%; /* Start directly BELOW the header */
+  background: #2E424E;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  transform: translateY(-16px);
+  opacity: 0;
+  transition: all 0.32s cubic-bezier(.2, .7, .2, 1);
+  z-index: 5 !important; /* behind header */
+  pointer-events: none;
+}
+
+/* When open */
+.curtain.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* On smaller screens, header may be taller */
+@media (max-width: 768px){
+  .curtain {
+    top: 70px; /* adjust for mobile header height */
+    height: calc(100vh - 70px);
+  }
+}
+
+.curtain-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+}
+
+.curtain-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.curtain-menu a {
+  display: block;
+  padding: 12px 8px;
+  font-size: 1.1rem;
+  color: #ecf3ff;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.curtain-menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 901px) {
+  .curtain {
+    display: none;
+  }
+}
+/* ==== FORCE HEADER ABOVE EVERYTHING & CLICKABLE ==== */
+.nav-wrap{ position: relative !important; z-index: 2147483647 !important; pointer-events: auto !important; }
+.nav{ display:flex; align-items:center; gap:14px; }
+#cdMenuTrigger{
+  display: inline-flex; align-items:center; gap:8px;
+  margin-left: auto;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif !important;
+  color:#fff; text-decoration:none;
+  padding:8px 10px; border:1px solid rgba(255,255,255,.15);
+  border-radius:10px; cursor:pointer;
+  position: relative !important; z-index: 2147483647 !important; pointer-events: auto !important;
+}
+
+/* Three-bar icon (if not present already) */
+#cdMenuTrigger .cd-menu-icon{ position:relative; width:22px; height:14px; display:inline-block; }
+#cdMenuTrigger .cd-menu-icon::before,
+#cdMenuTrigger .cd-menu-icon::after,
+#cdMenuTrigger .cd-menu-icon i{
+  content:""; position:absolute; left:0; right:0; height:2px;
+  background: currentColor; border-radius:2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+#cdMenuTrigger .cd-menu-icon::before{ top:0; }
+#cdMenuTrigger .cd-menu-icon::after{ bottom:0; }
+#cdMenuTrigger .cd-menu-icon i{ top:50%; transform: translateY(-50%); }
+#cdMenuTrigger.is-open .cd-menu-icon::before{ top:50%; transform: translateY(-50%) rotate(45deg); }
+#cdMenuTrigger.is-open .cd-menu-icon::after{ bottom:50%; transform: translateY(50%) rotate(-45deg); }
+#cdMenuTrigger.is-open .cd-menu-icon i{ opacity:0; }
+
+/* Hide the old inline menu everywhere so it can't push layout over the trigger */
+.menu{ display:none !important; }
+
+/* Curtain should also sit high and be clickable */
+.curtain{ z-index: 2147483600 !important; pointer-events:auto !important; }
+
+/* ==== KILL OVERLAYS STEALING CLICKS ==== */
+.banner, .hero, .banner *, .hero *{ pointer-events:auto; } /* keep their children interactive */
+.banner::before, .banner::after,
+.hero::before, .hero::after{
+  pointer-events: none !important;   /* pseudo overlays won’t block header */
+}
+
+/* If you have a fixed top bar/gradient layer, neuter it too */
+.header-overlay, .top-gradient, .site-gradient{ pointer-events: none !important; }
+/* --- Curtain must be visible on desktop too --- */
+@media (min-width: 901px){
+  .curtain { 
+    display: block !important;   /* stop desktop hide */
+  }
+}
+
+/* Always above hero overlays; clickable */
+.curtain{
+  position: fixed !important;
+  left: 0; right: 0; top: 0;
+  height: 0;
+  overflow: hidden;
+  background: #2E424E;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  transform: translateY(-100%);
+  transition: transform .32s cubic-bezier(.2,.7,.2,1);
+  z-index: 2147483600 !important;   /* sit on top */
+  pointer-events: auto !important;
+}
+
+.curtain.open{
+  height: 100vh;
+  transform: translateY(0);
+  display: block !important;        /* belt-and-suspenders */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* If a hero/banner overlay is blocking it, neuter its pseudos */
+.banner::before, .banner::after,
+.hero::before, .hero::after{
+  pointer-events: none !important;
+}
+
+/* Hide the inline menu everywhere so it doesn’t shove layout */
+.menu{ display: none !important; }
+.about-cycle {
+  max-width: 600px;        /* keeps it from ballooning */
+  margin: 40px auto;       /* centers horizontally */
+  padding: 0;              /* remove excess space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* About image: stop the ballooning */
+.about-hero .about-media {        /* the <figure> */
+  flex: 0 0 auto;                 /* don't stretch in flex layouts */
+  max-width: 680px;               /* cap width on desktop */
+  margin: 12px auto 20px;         /* center */
+  padding: 0;
+}
+
+.about-hero .about-media img {
+  width: 100%;
+  height: auto !important;        /* override your height:100% */
+  max-height: clamp(220px, 32vh, 380px); /* scale but never huge */
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+/* Tighter on very large screens */
+@media (min-width: 1400px) {
+  .about-hero .about-media { max-width: 620px; }
+  .about-hero .about-media img { max-height: 340px; }
+}
+
+/* Safety: generic img defaults */
+img { max-width: 100%; height: auto; display: block; }
+/* =======================
+   FIXES: CTA + Services
+   ======================= */
+
+/* 1) Make "Book a discovery call" same color as the Expert panel */
+#cta.reveal.v2 {
+  background: var(--panel) !important;                 /* dark green container */
+  box-shadow: 0 18px 38px rgba(0,0,0,.25);
+}
+#cta.reveal.v2::before,
+#cta.reveal.v2::after { display:none !important; }     /* kill any stray overlays */
+
+/* 2) Kill black borders on generic containers (keep subtle glass border) */
+.section, .panel, .card, .dc-card {
+  border-color: var(--glass-border) !important;
+}
+
+/* 3) "Ready to move?" box: no cover; restore green gradient glow */
+#cta .cta-right {
+  background: linear-gradient(135deg, rgba(0,114,54,.28), rgba(0,114,54,.12)) !important;
+  border: 1px solid rgba(0,114,54,.35) !important;
+  box-shadow: 0 10px 26px rgba(0,114,54,.22), inset 0 0 0 1px rgba(255,255,255,.05);
+}
+#cta .cta-right::before,
+#cta .cta-right::after { display:none !important; }
+
+/* Button inside the "Ready to move?" box */
+#cta .cta-right a, #cta .cta-right .btn, #cta .cta-right button {
+  background: #0a7a3a !important;
+  border: 1px solid rgba(0,114,54,.55) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(0,114,54,.28);
+}
+
+/* 4) Bullet list under CTA: green checkmarks (same as Expert) */
+#cta .cta-list { list-style: none; margin: 0 0 14px; padding: 0; }
+#cta .cta-list li {
+  position: relative; padding-left: 28px;
+}
+#cta .cta-list li::before {
+  content: "✓";
+  position: absolute; left: 0; top: .15em;
+  width: 20px; height: 20px; line-height: 20px;
+  text-align: center; border-radius: 50%;
+  font-weight: 800;
+  color: var(--accent);                          /* #007236 */
+  background: rgba(0,114,54,.14);
+  box-shadow: 0 0 0 1px rgba(0,114,54,.25) inset;
+}
+
+/* 5) CTA tags/chips: highlight in green */
+#cta .cta-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+#cta .cta-chips .chip, #cta .cta-chips .tag, #cta .cta-chips .pill {
+  background: rgba(0,114,54,.18) !important;
+  color: #e8f5ee !important;
+  border: 1px solid rgba(0,114,54,.35) !important;
+}
+#cta .cta-chips .chip:hover { background: rgba(0,114,54,.26) !important; }
+
+/* 6) Services section: black border on the container; cards touch the edge */
+section#services, .services.section, .section.services {
+  background: var(--panel);
+}
+section#services .container, .section.services .container { padding: 0 !important; }
+
+section#services .service-grid, .services .grid {
+  gap: 24px;                                      /* adjust if you want tighter */
+  padding: 12px 16px;                                  /* retains breathing room inside border */
+}
+
+section#services .service-card, .services .service-card, .services .card {
+  margin: 0 !important;
+  border-color: var(--glass-border) !important;   /* no heavy black on cards */
+}
+/* ===== About image: STOP THE BALLOONING ===== */
+.about-hero .about-media {              /* the <figure> */
+  flex: 0 0 auto;                       /* don't stretch in flex layouts */
+  max-width: 620px;                     /* cap width on desktop */
+  margin: 12px auto 18px;               /* center it */
+  padding: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.about-hero .about-media img {
+  display: block;
+  width: 100%;
+  height: auto !important;              /* override height:100% */
+  max-height: clamp(220px, 32vh, 340px);/* scale but never huge */
+  object-fit: contain;
+  border-radius: 14px;
+  transition: transform .3s ease;
+}
+
+/* Optional: tighten the white card/panel around it */
+section.about-hero {
+  padding-block: clamp(12px, 2vw, 20px) !important;
+}
+/* === SERVICES SECTION FIX === */
+section#services,
+.section.services {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 48px 56px !important;   /* adds breathing room inside container */
+  margin: 48px auto !important;    /* space outside container */
+  box-shadow: 0 8px 22px rgba(0,0,0,.25);
+}
+
+/* Service grid spacing */
+section#services .service-grid,
+.services .grid {
+  display: grid;
+  gap: 32px;                       /* more space between cards */
+}
+
+/* Service cards */
+section#services .service-card,
+.services .service-card,
+.services .card {
+  margin: 0 !important;
+  border-color: var(--glass-border) !important;
+  border-radius: 12px;
+  background: var(--panel);
+}
+/* Bullet list: professional checkmarks */
+.cta-list{margin:0 0 18px;padding:0;list-style:none}
+.cta-list li{
+  position:relative;
+  padding-left:34px;
+  margin:10px 0;
+  line-height:1.5;
+}
+.cta-list li::before{
+  content:"";
+  position:absolute;left:0;top:.2em;
+  width:22px;height:22px;border-radius:9999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 60%),
+    linear-gradient(135deg, rgba(0,114,54,.85), rgba(0,114,54,.55));
+  box-shadow:
+    0 0 0 1px rgba(0,114,54,.55) inset,
+    0 3px 8px rgba(0,114,54,.25);
+}
+/* crisp check glyph (SVG mask for pixel-perfect edges) */
+.cta-list li::after{
+  content:"";
+  position:absolute;left:5px;top:8px;width:12px;height:8px;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'><path fill='%23000' d='M6 9.2 1 5.3l1.4-1.7 3.6 2.9L13.5 0 15 1.6z'/></svg>") no-repeat center/contain;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'><path d='M6 9.2 1 5.3l1.4-1.7 3.6 2.9L13.5 0 15 1.6z'/></svg>") no-repeat center/contain;
+  background:#fff;
+  opacity:.95;
+}
+/* ======================================================
+   DeskXP CTA Refinements (for #cta .cta-card)
+   ====================================================== */
+
+/* ✅ Professional checkmark list */
+.cta-list {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.cta-list li {
+  position: relative;
+  padding-left: 34px;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.cta-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 60%),
+    linear-gradient(135deg, rgba(0, 114, 54, 0.9), rgba(0, 114, 54, 0.55));
+  box-shadow:
+    0 0 0 1px rgba(0, 114, 54, 0.4) inset,
+    0 3px 8px rgba(0, 114, 54, 0.25);
+}
+
+.cta-list li::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 12px;
+  height: 8px;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'><path fill='%23000' d='M6 9.2 1 5.3l1.4-1.7 3.6 2.9L13.5 0 15 1.6z'/></svg>") no-repeat center/contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'><path d='M6 9.2 1 5.3l1.4-1.7 3.6 2.9L13.5 0 15 1.6z'/></svg>") no-repeat center/contain;
+  background: #fff;
+  opacity: 0.95;
+}
+
+#cta::before,
+#cta::after { display:none !important; }
+
+#cta .cta-card{
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;                 /* hard-clip all inner layers to the radius */
+  background: transparent !important; /* stop painting gradient on the element */
+  box-shadow: 0 10px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
+  isolation: isolate;               /* keep blending/filters from parents out */
+}
+
+#cta .cta-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  background:
+    linear-gradient(140deg, rgba(0,114,54,.25) 0%, rgba(0,114,54,.10) 45%, rgba(0,0,0,0) 100%),
+    radial-gradient(120% 80% at 12% 12%, rgba(255,255,255,.06), transparent 60%);
+  z-index:0;
+  pointer-events:none;
+}
+
+#cta .cta-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 38px rgba(0,0,0,.18);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ensure content sits above gradient */
+#cta .cta-card > *{ position: relative; z-index: 1; }
+.built-for {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: #2E424E;
+  text-align: center;
+  font-weight: 500;
+}
+.built-for span { color: var(--brand); font-weight: 600; }
+.about-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-visual::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle at center, rgba(0,114,54,0.2), transparent 70%);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+  border-radius: 50%;
+  filter: blur(30px);
+  z-index: 0;
+}
+.about-illustration { position: relative; z-index: 1; }
+
+@keyframes pulseGlow {
+  0% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0.7; transform: scale(1.08); }
+}
+/* Built-for: keep horizontal on desktop, graceful on mobile */
+.built-for{
+  display:flex;
+  justify-content:center;
+  align-items:baseline;
+  gap:12px;
+  white-space:nowrap;        /* no wrap on wide screens */
+  margin-top:14px;
+  font-size:1rem;
+  color:#2E424E;
+  font-weight:500;
+}
+.built-for span{ display:inline-block; color:var(--brand); font-weight:600; }
+
+/* Auto separators (use this only if you remove the literal dots in HTML) */
+.built-for span + span::before{
+  content:"·";
+  margin:0 6px 0 2px;
+  color:#7a8a96;
+  font-weight:400;
+}
+
+@media (max-width:900px){
+  .built-for{ flex-wrap:wrap; white-space:normal; row-gap:6px; }
+}
+/* 🔧 Pill upgrades */
+.pill{
+  --pill-bg: rgba(255,255,255,.7);
+  --pill-border: rgba(15,18,34,.08);
+  --pill-shadow: 0 2px 6px rgba(15,18,34,.06);
+  backdrop-filter: saturate(115%) blur(2px);
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  box-shadow: var(--pill-shadow);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: .95rem;
+  line-height: 1;
+  color: #2b3742;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: .5ch;
+  white-space: nowrap;
+}
+.pill:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(15,18,34,.08); border-color: rgba(15,18,34,.16); }
+
+/* Optional: tiny leading dot for visual rhythm */
+.pill::before{
+  content:"";
+  width:6px;height:6px;border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #75d39a, #007236);
+  opacity:.9;
+}
+
+/* Optional “featured” pill—use on 2–3 most important tags */
+.pill--featured{
+  background: linear-gradient(180deg, rgba(0,114,54,.10), rgba(0,114,54,.06));
+  border-color: rgba(0,114,54,.25);
+  box-shadow: 0 6px 16px rgba(0,114,54,.12);
+  color:#0b2d1f;
+}
+.pill--featured::before{
+  background: radial-gradient(circle at 30% 30%, #9ff1be, #007236);
+}
+/* 🔧 Stats upgrades */
+.stats-row{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.stat{
+  position: relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 16px;
+  border-radius:14px;
+  background: rgba(255,255,255,.85);
+  border:1px solid rgba(15,18,34,.08);
+  box-shadow: 0 8px 20px rgba(15,18,34,.06);
+  min-height:72px;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.stat:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(15,18,34,.10); border-color: rgba(15,18,34,.16); }
+
+/* tiny brand dot icon */
+.stat::before{
+  content:"";
+  width:10px;height:10px;border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #7fe0a6, #007236);
+  flex:0 0 10px;
+}
+
+.stat .n{
+  font-weight:900;
+  font-size:1.35rem;       /* bigger number = perceived value */
+  letter-spacing:-.02em;
+  color:#0f1222;
+}
+.stat .t{
+  font-size:.95rem;
+  color:#4b5a66;
+}
+
+/* Compact layout for narrow screens */
+@media (max-width:900px){
+  .stats-row{ grid-template-columns:1fr; gap:10px; }
+  .stat{ min-height:64px; }
+}
+.built-for{
+  display:flex; justify-content:center; align-items:baseline;
+  gap:10px; white-space:nowrap; margin-top:12px;
+  color:#2E424E; font-weight:500;
+}
+.built-for span{ color:var(--brand); font-weight:700; }
+.built-for span + span::before{
+  content:"•"; color:#8fa1ad; font-weight:600; opacity:.6; margin:0 8px 0 2px;
+}
+@media (max-width:900px){ .built-for{ flex-wrap:wrap; white-space:normal; row-gap:6px; } }
+/* ===== About (image shares container with text) ===== */
+.about-hero{
+  position:relative;
+  background:#fff; color:#0b0f1a;
+  border-radius:18px; border:1px solid #e6e6e6;
+  padding:28px 22px; margin:20px 0 36px;
+}
+.about-title{ margin:0 0 14px }
+
+.about-grid{
+  display:grid;
+  /* Give the image more real estate on desktop */
+  grid-template-columns:minmax(480px,1.25fr) 1fr;
+  gap:28px; align-items:center;
+}
+
+/* The image itself — no wrapper, no card */
+.about-illustration{
+  width:100%; height:auto; display:block;
+  max-width:980px;            /* allow it to get large */
+  min-width:420px;            /* prevents postage-stamp sizing on huge screens */
+  justify-self:center;        /* centers nicely in its grid cell */
+}
+
+/* Copy column */
+.about-body p{ font-size:1.06rem; line-height:1.72; margin:0 0 12px }
+
+/* Pills & stats — keep your existing look */
+.pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px }
+.pill{ border:1px solid #e5e7eb; border-radius:999px; padding:8px 12px; font-size:.92rem; background:#fafafa }
+.stats-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px }
+.stat{ display:flex; align-items:center; gap:10px; border:1px solid #e9edf2; background:#f9fbfc; border-radius:12px; padding:12px 14px }
+.stat .n{ font-weight:800; font-size:1.15rem; color:#2E424E }
+.stat .t{ font-size:.92rem; color:#475466 }
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .about-grid{ grid-template-columns:1fr; gap:18px }
+  .about-illustration{ min-width:0; max-width:100% }
+  .stats-row{ grid-template-columns:1fr; gap:10px }
+}
+/* --- Career timeline: fix global bullets and spacing --- */
+.about-timeline .tl-points{
+  list-style: none;           /* nuke default markers */
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+/* If your global CSS adds li::before bullets, cancel them here. */
+.about-timeline .tl-points li::before{
+  content: none !important;
+}
+
+/* Our own bullets */
+.about-timeline .tl-points li{
+  position: relative;
+  margin: .55rem 0;
+  padding-left: 20px;         /* space from custom bullet */
+  line-height: 1.6;
+}
+.about-timeline .tl-points li::after{
+  content: "";
+  position: absolute;
+  left: 0; top: .62em;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFD400, #007236);
+  box-shadow: 0 0 0 2px #fff; /* crisp on white card */
+}
+
+/* Title row breathing room */
+.about-timeline .tl .tl-head{ 
+  margin-bottom: 6px;         /* space between title and bullets */
+}
+
+/* The small yellow “title-dot” beside role — give it air or hide it */
+.about-timeline .tl .title-dot{ 
+  margin-right: 10px;
+}
+/* If you prefer only one dot style, hide the title-dot entirely: */
+/* .about-timeline .tl .title-dot{ display:none } */
+/* Card polish */
+.about-timeline .tl-card{
+  background: #fff;
+  border: 1px solid #e9eef3;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px rgba(20,30,40,.06);
+}
+
+/* Vertical rhythm between roles */
+.about-timeline .tl > li{
+  padding: 14px 12px;
+  border-radius: 12px;
+  transition: background .2s ease, transform .06s ease;
+}
+.about-timeline .tl > li + li{ border-top: 1px dashed #e9eef3; }
+
+/* Subtle hover affordance */
+.about-timeline .tl > li:hover{
+  background: rgba(0,114,54,.035);
+  transform: translateY(-1px);
+}
+
+/* Role line: make the company/title feel like a “module header” */
+.about-timeline .tl .tl-head strong{
+  font-weight: 800;
+  letter-spacing: .1px;
+}
+.about-timeline .tl .tl-time{
+  color:#6b7785;
+  font-weight: 600;
+}
+
+/* Optional: tiny “stack chips” feel for keywords inside bullets (auto) */
+.about-timeline .tl-points em{
+  background: rgba(0,114,54,.08);
+  border: 1px solid rgba(0,114,54,.18);
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-style: normal;
+  font-weight: 600;
+  color:#1e3b2e;
+  white-space: nowrap;
+}
+/* ===== Projects: premium cards, keep existing HTML/JS ===== */
+.about-cases .case-grid{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(280px,1fr));
+  gap: 18px;
+}
+@media (max-width:1200px){ .about-cases .case-grid{ grid-template-columns: repeat(2, minmax(280px,1fr)); } }
+@media (max-width:780px){  .about-cases .case-grid{ grid-template-columns: 1fr; } }
+
+/* Card */
+.about-cases .case-card{
+  position: relative;
+  display: grid !important;                 /* kill the old flex */
+  grid-template-columns: 64px 1fr !important;
+  align-items: center;
+  gap: 14px !important;
+  padding: 18px 20px !important;
+  border-radius: 20px !important;
+
+  /* glass + depth */
+  background:
+    radial-gradient(120% 140% at -10% -20%, rgba(255,255,255,.16) 0%, rgba(255,255,255,.06) 55%, rgba(255,255,255,.04) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06)) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    0 10px 24px rgba(0,0,0,.28) !important;
+
+  color: #fff !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .16s ease, border-color .16s ease, background .2s ease;
+}
+
+/* sheen */
+.about-cases .case-card::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius: 21px;
+  pointer-events:none;
+  background: linear-gradient(140deg, var(--card-accent, var(--brand)), rgba(255,255,255,0) 45%);
+  opacity: 0; transition: opacity .18s ease;
+}
+
+/* chevron */
+.about-cases .case-card::after{
+  content:"→";
+  position:absolute; right: 14px; top:50%; transform: translateY(-50%);
+  font-weight: 800; font-size: 1.1rem; opacity: .55;
+  transition: transform .14s ease, opacity .14s ease;
+}
+
+.about-cases .case-card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.28) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    0 14px 28px rgba(0,0,0,.35) !important;
+}
+.about-cases .case-card:hover::before{ opacity: .7; }
+.about-cases .case-card:hover::after{ transform: translate(4px, -50%); opacity: .85; }
+
+/* logo box */
+.about-cases .case-card img{
+  width: 56px !important; height: 56px !important;
+  border-radius: 14px !important;
+  background:#fff; border:1px solid #ececec !important; object-fit: contain;
+  box-shadow: 0 4px 10px rgba(0,0,0,.18);
+}
+
+/* type */
+.about-cases .case-title{
+  margin:0 !important; color:#fff !important;
+/* Fine-tuning: spacing + sheen intensity + depth */
+.about-cases .case-grid{
+  gap: 22px !important;
+  align-items: stretch;
+}
+.about-cases .case-card{
+  background:
+    radial-gradient(160% 200% at -10% -30%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.07) 60%, rgba(255,255,255,.04) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    0 12px 28px rgba(0,0,0,.30) !important;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+.about-cases .case-card:hover{
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    0 18px 36px rgba(0,0,0,.38) !important;
+}
+.about-cases .case-card::before{
+  background: linear-gradient(145deg, var(--card-accent, #007236), rgba(255,255,255,0) 55%);
+}
+.about-cases .case-title{ font-size:1.2rem !important; font-weight:800 !important; }
+.about-cases .case-sub{ opacity:.9; }
+
+/* responsive spacing */
+@media (max-width:900px){
+  .about-cases .case-grid{ gap:18px; }
+  .about-cases .case-card{ padding:16px 18px !important; }
+}
+/* Brand-tinted hover overlay */
+.about-cases .case-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  pointer-events: none;
+  background: linear-gradient(145deg, var(--card-accent, var(--brand)) 0%, rgba(255,255,255,0) 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.about-cases .case-card:hover::before {
+  opacity: 0.8;
+  transform: scale(1.03);
+  filter: saturate(1.3);
+}
+/* ===== About Page CTA (scoped & safe) ===== */
+.about-page #cta {
+  background: var(--panel);
+  border-radius: 18px;
+  border: 1px solid var(--glass-border, rgba(255,255,255,.12));
+  padding: 44px 32px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  margin-top: 60px;
+}
+
+.about-page #cta h2 {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--brand, #007236);
+}
+
+.about-page #cta p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.about-page .cta-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.about-page .cta-actions .btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #28a04f 0%, #007236 90%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 6px 20px rgba(0,114,54,.35);
+  transition: all 0.2s ease;
+}
+
+.about-page .cta-actions .btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,114,54,.45);
+}
+
+/* Bullet list (✓ style) */
+.about-page .cta-list {
+  margin: 10px 0;
+  list-style: none;
+  padding: 0;
+  color: var(--text);
+}
+
+.about-page .cta-list li {
+  margin: 6px 0;
+  position: relative;
+  padding-left: 22px;
+}
+
+.about-page .cta-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand, #007236);
+  font-weight: 700;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 700px) {
+  .about-page #cta {
+    padding: 32px 20px;
+  }
+  .about-page .cta-actions .btn-accent {
+    width: 100%;
+  }
+}
+
+/* ===== Professional Career Bullets Fix ===== */
+.about-page .tl-points {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-top: 10px;
+}
+
+.about-page .tl-points li {
+  position: relative;
+  padding-left: 22px;
+  margin: .55rem 0;
+}
+
+.about-page .tl-points li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--brand, #007236);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ===== Case Cards Hover Branding ===== */
+.about-page .case-card:hover {
+  border-color: rgba(0,114,54,.6);
+  box-shadow: 0 8px 24px rgba(0,114,54,.35);
+}
+
+/* ===== Modal Close Button Hover ===== */
+.about-page .modal-close:hover {
+  background: var(--brand, #007236);
+  border-color: var(--brand, #007236);
+  color: #fff;
+}
+/* Curtain menu CLOSED state: completely inert */
+.curtain {
+  position: fixed; inset: 0;
+  opacity: 0; visibility: hidden;
+  pointer-events: none;               /* <- stop intercepting */
+  transform: translateY(-8px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+
+/* OPEN state: visible + interactive */
+.curtain.is-open {
+  opacity: 1; visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s;
+  z-index: 1000;                      /* above content when open */
+}
+/* ----- HERO MUST TOUCH THE TOP EDGE ----- */
+
+/* 0) never add default page padding */
+html, body { margin: 0 !important; padding: 0 !important; }
+
+/* 1) some global rules are adding top padding/margin; nuke them */
+body,
+main,
+.page,
+.wrapper,
+.container:first-child,
+body > section:first-of-type,
+#header-mount + section.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 2) old "banner" styles sometimes add spacing/radius; neutralize */
+.banner,
+.banner .inner,
+.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;          /* remove those rounded corners */
+  overflow: visible !important;          /* let the video fill to the edge */
+}
+
+/* 3) make sure the video itself has no radius or inset */
+.hero video,
+.hero .hero__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0 !important;
+  object-fit: cover;
+}
+
+/* 4) confirm header truly overlays (no fake spacer) */
+.nav-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: transparent;               /* transparent at top */
+  border: 0;                             
+  box-shadow: none;
+  z-index: 2147483647;
+}
+.nav-wrap.solid {
+  background: rgba(46,66,78,.96);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+/* 5) absolutely no “safety” padding to push content down */
+body { padding-top: 0 !important; }
+/* ===== Fix hero flush alignment (DeskXP Hero Fix v1) ===== */
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+}
+
+.hero__video {
+  border-radius: 0 !important;
+  object-fit: cover;
+  display: block;
+}
+
+/* eliminate inherited gaps from global .container or page wrappers */
+body > .container:first-child,
+body > div:first-of-type,
+#site-header + .hero,
+#header-mount + .hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* header sits over the hero seamlessly */
+.nav-wrap.transparent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-wrap.solid {
+  background: rgba(46, 66, 78, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+// Hard-kill any top margin/padding the theme adds after the header
+(() => {
+  const mount = document.getElementById('header-mount');
+  const first = mount?.nextElementSibling;
+  if (first) {
+    first.style.marginTop = '0';
+    first.style.paddingTop = '0';
+  }
+  // some themes use a CSS var for header offset — zero it out
+  document.documentElement.style.setProperty('--nav-offset', '0px');
+})();
+/* Give non-hero pages breathing room under the fixed header */
+body.no-hero #header-mount + * {
+  margin-top: var(--nav-h) !important;  /* push first content block down */
+  padding-top: 0 !important;            /* avoid double spacing */
+}
+
+/* Keep home hero illusion (already in place) */
+body:not(.no-hero) .hero {
+  top: calc(var(--nav-h) * -1);
+}
+body.scrolled .hero { top: 0; }
+/* =================== ABOUT PAGE: full-bleed hero, no gap =================== */
+
+/* 1) Your JS slapped inline padding-top on <body> when there’s no .hero. Nuke it here. */
+body.about-page.no-hero { padding-top: 0 !important; }
+
+/* 2) The page-level container adds spacing. Not for the first section on About. */
+.about-page .container { padding-top: 0 !important; }
+
+/* 3) Full-width, flush “About” hero section (ignores the site-wide rounded/boxed section UI) */
+.about-page .about-hero {
+  /* escape the centered container and go true edge-to-edge */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  /* sit underneath the fixed header with no visual gap */
+  margin-top: calc(-1 * var(--nav-h));
+  padding-top: calc(var(--nav-h) + clamp(24px, 3vw, 56px)); /* keeps text from hiding under header */
+  padding-bottom: clamp(24px, 3vw, 56px);
+
+  /* look + reset all the boxed-section junk */
+  background: #0d0f12; /* OR: url('/assets/about-hero.jpg') center/cover no-repeat */
+  color: #fff;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 4) Keep the content itself aligned to your site max-width without touching HTML */
+.about-page .about-hero > * {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 5) If your generic “section” selector adds padding/shadow globally, cancel it for the hero only */
+.about-page .about-hero.section,
+.about-page section.about-hero {
+  background: transparent;      /* we already set background above */
+  box-shadow: none !important;  /* override any global section shadow */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 6) Mobile tweaks */
+@media (max-width: 600px) {
+  .about-page .about-hero > * { padding: 0 16px; }
+}
+/* Force full-bleed About Hero even inside .container */
+.about-page .about-hero {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: #fff;
+  margin-top: calc(-1 * var(--nav-h)); /* pull up under header */
+  padding-top: calc(var(--nav-h) + 40px);
+}
+/* About page: remove the gap between the fixed header and the About hero only */
+.about-page .container { 
+  padding-top: 0 !important;        /* kill the container’s 24px top padding */
+}
+
+.about-page .container > .about-hero {
+  margin-top: 0 !important;         /* avoid margin-collapsing creating a gap */
+}
+
+/* keep full-bleed hero from earlier */
+.about-page .about-hero{
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.about-page .about-hero > .about-title,
+.about-page .about-hero > .about-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.about-page .about-hero {
+  border-radius: 0 !important;
+}
+/* Force-remove border radius, shadow, and border from About box */
+.about-page .about-hero {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important; /* optional — ensures no clipping from previous radius */
+}
+/* Make the Services band butt right up to the hero */
+#services {
+  margin-top: 0 !important;      /* override global section margin */
+  padding-top: 0 !important;     /* if your section has padding */
+  background: transparent;       /* avoid a seam from background panels */
+  border-radius: 0;
+}
+
+/* Prevent margin-collapsing from the first heading causing a gap */
+#services > h2:first-child {
+  margin-top: 0 !important;
+}
+
+/* Insurance: hero shouldn’t push anything down */
+.hero { margin-bottom: 0 !important; }
+
+/* If you’re using the full-width shell I sent earlier */
+.svc-fw,
+.svc-shell {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+/* --- 1️⃣ Remove gap between hero banner and services section --- */
+
+/* Target only the container that holds the Services section */
+.container:has(> #servicesFW),
+.container:has(> #services) {
+  padding-top: 0 !important;   /* kills container’s default padding */
+  margin-top: 0 !important;    /* removes vertical gap entirely */
+}
+
+/* Prevent collapsed margins from the first heading */
+#servicesFW > h2:first-child,
+#services > h2:first-child {
+  margin-top: 0 !important;
+}
+
+/* Ensure hero doesn’t push anything down */
+.hero {
+  margin-bottom: 0 !important;
+}
+
+/* If a faint seam still shows on retina screens */
+#servicesFW,
+#services {
+  margin-top: -1px !important;
+}
+
+
+/* --- 2️⃣ Add clean internal spacing for the service image --- */
+
+.svc-slide {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 48px;                    /* gap between image and text */
+  padding: 0 64px;              /* balanced side padding for layout */
+  width: 100%;
+  min-height: 540px;
+}
+
+.svc-slide img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 12px;
+  margin-right: 24px;           /* add breathing room beside image */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .svc-slide {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 24px 32px;
+    gap: 28px;
+  }
+
+  .svc-slide img {
+    margin-right: 0;
+    margin-bottom: 20px;
+    max-width: 420px;
+  }
+}
+/* ===== Kill the gap between hero and Services (bulletproof) ===== */
+
+/* If your services block is #servicesFW, keep both IDs below just in case */
+.hero + #servicesFW,
+.hero + #services {
+  /* nuke spacing */
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+
+  /* break margin-collapsing from the first child inside Services */
+  border-top: 1px solid transparent !important;
+  margin-top: -1px !important; /* visually cancels that transparent border */
+}
+
+/* If the slider shell has padding, strip the top edge */
+#servicesFW .svc-shell,
+#services .svc-shell {
+  padding-top: 0 !important;
+}
+
+/* Drop any top margin the first child tries to contribute */
+#servicesFW > *:first-child,
+#services    > *:first-child {
+  margin-top: 0 !important;
+}
+
+/* Some themes assign margins to *all* sections – cancel for Services only */
+section#servicesFW,
+section#services {
+  margin-block-start: 0 !important;
+  padding-block-start: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: none !important; /* prevents a ‘seam’ line */
+}
+
+/* ===== Left image breathing room inside the slide ===== */
+#servicesFW .svc-slide img,
+#services    .svc-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+  margin: 24px 24px 24px 0;  /* ← inner spacing around the image */
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,.25);
+}
+
+/* If you wrap the image in .svc-media, use this instead (safer across layouts) */
+#servicesFW .svc-media,
+#services    .svc-media {
+  padding: 24px 24px 24px 0 !important; /* left image margin, top gap = 0 */
+}
+
+@media (max-width: 900px){
+  #servicesFW .svc-slide img,
+  #services    .svc-slide img {
+    max-width: 420px;
+    margin: 0 auto 20px; /* center image on mobile */
+  }
+}
+#servicesFW {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.hero + #servicesFW {
+  margin-top: 0 !important;
+}
+
+main, .page, .container {
+  row-gap: 0 !important;
+}
+.svc-slide img {
+  width: 100%;
+  height: clamp(320px, 40vh, 440px);
+  object-fit: contain;   /* switch to cover if you prefer cropped */
+  aspect-ratio: 1 / 1;   /* forces uniform shape if images vary wildly */
+}
+
+
