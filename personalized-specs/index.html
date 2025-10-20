@@ -6,207 +6,348 @@
   <title>Personalized Specs — DeskXP</title>
   <meta name="description" content="Pick the services you need, add your details, and I’ll email you a tailored CX plan." />
 
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d0f12">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css?v=210">
+
   <style>
-    /* Minimal styles copied from your design (kept compact) */
-    body { background:#1b272e; color:#e6e9ef; font-family:"Plus Jakarta Sans",sans-serif; margin:0; padding:40px; }
-    main { max-width:820px; margin:40px auto; background:#14181d; border-radius:16px; padding:32px; box-shadow:0 10px 30px rgba(0,0,0,.4); }
-    h1{ color:#fff; margin:0 0 8px; font-size:1.7rem; }
-    .hint{ color:#9aa3ad; margin-bottom:18px; }
-    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .form-field{ display:flex; flex-direction:column; gap:6px; margin-bottom:8px; }
-    input,textarea{ padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.25); color:#e6e9ef; }
-    textarea{ min-height:100px; resize:vertical; }
-    .actions{ display:flex; gap:12px; align-items:center; margin-top:14px; }
-    .btn{ padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; border:0; }
-    .btn-primary{ background:#007236; color:#fff; }
-    .btn-ghost{ background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.12); }
-    .captcha-wrap{ margin-top:12px; }
-    .help{ color:#bfc9cf; display:block; margin-bottom:6px; }
-    #formMsg{ color:#ffb3b3; margin-top:8px; display:flex; align-items:center; gap:8px; }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size:0.9rem; color:#cdd6dd; }
-    @media (max-width:600px){ .grid-2{ grid-template-columns:1fr; } .actions{ flex-direction:column; } }
-  </style>
+  /* Match Privacy template shell */
+  body {
+    background: #1b272e;
+    color: #e6e9ef;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+  }
+  main {
+    max-width: 860px;
+    margin: 80px auto 120px;
+    background: #14181d;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 56px 60px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+  }
+  h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
+  h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
+  p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
+  a { color: #00b858; text-decoration: none; font-weight: 500; }
+  a:hover { text-decoration: underline; }
+  strong { color: #ffffff; font-weight: 600; }
+  .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
+
+  /* Form UI */
+  .pillset { display:flex; flex-wrap:wrap; gap:10px; }
+  .pill {
+    position: relative;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 14px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
+    transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
+    outline: none;
+  }
+  .pill input { position:absolute; inset:0; opacity:0; pointer-events:none; }
+  .pill:hover {
+    transform: translateY(-1px);
+    background: rgba(0,114,54,.15);
+    border-color: rgba(0,255,153,.40);
+  }
+  .pill:active { transform: scale(0.96); }
+  .pill:has(input:focus-visible) {
+    box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18);
+  }
+  .pill:has(input:checked) {
+    background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
+    border-color: #00b858;
+    color: #eafff4;
+    box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
+  }
+  .pill:has(input:checked)::before {
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:#00e08a; margin-right:8px;
+    box-shadow: 0 0 8px rgba(0,224,138,.6);
+  }
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .full { grid-column: 1 / -1; }
+  .form-field { display:flex; flex-direction:column; gap:6px; }
+  .form-field label { font-weight:700; color:#e6e9ef; }
+  .form-field input, .form-field textarea {
+    background: rgba(0,0,0,.25); color: #e6e9ee;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  textarea { resize: vertical; min-height: 120px; }
+
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
+    position: relative; transition: transform .08s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background:#007236; color:#fff; }
+  .btn-primary:hover { background:#0a8b47; box-shadow: 0 6px 18px rgba(0,184,88,.25); }
+  .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
+  .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
+
+  /* Disabled state + spinner */
+  .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
+  .btn[disabled]::after {
+    content: "";
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.45);
+    border-top-color: #fff;
+    position: absolute; right: 12px;
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .step { display:none; }
+  .step.active { display:block; animation: fadeIn .25s ease-in; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #formMsg { color:#c9d1d9; }
+
+  /* Success state */
+  #success { display:none; }
+  #success.active { display:block; }
+  .success-card {
+    background:#0f1419;
+    border:1px solid rgba(0, 255, 153, 0.18);
+    border-radius:16px;
+    padding:28px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .check { width:56px;height:56px;border-radius:50%; background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
+  .check svg { width:28px;height:28px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+  /* Ensure captcha isn't clipped by any overflow/transform */
+  .captcha-wrap, .captcha-wrap * { overflow: visible !important; }
+  @media (max-width: 700px) {
+    main { padding: 32px 24px; margin: 60px auto; }
+    h1 { font-size: 2rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .pillset { justify-content: center; }
+  }
+</style>
 </head>
+
 <body>
+  <div id="site-header"></div>
+
   <main>
-    <h1>Personalized Specs</h1>
+    <h1 id="pageTitle">Personalized Specs</h1>
     <p class="hint">Choose your scope → share your details → get a custom CX rollout plan.</p>
 
+    <!-- FORM -->
     <form id="specForm" autocomplete="on" novalidate>
       <!-- Honeypot -->
       <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
 
-      <!-- Services (simplified) -->
-      <div class="form-field">
-        <label class="mono">Services (pick any)</label>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <label style="background:rgba(255,255,255,.03);padding:6px 10px;border-radius:999px;"><input type="checkbox" name="services" value="CX End to End management"> CX End to End</label>
-          <label style="background:rgba(255,255,255,.03);padding:6px 10px;border-radius:999px;"><input type="checkbox" name="services" value="Zendesk onboarding"> Zendesk onboarding</label>
-          <label style="background:rgba(255,255,255,.03);padding:6px 10px;border-radius:999px;"><input type="checkbox" name="services" value="Integration and automation"> Integration</label>
+      <!-- STEP 1 -->
+      <section class="step active" id="step1">
+        <h2>Select services you need</h2>
+        <p class="hint">Multi-select.</p>
+        <div class="pillset" id="servicesPills">
+          <label class="pill"><input type="checkbox" name="services" value="CX End to End management">CX End to End management</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk optimization">Zendesk optimization</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
+          <label class="pill"><input type="checkbox" name="services" value="Dashboard">Dashboard</label>
+          <label class="pill"><input type="checkbox" name="services" value="Integration and automation">Integration and automation</label>
+          <label class="pill"><input type="checkbox" name="services" value="AI Agents">AI Agents</label>
+          <label class="pill"><input type="checkbox" name="services" value="QA and CSAT">QA and CSAT</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk Guide">Zendesk Guide</label>
         </div>
-      </div>
 
-      <div class="grid-2">
-        <div class="form-field">
-          <label>Full Name *</label>
-          <input id="name" name="name" placeholder="Jane Doe" required>
+        <h2>Select your team size</h2>
+        <p class="hint">Pick one.</p>
+        <div class="pillset" id="sizePills">
+          <label class="pill"><input type="radio" name="team_size" value="1-10">1–10</label>
+          <label class="pill"><input type="radio" name="team_size" value="11-30">11–30</label>
+          <label class="pill"><input type="radio" name="team_size" value="31-50">31–50</label>
+          <label class="pill"><input type="radio" name="team_size" value="50-100">50–100</label>
+          <label class="pill"><input type="radio" name="team_size" value="100+">100+</label>
         </div>
-        <div class="form-field">
-          <label>Email *</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btnNext">Next</button>
         </div>
-      </div>
+      </section>
 
-      <div class="form-field">
-        <label>Phone</label>
-        <input id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
-      </div>
+      <!-- STEP 2 -->
+      <section class="step" id="step2">
+        <h2>Your details</h2>
+        <div class="grid-2">
+          <div class="form-field">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-field full">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
+          </div>
+          <div class="form-field full">
+            <label for="details">Project details / anything else</label>
+            <textarea id="details" name="details" placeholder="Tell me about your project, goals, or pain points..."></textarea>
+          </div>
+        </div>
 
-      <div class="form-field">
-        <label>Project details</label>
-        <textarea id="details" name="details" placeholder="Tell me about your project..."></textarea>
-      </div>
+        <!-- Invisible reCAPTCHA container -->
+        <div class="captcha-wrap">
+          <small class="hint">Quick spam check before sending:</small>
+          <div id="recaptcha" class="g-recaptcha" data-size="invisible"></div>
+          <small class="hint">Protected by reCAPTCHA —
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
+          </small>
+        </div>
 
-      <div class="captcha-wrap">
-        <small class="help">Quick spam check before sending:</small>
-        <!-- Invisible widget container (only one) -->
-        <div id="recaptcha" class="g-recaptcha" data-size="invisible"></div>
-        <small class="help"><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:#00b858">Privacy</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="color:#00b858">Terms</a></small>
-      </div>
-
-      <div class="actions">
-        <button type="button" class="btn btn-ghost" id="btnBack" onclick="history.back()">Back</button>
-        <button type="button" class="btn btn-primary" id="submitBtn">Send Request</button>
-      </div>
-
-      <p id="formMsg" role="status" aria-live="polite"></p>
+        <!-- Buttons BELOW captcha -->
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
+          <button type="button" class="btn btn-primary" id="submitBtn">Send Request</button>
+        </div>
+        <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
+      </section>
     </form>
+
+    <!-- SUCCESS -->
+    <section id="success">
+      <div class="success-card">
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="#00b858"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg>
+        </div>
+        <h2>Request received</h2>
+        <p>Thanks <span id="confName">there</span> — We'll get back to you with your tailored plan.</p>
+      </div>
+    </section>
+
+    <p class="hint" style="margin-top:18px">By submitting, you agree to be contacted about your project. No spam. No BS.</p>
   </main>
 
+  <div id="footer"></div>
   <script>
-  // ==== CONFIG ====
-  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
-  const SECRET   = "deskxp_spec_2025";
-  const SITE_KEY_V2 = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
+    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
+  </script>
 
-  // ==== DOM ====
-  const form = document.getElementById('specForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const msg = document.getElementById('formMsg');
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  <!-- App logic + Invisible v2 integration -->
+  <script>
+    // ===== CONFIG =====
+    const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
+    const SECRET="deskxp_spec_2025";
+    const SITE_KEY_V2="6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs"; // your v2 Invisible site key
 
-  let recaptchaWidgetId = null;
+    // ===== DOM =====
+    const form=document.getElementById('specForm'),msg=document.getElementById('formMsg'),
+          step1=document.getElementById('step1'),step2=document.getElementById('step2'),
+          btnNext=document.getElementById('btnNext'),btnBack=document.getElementById('btnBack'),
+          submitBtn=document.getElementById('submitBtn'),success=document.getElementById('success'),
+          confName=document.getElementById('confName'),emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Explicit render for Invisible v2
-  function onRecaptchaLoad(){
-    recaptchaWidgetId = grecaptcha.render('recaptcha', {
-      sitekey: SITE_KEY_V2,
-      size: 'invisible',
-      badge: 'inline',          // avoid overlay being clipped by header
-      callback: onCaptchaOK,
-      'error-callback': onCaptchaError
+    let recaptchaWidgetId=null;
+
+    // Step nav
+    btnNext.onclick=()=>{const s=document.querySelectorAll('input[name="services"]:checked').length,
+      t=document.querySelector('input[name="team_size"]:checked');
+      if(!s)return alert("Pick at least one service."); if(!t)return alert("Pick a team size.");
+      step1.classList.remove("active");step2.classList.add("active");document.getElementById("name").focus()};
+
+    btnBack.onclick=()=>{step2.classList.remove("active");step1.classList.add("active")};
+
+    // Trigger invisible challenge on click
+    submitBtn.addEventListener('click', (e)=>{
+      e.preventDefault(); msg.textContent="";
+      if((document.getElementById("website").value||"").trim()!=="")return showSuccess("(bot)","(n/a)");
+      const name=document.getElementById("name").value.trim(),
+            email=document.getElementById("email").value.trim();
+      if(!name||!emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
+      submitBtn.disabled=true; submitBtn.textContent="Verifying…";
+      if(typeof grecaptcha!=='undefined' && recaptchaWidgetId!==null){ grecaptcha.execute(recaptchaWidgetId); }
+      else { msg.textContent="❌ Captcha not ready. Reload."; submitBtn.disabled=false; submitBtn.textContent="Send Request"; }
     });
-  }
-  window.onRecaptchaLoad = onRecaptchaLoad;
 
-  // Click -> trigger challenge
-  submitBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    msg.textContent = "";
-
-    // Honeypot
-    if ((document.getElementById('website').value || '').trim() !== '') {
-      showSuccess('(bot)','(n/a)');
-      return;
+    // reCAPTCHA callbacks
+    function onCaptchaOK(token){ if(!token){ onCaptchaError(); return;} doSubmit(token); }
+    function onCaptchaError(){
+      msg.textContent="❌ Captcha failed (client). Try again.";
+      submitBtn.disabled=false; submitBtn.textContent="Send Request";
+      if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
     }
 
-    const name  = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    if (!name || !emailRegex.test(email)) { msg.textContent = "❌ Enter a valid name and email."; return; }
+    // Submit to Apps Script (URL-encoded to avoid CORS preflight)
+    async function doSubmit(captchaToken){
+      msg.textContent="Sending…"; submitBtn.textContent="Sending…";
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Verifying…";
+      const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
+      const team_size=document.querySelector('input[name="team_size"]:checked')?.value||"";
+      const name=document.getElementById("name").value.trim();
+      const email=document.getElementById("email").value.trim();
+      const phone=document.getElementById("phone").value.trim();
+      const details=document.getElementById("details").value.trim();
 
-    if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) {
-      grecaptcha.execute(recaptchaWidgetId);
-    } else {
-      msg.textContent = "❌ Captcha not ready. Reload the page.";
-      submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-    }
-  });
+      const payload={ secret:SECRET, services, team_size, name, email, phone, details,
+        page:location.href, ua:navigator.userAgent,
+        g_recaptcha_response: captchaToken, "g-recaptcha-response": captchaToken
+      };
 
-  // reCAPTCHA callbacks
-  function onCaptchaOK(token){
-    if (!token) {
-      console.error('reCAPTCHA returned empty token');
-      msg.textContent = "❌ Captcha error. Try again.";
-      submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-      if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
-      return;
-    }
-    console.debug('captcha token (first 12):', token.slice(0,12));
-    doSubmit(token);
-  }
-  function onCaptchaError(){
-    console.error('reCAPTCHA iframe error (adblock/CSP/network)');
-    msg.textContent = "❌ Captcha failed (client). Try again.";
-    submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-    if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
-  }
-
-  async function doSubmit(captchaToken){
-    msg.textContent = "Sending…";
-    submitBtn.textContent = "Sending…";
-
-    const services  = [...document.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
-    const team_size = document.querySelector('input[name="team_size"]:checked')?.value || "";
-    const name      = document.getElementById('name').value.trim();
-    const email     = document.getElementById('email').value.trim();
-    const phone     = document.getElementById('phone').value.trim();
-    const details   = document.getElementById('details').value.trim();
-
-    const payloadObj = {
-      secret: SECRET,
-      services, team_size, name, email, phone, details,
-      page: location.href, ua: navigator.userAgent,
-      // send under BOTH keys (server reads either)
-      "g_recaptcha_response": captchaToken,
-      "g-recaptcha-response": captchaToken
-    };
-
-    try {
-      // Send as x-www-form-urlencoded to AVOID CORS preflight
-      const res = await fetch(ENDPOINT, {
-        method: "POST",
-        body: new URLSearchParams({ payload: JSON.stringify(payloadObj) })
-      });
-
-      const json = await res.json().catch(()=> ({}));
-      if (res.ok && json?.ok) {
-        showSuccess(name,email);
-      } else {
-        console.error('Server said NO:', json);
-        msg.textContent = `❌ ${json?.error || "Send failed."} ${json?.codes ? '('+json.codes.join(',')+')' : ''}`;
-        submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-        if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+      try{
+        const res=await fetch(ENDPOINT,{
+          method:"POST",
+          body: new URLSearchParams({ payload: JSON.stringify(payload) })
+        });
+        const json=await res.json().catch(()=>({}));
+        if(res.ok && json?.ok){ showSuccess(name,email); }
+        else{
+          msg.textContent=`❌ ${json?.error||"Send failed."} ${json?.codes?`(${json.codes.join(',')})`:''}`;
+          submitBtn.disabled=false; submitBtn.textContent="Send Request";
+          if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
+        }
+      }catch(err){
+        msg.textContent="❌ Network error. Try again.";
+        submitBtn.disabled=false; submitBtn.textContent="Send Request";
+        if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
       }
-    } catch (err) {
-      console.error('Fetch error:', err);
-      msg.textContent = "❌ Network error. Try again.";
-      submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-      if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
     }
-  }
 
-  function showSuccess(name,email){
-    form.style.display = 'none';
-    const s = document.createElement('div');
-    s.innerHTML = `<h2 style="color:#00b858">Request received</h2><p>Thanks ${name || 'there'} — we'll get back to you.</p>`;
-    document.querySelector('main').appendChild(s);
-    document.title = "Request received — DeskXP";
-  }
-</script>
-<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+    function showSuccess(name){ form.style.display='none'; success.classList.add('active');
+      confName.textContent=name||"there"; document.title="Request received — DeskXP"; }
+
+    // Explicit render for Invisible v2
+    function onRecaptchaLoad(){
+      recaptchaWidgetId=grecaptcha.render('recaptcha',{
+        sitekey:SITE_KEY_V2, size:'invisible', badge:'inline',
+        callback:onCaptchaOK, 'error-callback':onCaptchaError
+      });
+    }
+    window.onRecaptchaLoad=onRecaptchaLoad;
+  </script>
+
+  <!-- Load reCAPTCHA v2 API (explicit) -->
+  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+
+  <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
