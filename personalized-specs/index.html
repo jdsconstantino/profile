@@ -20,119 +20,64 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-  /* Match Privacy template shell */
-  body {
-    background: #1b272e;
-    color: #e6e9ef;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-  }
-  main {
-    max-width: 860px;
-    margin: 80px auto 120px;
-    background: #14181d;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 20px;
-    padding: 56px 60px;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-  }
-  h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
-  h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
-  p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
-  a { color: #00b858; text-decoration: none; font-weight: 500; }
-  a:hover { text-decoration: underline; }
-  strong { color: #ffffff; font-weight: 600; }
+  /* Shell */
+  body { background:#1b272e; color:#e6e9ef; font-family:"Plus Jakarta Sans",sans-serif; line-height:1.7; letter-spacing:-0.01em; }
+  main { max-width:860px; margin:80px auto 120px; background:#14181d; border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:56px 60px; box-shadow:0 14px 40px rgba(0,0,0,.35); }
+  h1 { font-size:2.4rem; color:#fff; font-weight:700; margin-bottom:10px; }
+  h2 { color:#007236; font-size:1.15rem; font-weight:700; margin:28px 0 8px; }
+  p,li { font-size:1rem; color:#c9d1d9; margin-bottom:14px; }
+  a { color:#00b858; text-decoration:none; font-weight:500; } a:hover{ text-decoration:underline; }
+  strong { color:#fff; font-weight:600; }
   .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
 
   /* Form UI */
   .pillset { display:flex; flex-wrap:wrap; gap:10px; }
-  .pill {
-    position: relative;
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:10px 14px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-    color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
-    transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
-    outline: none;
-  }
+  .pill { position:relative; display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none; transition:.15s; outline:0; }
   .pill input { position:absolute; inset:0; opacity:0; pointer-events:none; }
-  .pill:hover { transform: translateY(-1px); background: rgba(0,114,54,.15); border-color: rgba(0,255,153,.40); }
-  .pill:active { transform: scale(0.96); }
-  .pill:has(input:focus-visible) { box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18); }
-  .pill:has(input:checked) {
-    background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
-    border-color: #00b858;
-    color: #eafff4;
-    box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
-  }
-  .pill:has(input:checked)::before {
-    content:""; width:8px;height:8px;border-radius:50%; background:#00e08a; margin-right:8px; box-shadow: 0 0 8px rgba(0,224,138,.6);
-  }
+  .pill:hover { transform:translateY(-1px); background:rgba(0,114,54,.15); border-color:rgba(0,255,153,.40); }
+  .pill:active { transform:scale(.96); }
+  .pill:has(input:focus-visible){ box-shadow:0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18); }
+  .pill:has(input:checked){ background:linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55)); border-color:#00b858; color:#eafff4; box-shadow:0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35); }
+  .pill:has(input:checked)::before{ content:""; width:8px; height:8px; border-radius:50%; background:#00e08a; margin-right:8px; box-shadow:0 0 8px rgba(0,224,138,.6); }
 
-  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-  .full { grid-column: 1 / -1; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .full { grid-column:1 / -1; }
   .form-field { display:flex; flex-direction:column; gap:6px; }
   .form-field label { font-weight:700; color:#e6e9ef; }
-  .form-field input, .form-field textarea {
-    background: rgba(0,0,0,.25); color: #e6e9ee;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px; padding: 12px 14px;
-  }
-  textarea { resize: vertical; min-height: 120px; }
+  .form-field input, .form-field textarea { background:rgba(0,0,0,.25); color:#e6e9ee; border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:12px 14px; }
+  textarea { resize:vertical; min-height:120px; }
 
   .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
-  .btn {
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
-    position: relative; transition: transform .08s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
-  }
-  .btn:active { transform: translateY(1px); }
-  .btn-primary { background:#007236; color:#fff; }
-  .btn-primary:hover { background:#0a8b47; box-shadow: 0 6px 18px rgba(0,184,88,.25); }
-  .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
-  .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer; position:relative; transition:.15s; }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{ background:#007236; color:#fff; }
+  .btn-primary:hover{ background:#0a8b47; box-shadow:0 6px 18px rgba(0,184,88,.25); }
+  .btn-ghost{ background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
+  .btn-ghost:hover{ border-color:#00b858; background:rgba(0,184,88,.08); }
+  .btn[disabled]{ opacity:.85; cursor:not-allowed; box-shadow:none; }
+  .btn[disabled]::after{ content:""; width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.45); border-top-color:#fff; position:absolute; right:12px; animation:spin .7s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
 
-  .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
-  .btn[disabled]::after {
-    content: "";
-    width: 16px; height: 16px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,.45);
-    border-top-color: #fff;
-    position: absolute; right: 12px;
-    animation: spin .7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .step{ display:none; } .step.active{ display:block; animation:fadeIn .25s ease-in; }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
 
-  .step { display:none; }
-  .step.active { display:block; animation: fadeIn .25s ease-in; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  #formMsg{ color:#c9d1d9; }
 
-  #formMsg { color:#c9d1d9; }
+  /* Success */
+  #success{ display:none; } #success.active{ display:block; }
+  .success-card{ background:#0f1419; border:1px solid rgba(0,255,153,.18); border-radius:16px; padding:28px; box-shadow:0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); }
+  .check{ width:56px; height:56px; border-radius:50%; background:#0a2d1a; border:1px solid rgba(0,255,153,.35); display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+  .check svg{ width:28px; height:28px; }
 
-  /* Success state */
-  #success { display:none; }
-  #success.active { display:block; }
-  .success-card {
-    background:#0f1419;
-    border:1px solid rgba(0, 255, 153, 0.18);
-    border-radius:16px; padding:28px;
-    box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
-  }
-  .check { width:56px;height:56px;border-radius:50%; background:#0a2d1a;border:1px solid rgba(0,255,153,.35); display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
-  .check svg { width:28px;height:28px; }
-  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  .captcha-wrap{ display:grid; gap:8px; justify-items:start; margin-top:10px; }
+  .captcha-wrap .help{ opacity:.7; font-size:.9rem; }
+  .captcha-wrap .legal{ font-size:12px; opacity:.65; }
 
-  .captcha-wrap { display:grid; gap:8px; justify-items:start; margin-top:10px; }
-  .captcha-wrap .help { opacity:.7; font-size:.9rem; }
-  .captcha-wrap .legal { font-size:12px; opacity:.65; }
-
-  @media (max-width: 700px) {
-    main { padding: 32px 24px; margin: 60px auto; }
-    h1 { font-size: 2rem; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .pillset { justify-content: center; }
+  @media (max-width:700px){
+    main{ padding:32px 24px; margin:60px auto; }
+    h1{ font-size:2rem; }
+    .grid-2{ grid-template-columns:1fr; }
+    .pillset{ justify-content:center; }
   }
   </style>
 </head>
@@ -202,9 +147,10 @@
           </div>
         </div>
 
-        <!-- Invisible reCAPTCHA widget wrapper (hidden iframe; badge floats) -->
+        <!-- Invisible reCAPTCHA container (one only) -->
         <div class="captcha-wrap">
-          <div id="recaptcha" class="g-recaptcha" data-sitekey="6LcTCfErAAAAAHgITf8tPSrvuKM5Fl7KhFbUvKmU" data-size="invisible"></div>
+          <small class="help">Quick spam check before sending:</small>
+          <div id="recaptcha" class="g-recaptcha" data-size="invisible"></div>
           <small class="legal">Protected by reCAPTCHA —
             <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
             <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
@@ -240,10 +186,11 @@
     fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
-  <!-- Your app logic with captcha integration -->
+  <!-- App logic + Invisible v2 integration -->
   <script>
     const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
     const SECRET="deskxp_spec_2025";
+    const SITE_KEY_V2 = 'YOUR_V2_SITE_KEY'; // <-- REPLACE with your v2 Invisible site key
 
     const form=document.getElementById('specForm'),
           msg=document.getElementById('formMsg'),
@@ -258,7 +205,7 @@
 
     let recaptchaWidgetId = null;
 
-    // STEP NAV
+    // Step nav
     btnNext.onclick=()=>{
       const s=document.querySelectorAll('input[name="services"]:checked').length;
       const t=document.querySelector('input[name="team_size"]:checked');
@@ -270,51 +217,40 @@
     };
     btnBack.onclick=()=>{ step2.classList.remove("active"); step1.classList.add("active"); };
 
-    // Invisible reCAPTCHA flow
+    // Trigger invisible challenge on click
     submitBtn.addEventListener('click', (e)=>{
       e.preventDefault();
-      msg.textContent = "";
+      msg.textContent="";
 
-      // Honeypot check first
+      // Honeypot
       if((document.getElementById("website").value||"").trim()!==""){ showSuccess("(bot)","(n/a)"); return; }
 
-      // Basic field validation before triggering captcha
+      // Basic validation before we burn a challenge
       const name=document.getElementById("name").value.trim();
       const email=document.getElementById("email").value.trim();
-      if(!name || !emailRegex.test(email)){
-        msg.textContent="❌ Enter a valid name and email.";
-        return;
-      }
+      if(!name || !emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Verifying…";
+      submitBtn.disabled=true; submitBtn.textContent="Verifying…";
 
-      // Trigger the invisible challenge
       if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) {
         grecaptcha.execute(recaptchaWidgetId);
       } else {
-        msg.textContent = "❌ Captcha not ready. Reload the page.";
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send Request";
+        msg.textContent="❌ Captcha not ready. Reload the page.";
+        submitBtn.disabled=false; submitBtn.textContent="Send Request";
       }
     });
 
-    // Called by reCAPTCHA when passed
-    function onCaptchaOK(token){
-      doSubmit(token);
-    }
+    // reCAPTCHA callbacks
+    function onCaptchaOK(token){ doSubmit(token); }
     function onCaptchaError(){
-      msg.textContent = "❌ Captcha failed. Try again.";
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Request";
+      msg.textContent="❌ Captcha failed. Try again.";
+      submitBtn.disabled=false; submitBtn.textContent="Send Request";
       if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
     }
 
     async function doSubmit(captchaToken){
-      msg.textContent="Sending…";
-      submitBtn.textContent="Sending…";
+      msg.textContent="Sending…"; submitBtn.textContent="Sending…";
 
-      // Collect payload
       const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
       const team_size=document.querySelector('input[name="team_size"]:checked')?.value||"";
       const name=document.getElementById("name").value.trim();
@@ -330,7 +266,7 @@
             secret:SECRET,
             services, team_size, name, email, phone, details,
             page:location.href, ua:navigator.userAgent,
-            g_recaptcha_response: captchaToken     // include token for backend verification
+            g_recaptcha_response: captchaToken // <-- server must verify v2 token
           })
         });
         const json=await res.json().catch(()=>({}));
@@ -348,30 +284,27 @@
       }
     }
 
-    function showSuccess(name,email){
+    function showSuccess(name){
       form.style.display='none';
       success.classList.add('active');
       confName.textContent=name||"there";
       document.title="Request received — DeskXP";
     }
 
-    // Load footer
-    // (already loaded above)
-  </script>
-
-  <!-- Load reCAPTCHA -->
-  <script>
+    // Explicit render for Invisible v2
     function onRecaptchaLoad(){
-      // Render invisible widget into #recaptcha
       recaptchaWidgetId = grecaptcha.render('recaptcha', {
-        sitekey: '6LcTCfErAAAAAHgITf8tPSrvuKM5Fl7KhFbUvKmU',
+        sitekey: SITE_KEY_V2,
         size: 'invisible',
-        badge: 'bottomright',
+        badge: 'bottomright', // bottomleft | inline
         callback: onCaptchaOK,
         'error-callback': onCaptchaError
       });
     }
+    window.onRecaptchaLoad = onRecaptchaLoad;
   </script>
+
+  <!-- Load reCAPTCHA v2 API (explicit) -->
   <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 
   <script src="/js/main.js?v=211" defer></script>
