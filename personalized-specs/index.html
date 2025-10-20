@@ -84,121 +84,129 @@
     </form>
   </main>
 
-  <!-- Replace this with your deployed Apps Script endpoint URL if different -->
   <script>
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
-    const SECRET = "deskxp_spec_2025"; // shared key your server expects
-    const SITE_KEY_V2 = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs"; // injected site key
+  // ==== CONFIG ====
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
+  const SECRET   = "deskxp_spec_2025";
+  const SITE_KEY_V2 = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
 
-    const form = document.getElementById('specForm');
-    const msg  = document.getElementById('formMsg');
-    const submitBtn = document.getElementById('submitBtn');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // ==== DOM ====
+  const form = document.getElementById('specForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    let recaptchaWidgetId = null;
+  let recaptchaWidgetId = null;
 
-    // Step/back are trivial in your real page; keep them minimal here.
-    document.getElementById('btnBack').addEventListener('click', ()=>{ /* no-op default */ });
-
-    // Render invisible widget explicitly
-    function onRecaptchaLoad(){
-      recaptchaWidgetId = grecaptcha.render('recaptcha', {
-        sitekey: SITE_KEY_V2,
-        size: 'invisible',
-        badge: 'inline',            // inline badge avoids header overlay issues
-        callback: onCaptchaOK,
-        'error-callback': onCaptchaError
-      });
-    }
-    window.onRecaptchaLoad = onRecaptchaLoad;
-
-    // Click handler triggers invisible challenge
-    submitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      msg.textContent = "";
-      // basic honeypot
-      if ((document.getElementById('website').value || "").trim() !== "") { showSuccess("(bot)","(n/a)"); return; }
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      if (!name || !emailRegex.test(email)) { msg.textContent = "❌ Enter a valid name and email."; return; }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Verifying…";
-
-      if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) {
-        grecaptcha.execute(recaptchaWidgetId);
-      } else {
-        msg.textContent = "❌ Captcha not ready. Reload the page.";
-        submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-      }
+  // Explicit render for Invisible v2
+  function onRecaptchaLoad(){
+    recaptchaWidgetId = grecaptcha.render('recaptcha', {
+      sitekey: SITE_KEY_V2,
+      size: 'invisible',
+      badge: 'inline',          // avoid overlay being clipped by header
+      callback: onCaptchaOK,
+      'error-callback': onCaptchaError
     });
+  }
+  window.onRecaptchaLoad = onRecaptchaLoad;
 
-    // reCAPTCHA callbacks
-    function onCaptchaOK(token) {
-      // token is short lived — submit immediately as x-www-form-urlencoded payload
-      doSubmit(token);
+  // Click -> trigger challenge
+  submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+
+    // Honeypot
+    if ((document.getElementById('website').value || '').trim() !== '') {
+      showSuccess('(bot)','(n/a)');
+      return;
     }
-    function onCaptchaError() {
-      console.error('reCAPTCHA client error (iframe failed).');
-      msg.textContent = "❌ Captcha failed (client). Try again or disable adblockers.";
+
+    const name  = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !emailRegex.test(email)) { msg.textContent = "❌ Enter a valid name and email."; return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Verifying…";
+
+    if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) {
+      grecaptcha.execute(recaptchaWidgetId);
+    } else {
+      msg.textContent = "❌ Captcha not ready. Reload the page.";
+      submitBtn.disabled = false; submitBtn.textContent = "Send Request";
+    }
+  });
+
+  // reCAPTCHA callbacks
+  function onCaptchaOK(token){
+    if (!token) {
+      console.error('reCAPTCHA returned empty token');
+      msg.textContent = "❌ Captcha error. Try again.";
       submitBtn.disabled = false; submitBtn.textContent = "Send Request";
       if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+      return;
     }
+    console.debug('captcha token (first 12):', token.slice(0,12));
+    doSubmit(token);
+  }
+  function onCaptchaError(){
+    console.error('reCAPTCHA iframe error (adblock/CSP/network)');
+    msg.textContent = "❌ Captcha failed (client). Try again.";
+    submitBtn.disabled = false; submitBtn.textContent = "Send Request";
+    if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+  }
 
-    async function doSubmit(captchaToken) {
-      msg.textContent = "Sending…";
-      submitBtn.textContent = "Sending…";
+  async function doSubmit(captchaToken){
+    msg.textContent = "Sending…";
+    submitBtn.textContent = "Sending…";
 
-      const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
-      const team_size = ""; // your form may have this; included when present
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const details = document.getElementById('details').value.trim();
+    const services  = [...document.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
+    const team_size = document.querySelector('input[name="team_size"]:checked')?.value || "";
+    const name      = document.getElementById('name').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const details   = document.getElementById('details').value.trim();
 
-      const payloadObj = {
-        secret: SECRET,
-        services, team_size, name, email, phone, details,
-        page: location.href,
-        ua: navigator.userAgent,
-        g_recaptcha_response: captchaToken
-      };
+    const payloadObj = {
+      secret: SECRET,
+      services, team_size, name, email, phone, details,
+      page: location.href, ua: navigator.userAgent,
+      // send under BOTH keys (server reads either)
+      "g_recaptcha_response": captchaToken,
+      "g-recaptcha-response": captchaToken
+    };
 
-      try {
-        // IMPORTANT: send as application/x-www-form-urlencoded (no custom headers)
-        const res = await fetch(ENDPOINT, {
-          method: "POST",
-          body: new URLSearchParams({ payload: JSON.stringify(payloadObj) })
-        });
+    try {
+      // Send as x-www-form-urlencoded to AVOID CORS preflight
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        body: new URLSearchParams({ payload: JSON.stringify(payloadObj) })
+      });
 
-        const json = await res.json().catch(()=>({}));
-        if (res.ok && json?.ok) {
-          showSuccess(name,email);
-        } else {
-          console.error('Server rejection:', json);
-          msg.textContent = `❌ ${json?.error || "Send failed. Try again."} ${json?.codes ? '(' + json.codes.join(',') + ')' : ''}`;
-          submitBtn.disabled = false; submitBtn.textContent = "Send Request";
-          if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
-        }
-      } catch (err) {
-        console.error('Network/Fetch error', err);
-        msg.textContent = "❌ Network error. Try again.";
+      const json = await res.json().catch(()=> ({}));
+      if (res.ok && json?.ok) {
+        showSuccess(name,email);
+      } else {
+        console.error('Server said NO:', json);
+        msg.textContent = `❌ ${json?.error || "Send failed."} ${json?.codes ? '('+json.codes.join(',')+')' : ''}`;
         submitBtn.disabled = false; submitBtn.textContent = "Send Request";
         if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
       }
+    } catch (err) {
+      console.error('Fetch error:', err);
+      msg.textContent = "❌ Network error. Try again.";
+      submitBtn.disabled = false; submitBtn.textContent = "Send Request";
+      if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
     }
+  }
 
-    function showSuccess(name,email){
-      form.style.display = 'none';
-      const s = document.createElement('div');
-      s.innerHTML = `<h2 style="color:#00b858">Request received</h2><p>Thanks ${name || 'there'} — we'll get back to you.</p>`;
-      document.querySelector('main').appendChild(s);
-      document.title = "Request received — DeskXP";
-    }
-  </script>
-
-  <!-- Load reCAPTCHA v2 (explicit render) -->
-  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+  function showSuccess(name,email){
+    form.style.display = 'none';
+    const s = document.createElement('div');
+    s.innerHTML = `<h2 style="color:#00b858">Request received</h2><p>Thanks ${name || 'there'} — we'll get back to you.</p>`;
+    document.querySelector('main').appendChild(s);
+    document.title = "Request received — DeskXP";
+  }
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 </body>
 </html>
