@@ -133,64 +133,68 @@
       .svc-media img { border-radius: 12px; margin: 18px auto; max-width: 420px; }
     }
 
-    /* ===== BRANDS MARQUEE (full-width auto-scroll) ===== */
-#brands.brands-marquee {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  background: #f8faf9;
-  padding: 36px 0 48px;
-  box-shadow: 0 -1px 0 rgba(0,0,0,.04) inset, 0 14px 44px rgba(0,0,0,0.06);
+   /* ===== BRANDS MARQUEE (full-width, floats on page bg) ===== */
+#brands.brands-marquee{
+  width:100%;
+  background: transparent;         /* no panel — float over site bg */
+  padding: 36px 0 48px;            /* space around logos & heading */
 }
 
-#brands.brands-marquee h2 {
-  text-align: center;
-  font-size: 2rem;
+#brands.brands-marquee h2{
+  text-align:center;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing:-0.01em;
   color: var(--accent, #007236);
-  margin-bottom: 36px;
+  margin: 0 0 26px;
 }
 
-.marquee {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+/* The viewport for the loop */
+.marquee{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  /* soft fade at edges so logos don’t “pop” */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
-.marquee-track {
-  display: flex;
-  align-items: center;
-  gap: 64px;
-  width: max-content;
-  animation: scrollLeft 22s linear infinite;
+/* The endlessly scrolling row */
+.marquee-track{
+  display:flex;
+  align-items:center;
+  gap: clamp(28px, 4vw, 64px);
+  width:max-content;
+  animation: brandsScroll 24s linear infinite;
+}
+.marquee-track:hover{ animation-play-state: paused; } /* pause on hover */
+
+/* Logo “chips” that float on the dark bg */
+.marquee-track img{
+  height: clamp(34px, 6vw, 56px);
+  width:auto;
+  object-fit:contain;
+
+  /* show full-color logos on soft white cards with shadow */
+  background:#fff;
+  padding: clamp(6px, 1.2vw, 12px) clamp(10px, 1.8vw, 18px);
+  border-radius: 14px;
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.22),
+    0 2px 8px rgba(0,0,0,.14);
+  transition: transform .18s ease;
+}
+.marquee-track img:hover{ transform: translateY(-2px); }
+
+@keyframes brandsScroll{
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* because we duplicated the set */
 }
 
-.marquee-track img {
-  height: 56px;
-  width: auto;
-  object-fit: contain;
-  background: #fff;
-  padding: 10px 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform .25s ease;
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{ animation: none; }
 }
-
-.marquee-track img:hover {
-  transform: scale(1.05);
-}
-
-@keyframes scrollLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@media (max-width: 768px) {
-  .marquee-track { gap: 42px; animation-duration: 28s; }
-  .marquee-track img { height: 44px; padding: 8px 16px; }
-}
-
     /* ===== ZERO GAP: hero → services ===== */
     #servicesFW { margin-top: 0 !important; padding-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; box-shadow: none !important; background-clip: border-box; }
     .hero + #servicesFW { margin-top: -2px !important; } /* hide subpixel seam */
