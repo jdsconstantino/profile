@@ -2762,5 +2762,10 @@ main, .page, .container {
   .brand-grid { gap: 20px 24px; }
   .brand-grid img { height: 48px; }
 }
+.badge img {
+  width: 70%;
+  height: auto;
+  display: block;
+}
 
 
