@@ -48,6 +48,7 @@
   /* Form UI */
   .pillset { display:flex; flex-wrap:wrap; gap:10px; }
   .pill {
+    position: relative;
     display:inline-flex; align-items:center; justify-content:center;
     padding:10px 14px; border-radius:999px;
     border:1px solid rgba(255,255,255,.18);
@@ -56,22 +57,34 @@
     transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
     outline: none;
   }
+  /* hide inputs but keep accessible */
+  .pill input {
+    position:absolute; inset:0;
+    opacity:0; pointer-events:none;
+  }
   .pill:hover {
     transform: translateY(-1px);
     background: rgba(0,114,54,.15);
     border-color: rgba(0,255,153,.40);
   }
   .pill:active { transform: scale(0.96); }
-  .pill:focus-visible {
+  .pill:has(input:focus-visible) {
     box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18);
   }
-  .pill[data-selected="true"] {
+  /* ✅ selected state for BOTH checkboxes and radios */
+  .pill:has(input:checked) {
     background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
     border-color: #00b858;
     color: #eafff4;
     box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
   }
-  .pill input { display:none; }
+  /* optional green dot indicator when selected */
+  .pill:has(input:checked)::before {
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:#00e08a; margin-right:8px;
+    box-shadow: 0 0 8px rgba(0,224,138,.6);
+  }
 
   .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
   .full { grid-column: 1 / -1; }
@@ -97,15 +110,13 @@
   .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
 
   /* Disabled state + spinner (your JS already disables on submit) */
-  .btn[disabled] {
-    opacity: .85; cursor: not-allowed; box-shadow: none;
-  }
+  .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
   .btn[disabled]::after {
     content: "";
     width: 16px; height: 16px; border-radius: 50%;
     border: 2px solid rgba(255,255,255,.45);
     border-top-color: #fff;
-    position: absolute; right: 12px; /* keeps text readable */
+    position: absolute; right: 12px;
     animation: spin .7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -135,9 +146,7 @@
     display:flex;align-items:center;justify-content:center;margin-bottom:12px;
   }
   .check svg { width:28px;height:28px; }
-  .mono {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
   @media (max-width: 700px) {
     main { padding: 32px 24px; margin: 60px auto; }
