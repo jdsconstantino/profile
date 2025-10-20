@@ -2907,17 +2907,6 @@ main, .page, .container {
 .badge img[src*="unison"] {
   transform: translateY(-6px);
 }
-.captcha-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;     /* left|center|right */
-  padding: 12px 0;
-}
-
-@media (max-width: 420px){
-  /* optional scale down */
-  .g-recaptcha { transform: scale(0.9); transform-origin: 0 0; }
-}
 
 
 
