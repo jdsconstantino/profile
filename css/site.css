@@ -2915,6 +2915,16 @@ main, .page, .container {
 .btn-primary { background:#007236; color:#fff; }
 .btn-secondary { background:#cfd4dc; color:#111; }
 @media (max-width:480px){ .form-actions { flex-direction:column; } }
+/* do NOT clip Google’s iframe */
+.captcha-wrap,
+.captcha-wrap * { overflow: visible !important; }
+
+/* your fixed header should not sit above the challenge */
+#site-header { z-index: 1000; }            /* keep modest */
+.grecaptcha-badge, .grecaptcha-bubble { z-index: 2147483647 !important; }  /* just in case */
+
+/* if any ancestor has transform, remove it around captcha */
+.captcha-wrap { transform: none !important; }
 
 
 
