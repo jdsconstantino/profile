@@ -13,7 +13,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#0d0f12">
 
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
@@ -49,53 +48,77 @@
       overflow-x:hidden;
     }
 
-    .page{
-      max-width:1220px;
-      margin:32px auto 80px;
-      padding:0 18px;
-      position:relative;
-    }
-
+    .page{ max-width:1220px; margin:32px auto 80px; padding:0 18px; position:relative; }
     .title{
       text-align:center;
       font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
-      font-weight:900;
-      letter-spacing:-.02em;
-      margin:10px 0 26px;
+      font-weight:900; letter-spacing:-.02em; margin:10px 0 26px;
     }
 
+    /* ---------- NEW: Services Menu (compact tiles under title) ---------- */
+    .services-menu{
+      margin: 8px auto 38px;
+      position: relative;
+      z-index: 3;
+    }
+    .services-menu .menu-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap:14px;
+    }
+    @media (max-width:980px){
+      .services-menu .menu-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width:520px){
+      .services-menu .menu-grid{ grid-template-columns: 1fr; }
+    }
+    .services-menu .menu-card{
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px;
+      border-radius:14px;
+      background: linear-gradient(180deg,#0f2026,#0c1b21);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,.28), 0 0 24px rgba(0,255,160,.10);
+      text-decoration:none;
+      color:var(--text);
+      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      will-change: transform;
+    }
+    .services-menu .menu-card:focus-visible{ outline:2px solid var(--accent2); outline-offset:2px; }
+    .services-menu .menu-card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(0,255,160,.25);
+      box-shadow: 0 14px 32px rgba(0,0,0,.36), 0 0 30px rgba(0,255,160,.16);
+    }
+    .services-menu .badge{
+      width:34px; height:34px; border-radius:10px;
+      display:grid; place-items:center;
+      background:linear-gradient(180deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 6px 16px rgba(0,0,0,.3);
+      flex: 0 0 34px;
+    }
+    .services-menu .label{
+      font-weight:800; letter-spacing:-.01em; font-size:.98rem; color:#eaf4ee;
+    }
+    .services-menu .sub{ display:block; font-size:.86rem; color:var(--muted); font-weight:600; margin-top:2px; }
+
+    /* ------------------------------------------------------------------- */
+
     .rail{
-      position:absolute;
-      left:50%;
-      top:110px;
-      bottom:0;
-      width:4px;
+      position:absolute; left:50%; top:110px; bottom:0; width:4px;
       transform:translateX(-50%);
       background:linear-gradient(180deg,var(--accent2),var(--accent));
       box-shadow:0 0 22px rgba(0,255,160,.45), inset 0 0 10px rgba(0,0,0,.35);
-      border-radius:999px;
-      opacity:.7;
+      border-radius:999px; opacity:.7;
     }
     @media (max-width:980px){ .rail{display:none;} }
 
-    .grid{
-      display:flex;
-      flex-direction:column;
-      gap:60px;
-      position:relative;
-      z-index:2;
-    }
+    .grid{ display:flex; flex-direction:column; gap:60px; position:relative; z-index:2; }
 
-    .row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
-      align-items:center;
-    }
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
     .row.flip{ grid-auto-flow:dense; }
     .row.flip .art{ order:2 }
     .row.flip .card{ order:1 }
-
     @media (max-width:980px){
       .row{ grid-template-columns:1fr; gap:18px; }
       .row.flip .art{ order:1 }
@@ -105,41 +128,23 @@
     .art{
       background:linear-gradient(180deg,#0e2026,#0c1b21);
       border:1px solid rgba(255,255,255,.06);
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      padding:22px;
+      border-radius:18px; display:grid; place-items:center; padding:22px;
       box-shadow:0 14px 40px rgba(0,0,0,.35), 0 0 36px rgba(0,255,160,.14);
-      position:relative;
-      min-height:260px;
+      position:relative; min-height:260px;
     }
     .art::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:18px;
-      box-shadow:0 0 0 1px rgba(255,255,255,.04) inset;
-      pointer-events:none;
+      content:""; position:absolute; inset:0; border-radius:18px;
+      box-shadow:0 0 0 1px rgba(255,255,255,.04) inset; pointer-events:none;
     }
-    .art img{
-      width:min(92%,480px);
-      height:auto;
-      border-radius:14px;
-      box-shadow:0 22px 48px rgba(0,0,0,.45);
-    }
+    .art img{ width:min(92%,480px); height:auto; border-radius:14px; box-shadow:0 22px 48px rgba(0,0,0,.45); }
 
     .card{
-      background:#fff;
-      color:var(--ink);
-      border:1px solid var(--card-b);
-      border-radius:18px;
-      padding:22px 22px 18px;
+      background:#fff; color:var(--ink);
+      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
       box-shadow:0 16px 36px rgba(0,0,0,.18);
       scroll-margin-top:calc(var(--header-offset) + 12px);
     }
-    .meta{
-      display:flex; align-items:center; gap:12px; margin-bottom:6px;
-    }
+    .meta{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
     .meta img{ width:46px; height:46px; border-radius:12px; border:1px solid var(--card-b); object-fit:cover; }
     .meta h2{ margin:0; font-size:1.35rem; font-weight:900; letter-spacing:-.01em; color:#2e424e; }
 
@@ -158,8 +163,7 @@
         linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
       background-size:48px 48px, 48px 48px;
       mask-image:linear-gradient(#0007,#000);
-      z-index:1;
-      border-radius:22px;
+      z-index:1; border-radius:22px;
     }
 
     .knot{
@@ -187,6 +191,68 @@
 
   <main class="page">
     <h1 class="title">Services</h1>
+
+    <!-- ========= NEW: Services Menu block ========= -->
+    <nav class="services-menu" aria-label="Services quick menu">
+      <div class="menu-grid">
+        <a class="menu-card" href="#zendesk-freshdesk-onboarding" id="menu-onboarding">
+          <span class="badge" aria-hidden="true">✓</span>
+          <span>
+            <span class="label">Zendesk/Freshdesk Onboarding</span>
+            <span class="sub">Foundations, forms, SLAs, macros</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#zendesk-optimization" id="menu-optimization">
+          <span class="badge" aria-hidden="true">⚙</span>
+          <span>
+            <span class="label">Zendesk Optimization</span>
+            <span class="sub">Workflow cleanup, routing, hygiene</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#system-integration" id="menu-integration">
+          <span class="badge" aria-hidden="true">↔</span>
+          <span>
+            <span class="label">System Integration</span>
+            <span class="sub">APIs, webhooks, orders, payments</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#zendesk-sunshine" id="menu-sunshine">
+          <span class="badge" aria-hidden="true">☀</span>
+          <span>
+            <span class="label">Zendesk Sunshine (Conversations)</span>
+            <span class="sub">Channels, events, custom objects</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#zendesk-guide" id="menu-guide">
+          <span class="badge" aria-hidden="true">📚</span>
+          <span>
+            <span class="label">Zendesk Guide Customization</span>
+            <span class="sub">Theme, CSS/JS, permissions</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#zendesk-explore" id="menu-explore">
+          <span class="badge" aria-hidden="true">📈</span>
+          <span>
+            <span class="label">Zendesk Explore</span>
+            <span class="sub">Dashboards, SLAs, QA/CSAT insights</span>
+          </span>
+        </a>
+
+        <a class="menu-card" href="#zendesk-ai" id="menu-ai">
+          <span class="badge" aria-hidden="true">🤖</span>
+          <span>
+            <span class="label">Zendesk Chatbot / AI</span>
+            <span class="sub">Intents, deflection, HITL controls</span>
+          </span>
+        </a>
+      </div>
+    </nav>
+    <!-- =========================================== -->
 
     <div class="markers"></div>
     <span class="rail"></span>
@@ -325,6 +391,15 @@
           </ul>
         </article>
       </div>
+
+      <!-- Empty anchors for new menu targets (wire up later with real sections) -->
+      <div id="zendesk-freshdesk-onboarding"></div>
+      <div id="zendesk-optimization"></div>
+      <div id="system-integration"></div>
+      <div id="zendesk-sunshine"></div>
+      <div id="zendesk-guide"></div>
+      <div id="zendesk-explore"></div>
+      <div id="zendesk-ai"></div>
 
     </section>
   </main>
