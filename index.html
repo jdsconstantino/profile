@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=2119">
+  <link rel="stylesheet" href="/css/site.css?v=2120">
 
   <!-- Preload hero image (high priority) -->
   <link rel="preload" as="image" href="/assets/banner.jpg" fetchpriority="high">
@@ -38,54 +38,46 @@
     .hero {
       position: relative;
       height: 100vh;
+      height: 100dvh;
       min-height: 540px;
       overflow: hidden;
       background: #0d0f12 url("/assets/banner.jpg") center/cover no-repeat;
       isolation: isolate;
-      margin: 0; /* ensure no gap below */
+      margin: 0 !important;                 /* ensure zero gap */
+      padding: 0 !important;
+      border: 0 !important;
     }
     .hero__overlay { position:absolute; inset:0; background:none; z-index:2; }
-    .hero__content { position:relative; z-index:3; }
+    .hero__content  { position:relative; z-index:3; }
 
     /* ===== FULL-WIDTH SERVICES SLIDER ===== */
     #servicesFW {
       width: 100vw;
-      margin: 0;                 /* no gap below hero */
-      padding: 0;                /* full bleed */
+      margin: 0 !important;                 /* hug hero */
+      padding: 0 !important;                /* full-bleed */
       position: relative;
-      background: #22343f;       /* subtle dark panel */
-      border-top: 1px solid rgba(255,255,255,.06);
+      background: #22343f;                   /* subtle dark band */
+      border: 0;
+      box-shadow: none;
     }
 
+    /* pull the inner shell up so the band visually tucks under hero edge */
     .svc-shell {
-  max-width: 1280px;
-  margin: -110px auto 0 auto; /* pulls up section, keeps horizontal centering */
-  padding: 0 88px; /* retain side padding */
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(18px, 3vw, 40px);
-  min-height: clamp(460px, 60vh, 680px);
-  align-items: center;
-}
-
-
-    .svc-slide {
-      display: none;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity .6s ease, transform .6s ease;
+      max-width: 1280px;
+      margin: -110px auto 0 auto;           /* pulls up; centers horizontally */
+      padding: 0 88px;                       /* leave room for arrows */
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: clamp(18px, 3vw, 40px);
+      min-height: clamp(460px, 60vh, 680px);
+      align-items: center;
     }
-    .svc-slide.active {
-      display: contents;         /* keep grid areas alive */
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+    .svc-slide { display: none; opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; }
+    .svc-slide.active { display: contents; opacity: 1; transform: translateY(0); }
 
     /* Left (image) */
-    .svc-media {
-      grid-column: 1 / 2;
-      align-self: center;
-    }
+    .svc-media { grid-column: 1 / 2; align-self: center; }
     .svc-media img {
       width: 100%;
       height: auto;
@@ -94,62 +86,31 @@
       box-shadow: 0 16px 40px rgba(0,0,0,.35);
       background: #0b0f1a;
       object-fit: cover;
+      margin: 24px 24px 24px 0;             /* image breathing room */
+      max-width: 560px;
     }
 
     /* Right (copy) */
-    .svc-copy {
-      grid-column: 2 / 3;
-      color: #ECF3FF;
-    }
+    .svc-copy { grid-column: 2 / 3; color: #ECF3FF; }
     .svc-kicker {
-      display:inline-block;
-      font-size:.85rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#8BD3A9;
-      margin-bottom:8px;
+      display:inline-block; font-size:.85rem; letter-spacing:.08em; text-transform:uppercase;
+      color:#8BD3A9; margin-bottom:8px;
     }
-    .svc-title {
-      margin: 0 0 10px;
-      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-      line-height: 1.15;
-      color: #fff;
-    }
-    .svc-desc {
-      margin: 0 0 18px;
-      font-size: clamp(1.02rem, 1.5vw, 1.12rem);
-      line-height: 1.7;
-      color: #D8E6F5;
-      max-width: 56ch;
-    }
+    .svc-title { margin: 0 0 10px; font-size: clamp(1.8rem, 3.2vw, 2.4rem); line-height: 1.15; color: #fff; }
+    .svc-desc  { margin: 0 0 18px; font-size: clamp(1.02rem, 1.5vw, 1.12rem); line-height: 1.7; color: #D8E6F5; max-width: 56ch; }
     .svc-cta {
-      display:inline-block;
-      padding: 12px 18px;
-      border-radius: 10px;
-      background: #007236;
-      color: #fff;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 10px 24px rgba(0,114,54,.35);
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      display:inline-block; padding: 12px 18px; border-radius: 10px; background: #007236; color: #fff; font-weight: 700; text-decoration: none;
+      box-shadow: 0 10px 24px rgba(0,114,54,.35); transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
     .svc-cta:hover { transform: translateY(-1px); box-shadow:0 16px 34px rgba(0,114,54,.45); background:#068842; }
 
     /* Arrows */
     .svc-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px; height: 52px;
-      display: grid; place-items: center;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.25);
-      color: #fff;
-      cursor: pointer;
-      user-select: none;
-      transition: transform .15s ease, background .15s ease, color .15s ease;
-      z-index: 3;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 52px; height: 52px; display: grid; place-items: center;
+      border-radius: 12px; border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25); color: #fff; cursor: pointer; user-select: none;
+      transition: transform .15s ease, background .15s ease, color .15s ease; z-index: 3;
     }
     .svc-nav:hover { transform: translateY(-50%) scale(1.06); background: rgba(0,114,54,.85); }
     .svc-prev { left: 18px; }
@@ -158,158 +119,52 @@
 
     /* Dots */
     .svc-dots {
-      position: absolute;
-      left: 50%;
-      bottom: 14px;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 2;
+      position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 2;
     }
-    .svc-dots button {
-      width: 8px; height: 8px; border-radius: 999px;
-      background: rgba(255,255,255,.35);
-      border: 0;
-      cursor: pointer;
-    }
+    .svc-dots button { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.35); border: 0; cursor: pointer; }
     .svc-dots button.active { background: #00c169; box-shadow: 0 0 0 4px rgba(0,193,105,.18); }
 
     /* Mobile */
     @media (max-width: 900px){
-      .svc-shell {
-        grid-template-columns: 1fr;
-        padding: 0 64px 18px;    /* keep side room for arrows on mobile too */
-        min-height: auto;
-      }
-      .svc-media { grid-column: 1 / -1; order: 1; }
-      .svc-copy  { grid-column: 1 / -1; order: 2; }
-      .svc-media img { border-radius: 12px; }
+      .svc-shell { grid-template-columns: 1fr; padding: 0 64px 18px; min-height: auto; margin-top: -72px; }
+      .svc-media  { grid-column: 1 / -1; order: 1; }
+      .svc-copy   { grid-column: 1 / -1; order: 2; }
+      .svc-media img { border-radius: 12px; margin: 18px auto; max-width: 420px; }
     }
-      .svc-shell{ padding-top: 0 !important; }
 
-
-    /* ===== SUCCESS STORIES (unchanged) ===== */
-    #success.success-slider {
-      max-width: 1320px;
+    /* ===== BRANDS (renamed, simplified, auto-swipe) ===== */
+    #brands.brands-slider {
+      max-width: 1180px;
       margin: 80px auto;
-      padding: 22px 0 42px;
-      border-radius: 20px;
-      background: linear-gradient(180deg,#fbfbfb 0%,#ffffff 60%,#f7f9f7 100%);
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 14px 44px rgba(0,0,0,.16);
+      padding: 0 18px 46px;
       position: relative;
-      overflow: hidden;
     }
-    #success .success-head { margin-bottom: 14px; text-align: center; }
-    #success .success-head h2 { font-size: 2.05rem; font-weight: 800; color: var(--accent,#007236); letter-spacing: -0.01em; }
-    #success .success-track { position: relative; max-width: 1080px; margin: 0 auto; min-height: 280px; display: flex; align-items: center; justify-content: center; }
-    #success .success-slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease, transform .6s ease; transform: translateY(6px); }
-    #success .success-slide.is-active { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    #success .ss-row { display: grid; grid-template-rows: auto 1fr; gap: 26px; align-items: start; justify-items: center; padding: 0 18px; }
-    #success .ss-top { display: flex; justify-content: center; }
-    #success .ss-logo--xl { width: 280px; height: auto; object-fit: contain; }
-    #success .wins { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px 28px; justify-items: center; }
-    #success .win { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
-    #success .win img { width: 120px; height: 120px; object-fit: contain; }
-    #success .win p { margin: 0; color: #0f172a; font-weight: 700; line-height: 1.35; max-width: 280px; }
-    #success .wins--palawan { grid-template-columns: repeat(3, minmax(200px,1fr)); }
-    #success .wins--unison { grid-template-columns: repeat(2, minmax(220px,1fr)); }
-    #success .wins--unison .single-centered { grid-column: 1 / -1; }
-    #success .wins--bds { grid-template-columns: repeat(3, minmax(200px,1fr)); }
-    #success .success-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 12px; background: rgba(0,0,0,0.1); color: #111; border: none; box-shadow: 0 3px 10px rgba(0,0,0,0.08); z-index: 5; cursor: pointer; }
-    #success .success-nav:hover { background: var(--accent,#007236); color: #fff; transform: translateY(-50%) scale(1.06); }
-    #success .success-nav.prev { left: 24px; }
-    #success .success-nav.next { right: 24px; }
-    #success .success-dots { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 10px; }
-    #success .success-dots button { width: 9px; height: 9px; background: rgba(0,0,0,0.22); border: 0; border-radius: 999px; }
-    #success .success-dots button.active { background: var(--accent,#007236); box-shadow: 0 0 0 4px rgba(0,114,54,0.12); }
-    @media (max-width: 1024px){
-      #success .ss-logo--xl { width: 240px; }
-      #success .wins--palawan, #success .wins--bds { grid-template-columns: repeat(2, minmax(200px,1fr)); }
-    }
-    @media (max-width: 560px){
-      #success .wins--palawan, #success .wins--bds { grid-template-columns: 1fr; }
-      #success .wins--unison { grid-template-columns: 1fr; }
-    }
-    /* kill the global section margin for the services band */
-section#servicesFW {
-  margin-top: 0 !important;     /* beats section { margin: 32px 0 } */
-  border-top: 0 !important;     /* remove the hairline I added */
-  padding-top: 0;               /* keep it flush with the hero */
-}
+    #brands .brands-head { text-align: center; margin-bottom: 18px; }
+    #brands .brands-head h2 { font-size: 2.0rem; font-weight: 800; color: var(--accent,#007236); letter-spacing: -0.01em; }
 
-/* just in case any theme sets bottom margin on the hero */
-.hero {
-  margin-bottom: 0 !important;
-}
+    #brands .brands-stage { position: relative; min-height: 220px; }
+    .brand-slide { position:absolute; inset:0; opacity:0; pointer-events:none; transform: translateY(6px); transition: opacity .6s ease, transform .6s ease; display:flex; align-items:center; justify-content:center; }
+    .brand-slide.is-active { opacity:1; pointer-events:auto; transform: translateY(0); }
 
-/* if your theme gives all sections top/bottom padding,
-   you can also clamp it specifically here: */
-#servicesFW .svc-shell {
-  padding-top: clamp(14px, 1.4vw, 18px);  /* reduce if needed */
-}
-.hero{ height: 100dvh; margin-bottom: 0 !important; }
-#services, #servicesFW{ margin-top: -1px !important; }  /* insurance for sub-pixel gaps */
-/* ===== ZERO GAP: hero → services (full-width) ===== */
+    .brand-card { display:flex; gap:18px; align-items:center; justify-content:center; background:#ffffff; border:1px solid #e9edf2; border-radius:16px; padding:18px 20px; box-shadow: 0 8px 22px rgba(0,0,0,0.08); }
+    .brand-logo { width:200px; height:auto; object-fit:contain; }
+    .brand-desc { margin:0; font-weight:600; color:#0f172a; max-width: 720px; }
 
-/* 1) Nuke global spacing the theme applies to the Services section  */
-#servicesFW,                 /* your new full-width services id */
-#services {                  /* in case the old id is still used */
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-  box-shadow: none !important;         /* kill the top seam from shadows */
-  background-clip: border-box;         /* no blending bleed */
-}
+    .brands-dots { position:absolute; left:50%; bottom:-2px; transform:translateX(-50%); display:flex; gap:8px; }
+    .brands-dots button { width:8px; height:8px; border-radius:999px; background:rgba(0,0,0,.22); border:0; cursor:pointer; }
+    .brands-dots button.active { background: var(--accent,#007236); box-shadow: 0 0 0 4px rgba(0,114,54,0.12); }
 
-/* 2) Make absolutely sure the thing that *follows* the hero hugs it */
-.hero + #servicesFW,
-.hero + #services,
-.hero + section#servicesFW,
-.hero + section#services {
-  margin-top: -2px !important;         /* hides subpixel seams on retina */
-}
+    .brands-nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; display:grid; place-items:center; border-radius:12px; background: rgba(0,0,0,0.08); color:#111; border:1px solid #eaeaea; box-shadow:0 3px 10px rgba(0,0,0,0.08); cursor:pointer; z-index:5; }
+    .brands-nav:hover { background: var(--accent,#007236); color:#fff; transform: translateY(-50%) scale(1.06); }
+    .brands-prev { left: 0; }
+    .brands-next { right: 0; }
+    .brands-nav svg { width: 20px; height: 20px; }
 
-/* 3) Ensure the hero itself isn’t creating space */
-.hero {
-  margin: 0 !important;
-  padding-bottom: 0 !important;
-  border-bottom: 0 !important;
-}
-
-/* 4) If your framework adds default spacing to *all* sections,
-      cancel it only for the Services section */
-section#servicesFW,
-section#services {
-  margin-block-start: 0 !important;
-  padding-block-start: 0 !important;
-}
-
-/* ===== IMAGE MARGIN INSIDE THE SLIDE ===== */
-
-/* If your left column is just an <img> inside the slide */
-.svc-slide img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 560px;                   /* big but not edge-to-edge */
-  margin: 24px 24px 24px 0;           /* ← image breathing room */
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0,0,0,.25);
-}
-
-/* If you have a wrapper like .svc-media around the image, use this instead */
-.svc-media { padding: 24px; }
-
-/* Responsive: center the image and keep spacing on narrow screens */
-@media (max-width: 900px) {
-  .svc-slide img {
-    margin: 0 auto 20px;              /* center + bottom gap under image */
-    max-width: 420px;
-  }
-}
-
+    /* ===== ZERO GAP: hero → services ===== */
+    #servicesFW { margin-top: 0 !important; padding-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; box-shadow: none !important; background-clip: border-box; }
+    .hero + #servicesFW { margin-top: -2px !important; } /* hide subpixel seam */
+    .hero { margin-bottom: 0 !important; }
 
   </style>
 
@@ -328,19 +183,13 @@ section#services {
   <!-- FULL-WIDTH Services Slider -->
   <section id="servicesFW" aria-label="Services">
     <button class="svc-nav svc-prev" aria-label="Previous service" id="svcPrev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M15 18l-6-6 6-6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
     <button class="svc-nav svc-next" aria-label="Next service" id="svcNext">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 6l6 6-6 6"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
     </button>
-
     <div class="svc-dots" id="svcDots" aria-label="Slide indicators"></div>
 
-    <!-- Slides (6) -->
     <div class="svc-shell">
       <!-- 1 -->
       <article class="svc-slide active">
@@ -352,7 +201,6 @@ section#services {
           <a class="svc-cta" href="/services#operations-design">Learn more</a>
         </div>
       </article>
-
       <!-- 2 -->
       <article class="svc-slide">
         <div class="svc-media"><img src="/assets/svc-2.jpg" alt="Systems Architecture"></div>
@@ -363,7 +211,6 @@ section#services {
           <a class="svc-cta" href="/services#systems-architecture">Learn more</a>
         </div>
       </article>
-
       <!-- 3 -->
       <article class="svc-slide">
         <div class="svc-media"><img src="/assets/svc-3.jpg" alt="Automation & AI"></div>
@@ -374,7 +221,6 @@ section#services {
           <a class="svc-cta" href="/services#automation-ai">Learn more</a>
         </div>
       </article>
-
       <!-- 4 -->
       <article class="svc-slide">
         <div class="svc-media"><img src="/assets/svc-4.jpg" alt="Reporting & Analytics"></div>
@@ -385,7 +231,6 @@ section#services {
           <a class="svc-cta" href="/services#reporting-analytics">Learn more</a>
         </div>
       </article>
-
       <!-- 5 -->
       <article class="svc-slide">
         <div class="svc-media"><img src="/assets/svc-5.jpg" alt="eCommerce Integrations"></div>
@@ -396,7 +241,6 @@ section#services {
           <a class="svc-cta" href="/services#ecommerce-integrations">Learn more</a>
         </div>
       </article>
-
       <!-- 6 -->
       <article class="svc-slide">
         <div class="svc-media"><img src="/assets/svc-6.jpg" alt="Customer Experience & Servicing"></div>
@@ -410,70 +254,68 @@ section#services {
     </div>
   </section>
 
-  <!-- Success Stories (unchanged) -->
-  <section id="success" class="success-slider">
-    <div class="success-head"><h2>Success Stories</h2></div>
-    <div class="success-track" id="successTrack">
+  <!-- Brands We've Worked With -->
+  <section id="brands" class="brands-slider" aria-label="Brands We’ve Worked With">
+    <button class="brands-nav brands-prev" aria-label="Previous brand" id="brandsPrev">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="brands-nav brands-next" aria-label="Next brand" id="brandsNext">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
 
+    <div class="brands-head"><h2>Brands We’ve Worked With</h2></div>
+
+    <div class="brands-stage" id="brandsStage">
       <!-- PalawanPay -->
-      <article class="success-slide is-active">
-        <div class="ss-row">
-          <div class="ss-top">
-            <img class="ss-logo ss-logo--xl" src="/assets/palawanpay.png" alt="PalawanPay">
-          </div>
-          <div class="ss-bottom">
-            <ul class="wins wins--palawan">
-              <li class="win"><img src="/assets/5Msavings.png" alt="₱5M annual savings"><p>₱5M annual savings with chatbot implementation</p></li>
-              <li class="win"><img src="/assets/routingppay.png" alt="+30% efficiency"><p>+30% efficiency in omnichannel routing</p></li>
-              <li class="win"><img src="/assets/onetouch.png" alt="Reduced one-touch tickets"><p>Reduced one-touch tickets</p></li>
-              <li class="win"><img src="/assets/kb.png" alt="Help Center"><p>Help Center implementation</p></li>
-              <li class="win"><img src="/assets/cc.png" alt="Customer Care org"><p>Customer Care team established from the ground up</p></li>
-              <li class="win"><img src="/assets/bds-sla.png" alt="Analytics dashboards"><p>Custom analytics dashboards for SLA, CSAT, and volume</p></li>
-            </ul>
-          </div>
+      <article class="brand-slide is-active">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/palawanpay.png" alt="PalawanPay" />
+          <p class="brand-desc">Customer Care organization build-up and advanced end-to-end Zendesk Suite implementation.</p>
         </div>
       </article>
 
       <!-- Unison -->
-      <article class="success-slide">
-        <div class="ss-row">
-          <div class="ss-top">
-            <img class="ss-logo ss-logo--xl" src="/assets/unison.png" alt="Unison">
-          </div>
-          <div class="ss-bottom">
-            <ul class="wins wins--unison">
-              <li class="win"><img src="/assets/unisonpdf.png" alt="+100% efficiency"><p>+100% efficiency in PDF automation</p></li>
-              <li class="win"><img src="/assets/kb.png" alt="Zendesk Guide"><p>Zendesk Guide full advanced setup</p></li>
-              <li class="win single-centered"><img src="/assets/zendeskunison.png" alt="End-to-end Zendesk"><p>End-to-end Zendesk implementation</p></li>
-            </ul>
-          </div>
+      <article class="brand-slide">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/unison.png" alt="Unison" />
+          <p class="brand-desc">Workflow automation and full Zendesk Guide deployment, driving cross-functional efficiency.</p>
         </div>
       </article>
 
       <!-- Boutique de Sophie -->
-      <article class="success-slide">
-        <div class="ss-row">
-          <div class="ss-top">
-            <img class="ss-logo ss-logo--xl" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
-          </div>
-          <div class="ss-bottom">
-            <ul class="wins wins--bds">
-              <li class="win"><img src="/assets/zendeskunison.png" alt="Zendesk"><p>End-to-End Zendesk implementation</p></li>
-              <li class="win"><img src="/assets/workflow-automate.png" alt="Workflow"><p>Workflow automation</p></li>
-              <li class="win"><img src="/assets/bds-csat.png" alt="CSAT"><p>CSAT program implementation</p></li>
-              <li class="win"><img src="/assets/onetouch.png" alt="Dashboards"><p>Dashboards & reporting</p></li>
-              <li class="win"><img src="/assets/disputes-bds.png" alt="Disputes"><p>−30% disputes reduced</p></li>
-              <li class="win"><img src="/assets/bds-sla.png" alt="SLA"><p>+50% SLA score increase</p></li>
-            </ul>
-          </div>
+      <article class="brand-slide">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie" />
+          <p class="brand-desc">End-to-end Zendesk setup with automation, advanced integrations, and Customer Care operations design.</p>
         </div>
       </article>
 
+      <!-- Hanni Kleider -->
+      <article class="brand-slide">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/hanni-kleider.png" alt="Hanni Kleider" />
+          <p class="brand-desc">Freshdesk implementation with intelligent automation and optimized agent workflows.</p>
+        </div>
+      </article>
+
+      <!-- Casa di Sofia -->
+      <article class="brand-slide">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/casa-di-sofia.png" alt="Casa di Sofia" />
+          <p class="brand-desc">Comprehensive Zendesk Suite implementation with built-in disputes management and escalation workflows.</p>
+        </div>
+      </article>
+
+      <!-- US Door & More -->
+      <article class="brand-slide">
+        <div class="brand-card">
+          <img class="brand-logo" src="/assets/usdoornmore.png" alt="US Door & More" />
+          <p class="brand-desc">Complete Zendesk Guide customization and an optimized Help Center experience.</p>
+        </div>
+      </article>
     </div>
 
-    <button class="success-nav prev" id="prevBtn" aria-label="Previous">‹</button>
-    <button class="success-nav next" id="nextBtn" aria-label="Next">›</button>
-    <div class="success-dots" id="successDots" aria-label="Slide indicators"></div>
+    <div class="brands-dots" id="brandsDots" aria-label="Brand indicators"></div>
   </section>
 
   <!-- About + CTA -->
@@ -527,62 +369,18 @@ section#services {
   </script>
 
   <!-- Global JS (injects header + behaviors) -->
-  <script src="/js/main.js?v=212" defer></script>
+  <script src="/js/main.js?v=215" defer></script>
 
-  <!-- Success slider logic (unchanged) -->
-  <script>
-    (function(){
-      const slider = document.getElementById('success');
-      const track  = document.getElementById('successTrack');
-      const slides = Array.from(track.querySelectorAll('.success-slide'));
-      const prev   = document.getElementById('prevBtn');
-      const next   = document.getElementById('nextBtn');
-      const dotsEl = document.getElementById('successDots');
-
-      if (!slider || !track || !slides.length) return;
-
-      let index = slides.findIndex(s => s.classList.contains('is-active'));
-      if (index < 0) index = 0;
-
-      const dots = slides.map((_, i) => {
-        const b = document.createElement('button');
-        b.setAttribute('aria-label', 'Go to slide ' + (i+1));
-        b.addEventListener('click', () => go(i));
-        dotsEl.appendChild(b);
-        return b;
-      });
-
-      function render(){
-        slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-        dots.forEach((d, i) => d.classList.toggle('active', i === index));
-      }
-      function go(i){ index = (i + slides.length) % slides.length; render(); }
-
-      prev.addEventListener('click', () => go(index - 1));
-      next.addEventListener('click', () => go(index + 1));
-
-      slider.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') go(index - 1);
-        if (e.key === 'ArrowRight') go(index + 1);
-      });
-
-      render();
-    })();
-  </script>
-
-  <!-- Header transparency controller (works with image hero too) -->
+  <!-- Header transparency controller (works with image hero) -->
   <script>
     (function () {
       const hero = document.querySelector('.hero');
       if (!hero) return;
-
       function initHeaderWatcher() {
         const headerEl = document.querySelector('nav.nav-wrap');
         if (!headerEl) return false;
-
         headerEl.classList.add('transparent');
         headerEl.classList.remove('solid');
-
         const io = new IntersectionObserver((entries) => {
           const e = entries[0];
           if (e && e.isIntersecting && e.intersectionRatio > 0.2) {
@@ -593,15 +391,11 @@ section#services {
             headerEl.classList.remove('transparent');
           }
         }, { threshold: [0, 0.2, 1] });
-
         io.observe(hero);
         return true;
       }
-
       if (!initHeaderWatcher()) {
-        const mo = new MutationObserver(() => {
-          if (initHeaderWatcher()) mo.disconnect();
-        });
+        const mo = new MutationObserver(() => { if (initHeaderWatcher()) mo.disconnect(); });
         mo.observe(document.body, { childList: true, subtree: true });
       }
     })();
@@ -618,7 +412,7 @@ section#services {
       if (!slides.length) return;
 
       let i = 0;
-      const INTERVAL = 3000; // 3 seconds auto-advance
+      const INTERVAL = 3000; // 3s auto-advance
       let timer = null;
 
       // Build dots
@@ -650,6 +444,55 @@ section#services {
       root.addEventListener('mouseenter', stop);
       root.addEventListener('mouseleave', start);
       root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft')  { prevSlide(); restart(); }
+        if (e.key === 'ArrowRight') { nextSlide(); restart(); }
+      });
+    })();
+  </script>
+
+  <!-- Brands slider logic (auto-swipe like certificates) -->
+  <script>
+    (function(){
+      const stage  = document.getElementById('brandsStage');
+      if (!stage) return;
+      const slides = Array.from(stage.querySelectorAll('.brand-slide'));
+      const dotsEl = document.getElementById('brandsDots');
+      const prev   = document.getElementById('brandsPrev');
+      const next   = document.getElementById('brandsNext');
+
+      let i = 0;
+      const INTERVAL = 3500;
+      let timer = null;
+
+      // dots
+      slides.forEach((_, idx) => {
+        const b = document.createElement('button');
+        b.addEventListener('click', () => go(idx, true));
+        dotsEl.appendChild(b);
+      });
+
+      function render(){
+        slides.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+        Array.from(dotsEl.children).forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }
+      function go(n, user=false){
+        i = (n + slides.length) % slides.length;
+        render();
+        if (user) restart();
+      }
+      function nextSlide(){ go(i + 1); }
+      function prevSlide(){ go(i - 1); }
+      function start(){ stop(); timer = setInterval(nextSlide, INTERVAL); }
+      function stop(){ if (timer) clearInterval(timer), (timer=null); }
+      function restart(){ start(); }
+
+      // init
+      render(); start();
+      next.addEventListener('click', () => { nextSlide(); restart(); });
+      prev.addEventListener('click', () => { prevSlide(); restart(); });
+      stage.addEventListener('mouseenter', stop);
+      stage.addEventListener('mouseleave', start);
+      stage.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft')  { prevSlide(); restart(); }
         if (e.key === 'ArrowRight') { nextSlide(); restart(); }
       });
