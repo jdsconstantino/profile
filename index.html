@@ -208,13 +208,25 @@
 }
 
     /* ===== ZERO GAP: hero → services ===== */
-    #servicesFW { margin-top: 0 !important; padding-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; box-shadow: none !important; background-clip: border-box; }
-    .hero + #servicesFW { margin-top: -2px !important; } /* hide subpixel seam */
-    .hero { margin-bottom: 0 !important; }
+#servicesFW {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: none !important;
+  background-clip: border-box;
+}
 
- body#page-success-stories .hero {
-    top: 0 !important;
-  }   
+.hero + #servicesFW {
+  margin-top: -2px !important; /* hide subpixel seam */
+}
+
+.hero {
+  margin-bottom: 0 !important;
+  top: 0 !important;
+}
+
+
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
