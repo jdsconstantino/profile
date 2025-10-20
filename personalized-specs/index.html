@@ -63,11 +63,12 @@
     .full { grid-column: 1 / -1; }
     .form-field { display:flex; flex-direction:column; gap:6px; }
     .form-field label { font-weight:700; color:#e6e9ef; }
-    .form-field input, .form-field textarea, .form-field select {
+    .form-field input, .form-field textarea {
       background: rgba(0,0,0,.25); color: #e6e9ee;
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 10px; padding: 12px 14px;
     }
+    textarea { resize: vertical; min-height: 120px; }
 
     .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -117,29 +118,29 @@
       <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
 
       <!-- STEP 1 -->
-      <section class="step active" id="step1" aria-labelledby="s1title">
-        <h2 id="s1title">1) Select services you need</h2>
+      <section class="step active" id="step1">
+        <h2>1) Select services you need</h2>
         <p class="hint">Multi-select.</p>
-        <div class="pillset" id="servicesPills" role="group" aria-label="Services">
-          <label class="pill" data-selected="false" for="svc_cx"><input type="checkbox" id="svc_cx" name="services" value="CX End to End management">CX End to End management</label>
-          <label class="pill" data-selected="false" for="svc_onboard"><input type="checkbox" id="svc_onboard" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
-          <label class="pill" data-selected="false" for="svc_opt"><input type="checkbox" id="svc_opt" name="services" value="Zendesk optimization">Zendesk optimization</label>
-          <label class="pill" data-selected="false" for="svc_omni"><input type="checkbox" id="svc_omni" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
-          <label class="pill" data-selected="false" for="svc_dash"><input type="checkbox" id="svc_dash" name="services" value="Dashboard">Dashboard</label>
-          <label class="pill" data-selected="false" for="svc_integ"><input type="checkbox" id="svc_integ" name="services" value="Integration and automation">Integration and automation</label>
-          <label class="pill" data-selected="false" for="svc_ai"><input type="checkbox" id="svc_ai" name="services" value="AI Agents">AI Agents</label>
-          <label class="pill" data-selected="false" for="svc_qa"><input type="checkbox" id="svc_qa" name="services" value="QA and CSAT">QA and CSAT</label>
-          <label class="pill" data-selected="false" for="svc_guide"><input type="checkbox" id="svc_guide" name="services" value="Zendesk Guide">Zendesk Guide</label>
+        <div class="pillset" id="servicesPills">
+          <label class="pill"><input type="checkbox" name="services" value="CX End to End management">CX End to End management</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk optimization">Zendesk optimization</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
+          <label class="pill"><input type="checkbox" name="services" value="Dashboard">Dashboard</label>
+          <label class="pill"><input type="checkbox" name="services" value="Integration and automation">Integration and automation</label>
+          <label class="pill"><input type="checkbox" name="services" value="AI Agents">AI Agents</label>
+          <label class="pill"><input type="checkbox" name="services" value="QA and CSAT">QA and CSAT</label>
+          <label class="pill"><input type="checkbox" name="services" value="Zendesk Guide">Zendesk Guide</label>
         </div>
 
-        <h2 id="s1size">2) Team size</h2>
+        <h2>2) Team size</h2>
         <p class="hint">Pick one.</p>
-        <div class="pillset" id="sizePills" role="radiogroup" aria-labelledby="s1size">
-          <label class="pill" data-selected="false" for="size_1_10"><input type="radio" id="size_1_10" name="team_size" value="1-10">1–10</label>
-          <label class="pill" data-selected="false" for="size_11_30"><input type="radio" id="size_11_30" name="team_size" value="11-30">11–30</label>
-          <label class="pill" data-selected="false" for="size_31_50"><input type="radio" id="size_31_50" name="team_size" value="31-50">31–50</label>
-          <label class="pill" data-selected="false" for="size_50_100"><input type="radio" id="size_50_100" name="team_size" value="50-100">50–100</label>
-          <label class="pill" data-selected="false" for="size_100p"><input type="radio" id="size_100p" name="team_size" value="100+">100+</label>
+        <div class="pillset" id="sizePills">
+          <label class="pill"><input type="radio" name="team_size" value="1-10">1–10</label>
+          <label class="pill"><input type="radio" name="team_size" value="11-30">11–30</label>
+          <label class="pill"><input type="radio" name="team_size" value="31-50">31–50</label>
+          <label class="pill"><input type="radio" name="team_size" value="50-100">50–100</label>
+          <label class="pill"><input type="radio" name="team_size" value="100+">100+</label>
         </div>
 
         <div class="actions">
@@ -148,8 +149,8 @@
       </section>
 
       <!-- STEP 2 -->
-      <section class="step" id="step2" aria-labelledby="s2title">
-        <h2 id="s2title">3) Your details</h2>
+      <section class="step" id="step2">
+        <h2>3) Your details</h2>
         <div class="grid-2">
           <div class="form-field">
             <label for="name">Full Name *</label>
@@ -163,6 +164,10 @@
             <label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
           </div>
+          <div class="form-field full">
+            <label for="details">Project details / anything else</label>
+            <textarea id="details" name="details" placeholder="Tell me about your project, goals, or pain points..."></textarea>
+          </div>
         </div>
 
         <div class="actions">
@@ -173,19 +178,14 @@
       </section>
     </form>
 
-    <!-- SUCCESS STATE -->
+    <!-- SUCCESS -->
     <section id="success">
       <div class="success-card">
-        <div class="check" aria-hidden="true">
+        <div class="check">
           <svg viewBox="0 0 24 24" fill="#00b858"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg>
         </div>
-        <h2 style="margin:0 0 6px;color:#e6f7ef;">Request received</h2>
-        <p style="margin:0 0 10px;">Thanks <span id="confName" class="strong">there</span> — I’ll reply to <span id="confEmail" class="mono"></span> with your tailored plan.</p>
-        <p class="hint" style="margin:0 0 14px;">If you don’t see an email in a few minutes, check Spam.</p>
-        <div class="actions">
-          <a href="/" class="btn btn-ghost">Back to Home</a>
-          <a href="/services/" class="btn btn-primary">Explore Services</a>
-        </div>
+        <h2>Request received</h2>
+        <p>Thanks <span id="confName">there</span> — I’ll reply to <span id="confEmail" class="mono"></span> with your tailored plan.</p>
       </div>
     </section>
 
@@ -194,116 +194,47 @@
 
   <div id="footer"></div>
   <script>
-    fetch("/footer.html").then(r => r.text()).then(html => (document.getElementById("footer").innerHTML = html));
+    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
   <script>
-    /* ================= CONFIG ================= */
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbylS1khnSa9U7eg-p48doBGOuM0K3TYeBZ8nmEBtoctt0fb1dzYK-jqhaI1ZnQCaQSKCQ/exec";
-    const SECRET   = "deskxp_spec_2025";                  
+    const ENDPOINT="https://script.google.com/macros/s/AKfycbylS1khnSa9U7eg-p48doBGOuM0K3TYeBZ8nmEBtoctt0fb1dzYK-jqhaI1ZnQCaQSKCQ/exec";
+    const SECRET="deskxp_spec_2025";
+    const form=document.getElementById('specForm'),msg=document.getElementById('formMsg'),
+          step1=document.getElementById('step1'),step2=document.getElementById('step2'),
+          btnNext=document.getElementById('btnNext'),btnBack=document.getElementById('btnBack'),
+          submitBtn=document.getElementById('submitBtn'),success=document.getElementById('success'),
+          confName=document.getElementById('confName'),confEmail=document.getElementById('confEmail'),
+          emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    /* ============== UI + Logic ============== */
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const btnNext = document.getElementById('btnNext');
-    const btnBack = document.getElementById('btnBack');
-    const form = document.getElementById('specForm');
-    const msg = document.getElementById('formMsg');
-    const submitBtn = document.getElementById('submitBtn');
+    btnNext.onclick=()=>{const s=document.querySelectorAll('input[name="services"]:checked').length,
+      t=document.querySelector('input[name="team_size"]:checked');
+      if(!s)return alert("Pick at least one service."); if(!t)return alert("Pick a team size.");
+      step1.classList.remove("active");step2.classList.add("active");document.getElementById("name").focus()};
 
-    const success = document.getElementById('success');
-    const confName = document.getElementById('confName');
-    const confEmail = document.getElementById('confEmail');
-    const pageTitle = document.getElementById('pageTitle');
+    btnBack.onclick=()=>{step2.classList.remove("active");step1.classList.add("active")};
 
-    // Pill toggle visuals
-    document.querySelectorAll('.pill input').forEach(input => {
-      const label = input.closest('.pill');
-      const sync = () => {
-        if (input.type === 'checkbox') label.dataset.selected = input.checked ? 'true' : 'false';
-        if (input.type === 'radio') {
-          document.querySelectorAll('input[name="'+input.name+'"]').forEach(r => {
-            r.closest('.pill').dataset.selected = r.checked ? 'true' : 'false';
-          });
-        }
-      };
-      input.addEventListener('change', sync);
-      sync();
-      label.tabIndex = 0;
-      label.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); input.click(); } });
-    });
-
-    // Stepper
-    btnNext.addEventListener('click', () => {
-      const hasService = !!document.querySelector('input[name="services"]:checked');
-      const hasSize = !!document.querySelector('input[name="team_size"]:checked');
-      if (!hasService) { alert('Pick at least one service.'); return; }
-      if (!hasSize) { alert('Pick a team size.'); return; }
-      step1.classList.remove('active'); step2.classList.add('active');
-      document.getElementById('name').focus();
-    });
-    btnBack?.addEventListener('click', () => { step2.classList.remove('active'); step1.classList.add('active'); });
-
-    // Submit
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault(); msg.textContent = "";
-
-      // Honeypot
-      if ((document.getElementById('website').value||'').trim()!==''){
-        showSuccess("(bot)", "(n/a)");
-        return;
-      }
-
-      const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
-      const team_size = document.querySelector('input[name="team_size"]:checked')?.value || '';
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      if (!name || !emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
-
-      submitBtn.disabled = true; submitBtn.textContent="Sending…"; msg.textContent="Sending…";
-
-      try {
-        // No Content-Type header => avoids CORS preflight with Apps Script
-        const res = await fetch(ENDPOINT, {
-          method: "POST",
-          body: JSON.stringify({
-            secret: SECRET,
-            services, team_size, name, email, phone,
-            page: location.href, ua: navigator.userAgent
-          })
-        });
-
-        const json = await res.json().catch(()=>({}));
-        if (res.ok && json?.ok){
-          showSuccess(name, email);
-        } else {
-          msg.textContent = `❌ ${json?.error || "Send failed. Try again."}`;
-        }
-      } catch(err){
-        msg.textContent = "❌ Network error. Try again.";
-      } finally {
-        submitBtn.disabled = false; submitBtn.textContent="Send Request";
-      }
-    });
-
-    function showSuccess(name, email){
-      // Swap views
-      form.style.display = 'none';
-      success.classList.add('active');
-
-      // Personalize
-      confName.textContent = name || "there";
-      confEmail.textContent = email || "";
-      document.title = "Request received — DeskXP";
-      pageTitle.textContent = "Personalized Specs";
-      // Scroll to top of main so it’s visible
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    form.onsubmit=async e=>{
+      e.preventDefault();msg.textContent="";
+      if((document.getElementById("website").value||"").trim()!=="")return showSuccess("(bot)","(n/a)");
+      const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value),
+            team_size=document.querySelector('input[name="team_size"]:checked')?.value||"",
+            name=document.getElementById("name").value.trim(),
+            email=document.getElementById("email").value.trim(),
+            phone=document.getElementById("phone").value.trim(),
+            details=document.getElementById("details").value.trim();
+      if(!name||!emailRegex.test(email))return msg.textContent="❌ Enter a valid name and email.";
+      submitBtn.disabled=true;submitBtn.textContent="Sending…";msg.textContent="Sending…";
+      try{
+        const res=await fetch(ENDPOINT,{method:"POST",body:JSON.stringify({secret:SECRET,services,team_size,name,email,phone,details,page:location.href,ua:navigator.userAgent})});
+        const json=await res.json().catch(()=>({}));
+        if(res.ok&&json?.ok)showSuccess(name,email);else msg.textContent=`❌ ${json?.error||"Send failed. Try again."}`
+      }catch(err){msg.textContent="❌ Network error. Try again."}
+      finally{submitBtn.disabled=false;submitBtn.textContent="Send Request";}
+    };
+    function showSuccess(name,email){form.style.display='none';success.classList.add('active');
+      confName.textContent=name||"there";confEmail.textContent=email||"";document.title="Request received — DeskXP";}
   </script>
-
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
