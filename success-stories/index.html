@@ -29,7 +29,7 @@
       --ink:#0f172a;
       --chip:#eef5ef;
       --chip-b:#dfe8e1;
-      --accent:#007236; /* replace when you give me the real brand hex */
+      --accent:#007236;
       --accent2:#00b858;
       --header-offset:84px;
       --card-b:#e6e9ef;
@@ -49,9 +49,6 @@
       overflow-x:hidden;
     }
 
-    /* 🔒 HARD GUARD — FORCE INNER-PAGE HEADER (wins against home rules)
-       We scope to #page-success-stories for max specificity.
-    */
     #page-success-stories .site-header,
     #page-success-stories header.site-header,
     #page-success-stories #site-header header {
@@ -60,14 +57,13 @@
       background: rgba(13,15,18,.95) !important;
       backdrop-filter: saturate(140%) blur(8px);
       box-shadow: 0 8px 24px rgba(0,0,0,.35);
-      transform: translateZ(0);
       z-index: 1000;
     }
 
     .page{
       max-width:1220px;
-      margin:32px auto 96px;
-      padding:0 18px;
+      margin:0 auto;
+      padding:calc(var(--header-offset) + 32px) 18px 96px;
       position:relative;
     }
 
@@ -76,76 +72,68 @@
       font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
       font-weight:900;
       letter-spacing:-.02em;
-      margin:10px 0 26px;
+      margin:0 0 36px;
     }
 
-    /* Story/hero styling (matches your card look) */
-    .story{ display:grid; grid-template-columns:1fr; gap:18px; position:relative; z-index:2; }
+    .story{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:18px;
+      position:relative;
+      z-index:2;
+      margin-top:0;
+    }
 
     .hero{
       background:linear-gradient(180deg,#0f2026,#0c1b21);
       border:1px solid rgba(255,255,255,.08);
-      border-radius:22px; padding:22px;
+      border-radius:22px;
+      padding:32px 24px 28px;
       box-shadow:0 14px 40px rgba(0,0,0,.35), 0 0 36px rgba(0,255,160,.12);
-      margin-bottom:18px;
-    }
-    body#page-success-stories .page {
-      padding-top: var(--header-offset);
+      margin-bottom:36px;
     }
 
-    body#page-success-stories .hero:first-of-type {
-      margin-top: calc(var(--header-offset) + 40px);
-    }
-
-    .brand-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+    .brand-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .badge{
-      width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
+      width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
       background:linear-gradient(180deg,var(--accent2),var(--accent));
-      box-shadow:0 0 0 1px rgba(255,255,255,.16) inset, 0 8px 18px rgba(0,0,0,.35);
+      box-shadow:0 0 0 1px rgba(255,255,255,.16) inset,0 8px 18px rgba(0,0,0,.35);
     }
-    .badge img{ width:70%; height:auto; display:block; }
+    .badge img{width:70%;height:auto;display:block}
 
-    .hero h1{ margin:0; font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem); letter-spacing:-.01em }
-    .hero p{ margin:8px 0 0; color:#dfe7e2 }
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0 }
-    .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:700; color:#2f3b45; font-size:.9rem }
-    .disclaimer{ margin-top:10px; color:var(--muted); font-size:.92rem }
+    .hero h1{margin:0;font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem);letter-spacing:-.01em}
+    .hero p{margin:8px 0 0;color:#dfe7e2}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+    .chip{padding:6px 12px;background:var(--chip);border:1px solid var(--chip-b);border-radius:999px;font-weight:700;color:#2f3b45;font-size:.9rem}
+    .disclaimer{margin-top:10px;color:var(--muted);font-size:.92rem}
 
     .card{
-      background:#fff; color:var(--ink);
-      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
+      background:#fff;color:var(--ink);
+      border:1px solid var(--card-b);border-radius:18px;padding:22px 22px 18px;
       box-shadow:0 16px 36px rgba(0,0,0,.18);
       scroll-margin-top:calc(var(--header-offset) + 12px);
     }
-    .card h2{ margin:0 0 8px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
-    .card p{ color:#334155; margin:12px 0; line-height:1.65; }
-    .pull{ margin:14px 0; padding:12px 14px; border-left:4px solid var(--accent2); background:#f7faf7; color:#26323a; border-radius:10px }
+    .card h2{margin:0 0 8px;font-size:1.22rem;font-weight:900;letter-spacing:-.01em;color:#2e424e}
+    .card p{color:#334155;margin:12px 0;line-height:1.65}
+    .pull{margin:14px 0;padding:12px 14px;border-left:4px solid var(--accent2);background:#f7faf7;color:#26323a;border-radius:10px}
 
-    /* Background grid like Services */
     .markers{
-      position:absolute; inset:0; pointer-events:none;
+      position:absolute;inset:0;pointer-events:none;
       background-image:
-        linear-gradient(to right, var(--grid) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-      background-size:48px 48px, 48px 48px;
+        linear-gradient(to right,var(--grid) 1px,transparent 1px),
+        linear-gradient(to bottom,var(--grid) 1px,transparent 1px);
+      background-size:48px 48px,48px 48px;
       mask-image:linear-gradient(#0007,#000);
-      z-index:1; border-radius:22px;
+      z-index:1;border-radius:22px;
     }
-body#page-success-stories .hero {
-  margin-bottom: 20px; 
-  padding-bottom: 18px;
-}
 
-body#page-success-stories .story {
-  margin-top: 0; 
-}
-
+    /* ✅ Tighten hero-card spacing */
+    body#page-success-stories .hero {margin-bottom:28px}
+    body#page-success-stories .story {margin-top:0}
   </style>
 </head>
 
-<!-- Add ID -->
 <body id="page-success-stories" data-page="inner">
-  <!-- Header placeholder (injected by /js/main.js just like Services) -->
   <div id="site-header"></div>
 
   <main class="page">
@@ -160,10 +148,10 @@ body#page-success-stories .story {
         </div>
         <div>
           <h1>PalawanPay — From Zero to a Scalable Care Organization</h1>
-          <p>PalawanPay launched in 2022 into a crowded PH fintech market. Competing with unicorns meant the bar for customer care wasn’t “answer tickets” — it was build a disciplined, data-driven operation that could scale without chaos.</p>
+          <p>PalawanPay launched in 2022 into a crowded PH fintech market. Competing with unicorns meant the bar for customer care wasn’t “answer tickets” — it was to build a disciplined, data-driven operation that could scale without chaos.</p>
         </div>
       </div>
-      <div class="chips" aria-label="Themes">
+      <div class="chips">
         <span class="chip">Operations Design</span>
         <span class="chip">Zendesk Suite</span>
         <span class="chip">Automation &amp; AI</span>
@@ -232,7 +220,6 @@ body#page-success-stories .story {
         <p>Throughput improved dramatically with unified routing and macros, and dispatch lag vanished once automation took over. Teams that lived in Outlook moved into a searchable, auditable system of record; leadership finally had trustworthy SLA and workload views. The branded Help Center deflected repeat questions and sharpened handoffs.</p>
       </article>
     </section>
-
   </main>
 
   <div id="footer"></div>
@@ -243,52 +230,26 @@ body#page-success-stories .story {
       .then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
-  <script>
-    /* Anchor respect (same as Services) */
-    (function(){
-      const q=new URLSearchParams(location.search).get("s");
-      if(!q) return;
-      history.replaceState(null,"","#"+q);
-      const el=document.getElementById(q);
-      if(el) el.scrollIntoView({behavior:"instant",block:"start"});
-    })();
-  </script>
-
-  <!-- Header partial is injected the same way as Services via main.js -->
   <script src="/js/main.js?v=215" defer></script>
 
   <script>
-    /* 🛡️ Post-injection normalizer:
-       If your global JS adds home/transparent classes, we rip them off. */
     (function normalizeHeader(){
       const ready = () => {
-        const hdr =
-          document.querySelector('#site-header header') ||
-          document.querySelector('.site-header') ||
-          document.querySelector('header.site-header');
-
+        const hdr = document.querySelector('#site-header header, .site-header, header.site-header');
         if (!hdr) return false;
-
-        // Kill any home/transparent classes your header script might add
-        ['is-home','home','transparent','is-transparent','overlay','floating','at-top'].forEach(c => hdr.classList.remove(c));
-
-        // Force fixed + opaque in case inline styles were set by other scripts
-        hdr.style.position = 'fixed';
-        hdr.style.top = '0';
-        hdr.style.left = '0';
-        hdr.style.right = '0';
-        hdr.style.background = 'rgba(13,15,18,.95)';
-        hdr.style.backdropFilter = 'saturate(140%) blur(8px)';
-        hdr.style.boxShadow = '0 8px 24px rgba(0,0,0,.35)';
-        hdr.style.zIndex = '1000';
-
-        // Some site shells add body classes; ensure no 'is-home'
+        ['is-home','home','transparent','is-transparent','overlay','floating','at-top']
+          .forEach(c => hdr.classList.remove(c));
+        hdr.style.position='fixed';
+        hdr.style.top='0';
+        hdr.style.left='0';
+        hdr.style.right='0';
+        hdr.style.background='rgba(13,15,18,.95)';
+        hdr.style.backdropFilter='saturate(140%) blur(8px)';
+        hdr.style.boxShadow='0 8px 24px rgba(0,0,0,.35)';
+        hdr.style.zIndex='1000';
         document.body.classList.remove('is-home');
-
         return true;
       };
-
-      // Try after load; if not present yet (async injection), observe DOM
       window.addEventListener('load', () => {
         if (ready()) return;
         const obs = new MutationObserver(() => { if (ready()) obs.disconnect(); });
