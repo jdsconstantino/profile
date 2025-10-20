@@ -22,7 +22,7 @@
   <style>
     /* Match Privacy template shell */
     body {
-      background: #1b272e;
+      background: #0d0f12;
       color: #e6e9ef;
       font-family: "Plus Jakarta Sans", sans-serif;
       line-height: 1.7;
@@ -43,6 +43,7 @@
     a { color: #00b858; text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
     strong { color: #ffffff; font-weight: 600; }
+    .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
 
     /* Form UI */
     .pillset { display:flex; flex-wrap:wrap; gap:10px; }
@@ -67,7 +68,7 @@
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 10px; padding: 12px 14px;
     }
-    .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
+
     .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer; }
@@ -75,6 +76,24 @@
     .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
     .step { display:none; } .step.active { display:block; }
     #formMsg { color:#c9d1d9; }
+
+    /* Success state */
+    #success { display:none; }
+    #success.active { display:block; }
+    .success-card {
+      background:#0f1419;
+      border:1px solid rgba(0, 255, 153, 0.18);
+      border-radius:16px;
+      padding:28px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .check {
+      width:56px;height:56px;border-radius:50%;
+      background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
+      display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+    }
+    .check svg { width:28px;height:28px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
     @media (max-width: 700px) {
       main { padding: 32px 24px; margin: 60px auto; }
@@ -89,9 +108,10 @@
   <div id="site-header"></div>
 
   <main>
-    <h1>Personalized Specs</h1>
-    <p class="hint">Pick what you need → add your details → We’ll get back to you with a plan.</p>
+    <h1 id="pageTitle">Personalized Specs</h1>
+    <p class="hint">Pick what you need → add your details → I’ll email you a plan.</p>
 
+    <!-- FORM -->
     <form id="specForm" autocomplete="on" novalidate>
       <!-- Honeypot -->
       <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
@@ -153,6 +173,22 @@
       </section>
     </form>
 
+    <!-- SUCCESS STATE -->
+    <section id="success">
+      <div class="success-card">
+        <div class="check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#00b858"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg>
+        </div>
+        <h2 style="margin:0 0 6px;color:#e6f7ef;">Request received</h2>
+        <p style="margin:0 0 10px;">Thanks <span id="confName" class="strong">there</span> — I’ll reply to <span id="confEmail" class="mono"></span> with your tailored plan.</p>
+        <p class="hint" style="margin:0 0 14px;">If you don’t see an email in a few minutes, check Spam.</p>
+        <div class="actions">
+          <a href="/" class="btn btn-ghost">Back to Home</a>
+          <a href="/services/" class="btn btn-primary">Explore Services</a>
+        </div>
+      </div>
+    </section>
+
     <p class="hint" style="margin-top:18px">By submitting, you agree to be contacted about your project. No spam. No BS.</p>
   </main>
 
@@ -163,8 +199,8 @@
 
   <script>
     /* ================= CONFIG ================= */
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbxrwhcGt8inCQBn60Z5xxkp-cdVhZEzCZ6A2kqQiYGLvKww2OGGYKAu0aO-_LbC-v7nNw/exec";
-    const SECRET   = "deskxp_spec_2025";
+    const ENDPOINT = "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE"; // must be the /exec URL
+    const SECRET   = "deskxp_spec_2025";                   // must match Apps Script
 
     /* ============== UI + Logic ============== */
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -176,6 +212,12 @@
     const msg = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
 
+    const success = document.getElementById('success');
+    const confName = document.getElementById('confName');
+    const confEmail = document.getElementById('confEmail');
+    const pageTitle = document.getElementById('pageTitle');
+
+    // Pill toggle visuals
     document.querySelectorAll('.pill input').forEach(input => {
       const label = input.closest('.pill');
       const sync = () => {
@@ -192,6 +234,7 @@
       label.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); input.click(); } });
     });
 
+    // Stepper
     btnNext.addEventListener('click', () => {
       const hasService = !!document.querySelector('input[name="services"]:checked');
       const hasSize = !!document.querySelector('input[name="team_size"]:checked');
@@ -200,14 +243,17 @@
       step1.classList.remove('active'); step2.classList.add('active');
       document.getElementById('name').focus();
     });
-
     btnBack?.addEventListener('click', () => { step2.classList.remove('active'); step1.classList.add('active'); });
 
+    // Submit
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); msg.textContent = "";
 
       // Honeypot
-      if ((document.getElementById('website').value||'').trim()!==''){ msg.textContent="✅ Thanks!"; form.reset(); return; }
+      if ((document.getElementById('website').value||'').trim()!==''){
+        showSuccess("(bot)", "(n/a)");
+        return;
+      }
 
       const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
       const team_size = document.querySelector('input[name="team_size"]:checked')?.value || '';
@@ -220,7 +266,7 @@
       submitBtn.disabled = true; submitBtn.textContent="Sending…"; msg.textContent="Sending…";
 
       try {
-        // NO Content-Type header => no CORS preflight
+        // No Content-Type header => avoids CORS preflight with Apps Script
         const res = await fetch(ENDPOINT, {
           method: "POST",
           body: JSON.stringify({
@@ -232,10 +278,7 @@
 
         const json = await res.json().catch(()=>({}));
         if (res.ok && json?.ok){
-          msg.textContent = "✅ Got it. I’ll reply via email.";
-          form.reset();
-          document.querySelectorAll('.pill').forEach(p=>p.dataset.selected='false');
-          step2.classList.remove('active'); step1.classList.add('active');
+          showSuccess(name, email);
         } else {
           msg.textContent = `❌ ${json?.error || "Send failed. Try again."}`;
         }
@@ -245,6 +288,20 @@
         submitBtn.disabled = false; submitBtn.textContent="Send Request";
       }
     });
+
+    function showSuccess(name, email){
+      // Swap views
+      form.style.display = 'none';
+      success.classList.add('active');
+
+      // Personalize
+      confName.textContent = name || "there";
+      confEmail.textContent = email || "";
+      document.title = "Request received — DeskXP";
+      pageTitle.textContent = "Personalized Specs";
+      // Scroll to top of main so it’s visible
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 
   <script src="/js/main.js?v=211" defer></script>
