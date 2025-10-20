@@ -2925,6 +2925,16 @@ main, .page, .container {
 
 /* if any ancestor has transform, remove it around captcha */
 .captcha-wrap { transform: none !important; }
+.grecaptcha-bubble,
+.grecaptcha-bubble-arrow,
+.grecaptcha-badge {
+  z-index: 2147483647 !important;
+  position: fixed !important;
+}
+
+html, body {
+  overflow: visible !important;
+}
 
 
 
