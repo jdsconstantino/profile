@@ -2935,6 +2935,39 @@ main, .page, .container {
 html, body {
   overflow: visible !important;
 }
+/* Keep reCAPTCHA wrapper on top of everything */
+.grecaptcha-badge,
+.grecaptcha-bubble,
+.grecaptcha-bubble-arrow {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  transform: none !important;
+  overflow: visible !important;
+}
+
+/* Push the puzzle down so it can't sit under the header */
+.grecaptcha-bubble {
+  top: 12vh !important;              /* <- this is the key */
+  left: 50% !important;
+  transform: translateX(-50%) !important;  /* center horizontally */
+}
+@media (max-width: 700px) {
+  .grecaptcha-bubble { top: 8vh !important; }
+}
+
+/* Stop your page from creating clipping/stacking contexts */
+html, body, main, form, .captcha-wrap {
+  overflow: visible !important;
+  transform: none !important;
+  perspective: none !important;
+  filter: none !important;
+}
+
+/* Make the header lose the z-index fight */
+#site-header {
+  position: relative !important;
+  z-index: 1000 !important;
+}
 
 
 
