@@ -4,90 +4,45 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Personalized Specs — DeskXP</title>
-  <meta name="description" content="Tell me exactly what you need. I’ll respond with a tailored CX setup plan." />
+  <meta name="description" content="Pick the services you need, add your details, and I’ll email you a tailored CX plan." />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-  <link rel="stylesheet" href="/site.css?v=201" />
+  <link rel="stylesheet" href="/site.css?v=202" />
   <style>
-    /* Local polish (doesn't fight your v201) */
-    :root {
-      --pill-bg: rgba(255,255,255,.06);
-      --pill-bg-active: rgba(0,114,54,.18);
-      --pill-border: rgba(255,255,255,.18);
-      --pill-border-active: #007236;
-      --ink: #e7e9ee;
+    /* ===== Minimal inline styling so this looks right even if your site.css is stale ===== */
+    :root{
+      --dxp-green:#007236; --ink:#e7e9ee;
+      --pill-bg:rgba(255,255,255,.06); --pill-bg-active:rgba(0,114,54,.18);
+      --pill-border:rgba(255,255,255,.18); --pill-border-active:#007236;
     }
-    #specsHero { padding: 56px 0 16px; text-align: center; }
-    #specsHero .headline { font-size: 2rem; margin-bottom: 6px; }
-    #specsHero .subhead { opacity: .85; }
-
-    .card { background: rgba(255,255,255,.03); border-radius: 14px; padding: 24px; backdrop-filter: blur(6px); }
-    .muted { opacity: .85; }
-    .mt-1 { margin-top: 6px; }
-    .mt-2 { margin-top: 12px; }
-    .mt-3 { margin-top: 18px; }
-    .mt-4 { margin-top: 24px; }
-    .row { display: grid; gap: 14px; }
-    .grid-2 { grid-template-columns: 1fr 1fr; }
-    .full { grid-column: 1 / -1; }
-
-    /* Pills */
-    .pillset { display: flex; flex-wrap: wrap; gap: 10px; }
-    .pill {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--pill-border);
-      background: var(--pill-bg);
-      color: var(--ink);
-      font-weight: 600;
-      cursor: pointer;
-      user-select: none;
-      transition: transform .05s ease, background .2s ease, border-color .2s ease;
-      outline: none;
-    }
-    .pill:focus-visible { box-shadow: 0 0 0 2px rgba(0,114,54,.5); }
-    .pill[data-selected="true"] {
-      background: var(--pill-bg-active);
-      border-color: var(--pill-border-active);
-    }
-    .pill:hover { transform: translateY(-1px); }
-    .pill input { position: absolute; opacity: 0; pointer-events: none; }
-
-    /* Inputs */
-    .form-field label { display:block; font-weight:700; margin-bottom:6px; }
-    .form-field input, .form-field textarea, .form-field select {
-      width:100%; padding:12px 14px; border:1px solid rgba(255,255,255,.12);
-      border-radius:10px; background: rgba(0,0,0,.25); color:#e7e9ee;
-    }
-
-    /* Buttons */
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
-    }
-    .btn-primary { background: var(--dxp-green, #007236); color:#fff; }
-    .btn-ghost { background: transparent; color:#e7e9ee; border:1px solid rgba(255,255,255,.18); }
-    .actions { display:flex; gap:10px; flex-wrap: wrap; }
-
-    /* Stepper */
-    .step { display:none; }
-    .step.active { display:block; }
-    .step-title { font-size:1.25rem; font-weight:800; margin-bottom:8px; }
-    .hint { font-size: .95rem; opacity: .8; }
-
-    @media (max-width: 820px){
-      .grid-2 { grid-template-columns: 1fr; }
-    }
+    body{color:var(--ink,#e7e9ee);}
+    .glass.sticky{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(8px);}
+    #specsHero{padding:56px 0 16px;text-align:center}
+    #specsHero .headline{font-size:2rem;margin-bottom:6px}
+    #specsHero .subhead{opacity:.85}
+    .section .container{max-width:1024px;margin:0 auto;padding:0 16px}
+    .card{background:rgba(255,255,255,.03);border-radius:14px;padding:24px;backdrop-filter:blur(6px)}
+    .muted{opacity:.85}.mt-2{margin-top:12px}.mt-4{margin-top:24px}
+    .pillset{display:flex;flex-wrap:wrap;gap:10px}
+    .pill{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid var(--pill-border);background:var(--pill-bg);color:var(--ink);font-weight:700;cursor:pointer;user-select:none;transition:background .2s,border-color .2s,transform .1s}
+    .pill:hover{transform:translateY(-1px)}
+    .pill[data-selected="true"]{background:var(--pill-bg-active);border-color:var(--pill-border-active)}
+    .pill input{display:none}
+    .form-field{display:flex;flex-direction:column;gap:6px}
+    .form-field input,.form-field textarea,.form-field select{background:rgba(0,0,0,.25);color:#e7e9ee;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-weight:800;border:0;cursor:pointer}
+    .btn-primary{background:var(--dxp-green);color:#fff}
+    .btn-ghost{background:transparent;color:#e7e9ee;border:1px solid rgba(255,255,255,.18)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .step{display:none}.step.active{display:block}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .full{grid-column:1 / -1}
+    @media(max-width:820px){.grid-2{grid-template-columns:1fr}.pillset{justify-content:center}}
   </style>
 </head>
-
 <body>
   <!-- Header -->
   <header class="site-header glass sticky">
-    <a href="/" class="logo"><img src="/assets/logo.svg" alt="DeskXP" style="height:32px;"></a>
+    <a href="/" class="logo"><img src="/assets/logo.svg" alt="DeskXP" style="height:32px"></a>
     <nav class="nav-links">
       <a href="/services/">Services</a>
       <a href="/success-stories/">Success Stories</a>
@@ -103,71 +58,36 @@
     </div>
   </section>
 
+  <!-- Form -->
   <section class="section">
     <div class="container card">
       <form id="specForm" autocomplete="on" novalidate>
-        <!-- honeypot -->
-        <input type="text" id="website" name="website" class="hidden" tabindex="-1" autocomplete="off" style="display:none!important" />
+        <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
 
         <!-- STEP 1 -->
         <div class="step active" id="step1" aria-labelledby="s1title">
-          <div class="row">
-            <h2 class="step-title" id="s1title">1) Select services you need</h2>
-            <p class="hint">You can pick multiple.</p>
-            <div class="pillset" id="servicesPills" role="group" aria-label="Services">
-              <!-- Each pill is a visually-enhanced checkbox -->
-              <!-- Keep IDs stable. Values become your payload. -->
-              <label class="pill" data-selected="false" for="svc_cx">
-                <input type="checkbox" id="svc_cx" name="services" value="CX End to End management">CX End to End management
-              </label>
-              <label class="pill" data-selected="false" for="svc_onboard">
-                <input type="checkbox" id="svc_onboard" name="services" value="Zendesk onboarding">Zendesk onboarding
-              </label>
-              <label class="pill" data-selected="false" for="svc_opt">
-                <input type="checkbox" id="svc_opt" name="services" value="Zendesk optimization">Zendesk optimization
-              </label>
-              <label class="pill" data-selected="false" for="svc_omni">
-                <input type="checkbox" id="svc_omni" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration
-              </label>
-              <label class="pill" data-selected="false" for="svc_dash">
-                <input type="checkbox" id="svc_dash" name="services" value="Dashboard">Dashboard
-              </label>
-              <label class="pill" data-selected="false" for="svc_integ">
-                <input type="checkbox" id="svc_integ" name="services" value="Integration and automation">Integration and automation
-              </label>
-              <label class="pill" data-selected="false" for="svc_ai">
-                <input type="checkbox" id="svc_ai" name="services" value="AI Agents">AI Agents
-              </label>
-              <label class="pill" data-selected="false" for="svc_qa">
-                <input type="checkbox" id="svc_qa" name="services" value="QA and CSAT">QA and CSAT
-              </label>
-              <label class="pill" data-selected="false" for="svc_guide">
-                <input type="checkbox" id="svc_guide" name="services" value="Zendesk Guide">Zendesk Guide
-              </label>
-            </div>
+          <h2 class="step-title" id="s1title" style="font-weight:800;margin-bottom:8px">1) Select services you need</h2>
+          <p class="muted">Multi-select.</p>
+          <div class="pillset" id="servicesPills" role="group" aria-label="Services">
+            <label class="pill" data-selected="false" for="svc_cx"><input type="checkbox" id="svc_cx" name="services" value="CX End to End management">CX End to End management</label>
+            <label class="pill" data-selected="false" for="svc_onboard"><input type="checkbox" id="svc_onboard" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
+            <label class="pill" data-selected="false" for="svc_opt"><input type="checkbox" id="svc_opt" name="services" value="Zendesk optimization">Zendesk optimization</label>
+            <label class="pill" data-selected="false" for="svc_omni"><input type="checkbox" id="svc_omni" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
+            <label class="pill" data-selected="false" for="svc_dash"><input type="checkbox" id="svc_dash" name="services" value="Dashboard">Dashboard</label>
+            <label class="pill" data-selected="false" for="svc_integ"><input type="checkbox" id="svc_integ" name="services" value="Integration and automation">Integration and automation</label>
+            <label class="pill" data-selected="false" for="svc_ai"><input type="checkbox" id="svc_ai" name="services" value="AI Agents">AI Agents</label>
+            <label class="pill" data-selected="false" for="svc_qa"><input type="checkbox" id="svc_qa" name="services" value="QA and CSAT">QA and CSAT</label>
+            <label class="pill" data-selected="false" for="svc_guide"><input type="checkbox" id="svc_guide" name="services" value="Zendesk Guide">Zendesk Guide</label>
           </div>
 
-          <div class="row mt-4">
-            <h2 class="step-title" id="s1size">2) Team size</h2>
-            <p class="hint">Pick one.</p>
-            <div class="pillset" id="sizePills" role="radiogroup" aria-labelledby="s1size">
-              <!-- radio pills -->
-              <label class="pill" data-selected="false" for="size_1_10">
-                <input type="radio" id="size_1_10" name="team_size" value="1-10">1–10
-              </label>
-              <label class="pill" data-selected="false" for="size_11_30">
-                <input type="radio" id="size_11_30" name="team_size" value="11-30">11–30
-              </label>
-              <label class="pill" data-selected="false" for="size_31_50">
-                <input type="radio" id="size_31_50" name="team_size" value="31-50">31–50
-              </label>
-              <label class="pill" data-selected="false" for="size_50_100">
-                <input type="radio" id="size_50_100" name="team_size" value="50-100">50–100
-              </label>
-              <label class="pill" data-selected="false" for="size_100p">
-                <input type="radio" id="size_100p" name="team_size" value="100+">100+
-              </label>
-            </div>
+          <h2 class="step-title mt-4" id="s1size" style="font-weight:800;margin-bottom:8px">2) Team size</h2>
+          <p class="muted">Pick one.</p>
+          <div class="pillset" id="sizePills" role="radiogroup" aria-labelledby="s1size">
+            <label class="pill" data-selected="false" for="size_1_10"><input type="radio" id="size_1_10" name="team_size" value="1-10">1–10</label>
+            <label class="pill" data-selected="false" for="size_11_30"><input type="radio" id="size_11_30" name="team_size" value="11-30">11–30</label>
+            <label class="pill" data-selected="false" for="size_31_50"><input type="radio" id="size_31_50" name="team_size" value="31-50">31–50</label>
+            <label class="pill" data-selected="false" for="size_50_100"><input type="radio" id="size_50_100" name="team_size" value="50-100">50–100</label>
+            <label class="pill" data-selected="false" for="size_100p"><input type="radio" id="size_100p" name="team_size" value="100+">100+</label>
           </div>
 
           <div class="actions mt-4">
@@ -177,21 +97,19 @@
 
         <!-- STEP 2 -->
         <div class="step" id="step2" aria-labelledby="s2title">
-          <div class="row">
-            <h2 class="step-title" id="s2title">3) Your details</h2>
-            <div class="grid-2">
-              <div class="form-field">
-                <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" placeholder="Jane Doe" required>
-              </div>
-              <div class="form-field">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
-              </div>
-              <div class="form-field full">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
-              </div>
+          <h2 class="step-title" id="s2title" style="font-weight:800;margin-bottom:8px">3) Your details</h2>
+          <div class="grid-2">
+            <div class="form-field">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+            </div>
+            <div class="form-field">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-field full">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
             </div>
           </div>
 
@@ -212,11 +130,12 @@
   </footer>
 
   <script>
-    // ====== CONFIG: paste your Apps Script Web App URL ======
-    const ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+    // ====== CONFIG — REPLACE THIS WITH YOUR WEB APP URL ======
+    const ENDPOINT = "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    const SECRET   = "deskxp_spec_2025"; // change both here and in Apps Script
 
-    // Utils
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    // ----- UI logic -----
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const btnNext = document.getElementById('btnNext');
@@ -225,120 +144,68 @@
     const msg = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
 
-    // Toggle pill UI on change (checkbox + radio)
     document.querySelectorAll('.pill input').forEach(input => {
       const label = input.closest('.pill');
       const sync = () => {
-        if (input.type === 'checkbox') {
-          label.dataset.selected = input.checked ? 'true' : 'false';
-        } else if (input.type === 'radio') {
-          // clear siblings
-          document.querySelectorAll('input[name="' + input.name + '"]').forEach(r => {
-            const l = r.closest('.pill');
-            if (l) l.dataset.selected = r.checked ? 'true' : 'false';
+        if (input.type === 'checkbox') label.dataset.selected = input.checked ? 'true' : 'false';
+        if (input.type === 'radio') {
+          document.querySelectorAll('input[name="'+input.name+'"]').forEach(r => {
+            r.closest('.pill').dataset.selected = r.checked ? 'true' : 'false';
           });
         }
       };
       input.addEventListener('change', sync);
-      // initialize
       sync();
-      // allow clicking label area to toggle
-      label.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
-      });
-      label.tabIndex = 0; // keyboard focusable
+      label.tabIndex = 0;
+      label.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); input.click(); } });
     });
 
-    // Stepper logic
     btnNext.addEventListener('click', () => {
-      // Require at least one service + one team size
-      const selectedServices = [...document.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
-      const teamSize = document.querySelector('input[name="team_size"]:checked')?.value || '';
-
-      if (selectedServices.length === 0) {
-        alert('Pick at least one service.');
-        return;
-      }
-      if (!teamSize) {
-        alert('Pick a team size.');
-        return;
-      }
-      step1.classList.remove('active');
-      step2.classList.add('active');
-      // focus first input for speed
+      const selectedServices = [...document.querySelectorAll('input[name="services"]:checked')];
+      const teamSize = document.querySelector('input[name="team_size"]:checked');
+      if (!selectedServices.length) { alert('Pick at least one service.'); return; }
+      if (!teamSize) { alert('Pick a team size.'); return; }
+      step1.classList.remove('active'); step2.classList.add('active');
       document.getElementById('name').focus();
     });
 
-    btnBack.addEventListener('click', () => {
-      step2.classList.remove('active');
-      step1.classList.add('active');
-    });
+    btnBack?.addEventListener('click', () => { step2.classList.remove('active'); step1.classList.add('active'); });
 
-    // Submit
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.textContent = "";
+      e.preventDefault(); msg.textContent = "";
+      if ((document.getElementById('website').value||'').trim()!==''){ msg.textContent="✅ Thanks!"; form.reset(); return; }
 
-      // honeypot
-      if ((document.getElementById('website').value || '').trim() !== '') {
-        msg.textContent = "✅ Thanks! I’ll get back to you shortly.";
-        form.reset();
-        // reset pills UI
-        document.querySelectorAll('.pill').forEach(p => p.dataset.selected = 'false');
-        return;
-      }
-
-      const selectedServices = [...document.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
-      const teamSize = document.querySelector('input[name="team_size"]:checked')?.value || '';
-
+      const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
+      const team_size = document.querySelector('input[name="team_size"]:checked')?.value || '';
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
 
-      if (!name || !emailRegex.test(email)) {
-        msg.textContent = "❌ Enter a valid name and email.";
-        return;
-      }
+      if (!name || !emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending…";
-      msg.textContent = "Sending…";
+      submitBtn.disabled = true; submitBtn.textContent="Sending…"; msg.textContent="Sending…";
 
       try {
         const res = await fetch(ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            // Step 1 data
-            services: selectedServices,
-            team_size: teamSize,
-            // Step 2 data
-            name, email, phone,
-            // Context
-            page: location.href,
-            ua: navigator.userAgent
-          })
+          body: JSON.stringify({ secret: SECRET, services, team_size, name, email, phone, page: location.href, ua: navigator.userAgent })
         });
-        const json = await res.json().catch(() => ({}));
-        if (res.ok && json?.ok) {
+        const json = await res.json().catch(()=>({}));
+        if (res.ok && json?.ok){
           msg.textContent = "✅ Got it. I’ll reply via email.";
           form.reset();
-          // reset pills UI
-          document.querySelectorAll('.pill').forEach(p => p.dataset.selected = 'false');
-          // back to step 1 for next submitter
-          step2.classList.remove('active');
-          step1.classList.add('active');
+          document.querySelectorAll('.pill').forEach(p=>p.dataset.selected='false');
+          step2.classList.remove('active'); step1.classList.add('active');
         } else {
-          msg.textContent = "❌ Send failed. Try again in a minute.";
+          msg.textContent = `❌ ${json?.error || "Send failed. Try again."}`;
         }
-      } catch (err) {
-        msg.textContent = "❌ Network error. Check your connection.";
+      } catch(err){
+        msg.textContent = "❌ Network error. Try again.";
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send Request";
+        submitBtn.disabled = false; submitBtn.textContent="Send Request";
       }
     });
   </script>
 </body>
 </html>
-
