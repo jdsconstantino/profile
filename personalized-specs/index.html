@@ -225,8 +225,20 @@
         <div class="actions">
 
         <!-- reCAPTCHA widget -->
-        <div class="g-recaptcha" data-sitekey="6Ld9CfErAAAAAIz9KumBlhlNxhgP30MpXa1q1Nn-"></div>
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          <div class="field">
+  <label>Message</label>
+  <textarea name="message" required></textarea>
+</div>
+
+<div class="captcha-wrap">
+  <div class="g-recaptcha"
+       data-sitekey="YOUR_SITE_KEY"
+       data-theme="dark"          <!-- or light -->
+       data-size="normal"></div>  <!-- or compact -->
+</div>
+
+<button class="btn btn-primary">Send</button>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
           <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
           <button type="submit" class="btn btn-primary" id="submitBtn">Send Request</button>
