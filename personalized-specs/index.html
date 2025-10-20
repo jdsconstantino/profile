@@ -16,14 +16,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Include italics too, because your About copy uses <em> -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    /* Page chrome to match Privacy template */
+    /* Match Privacy template shell */
     body {
-      background: #0d0f12;
+      background: #1b272e;
       color: #e6e9ef;
       font-family: "Plus Jakarta Sans", sans-serif;
       line-height: 1.7;
@@ -45,7 +44,7 @@
     a:hover { text-decoration: underline; }
     strong { color: #ffffff; font-weight: 600; }
 
-    /* Form UI (pills + layout) */
+    /* Form UI */
     .pillset { display:flex; flex-wrap:wrap; gap:10px; }
     .pill {
       display:inline-flex; align-items:center; justify-content:center;
@@ -56,10 +55,7 @@
       transition: background .2s, border-color .2s, transform .1s;
     }
     .pill:hover { transform: translateY(-1px); }
-    .pill[data-selected="true"] {
-      background: rgba(0,114,54,.18);
-      border-color: #007236;
-    }
+    .pill[data-selected="true"] { background: rgba(0,114,54,.18); border-color: #007236; }
     .pill input { display:none; }
 
     .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
@@ -67,25 +63,17 @@
     .form-field { display:flex; flex-direction:column; gap:6px; }
     .form-field label { font-weight:700; color:#e6e9ef; }
     .form-field input, .form-field textarea, .form-field select {
-      background: rgba(0,0,0,.25);
-      color: #e6e9ee;
+      background: rgba(0,0,0,.25); color: #e6e9ee;
       border: 1px solid rgba(255,255,255,.12);
-      border-radius: 10px;
-      padding: 12px 14px;
+      border-radius: 10px; padding: 12px 14px;
     }
     .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
-
-    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 18px; }
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
-    }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer; }
     .btn-primary { background:#007236; color:#fff; }
     .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
-
-    .step { display:none; }
-    .step.active { display:block; }
-
+    .step { display:none; } .step.active { display:block; }
     #formMsg { color:#c9d1d9; }
 
     @media (max-width: 700px) {
@@ -102,7 +90,7 @@
 
   <main>
     <h1>Personalized Specs</h1>
-    <p class="hint">Pick what you need → add your details → I’ll email you a plan.</p>
+    <p class="hint">Pick what you need → add your details → We’ll get back to you with a plan.</p>
 
     <form id="specForm" autocomplete="on" novalidate>
       <!-- Honeypot -->
@@ -170,16 +158,15 @@
 
   <div id="footer"></div>
   <script>
-    // Load footer like your template
     fetch("/footer.html").then(r => r.text()).then(html => (document.getElementById("footer").innerHTML = html));
   </script>
 
   <script>
-    // ====== CONFIG ======
+    /* ================= CONFIG ================= */
     const ENDPOINT = "https://script.google.com/macros/s/AKfycbxrwhcGt8inCQBn60Z5xxkp-cdVhZEzCZ6A2kqQiYGLvKww2OGGYKAu0aO-_LbC-v7nNw/exec";
     const SECRET   = "deskxp_spec_2025";
 
-    // Pill behavior + stepper + submit
+    /* ============== UI + Logic ============== */
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
@@ -189,7 +176,6 @@
     const msg = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
 
-    // pill toggles
     document.querySelectorAll('.pill input').forEach(input => {
       const label = input.closest('.pill');
       const sync = () => {
@@ -220,7 +206,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); msg.textContent = "";
 
-      // honeypot
+      // Honeypot
       if ((document.getElementById('website').value||'').trim()!==''){ msg.textContent="✅ Thanks!"; form.reset(); return; }
 
       const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
@@ -234,11 +220,16 @@
       submitBtn.disabled = true; submitBtn.textContent="Sending…"; msg.textContent="Sending…";
 
       try {
+        // NO Content-Type header => no CORS preflight
         const res = await fetch(ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ secret: SECRET, services, team_size, name, email, phone, page: location.href, ua: navigator.userAgent })
+          body: JSON.stringify({
+            secret: SECRET,
+            services, team_size, name, email, phone,
+            page: location.href, ua: navigator.userAgent
+          })
         });
+
         const json = await res.json().catch(()=>({}));
         if (res.ok && json?.ok){
           msg.textContent = "✅ Got it. I’ll reply via email.";
@@ -256,7 +247,6 @@
     });
   </script>
 
-  <!-- Your global JS (kept to mirror template) -->
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
