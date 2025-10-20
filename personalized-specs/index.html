@@ -57,33 +57,18 @@
     transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
     outline: none;
   }
-  /* hide inputs but keep accessible */
-  .pill input {
-    position:absolute; inset:0;
-    opacity:0; pointer-events:none;
-  }
-  .pill:hover {
-    transform: translateY(-1px);
-    background: rgba(0,114,54,.15);
-    border-color: rgba(0,255,153,.40);
-  }
+  .pill input { position:absolute; inset:0; opacity:0; pointer-events:none; }
+  .pill:hover { transform: translateY(-1px); background: rgba(0,114,54,.15); border-color: rgba(0,255,153,.40); }
   .pill:active { transform: scale(0.96); }
-  .pill:has(input:focus-visible) {
-    box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18);
-  }
-  /* ✅ selected state for BOTH checkboxes and radios */
+  .pill:has(input:focus-visible) { box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18); }
   .pill:has(input:checked) {
     background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
     border-color: #00b858;
     color: #eafff4;
     box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
   }
-  /* optional green dot indicator when selected */
   .pill:has(input:checked)::before {
-    content:"";
-    width:8px;height:8px;border-radius:50%;
-    background:#00e08a; margin-right:8px;
-    box-shadow: 0 0 8px rgba(0,224,138,.6);
+    content:""; width:8px;height:8px;border-radius:50%; background:#00e08a; margin-right:8px; box-shadow: 0 0 8px rgba(0,224,138,.6);
   }
 
   .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
@@ -109,7 +94,6 @@
   .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
   .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
 
-  /* Disabled state + spinner (your JS already disables on submit) */
   .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
   .btn[disabled]::after {
     content: "";
@@ -123,10 +107,7 @@
 
   .step { display:none; }
   .step.active { display:block; animation: fadeIn .25s ease-in; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   #formMsg { color:#c9d1d9; }
 
@@ -136,17 +117,16 @@
   .success-card {
     background:#0f1419;
     border:1px solid rgba(0, 255, 153, 0.18);
-    border-radius:16px;
-    padding:28px;
+    border-radius:16px; padding:28px;
     box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
   }
-  .check {
-    width:56px;height:56px;border-radius:50%;
-    background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
-    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
-  }
+  .check { width:56px;height:56px;border-radius:50%; background:#0a2d1a;border:1px solid rgba(0,255,153,.35); display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
   .check svg { width:28px;height:28px; }
   .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+  .captcha-wrap { display:grid; gap:8px; justify-items:start; margin-top:10px; }
+  .captcha-wrap .help { opacity:.7; font-size:.9rem; }
+  .captcha-wrap .legal { font-size:12px; opacity:.65; }
 
   @media (max-width: 700px) {
     main { padding: 32px 24px; margin: 60px auto; }
@@ -154,7 +134,7 @@
     .grid-2 { grid-template-columns: 1fr; }
     .pillset { justify-content: center; }
   }
-</style>
+  </style>
 </head>
 
 <body>
@@ -222,27 +202,22 @@
           </div>
         </div>
 
-        <div class="actions">
-
-        <!-- reCAPTCHA widget -->
-          <div class="field">
-  <label>Message</label>
-  <textarea name="message" required></textarea>
-</div>
-
-<div class="captcha-wrap">
-  <div class="g-recaptcha"
-       data-sitekey="YOUR_SITE_KEY"
-       data-theme="dark"          <!-- or light -->
-       data-size="normal"></div>  <!-- or compact -->
-</div>
-
-<button class="btn btn-primary">Send</button>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-          <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
-          <button type="submit" class="btn btn-primary" id="submitBtn">Send Request</button>
+        <!-- Invisible reCAPTCHA widget wrapper (hidden iframe; badge floats) -->
+        <div class="captcha-wrap">
+          <small class="help">Quick spam check before sending:</small>
+          <div id="recaptcha" class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" data-size="invisible"></div>
+          <small class="legal">Protected by reCAPTCHA —
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
+          </small>
         </div>
+
+        <!-- Buttons BELOW the captcha wrapper -->
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
+          <button type="button" class="btn btn-primary" id="submitBtn">Send Request</button>
+        </div>
+
         <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
       </section>
     </form>
@@ -266,44 +241,140 @@
     fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
+  <!-- Your app logic with captcha integration -->
   <script>
     const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
     const SECRET="deskxp_spec_2025";
-    const form=document.getElementById('specForm'),msg=document.getElementById('formMsg'),
-          step1=document.getElementById('step1'),step2=document.getElementById('step2'),
-          btnNext=document.getElementById('btnNext'),btnBack=document.getElementById('btnBack'),
-          submitBtn=document.getElementById('submitBtn'),success=document.getElementById('success'),
-          confName=document.getElementById('confName'),confEmail=document.getElementById('confEmail'),
+
+    const form=document.getElementById('specForm'),
+          msg=document.getElementById('formMsg'),
+          step1=document.getElementById('step1'),
+          step2=document.getElementById('step2'),
+          btnNext=document.getElementById('btnNext'),
+          btnBack=document.getElementById('btnBack'),
+          submitBtn=document.getElementById('submitBtn'),
+          success=document.getElementById('success'),
+          confName=document.getElementById('confName'),
           emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    btnNext.onclick=()=>{const s=document.querySelectorAll('input[name="services"]:checked').length,
-      t=document.querySelector('input[name="team_size"]:checked');
-      if(!s)return alert("Pick at least one service."); if(!t)return alert("Pick a team size.");
-      step1.classList.remove("active");step2.classList.add("active");document.getElementById("name").focus()};
+    let recaptchaWidgetId = null;
 
-    btnBack.onclick=()=>{step2.classList.remove("active");step1.classList.add("active")};
-
-    form.onsubmit=async e=>{
-      e.preventDefault();msg.textContent="";
-      if((document.getElementById("website").value||"").trim()!=="")return showSuccess("(bot)","(n/a)");
-      const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value),
-            team_size=document.querySelector('input[name="team_size"]:checked')?.value||"",
-            name=document.getElementById("name").value.trim(),
-            email=document.getElementById("email").value.trim(),
-            phone=document.getElementById("phone").value.trim(),
-            details=document.getElementById("details").value.trim();
-      if(!name||!emailRegex.test(email))return msg.textContent="❌ Enter a valid name and email.";
-      submitBtn.disabled=true;submitBtn.textContent="Sending…";msg.textContent="Sending…";
-      try{
-        const res=await fetch(ENDPOINT,{method:"POST",body:JSON.stringify({secret:SECRET,services,team_size,name,email,phone,details,page:location.href,ua:navigator.userAgent})});
-        const json=await res.json().catch(()=>({}));
-        if(res.ok&&json?.ok)showSuccess(name,email);else msg.textContent=`❌ ${json?.error||"Send failed. Try again."}`
-      }catch(err){msg.textContent="❌ Network error. Try again."}
-      finally{submitBtn.disabled=false;submitBtn.textContent="Send Request";}
+    // STEP NAV
+    btnNext.onclick=()=>{
+      const s=document.querySelectorAll('input[name="services"]:checked').length;
+      const t=document.querySelector('input[name="team_size"]:checked');
+      if(!s){alert("Pick at least one service."); return;}
+      if(!t){alert("Pick a team size."); return;}
+      step1.classList.remove("active");
+      step2.classList.add("active");
+      document.getElementById("name").focus();
     };
-    function showSuccess(name,email){form.style.display='none';success.classList.add('active');
-      confName.textContent=name||"there";confEmail.textContent=email||"";document.title="Request received — DeskXP";}
+    btnBack.onclick=()=>{ step2.classList.remove("active"); step1.classList.add("active"); };
+
+    // Invisible reCAPTCHA flow
+    submitBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      msg.textContent = "";
+
+      // Honeypot check first
+      if((document.getElementById("website").value||"").trim()!==""){ showSuccess("(bot)","(n/a)"); return; }
+
+      // Basic field validation before triggering captcha
+      const name=document.getElementById("name").value.trim();
+      const email=document.getElementById("email").value.trim();
+      if(!name || !emailRegex.test(email)){
+        msg.textContent="❌ Enter a valid name and email.";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Verifying…";
+
+      // Trigger the invisible challenge
+      if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) {
+        grecaptcha.execute(recaptchaWidgetId);
+      } else {
+        msg.textContent = "❌ Captcha not ready. Reload the page.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Request";
+      }
+    });
+
+    // Called by reCAPTCHA when passed
+    function onCaptchaOK(token){
+      doSubmit(token);
+    }
+    function onCaptchaError(){
+      msg.textContent = "❌ Captcha failed. Try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Request";
+      if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+    }
+
+    async function doSubmit(captchaToken){
+      msg.textContent="Sending…";
+      submitBtn.textContent="Sending…";
+
+      // Collect payload
+      const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
+      const team_size=document.querySelector('input[name="team_size"]:checked')?.value||"";
+      const name=document.getElementById("name").value.trim();
+      const email=document.getElementById("email").value.trim();
+      const phone=document.getElementById("phone").value.trim();
+      const details=document.getElementById("details").value.trim();
+
+      try{
+        const res=await fetch(ENDPOINT,{
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({
+            secret:SECRET,
+            services, team_size, name, email, phone, details,
+            page:location.href, ua:navigator.userAgent,
+            g_recaptcha_response: captchaToken     // include token for backend verification
+          })
+        });
+        const json=await res.json().catch(()=>({}));
+        if(res.ok && json?.ok){
+          showSuccess(name,email);
+        }else{
+          msg.textContent=`❌ ${json?.error||"Send failed. Try again."}`;
+          submitBtn.disabled=false; submitBtn.textContent="Send Request";
+          if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+        }
+      }catch(err){
+        msg.textContent="❌ Network error. Try again.";
+        submitBtn.disabled=false; submitBtn.textContent="Send Request";
+        if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+      }
+    }
+
+    function showSuccess(name,email){
+      form.style.display='none';
+      success.classList.add('active');
+      confName.textContent=name||"there";
+      document.title="Request received — DeskXP";
+    }
+
+    // Load footer
+    // (already loaded above)
   </script>
+
+  <!-- Load reCAPTCHA -->
+  <script>
+    function onRecaptchaLoad(){
+      // Render invisible widget into #recaptcha
+      recaptchaWidgetId = grecaptcha.render('recaptcha', {
+        sitekey: '6Ld9CfErAAAAAIz9KumBlhlNxhgP30MpXa1q1Nn-',
+        size: 'invisible',
+        badge: 'bottomright',
+        callback: onCaptchaOK,
+        'error-callback': onCaptchaError
+      });
+    }
+  </script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
