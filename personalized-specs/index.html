@@ -236,112 +236,168 @@
     fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
-  <!-- App logic + Invisible v2 (single source of truth) -->
   <script>
-    // ===== CONFIG =====
-    const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
-    const SECRET="deskxp_spec_2025";
-    const SITE_KEY_V2="6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
+  // ===== CONFIG =====
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
+  const SECRET   = "deskxp_spec_2025";
+  const SITE_KEY_V2 = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
 
-    // ===== DOM =====
-    const form=document.getElementById('specForm'),msg=document.getElementById('formMsg'),
-          step1=document.getElementById('step1'),step2=document.getElementById('step2'),
-          btnNext=document.getElementById('btnNext'),btnBack=document.getElementById('btnBack'),
-          submitBtn=document.getElementById('submitBtn'),success=document.getElementById('success'),
-          confName=document.getElementById('confName'),emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // ===== DOM =====
+  const form = document.getElementById('specForm'),
+        msg = document.getElementById('formMsg'),
+        step1 = document.getElementById('step1'),
+        step2 = document.getElementById('step2'),
+        btnNext = document.getElementById('btnNext'),
+        btnBack = document.getElementById('btnBack'),
+        submitBtn = document.getElementById('submitBtn'),
+        success = document.getElementById('success'),
+        confName = document.getElementById('confName'),
+        emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    let recaptchaWidgetId=null;
+  let recaptchaWidgetId = null;
 
-    // Gate readiness so we never hit "Captcha not ready"
-    window.recaptchaReady = new Promise((resolve)=>{
-      window.onRecaptchaLoad = function(){
-        recaptchaWidgetId = grecaptcha.render('recaptcha-root', {
-          sitekey: SITE_KEY_V2,
-          size: 'invisible',
-          badge: 'bottomright',
-          callback: onCaptchaOK,
-          'error-callback': onCaptchaError
-        });
-        resolve();
-      };
-    });
+  // ===== reCAPTCHA loader (single source of truth) =====
+  // Promise resolves once the widget is rendered and ready.
+  window.recaptchaReady = new Promise((resolve) => {
+    window.onRecaptchaLoad = function () {
+      recaptchaWidgetId = grecaptcha.render('recaptcha-root', {
+        sitekey: SITE_KEY_V2,
+        size: 'invisible',
+        badge: 'bottomright',
+        callback: onCaptchaOK,
+        'error-callback': onCaptchaError
+      });
+      resolve();
+    };
+  });
 
-    // Step nav
-    btnNext.onclick=()=>{const s=document.querySelectorAll('input[name="services"]:checked').length,
-      t=document.querySelector('input[name="team_size"]:checked');
-      if(!s)return alert("Pick at least one service."); if(!t)return alert("Pick a team size.");
-      step1.classList.remove("active");step2.classList.add("active");document.getElementById("name").focus()};
+  // ===== Step navigation =====
+  btnNext.onclick = () => {
+    const s = document.querySelectorAll('input[name="services"]:checked').length;
+    const t = document.querySelector('input[name="team_size"]:checked');
+    if (!s) return alert("Pick at least one service.");
+    if (!t) return alert("Pick a team size.");
+    step1.classList.remove("active");
+    step2.classList.add("active");
+    document.getElementById("name").focus();
+  };
 
-    btnBack.onclick=()=>{step2.classList.remove("active");step1.classList.add("active")};
+  btnBack.onclick = () => {
+    step2.classList.remove("active");
+    step1.classList.add("active");
+  };
 
-    // Trigger invisible challenge on click
-    submitBtn.addEventListener('click', async (e)=>{
-      e.preventDefault(); msg.textContent="";
-      if((document.getElementById("website").value||"").trim()!=="")return showSuccess("(bot)","(n/a)");
-      const name=document.getElementById("name").value.trim(),
-            email=document.getElementById("email").value.trim();
-      if(!name||!emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
+  // ===== Submit flow =====
+  submitBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
 
-      submitBtn.disabled=true; submitBtn.textContent="Verifying…";
-      await window.recaptchaReady; // ensure rendered
-      try {
-        grecaptcha.execute(recaptchaWidgetId);
-      } catch (err) {
-        console.error(err);
-        msg.textContent = "❌ Captcha init failed.";
-        submitBtn.disabled=false; submitBtn.textContent="Send Request";
+    // honeypot
+    if ((document.getElementById("website").value || "").trim() !== "")
+      return showSuccess("(bot)", "(n/a)");
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    if (!name || !emailRegex.test(email)) {
+      msg.textContent = "❌ Enter a valid name and email.";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Verifying…";
+
+    // Make sure the widget is actually ready
+    await window.recaptchaReady;
+    try {
+      grecaptcha.execute(recaptchaWidgetId);
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "❌ Captcha init failed.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Request";
+    }
+  });
+
+  // ===== reCAPTCHA callbacks =====
+  function onCaptchaOK(token) {
+    if (!token) { onCaptchaError(); return; }
+    doSubmit(token);
+  }
+
+  function onCaptchaError() {
+    msg.textContent = "❌ Captcha failed (client). Try again.";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Request";
+    if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+  }
+
+  // ===== POST to Apps Script (no preflight) =====
+  async function doSubmit(captchaToken) {
+    msg.textContent = "Sending…";
+    submitBtn.textContent = "Sending…";
+
+    const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i => i.value);
+    const team_size = document.querySelector('input[name="team_size"]:checked')?.value || "";
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const details = document.getElementById("details").value.trim();
+
+    const payload = {
+      secret: SECRET, services, team_size, name, email, phone, details,
+      page: location.href, ua: navigator.userAgent,
+      g_recaptcha_response: captchaToken, "g-recaptcha-response": captchaToken
+    };
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        body: new URLSearchParams({ payload: JSON.stringify(payload) })
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json?.ok) {
+        showSuccess(name);
+      } else {
+        msg.textContent = `❌ ${json?.error || "Send failed."} ${json?.codes ? `(${json.codes.join(',')})` : ""}`;
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Request";
+        if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
       }
+    } catch (err) {
+      msg.textContent = "❌ Network error. Try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Request";
+      if (recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
+    }
+  }
+
+  function showSuccess(name) {
+    form.style.display = 'none';
+    success.classList.add('active');
+    confName.textContent = name || "there";
+    document.title = "Request received — DeskXP";
+  }
+
+  // ===== Watcher: when the puzzle is open, neuter the header =====
+  (function watchCaptcha() {
+    const apply = () => {
+      const bubble = document.querySelector('.grecaptcha-bubble');
+      const visible = bubble &&
+        getComputedStyle(bubble).visibility !== 'hidden' &&
+        getComputedStyle(bubble).opacity !== '0';
+      document.body.classList.toggle('captcha-open', !!visible);
+    };
+    const mo = new MutationObserver(apply);
+    mo.observe(document.documentElement, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ['style','class']
     });
+    apply();
+  })();
+</script>
 
-    // reCAPTCHA callbacks
-    function onCaptchaOK(token){ if(!token){ onCaptchaError(); return;} doSubmit(token); }
-    function onCaptchaError(){
-      msg.textContent="❌ Captcha failed (client). Try again.";
-      submitBtn.disabled=false; submitBtn.textContent="Send Request";
-      if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
-    }
-
-    // Submit to Apps Script (URL-encoded to avoid CORS preflight)
-    async function doSubmit(captchaToken){
-      msg.textContent="Sending…"; submitBtn.textContent="Sending…";
-
-      const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
-      const team_size=document.querySelector('input[name="team_size"]:checked')?.value||"";
-      const name=document.getElementById("name").value.trim();
-      const email=document.getElementById("email").value.trim();
-      const phone=document.getElementById("phone").value.trim();
-      const details=document.getElementById("details").value.trim();
-
-      const payload={ secret:SECRET, services, team_size, name, email, phone, details,
-        page:location.href, ua:navigator.userAgent,
-        g_recaptcha_response: captchaToken, "g-recaptcha-response": captchaToken
-      };
-
-      try{
-        const res=await fetch(ENDPOINT,{ method:"POST", body: new URLSearchParams({ payload: JSON.stringify(payload) }) });
-        const json=await res.json().catch(()=>({}));
-        if(res.ok && json?.ok){ showSuccess(name,email); }
-        else{
-          msg.textContent=`❌ ${json?.error||"Send failed."} ${json?.codes?`(${json.codes.join(',')})`:''}`;
-          submitBtn.disabled=false; submitBtn.textContent="Send Request";
-          if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
-        }
-      }catch(err){
-        msg.textContent="❌ Network error. Try again.";
-        submitBtn.disabled=false; submitBtn.textContent="Send Request";
-        if(recaptchaWidgetId!==null)grecaptcha.reset(recaptchaWidgetId);
-      }
-    }
-
-    function showSuccess(name){
-      form.style.display='none'; success.classList.add('active');
-      confName.textContent=name||"there"; document.title="Request received — DeskXP";
-    }
-  </script>
-
-  <!-- reCAPTCHA container at ROOT (no duplicates) -->
-  <div id="recaptcha-root"></div>
-  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-  <script src="/js/main.js?v=211" defer></script>
+<!-- reCAPTCHA container at ROOT (no duplicates) -->
+<div id="recaptcha-root"></div>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 </body>
 </html>
