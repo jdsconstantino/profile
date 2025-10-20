@@ -378,44 +378,27 @@
     document.title = "Request received — DeskXP";
   }
 
-  <script>
-(function watchCaptcha(){
-  const isVisible = (el) => {
-    if (!el) return false;
-    const cs = getComputedStyle(el);
-    if (cs.display === 'none') return false;
-    if (cs.visibility !== 'visible') return false;
-    if (parseFloat(cs.opacity || '0') < 0.99) return false;
-
-    const r = el.getBoundingClientRect();
-    // Must have size and intersect the viewport
-    if (r.width <= 0 || r.height <= 0) return false;
-    const inViewport = r.bottom > 0 && r.right > 0 && r.top < window.innerHeight && r.left < window.innerWidth;
-    return inViewport;
-  };
-
-  const apply = () => {
-    const bubble = document.querySelector('.grecaptcha-bubble');
-    document.body.classList.toggle('captcha-open', isVisible(bubble));
-  };
-
-  const mo = new MutationObserver(() => requestAnimationFrame(apply));
-  mo.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['style','class']
-  });
-
-  window.addEventListener('resize', apply);
-  window.addEventListener('scroll', apply, true);
-
-  apply();
-})();
+  // ===== Watcher: when the puzzle is open, neuter the header =====
+  (function watchCaptcha() {
+    const apply = () => {
+      const bubble = document.querySelector('.grecaptcha-bubble');
+      const visible = bubble &&
+        getComputedStyle(bubble).visibility !== 'hidden' &&
+        getComputedStyle(bubble).opacity !== '0';
+      document.body.classList.toggle('captcha-open', !!visible);
+    };
+    const mo = new MutationObserver(apply);
+    mo.observe(document.documentElement, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ['style','class']
+    });
+    apply();
+  })();
 </script>
 
 <!-- reCAPTCHA container at ROOT (no duplicates) -->
 <div id="recaptcha-root"></div>
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+
 </body>
 </html>
