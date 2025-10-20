@@ -2,139 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Personalized Specs — DeskXP</title>
   <meta name="description" content="Pick the services you need, add your details, and I’ll email you a tailored CX plan." />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-  <link rel="stylesheet" href="/site.css?v=2120" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d0f12">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Include italics too, because your About copy uses <em> -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css?v=210">
+
   <style>
-    /* ===== Minimal inline styling so this looks right even if your site.css is stale ===== */
-    :root{
-      --dxp-green:#007236; --ink:#e7e9ee;
-      --pill-bg:rgba(255,255,255,.06); --pill-bg-active:rgba(0,114,54,.18);
-      --pill-border:rgba(255,255,255,.18); --pill-border-active:#007236;
+    /* Page chrome to match Privacy template */
+    body {
+      background: #0d0f12;
+      color: #e6e9ef;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      line-height: 1.7;
+      letter-spacing: -0.01em;
     }
-    body{color:var(--ink,#e7e9ee);}
-    .glass.sticky{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(8px);}
-    #specsHero{padding:56px 0 16px;text-align:center}
-    #specsHero .headline{font-size:2rem;margin-bottom:6px}
-    #specsHero .subhead{opacity:.85}
-    .section .container{max-width:1024px;margin:0 auto;padding:0 16px}
-    .card{background:rgba(255,255,255,.03);border-radius:14px;padding:24px;backdrop-filter:blur(6px)}
-    .muted{opacity:.85}.mt-2{margin-top:12px}.mt-4{margin-top:24px}
-    .pillset{display:flex;flex-wrap:wrap;gap:10px}
-    .pill{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid var(--pill-border);background:var(--pill-bg);color:var(--ink);font-weight:700;cursor:pointer;user-select:none;transition:background .2s,border-color .2s,transform .1s}
-    .pill:hover{transform:translateY(-1px)}
-    .pill[data-selected="true"]{background:var(--pill-bg-active);border-color:var(--pill-border-active)}
-    .pill input{display:none}
-    .form-field{display:flex;flex-direction:column;gap:6px}
-    .form-field input,.form-field textarea,.form-field select{background:rgba(0,0,0,.25);color:#e7e9ee;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-weight:800;border:0;cursor:pointer}
-    .btn-primary{background:var(--dxp-green);color:#fff}
-    .btn-ghost{background:transparent;color:#e7e9ee;border:1px solid rgba(255,255,255,.18)}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .step{display:none}.step.active{display:block}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .full{grid-column:1 / -1}
-    @media(max-width:820px){.grid-2{grid-template-columns:1fr}.pillset{justify-content:center}}
+    main {
+      max-width: 860px;
+      margin: 80px auto 120px;
+      background: #14181d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 56px 60px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    }
+    h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
+    h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
+    p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
+    a { color: #00b858; text-decoration: none; font-weight: 500; }
+    a:hover { text-decoration: underline; }
+    strong { color: #ffffff; font-weight: 600; }
+
+    /* Form UI (pills + layout) */
+    .pillset { display:flex; flex-wrap:wrap; gap:10px; }
+    .pill {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
+      transition: background .2s, border-color .2s, transform .1s;
+    }
+    .pill:hover { transform: translateY(-1px); }
+    .pill[data-selected="true"] {
+      background: rgba(0,114,54,.18);
+      border-color: #007236;
+    }
+    .pill input { display:none; }
+
+    .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .full { grid-column: 1 / -1; }
+    .form-field { display:flex; flex-direction:column; gap:6px; }
+    .form-field label { font-weight:700; color:#e6e9ef; }
+    .form-field input, .form-field textarea, .form-field select {
+      background: rgba(0,0,0,.25);
+      color: #e6e9ee;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
+
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 18px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
+    }
+    .btn-primary { background:#007236; color:#fff; }
+    .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
+
+    .step { display:none; }
+    .step.active { display:block; }
+
+    #formMsg { color:#c9d1d9; }
+
+    @media (max-width: 700px) {
+      main { padding: 32px 24px; margin: 60px auto; }
+      h1 { font-size: 2rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .pillset { justify-content: center; }
+    }
   </style>
 </head>
+
 <body>
-  <!-- Header -->
-  <header class="site-header glass sticky">
-    <a href="/" class="logo"><img src="/assets/logo.svg" alt="DeskXP" style="height:32px"></a>
-    <nav class="nav-links">
-      <a href="/services/">Services</a>
-      <a href="/success-stories/">Success Stories</a>
-      <a href="/about/">About</a>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
-  <!-- Hero -->
-  <section class="hero" id="specsHero">
-    <div class="inner">
-      <h1 class="headline">Personalized Specs</h1>
-      <p class="subhead">Pick what you need → add your details → I’ll email you a plan.</p>
-    </div>
-  </section>
+  <main>
+    <h1>Personalized Specs</h1>
+    <p class="hint">Pick what you need → add your details → I’ll email you a plan.</p>
 
-  <!-- Form -->
-  <section class="section">
-    <div class="container card">
-      <form id="specForm" autocomplete="on" novalidate>
-        <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
+    <form id="specForm" autocomplete="on" novalidate>
+      <!-- Honeypot -->
+      <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
 
-        <!-- STEP 1 -->
-        <div class="step active" id="step1" aria-labelledby="s1title">
-          <h2 class="step-title" id="s1title" style="font-weight:800;margin-bottom:8px">1) Select services you need</h2>
-          <p class="muted">Multi-select.</p>
-          <div class="pillset" id="servicesPills" role="group" aria-label="Services">
-            <label class="pill" data-selected="false" for="svc_cx"><input type="checkbox" id="svc_cx" name="services" value="CX End to End management">CX End to End management</label>
-            <label class="pill" data-selected="false" for="svc_onboard"><input type="checkbox" id="svc_onboard" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
-            <label class="pill" data-selected="false" for="svc_opt"><input type="checkbox" id="svc_opt" name="services" value="Zendesk optimization">Zendesk optimization</label>
-            <label class="pill" data-selected="false" for="svc_omni"><input type="checkbox" id="svc_omni" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
-            <label class="pill" data-selected="false" for="svc_dash"><input type="checkbox" id="svc_dash" name="services" value="Dashboard">Dashboard</label>
-            <label class="pill" data-selected="false" for="svc_integ"><input type="checkbox" id="svc_integ" name="services" value="Integration and automation">Integration and automation</label>
-            <label class="pill" data-selected="false" for="svc_ai"><input type="checkbox" id="svc_ai" name="services" value="AI Agents">AI Agents</label>
-            <label class="pill" data-selected="false" for="svc_qa"><input type="checkbox" id="svc_qa" name="services" value="QA and CSAT">QA and CSAT</label>
-            <label class="pill" data-selected="false" for="svc_guide"><input type="checkbox" id="svc_guide" name="services" value="Zendesk Guide">Zendesk Guide</label>
+      <!-- STEP 1 -->
+      <section class="step active" id="step1" aria-labelledby="s1title">
+        <h2 id="s1title">1) Select services you need</h2>
+        <p class="hint">Multi-select.</p>
+        <div class="pillset" id="servicesPills" role="group" aria-label="Services">
+          <label class="pill" data-selected="false" for="svc_cx"><input type="checkbox" id="svc_cx" name="services" value="CX End to End management">CX End to End management</label>
+          <label class="pill" data-selected="false" for="svc_onboard"><input type="checkbox" id="svc_onboard" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
+          <label class="pill" data-selected="false" for="svc_opt"><input type="checkbox" id="svc_opt" name="services" value="Zendesk optimization">Zendesk optimization</label>
+          <label class="pill" data-selected="false" for="svc_omni"><input type="checkbox" id="svc_omni" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
+          <label class="pill" data-selected="false" for="svc_dash"><input type="checkbox" id="svc_dash" name="services" value="Dashboard">Dashboard</label>
+          <label class="pill" data-selected="false" for="svc_integ"><input type="checkbox" id="svc_integ" name="services" value="Integration and automation">Integration and automation</label>
+          <label class="pill" data-selected="false" for="svc_ai"><input type="checkbox" id="svc_ai" name="services" value="AI Agents">AI Agents</label>
+          <label class="pill" data-selected="false" for="svc_qa"><input type="checkbox" id="svc_qa" name="services" value="QA and CSAT">QA and CSAT</label>
+          <label class="pill" data-selected="false" for="svc_guide"><input type="checkbox" id="svc_guide" name="services" value="Zendesk Guide">Zendesk Guide</label>
+        </div>
+
+        <h2 id="s1size">2) Team size</h2>
+        <p class="hint">Pick one.</p>
+        <div class="pillset" id="sizePills" role="radiogroup" aria-labelledby="s1size">
+          <label class="pill" data-selected="false" for="size_1_10"><input type="radio" id="size_1_10" name="team_size" value="1-10">1–10</label>
+          <label class="pill" data-selected="false" for="size_11_30"><input type="radio" id="size_11_30" name="team_size" value="11-30">11–30</label>
+          <label class="pill" data-selected="false" for="size_31_50"><input type="radio" id="size_31_50" name="team_size" value="31-50">31–50</label>
+          <label class="pill" data-selected="false" for="size_50_100"><input type="radio" id="size_50_100" name="team_size" value="50-100">50–100</label>
+          <label class="pill" data-selected="false" for="size_100p"><input type="radio" id="size_100p" name="team_size" value="100+">100+</label>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btnNext">Next</button>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" id="step2" aria-labelledby="s2title">
+        <h2 id="s2title">3) Your details</h2>
+        <div class="grid-2">
+          <div class="form-field">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required>
           </div>
-
-          <h2 class="step-title mt-4" id="s1size" style="font-weight:800;margin-bottom:8px">2) Team size</h2>
-          <p class="muted">Pick one.</p>
-          <div class="pillset" id="sizePills" role="radiogroup" aria-labelledby="s1size">
-            <label class="pill" data-selected="false" for="size_1_10"><input type="radio" id="size_1_10" name="team_size" value="1-10">1–10</label>
-            <label class="pill" data-selected="false" for="size_11_30"><input type="radio" id="size_11_30" name="team_size" value="11-30">11–30</label>
-            <label class="pill" data-selected="false" for="size_31_50"><input type="radio" id="size_31_50" name="team_size" value="31-50">31–50</label>
-            <label class="pill" data-selected="false" for="size_50_100"><input type="radio" id="size_50_100" name="team_size" value="50-100">50–100</label>
-            <label class="pill" data-selected="false" for="size_100p"><input type="radio" id="size_100p" name="team_size" value="100+">100+</label>
+          <div class="form-field">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
           </div>
-
-          <div class="actions mt-4">
-            <button type="button" class="btn btn-primary" id="btnNext">Next</button>
+          <div class="form-field full">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
           </div>
         </div>
 
-        <!-- STEP 2 -->
-        <div class="step" id="step2" aria-labelledby="s2title">
-          <h2 class="step-title" id="s2title" style="font-weight:800;margin-bottom:8px">3) Your details</h2>
-          <div class="grid-2">
-            <div class="form-field">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" name="name" placeholder="Jane Doe" required>
-            </div>
-            <div class="form-field">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" required>
-            </div>
-            <div class="form-field full">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
-            </div>
-          </div>
-
-          <div class="actions mt-4">
-            <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
-            <button type="submit" class="btn btn-primary" id="submitBtn">Send Request</button>
-          </div>
-          <div id="formMsg" class="muted mt-2" role="status" aria-live="polite"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Send Request</button>
         </div>
-      </form>
+        <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
+      </section>
+    </form>
 
-      <p class="muted mt-4">By submitting, you agree to be contacted about your project. No spam. No BS.</p>
-    </div>
-  </section>
+    <p class="hint" style="margin-top:18px">By submitting, you agree to be contacted about your project. No spam. No BS.</p>
+  </main>
 
-  <footer class="dxp-footer">
-    <p>© 2025 DeskXP. All rights reserved.</p>
-  </footer>
+  <div id="footer"></div>
+  <script>
+    // Load footer like your template
+    fetch("/footer.html").then(r => r.text()).then(html => (document.getElementById("footer").innerHTML = html));
+  </script>
 
   <script>
-    // ====== CONFIG — REPLACE THIS WITH YOUR WEB APP URL ======
+    // ====== CONFIG ======
     const ENDPOINT = "https://script.google.com/macros/s/AKfycbxrwhcGt8inCQBn60Z5xxkp-cdVhZEzCZ6A2kqQiYGLvKww2OGGYKAu0aO-_LbC-v7nNw/exec";
-    const SECRET   = "deskxp_spec_2025"; // change both here and in Apps Script
+    const SECRET   = "deskxp_spec_2025";
 
-    // ----- UI logic -----
+    // Pill behavior + stepper + submit
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
@@ -144,6 +189,7 @@
     const msg = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
 
+    // pill toggles
     document.querySelectorAll('.pill input').forEach(input => {
       const label = input.closest('.pill');
       const sync = () => {
@@ -161,10 +207,10 @@
     });
 
     btnNext.addEventListener('click', () => {
-      const selectedServices = [...document.querySelectorAll('input[name="services"]:checked')];
-      const teamSize = document.querySelector('input[name="team_size"]:checked');
-      if (!selectedServices.length) { alert('Pick at least one service.'); return; }
-      if (!teamSize) { alert('Pick a team size.'); return; }
+      const hasService = !!document.querySelector('input[name="services"]:checked');
+      const hasSize = !!document.querySelector('input[name="team_size"]:checked');
+      if (!hasService) { alert('Pick at least one service.'); return; }
+      if (!hasSize) { alert('Pick a team size.'); return; }
       step1.classList.remove('active'); step2.classList.add('active');
       document.getElementById('name').focus();
     });
@@ -173,6 +219,8 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); msg.textContent = "";
+
+      // honeypot
       if ((document.getElementById('website').value||'').trim()!==''){ msg.textContent="✅ Thanks!"; form.reset(); return; }
 
       const services = [...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
@@ -207,5 +255,8 @@
       }
     });
   </script>
+
+  <!-- Your global JS (kept to mirror template) -->
+  <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
