@@ -29,7 +29,7 @@
       --ink:#0f172a;
       --chip:#eef5ef;
       --chip-b:#dfe8e1;
-      --accent:#007236;     /* replace with your real brand color when ready */
+      --accent:#007236;      /* swap to your real brand hex when ready */
       --accent2:#00b858;
       --header-offset:84px;
       --card-b:#e6e9ef;
@@ -48,14 +48,35 @@
       overflow-x:hidden;
     }
 
-    .page{ max-width:1220px; margin:32px auto 96px; padding:0 18px; position:relative; }
+    .page{
+      max-width:1220px;
+      margin:32px auto 96px;
+      padding:0 18px;
+      position:relative;
+    }
+
     .title{
       text-align:center;
       font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
-      font-weight:900; letter-spacing:-.02em; margin:10px 0 26px;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin:10px 0 26px;
     }
 
-    /* Reuse your card aesthetic for stories */
+    /* Shared card aesthetic (matches Services) */
+    .card{
+      background:#fff;
+      color:var(--ink);
+      border:1px solid var(--card-b);
+      border-radius:18px;
+      padding:22px 22px 18px;
+      box-shadow:0 16px 36px rgba(0,0,0,.18);
+      scroll-margin-top:calc(var(--header-offset) + 12px);
+    }
+    .card h2{ margin:0 0 8px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
+    .card p{ color:#334155; margin:12px 0; line-height:1.65; }
+
+    /* Story wrapper + hero panels */
     .story{ display:grid; grid-template-columns:1fr; gap:18px; position:relative; z-index:2; }
     .hero{
       background:linear-gradient(180deg,#0f2026,#0c1b21);
@@ -77,16 +98,6 @@
     .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:700; color:#2f3b45; font-size:.9rem }
     .disclaimer{ margin-top:10px; color:var(--muted); font-size:.92rem }
 
-    .card{
-      background:#fff; color:var(--ink);
-      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
-      box-shadow:0 16px 36px rgba(0,0,0,.18);
-      scroll-margin-top:calc(var(--header-offset) + 12px);
-    }
-    .card h2{ margin:0 0 8px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
-    .card p{ color:#334155; margin:12px 0; line-height:1.65; }
-    .pull{ margin:14px 0; padding:12px 14px; border-left:4px solid var(--accent2); background:#f7faf7; color:#26323a; border-radius:10px }
-
     /* Background grid like Services */
     .markers{
       position:absolute; inset:0; pointer-events:none;
@@ -100,7 +111,7 @@
   </style>
 </head>
 <body>
-  <!-- Header is loaded the SAME WAY as Services (via main.js). -->
+  <!-- Header is injected by /js/main.js (same as Services) -->
   <div id="site-header"></div>
 
   <main class="page">
@@ -118,7 +129,7 @@
           <p>PalawanPay launched in 2022 into a crowded PH fintech market. Competing with unicorns meant the bar for customer care wasn’t “answer tickets” — it was build a disciplined, data-driven operation that could scale without chaos.</p>
         </div>
       </div>
-      <div class="chips">
+      <div class="chips" aria-label="Themes">
         <span class="chip">Operations Design</span>
         <span class="chip">Zendesk Suite</span>
         <span class="chip">Automation &amp; AI</span>
@@ -126,7 +137,7 @@
         <span class="chip">Reporting</span>
         <span class="chip">Cost Optimization</span>
       </div>
-      <p class="disclaimer">Generalized language and ranges to respect privacy. No live data or internal artifacts.</p>
+      <p class="disclaimer">This narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts are shown.</p>
     </section>
 
     <section class="story" aria-label="PalawanPay case">
@@ -191,6 +202,7 @@
   </main>
 
   <div id="footer"></div>
+
   <script>
     fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
@@ -203,6 +215,7 @@
       if(el) el.scrollIntoView({behavior:"instant",block:"start"});
     })();
   </script>
+  <!-- IMPORTANT: header partial is injected the same way as Services via main.js -->
   <script src="/js/main.js?v=215" defer></script>
 </body>
 </html>
