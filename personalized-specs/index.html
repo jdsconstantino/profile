@@ -20,89 +20,132 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    /* Match Privacy template shell */
-    body {
-      background: #1b272e;
-      color: #e6e9ef;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.7;
-      letter-spacing: -0.01em;
-    }
-    main {
-      max-width: 860px;
-      margin: 80px auto 120px;
-      background: #14181d;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
-      padding: 56px 60px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-    }
-    h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
-    h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
-    p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
-    a { color: #00b858; text-decoration: none; font-weight: 500; }
-    a:hover { text-decoration: underline; }
-    strong { color: #ffffff; font-weight: 600; }
-    .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
+  /* Match Privacy template shell */
+  body {
+    background: #1b272e;
+    color: #e6e9ef;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+  }
+  main {
+    max-width: 860px;
+    margin: 80px auto 120px;
+    background: #14181d;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 56px 60px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+  }
+  h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
+  h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
+  p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
+  a { color: #00b858; text-decoration: none; font-weight: 500; }
+  a:hover { text-decoration: underline; }
+  strong { color: #ffffff; font-weight: 600; }
+  .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
 
-    /* Form UI */
-    .pillset { display:flex; flex-wrap:wrap; gap:10px; }
-    .pill {
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-      color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
-      transition: background .2s, border-color .2s, transform .1s;
-    }
-    .pill:hover { transform: translateY(-1px); }
-    .pill[data-selected="true"] { background: rgba(0,114,54,.18); border-color: #007236; }
-    .pill input { display:none; }
+  /* Form UI */
+  .pillset { display:flex; flex-wrap:wrap; gap:10px; }
+  .pill {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 14px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
+    transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
+    outline: none;
+  }
+  .pill:hover {
+    transform: translateY(-1px);
+    background: rgba(0,114,54,.15);
+    border-color: rgba(0,255,153,.40);
+  }
+  .pill:active { transform: scale(0.96); }
+  .pill:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18);
+  }
+  .pill[data-selected="true"] {
+    background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
+    border-color: #00b858;
+    color: #eafff4;
+    box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
+  }
+  .pill input { display:none; }
 
-    .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-    .full { grid-column: 1 / -1; }
-    .form-field { display:flex; flex-direction:column; gap:6px; }
-    .form-field label { font-weight:700; color:#e6e9ef; }
-    .form-field input, .form-field textarea {
-      background: rgba(0,0,0,.25); color: #e6e9ee;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 10px; padding: 12px 14px;
-    }
-    textarea { resize: vertical; min-height: 120px; }
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .full { grid-column: 1 / -1; }
+  .form-field { display:flex; flex-direction:column; gap:6px; }
+  .form-field label { font-weight:700; color:#e6e9ef; }
+  .form-field input, .form-field textarea {
+    background: rgba(0,0,0,.25); color: #e6e9ee;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  textarea { resize: vertical; min-height: 120px; }
 
-    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
-    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer; }
-    .btn-primary { background:#007236; color:#fff; }
-    .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
-    .step { display:none; } .step.active { display:block; }
-    #formMsg { color:#c9d1d9; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
+    position: relative; transition: transform .08s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background:#007236; color:#fff; }
+  .btn-primary:hover { background:#0a8b47; box-shadow: 0 6px 18px rgba(0,184,88,.25); }
+  .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
+  .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
 
-    /* Success state */
-    #success { display:none; }
-    #success.active { display:block; }
-    .success-card {
-      background:#0f1419;
-      border:1px solid rgba(0, 255, 153, 0.18);
-      border-radius:16px;
-      padding:28px;
-      box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .check {
-      width:56px;height:56px;border-radius:50%;
-      background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
-      display:flex;align-items:center;justify-content:center;margin-bottom:12px;
-    }
-    .check svg { width:28px;height:28px; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  /* Disabled state + spinner (your JS already disables on submit) */
+  .btn[disabled] {
+    opacity: .85; cursor: not-allowed; box-shadow: none;
+  }
+  .btn[disabled]::after {
+    content: "";
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.45);
+    border-top-color: #fff;
+    position: absolute; right: 12px; /* keeps text readable */
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-    @media (max-width: 700px) {
-      main { padding: 32px 24px; margin: 60px auto; }
-      h1 { font-size: 2rem; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .pillset { justify-content: center; }
-    }
-  </style>
+  .step { display:none; }
+  .step.active { display:block; animation: fadeIn .25s ease-in; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #formMsg { color:#c9d1d9; }
+
+  /* Success state */
+  #success { display:none; }
+  #success.active { display:block; }
+  .success-card {
+    background:#0f1419;
+    border:1px solid rgba(0, 255, 153, 0.18);
+    border-radius:16px;
+    padding:28px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .check {
+    width:56px;height:56px;border-radius:50%;
+    background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+  }
+  .check svg { width:28px;height:28px; }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  @media (max-width: 700px) {
+    main { padding: 32px 24px; margin: 60px auto; }
+    h1 { font-size: 2rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .pillset { justify-content: center; }
+  }
+</style>
 </head>
 
 <body>
@@ -110,7 +153,7 @@
 
   <main>
     <h1 id="pageTitle">Personalized Specs</h1>
-    <p class="hint">Pick what you need → add your details → I’ll email you a plan.</p>
+    <p class="hint">Choose your scope → share your details → get a custom CX rollout plan.</p>
 
     <!-- FORM -->
     <form id="specForm" autocomplete="on" novalidate>
@@ -119,7 +162,7 @@
 
       <!-- STEP 1 -->
       <section class="step active" id="step1">
-        <h2>1) Select services you need</h2>
+        <h2>Select services you need</h2>
         <p class="hint">Multi-select.</p>
         <div class="pillset" id="servicesPills">
           <label class="pill"><input type="checkbox" name="services" value="CX End to End management">CX End to End management</label>
@@ -133,7 +176,7 @@
           <label class="pill"><input type="checkbox" name="services" value="Zendesk Guide">Zendesk Guide</label>
         </div>
 
-        <h2>2) Team size</h2>
+        <h2>Select your team size</h2>
         <p class="hint">Pick one.</p>
         <div class="pillset" id="sizePills">
           <label class="pill"><input type="radio" name="team_size" value="1-10">1–10</label>
@@ -150,7 +193,7 @@
 
       <!-- STEP 2 -->
       <section class="step" id="step2">
-        <h2>3) Your details</h2>
+        <h2>Your details</h2>
         <div class="grid-2">
           <div class="form-field">
             <label for="name">Full Name *</label>
