@@ -50,14 +50,6 @@
 
     .wrap{max-width:var(--page-max); margin:28px auto 96px; padding:0 18px; position:relative}
 
-    /* Breadcrumbs */
-    .crumbs{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:.92rem; color:var(--muted); margin:8px 0 6px}
-    .crumbs a{color:var(--muted); text-decoration:none}
-    .crumbs a:hover{text-decoration:underline}
-
-    .title{margin:8px 0 8px; font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem); font-weight:900; letter-spacing:-.02em}
-    .subtitle{margin:0 0 24px; color:var(--muted); font-weight:600}
-
     /* Hero */
     .hero{
       background:linear-gradient(180deg,#0f2026,#0c1b21);
@@ -124,11 +116,11 @@
 </head>
 <body>
   <div id="site-header"></div>
-
-  <main class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a> › <a href="/profile/">Profile</a> › <a href="/profile/success-stories/">Success Stories</a> › <span>PalawanPay</span>
-    </nav>
+    <script>
+      fetch("/profile/partials/header.html")
+      .then(r => r.text())
+      .then(h => document.getElementById("site-header").innerHTML = h);
+    </script>
 
     <h1 class="title">Success Stories</h1>
     <p class="subtitle">Real work, told straight. No sensitive data — just the decisions that moved the needle.</p>
