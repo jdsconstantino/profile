@@ -244,7 +244,6 @@ main, .captcha-wrap, body, html {
       </section>
     </form>
     
-    <div id="recaptcha-root"></div>
       <div class="captcha-wrap">
           <small class="hint">AI’s cool. Bot spam’s not. 😭</small>
           <br>
@@ -364,11 +363,32 @@ main, .captcha-wrap, body, html {
       });
     }
     window.onRecaptchaLoad=onRecaptchaLoad;
+    const SITE_KEY = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
+
+function onRecaptchaLoad() {
+  window.recaptchaWidgetId = grecaptcha.render("recaptcha-root", {
+    sitekey: SITE_KEY,
+    size: "invisible",
+    badge: "bottomright",
+    callback: onCaptchaOK,
+    "error-callback": onCaptchaError,
+  });
+}
+
+function onCaptchaOK(token) {
+  console.log("✅ reCAPTCHA success:", token);
+  document.getElementById("specForm").submit();
+}
+
+function onCaptchaError() {
+  console.error("❌ reCAPTCHA error");
+  alert("Captcha failed. Please try again.");
+}
   </script>
 
-  <!-- Load reCAPTCHA v2 API (explicit) -->
+  <!-- reCAPTCHA container -->
+  <div id="recaptcha-root"></div>
   <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
