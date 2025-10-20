@@ -296,7 +296,7 @@
       recaptchaWidgetId = grecaptcha.render('recaptcha', {
         sitekey: SITE_KEY_V2,
         size: 'invisible',
-        badge: 'bottomright', // bottomleft | inline
+        badge: 'inline',
         callback: onCaptchaOK,
         'error-callback': onCaptchaError
       });
