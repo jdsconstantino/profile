@@ -102,6 +102,29 @@
       mask-image:linear-gradient(#0007,#000);
       z-index:1; border-radius:22px;
     }
+    <style>
+  /* Tighten the gap directly under the global header on this page */
+  .page{ margin-top: 0 !important; }
+
+  /* Page title margin was adding extra headroom */
+  .title{ margin-top: 0 !important; }
+
+  /* Some headers inject a spacer; neutralize it here */
+  #site-header + .header-spacer,
+  .site-header-spacer,
+  .nav-spacer{
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: none !important;
+  }
+
+  /* If your header has extra bottom padding, clamp it */
+  header, .site-header{
+    padding-bottom: 0 !important;
+  }
+</style>
+
   </style>
 </head>
 <body>
