@@ -105,15 +105,6 @@
   </style>
 </head>
 <body>
-  <div id="site-header"></div>
-  <script>
-    /* Load the same header partial the Services page uses (profile path). */
-    fetch("/profile/partials/header.html")
-      .then(r => r.text())
-      .then(h => { document.getElementById("site-header").innerHTML = h; })
-      .catch(()=>{ /* fail silently to avoid overlaying 404 HTML */ });
-  </script>
-
   <main class="page">
     <h1 class="title">Success Stories</h1>
     <div class="markers"></div>
