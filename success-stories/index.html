@@ -29,7 +29,7 @@
       --ink:#0f172a;
       --chip:#eef5ef;
       --chip-b:#dfe8e1;
-      --accent:#007236; /* swap to your real brand hex when ready */
+      --accent:#007236; /* replace when you give me the real brand hex */
       --accent2:#00b858;
       --header-offset:84px;
       --card-b:#e6e9ef;
@@ -49,14 +49,18 @@
       overflow-x:hidden;
     }
 
-    /* --- HARD GUARD: force non-home header style on this page --- */
-    body:not(.is-home) .site-header,
-    body:not(.is-home) header.site-header {
+    /* 🔒 HARD GUARD — FORCE INNER-PAGE HEADER (wins against home rules)
+       We scope to #page-success-stories for max specificity.
+    */
+    #page-success-stories .site-header,
+    #page-success-stories header.site-header,
+    #page-success-stories #site-header header {
       position: fixed !important;
       top: 0; left: 0; right: 0;
       background: rgba(13,15,18,.95) !important;
       backdrop-filter: saturate(140%) blur(8px);
       box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      transform: translateZ(0);
       z-index: 1000;
     }
 
@@ -75,7 +79,7 @@
       margin:10px 0 26px;
     }
 
-    /* Story/hero styling to match Services card aesthetic */
+    /* Story/hero styling (matches your card look) */
     .story{ display:grid; grid-template-columns:1fr; gap:18px; position:relative; z-index:2; }
 
     .hero{
@@ -121,8 +125,10 @@
     }
   </style>
 </head>
-<body>
-  <!-- Header placeholder -->
+
+<!-- Add ID + explicit data-page to block home logic -->
+<body id="page-success-stories" data-page="inner">
+  <!-- Header placeholder (injected by /js/main.js just like Services) -->
   <div id="site-header"></div>
 
   <main class="page">
@@ -219,7 +225,9 @@
       .then(r=>r.text())
       .then(h=>document.getElementById("footer").innerHTML=h);
   </script>
+
   <script>
+    /* Anchor respect (same as Services) */
     (function(){
       const q=new URLSearchParams(location.search).get("s");
       if(!q) return;
@@ -228,7 +236,48 @@
       if(el) el.scrollIntoView({behavior:"instant",block:"start"});
     })();
   </script>
-  <!-- Header partial -->
+
+  <!-- Header partial is injected the same way as Services via main.js -->
   <script src="/js/main.js?v=215" defer></script>
+
+  <script>
+    /* 🛡️ Post-injection normalizer:
+       If your global JS adds home/transparent classes, we rip them off. */
+    (function normalizeHeader(){
+      const ready = () => {
+        const hdr =
+          document.querySelector('#site-header header') ||
+          document.querySelector('.site-header') ||
+          document.querySelector('header.site-header');
+
+        if (!hdr) return false;
+
+        // Kill any home/transparent classes your header script might add
+        ['is-home','home','transparent','is-transparent','overlay','floating','at-top'].forEach(c => hdr.classList.remove(c));
+
+        // Force fixed + opaque in case inline styles were set by other scripts
+        hdr.style.position = 'fixed';
+        hdr.style.top = '0';
+        hdr.style.left = '0';
+        hdr.style.right = '0';
+        hdr.style.background = 'rgba(13,15,18,.95)';
+        hdr.style.backdropFilter = 'saturate(140%) blur(8px)';
+        hdr.style.boxShadow = '0 8px 24px rgba(0,0,0,.35)';
+        hdr.style.zIndex = '1000';
+
+        // Some site shells add body classes; ensure no 'is-home'
+        document.body.classList.remove('is-home');
+
+        return true;
+      };
+
+      // Try after load; if not present yet (async injection), observe DOM
+      window.addEventListener('load', () => {
+        if (ready()) return;
+        const obs = new MutationObserver(() => { if (ready()) obs.disconnect(); });
+        obs.observe(document.getElementById('site-header'), { childList:true, subtree:true });
+      });
+    })();
+  </script>
 </body>
 </html>
