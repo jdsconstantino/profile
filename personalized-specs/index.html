@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-  /* Match Privacy template shell */
   body {
     background: #1b272e;
     color: #e6e9ef;
@@ -45,7 +44,6 @@
   strong { color: #ffffff; font-weight: 600; }
   .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
 
-  /* Form UI */
   .pillset { display:flex; flex-wrap:wrap; gap:10px; }
   .pill {
     position: relative;
@@ -58,26 +56,17 @@
     outline: none;
   }
   .pill input { position:absolute; inset:0; opacity:0; pointer-events:none; }
-  .pill:hover {
-    transform: translateY(-1px);
-    background: rgba(0,114,54,.15);
-    border-color: rgba(0,255,153,.40);
-  }
+  .pill:hover { transform: translateY(-1px); background: rgba(0,114,54,.15); border-color: rgba(0,255,153,.40); }
   .pill:active { transform: scale(0.96); }
-  .pill:has(input:focus-visible) {
-    box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18);
-  }
+  .pill:has(input:focus-visible) { box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18); }
   .pill:has(input:checked) {
     background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
-    border-color: #00b858;
-    color: #eafff4;
+    border-color: #00b858; color: #eafff4;
     box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
   }
   .pill:has(input:checked)::before {
-    content:"";
-    width:8px;height:8px;border-radius:50%;
-    background:#00e08a; margin-right:8px;
-    box-shadow: 0 0 8px rgba(0,224,138,.6);
+    content:""; width:8px;height:8px;border-radius:50%;
+    background:#00e08a; margin-right:8px; box-shadow: 0 0 8px rgba(0,224,138,.6);
   }
 
   .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
@@ -103,35 +92,25 @@
   .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
   .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
 
-  /* Disabled state + spinner */
   .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
   .btn[disabled]::after {
-    content: "";
-    width: 16px; height: 16px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,.45);
-    border-top-color: #fff;
-    position: absolute; right: 12px;
-    animation: spin .7s linear infinite;
+    content: ""; width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.45); border-top-color: #fff;
+    position: absolute; right: 12px; animation: spin .7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .step { display:none; }
   .step.active { display:block; animation: fadeIn .25s ease-in; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   #formMsg { color:#c9d1d9; }
 
-  /* Success state */
   #success { display:none; }
   #success.active { display:block; }
   .success-card {
-    background:#0f1419;
-    border:1px solid rgba(0, 255, 153, 0.18);
-    border-radius:16px;
-    padding:28px;
+    background:#0f1419; border:1px solid rgba(0, 255, 153, 0.18);
+    border-radius:16px; padding:28px;
     box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
   }
   .check { width:56px;height:56px;border-radius:50%; background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
@@ -139,34 +118,20 @@
   .check svg { width:28px;height:28px; }
   .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
-  /* Ensure captcha isn't clipped by any overflow/transform */
-  .captcha-wrap, .captcha-wrap * { overflow: visible !important; }
+  /* Keep Google’s bubble above everything + avoid clipping */
+  .grecaptcha-badge,
+  .grecaptcha-bubble,
+  .grecaptcha-bubble-arrow { position: fixed !important; z-index: 2147483647 !important; }
+  html, body, main, form, .captcha-wrap { overflow: visible !important; transform: none !important; perspective: none !important; filter: none !important; }
+  #site-header { position: relative !important; z-index: 1000 !important; }
+
   @media (max-width: 700px) {
     main { padding: 32px 24px; margin: 60px auto; }
     h1 { font-size: 2rem; }
     .grid-2 { grid-template-columns: 1fr; }
     .pillset { justify-content: center; }
   }
-  /* Keep Google’s bubble above everything */
-.grecaptcha-badge,
-.grecaptcha-bubble,
-.grecaptcha-bubble-arrow {
-  z-index: 2147483647 !important;
-}
-
-/* Don’t clip the bubble */
-main, .captcha-wrap, body, html {
-  overflow: visible !important;
-}
-.grecaptcha-badge,
-.grecaptcha-bubble,
-.grecaptcha-bubble-arrow { position: fixed !important; z-index: 2147483647 !important; }
-#site-header { position: relative; z-index: 1000 !important; }
-
-/* If any ancestor near the form uses transform, it creates a stacking context.
-   Kill transforms around the form area. */
-#specForm, .captcha-wrap, main { transform: none !important; }  
-</style>
+  </style>
 </head>
 
 <body>
@@ -234,6 +199,14 @@ main, .captcha-wrap, body, html {
           </div>
         </div>
 
+        <!-- Human-facing hints only (no widget here) -->
+        <div class="captcha-wrap">
+          <small class="hint">AI’s cool. Bot spam’s not. 😭</small><br>
+          <small class="hint">Protected by reCAPTCHA —
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
+          </small>
+        </div>
 
         <!-- Buttons -->
         <div class="actions">
@@ -243,16 +216,6 @@ main, .captcha-wrap, body, html {
         <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
       </section>
     </form>
-    
-      <div class="captcha-wrap">
-          <small class="hint">AI’s cool. Bot spam’s not. 😭</small>
-          <br>
-          <div id="recaptcha" class="g-recaptcha" data-size="invisible"></div>
-          <small class="hint">Protected by reCAPTCHA —
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
-          </small>
-        </div>
 
     <!-- SUCCESS -->
     <section id="success">
@@ -273,12 +236,12 @@ main, .captcha-wrap, body, html {
     fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
 
-  <!-- App logic + Invisible v2 integration -->
+  <!-- App logic + Invisible v2 (single source of truth) -->
   <script>
     // ===== CONFIG =====
     const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
     const SECRET="deskxp_spec_2025";
-    const SITE_KEY_V2="6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs"; // your v2 Invisible site key
+    const SITE_KEY_V2="6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
 
     // ===== DOM =====
     const form=document.getElementById('specForm'),msg=document.getElementById('formMsg'),
@@ -289,6 +252,20 @@ main, .captcha-wrap, body, html {
 
     let recaptchaWidgetId=null;
 
+    // Gate readiness so we never hit "Captcha not ready"
+    window.recaptchaReady = new Promise((resolve)=>{
+      window.onRecaptchaLoad = function(){
+        recaptchaWidgetId = grecaptcha.render('recaptcha-root', {
+          sitekey: SITE_KEY_V2,
+          size: 'invisible',
+          badge: 'bottomright',
+          callback: onCaptchaOK,
+          'error-callback': onCaptchaError
+        });
+        resolve();
+      };
+    });
+
     // Step nav
     btnNext.onclick=()=>{const s=document.querySelectorAll('input[name="services"]:checked').length,
       t=document.querySelector('input[name="team_size"]:checked');
@@ -298,15 +275,22 @@ main, .captcha-wrap, body, html {
     btnBack.onclick=()=>{step2.classList.remove("active");step1.classList.add("active")};
 
     // Trigger invisible challenge on click
-    submitBtn.addEventListener('click', (e)=>{
+    submitBtn.addEventListener('click', async (e)=>{
       e.preventDefault(); msg.textContent="";
       if((document.getElementById("website").value||"").trim()!=="")return showSuccess("(bot)","(n/a)");
       const name=document.getElementById("name").value.trim(),
             email=document.getElementById("email").value.trim();
       if(!name||!emailRegex.test(email)){ msg.textContent="❌ Enter a valid name and email."; return; }
+
       submitBtn.disabled=true; submitBtn.textContent="Verifying…";
-      if(typeof grecaptcha!=='undefined' && recaptchaWidgetId!==null){ grecaptcha.execute(recaptchaWidgetId); }
-      else { msg.textContent="❌ Captcha not ready. Reload."; submitBtn.disabled=false; submitBtn.textContent="Send Request"; }
+      await window.recaptchaReady; // ensure rendered
+      try {
+        grecaptcha.execute(recaptchaWidgetId);
+      } catch (err) {
+        console.error(err);
+        msg.textContent = "❌ Captcha init failed.";
+        submitBtn.disabled=false; submitBtn.textContent="Send Request";
+      }
     });
 
     // reCAPTCHA callbacks
@@ -334,10 +318,7 @@ main, .captcha-wrap, body, html {
       };
 
       try{
-        const res=await fetch(ENDPOINT,{
-          method:"POST",
-          body: new URLSearchParams({ payload: JSON.stringify(payload) })
-        });
+        const res=await fetch(ENDPOINT,{ method:"POST", body: new URLSearchParams({ payload: JSON.stringify(payload) }) });
         const json=await res.json().catch(()=>({}));
         if(res.ok && json?.ok){ showSuccess(name,email); }
         else{
@@ -352,41 +333,13 @@ main, .captcha-wrap, body, html {
       }
     }
 
-    function showSuccess(name){ form.style.display='none'; success.classList.add('active');
-      confName.textContent=name||"there"; document.title="Request received — DeskXP"; }
-
-    // Explicit render for Invisible v2
-    function onRecaptchaLoad(){
-      recaptchaWidgetId=grecaptcha.render('recaptcha',{
-        sitekey:SITE_KEY_V2, size:'invisible', badge:'bottomright',
-        callback:onCaptchaOK, 'error-callback':onCaptchaError
-      });
+    function showSuccess(name){
+      form.style.display='none'; success.classList.add('active');
+      confName.textContent=name||"there"; document.title="Request received — DeskXP";
     }
-    window.onRecaptchaLoad=onRecaptchaLoad;
-    const SITE_KEY = "6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
-
-function onRecaptchaLoad() {
-  window.recaptchaWidgetId = grecaptcha.render("recaptcha-root", {
-    sitekey: SITE_KEY,
-    size: "invisible",
-    badge: "bottomright",
-    callback: onCaptchaOK,
-    "error-callback": onCaptchaError,
-  });
-}
-
-function onCaptchaOK(token) {
-  console.log("✅ reCAPTCHA success:", token);
-  document.getElementById("specForm").submit();
-}
-
-function onCaptchaError() {
-  console.error("❌ reCAPTCHA error");
-  alert("Captcha failed. Please try again.");
-}
   </script>
 
-  <!-- reCAPTCHA container -->
+  <!-- reCAPTCHA container at ROOT (no duplicates) -->
   <div id="recaptcha-root"></div>
   <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
   <script src="/js/main.js?v=211" defer></script>
