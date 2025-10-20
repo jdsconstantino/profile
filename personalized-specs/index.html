@@ -147,6 +147,21 @@
     .grid-2 { grid-template-columns: 1fr; }
     .pillset { justify-content: center; }
   }
+  /* Keep Google’s bubble above everything */
+.grecaptcha-badge,
+.grecaptcha-bubble,
+.grecaptcha-bubble-arrow {
+  z-index: 2147483647 !important;
+}
+
+/* Don’t clip the bubble */
+main, .captcha-wrap, body, html {
+  overflow: visible !important;
+}
+
+/* If any ancestor near the form uses transform, it creates a stacking context.
+   Kill transforms around the form area. */
+#specForm, .captcha-wrap, main { transform: none !important; }  
 </style>
 </head>
 
@@ -223,9 +238,10 @@
         </div>
         <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
       </section>
-
-        <!-- Invisible reCAPTCHA container -->
-        <div class="captcha-wrap">
+    </form>
+    
+    <div id="recaptcha-root"></div>
+      <div class="captcha-wrap">
           <small class="hint">Quick spam check before sending:</small>
           <div id="recaptcha" class="g-recaptcha" data-size="invisible"></div>
           <small class="hint">Protected by reCAPTCHA —
@@ -233,7 +249,6 @@
             <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
           </small>
         </div>
-    </form>
 
     <!-- SUCCESS -->
     <section id="success">
@@ -339,7 +354,7 @@
     // Explicit render for Invisible v2
     function onRecaptchaLoad(){
       recaptchaWidgetId=grecaptcha.render('recaptcha',{
-        sitekey:SITE_KEY_V2, size:'invisible', badge:'inline',
+        sitekey:SITE_KEY_V2, size:'invisible', badge:'bottomright',
         callback:onCaptchaOK, 'error-callback':onCaptchaError
       });
     }
