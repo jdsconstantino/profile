@@ -158,6 +158,10 @@
 main, .captcha-wrap, body, html {
   overflow: visible !important;
 }
+.grecaptcha-badge,
+.grecaptcha-bubble,
+.grecaptcha-bubble-arrow { position: fixed !important; z-index: 2147483647 !important; }
+#site-header { position: relative; z-index: 1000 !important; }
 
 /* If any ancestor near the form uses transform, it creates a stacking context.
    Kill transforms around the form area. */
