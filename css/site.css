@@ -2888,6 +2888,25 @@ main, .page, .container {
   display: block;
   margin: auto;
 }
+/* Center all badges vertically */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keep generic logo sizing */
+.badge img {
+  max-width: 85%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Specific vertical correction for Unison only */
+.badge img[src*="unison"] {
+  transform: translateY(-6px);
+}
 
 
 
