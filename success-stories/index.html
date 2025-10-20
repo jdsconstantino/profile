@@ -291,6 +291,49 @@
         <p>Repeat “one-touch” questions (WISMO, sizing, handing) dropped materially once the AI agent was restricted to the help center and agents linked articles instead of rewriting. First-response quality improved, and leadership finally saw what customers searched before contacting support, which guided the next wave of articles.</p>
       </article>
     </section>
+        <!-- ===== Boutique de Sophie ===== -->
+    <section class="hero" id="boutique-de-sophie" style="top:0!important;margin-top:0!important;padding-top:0!important;position:relative!important;">
+      <div class="brand-row">
+        <div class="badge" aria-hidden="true">
+          <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie logo">
+        </div>
+        <div>
+          <h1>Boutique de Sophie — Scaling CX on a Budget Plan (EU Startup)</h1>
+          <p>Sales spiked; tickets, complaints, and disputes followed. The account was on a Support-tier plan, so no fancy enterprise add-ons. We had to ship scale with constraints — automate the boring, surface the risky, and give leadership a live view without buying new tools.</p>
+        </div>
+      </div>
+      <div class="chips" aria-label="Themes">
+        <span class="chip">Shopify → Zendesk</span>
+        <span class="chip">Dispute Reduction</span>
+        <span class="chip">Automation &amp; Macros</span>
+        <span class="chip">Multilingual Support</span>
+        <span class="chip">Dashboards</span>
+        <span class="chip">Governance</span>
+      </div>
+      <p class="disclaimer">Generalized narrative; no live data or private artifacts are shown.</p>
+    </section>
+
+    <section class="story" aria-label="Boutique de Sophie case">
+      <article class="card" id="use-cases-bds">
+        <h2>Use Cases</h2>
+        <p>Stabilize CX during a demand surge: cut one-touch noise, prevent avoidable chargebacks, and shorten the dispute cycle. Give agents canonical answers in multiple languages, enforce SLAs, and give leadership a real-time dashboard without upgrading plans.</p>
+      </article>
+
+      <article class="card" id="our-approach-bds">
+        <h2>Our Approach</h2>
+        <p><strong>Wire the context in:</strong> used Shopify APIs and available Zendesk endpoints to inject orders, payment status, fulfillment events, and RMA flags directly into tickets. Built a lightweight middleware to <em>proactively</em> create tickets on risk signals (failed capture, carrier exception, refund request keywords) so we control the narrative before it becomes a chargeback.</p>
+        <p><strong>Make answers instant, in any language:</strong> codified macros per intent (WISMO, sizing, returns, refund timing) with translation variants; triggers apply locale based on Shopify shipping country or customer language and auto-tag by intent for reporting.</p>
+        <p><strong>Enforce flow, not vibes:</strong> added form-based contact with required fields (order #, gateway, SKU, reason codes) to kill the back-and-forth. SLA policies by queue; automations escalate aging “financial risk” tickets to a disputes lane with a checklist.</p>
+        <p><strong>Dashboards without new spend:</strong> Apps Script → incremental ticket sync to Sheets → Looker Studio. Views for FRT/AHT/CSAT, refund rate by intent, pre-dispute outreach, and disputes by gateway/carrier. Scheduled snapshots for month-end.</p>
+        <p><strong>Playbooks that stick:</strong> wrote the KPI set, Customer Care SOP, and a Disputes SOP (evidence packs, timelines per processor, response macros, win-rate tracking). Governance kept forms/fields/macros from turning into spaghetti.</p>
+        <p class="pull"><strong>Translation:</strong> connect the data, pre-empt the problems, standardize the reply, measure the fallout — all on a Support plan.</p>
+      </article>
+
+      <article class="card" id="success-story-bds">
+        <h2>Success Story</h2>
+        <p>Total disputes trended down by <strong>~25–35%</strong> (net ≈ <strong>−30%</strong>) as pre-dispute outreach and clean evidence packs kicked in. KPIs became visible daily via Looker Studio; agents spent less time copy-pasting thanks to macros/triggers/automations and translation variants. Leadership finally saw where disputes were born (intent → gateway → carrier), and we tuned content to deflect more of them.</p>
+      </article>
+    </section>
   </main>
 
   <div id="footer"></div>
