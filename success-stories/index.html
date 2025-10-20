@@ -89,14 +89,27 @@
     }
 
     .brand-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+
+    /* === BADGE: force true visual center for all logos === */
     .badge{
       width:64px; height:64px;
       border-radius:14px;
-      display:grid; place-items:center;
+      display:flex;               /* was grid; use flex for consistent centering */
+      align-items:center;
+      justify-content:center;
       background:linear-gradient(180deg,var(--accent2),#ffff);
       box-shadow:0 0 0 1px rgba(255,255,255,.16) inset, 0 8px 18px rgba(0,0,0,.35);
+      overflow:hidden;
     }
-    .badge img{ width:85%; height:auto; display:block; }
+    .badge img{
+      display:block;
+      max-width:90%;              /* responsive and consistent */
+      max-height:80%;             /* prevents tall logos from sitting low */
+      height:auto;
+      object-fit:contain;         /* keep aspect while filling box nicely */
+      margin:auto;                /* belt & suspenders centering */
+      transform:translateY(0);    /* reset any older tweaks */
+    }
 
     .hero h1{ margin:0; font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem); letter-spacing:-.01em }
     .hero p{ margin:8px 0 0; color:#dfe7e2 }
@@ -130,25 +143,23 @@
       padding-top: 0 !important;
       position: relative !important;
     }
-    body#page-success-stories .badge img {
-      width: 85%;
-    }
-    #page-success-stories .page {
-      padding-top: 100px !important; /* pushes everything below fixed header */
-    }
-  
-  /* Bigger logos for success stories heroes */
+
+    #page-success-stories .page { padding-top: 100px !important; } /* below fixed header */
+
+    /* Bigger logos for success stories heroes */
     #page-success-stories .badge {
       width: 200px !important;
       height: 88px !important;
       border-radius: 18px !important;
     }
-
+    /* unify the img rule for this page; kill older width overrides */
     #page-success-stories .badge img {
-      width: 90% !important;
+      max-width: 90% !important;
+      max-height: 80% !important;
       height: auto !important;
+      object-fit: contain !important;
+      transform: translateY(0) !important;
     }
-
   </style>
 </head>
 
