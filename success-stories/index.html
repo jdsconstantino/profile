@@ -29,7 +29,7 @@
       --ink:#0f172a;
       --chip:#eef5ef;
       --chip-b:#dfe8e1;
-      --accent:#007236;      /* swap once you give me the real brand hex */
+      --accent:#007236;     /* replace with your real brand color when ready */
       --accent2:#00b858;
       --header-offset:84px;
       --card-b:#e6e9ef;
@@ -48,9 +48,6 @@
       overflow-x:hidden;
     }
 
-    /* kill hamburger globally without touching the partial yet */
-    #nav-toggle,.hamburger,#nav-curtain{ display:none !important; }
-
     .page{ max-width:1220px; margin:32px auto 96px; padding:0 18px; position:relative; }
     .title{
       text-align:center;
@@ -58,7 +55,8 @@
       font-weight:900; letter-spacing:-.02em; margin:10px 0 26px;
     }
 
-    /* Story UI (reuses your card aesthetic) */
+    /* Reuse your card aesthetic for stories */
+    .story{ display:grid; grid-template-columns:1fr; gap:18px; position:relative; z-index:2; }
     .hero{
       background:linear-gradient(180deg,#0f2026,#0c1b21);
       border:1px solid rgba(255,255,255,.08);
@@ -73,26 +71,23 @@
       box-shadow:0 0 0 1px rgba(255,255,255,.16) inset, 0 8px 18px rgba(0,0,0,.35);
     }
     .badge img{ width:70%; height:auto; display:block; }
-
     .hero h1{ margin:0; font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem); letter-spacing:-.01em }
     .hero p{ margin:8px 0 0; color:#dfe7e2 }
     .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0 }
     .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:700; color:#2f3b45; font-size:.9rem }
     .disclaimer{ margin-top:10px; color:var(--muted); font-size:.92rem }
 
-    .story{ display:grid; grid-template-columns:1fr; gap:18px; margin:18px 0 36px }
-    .story-card{
+    .card{
       background:#fff; color:var(--ink);
-      border:1px solid var(--card-b); border-radius:18px; padding:22px;
+      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
       box-shadow:0 16px 36px rgba(0,0,0,.18);
       scroll-margin-top:calc(var(--header-offset) + 12px);
     }
-    .story-card h2{ margin:0 0 6px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
-    .story-card p{ margin:12px 0; line-height:1.7; color:#334155 }
-    .lede{ font-weight:700; color:#2f3b45 }
+    .card h2{ margin:0 0 8px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
+    .card p{ color:#334155; margin:12px 0; line-height:1.65; }
     .pull{ margin:14px 0; padding:12px 14px; border-left:4px solid var(--accent2); background:#f7faf7; color:#26323a; border-radius:10px }
 
-    /* markers/rail for subtle background grid like Services page */
+    /* Background grid like Services */
     .markers{
       position:absolute; inset:0; pointer-events:none;
       background-image:
@@ -102,32 +97,12 @@
       mask-image:linear-gradient(#0007,#000);
       z-index:1; border-radius:22px;
     }
-    <style>
-  /* Tighten the gap directly under the global header on this page */
-  .page{ margin-top: 0 !important; }
-
-  /* Page title margin was adding extra headroom */
-  .title{ margin-top: 0 !important; }
-
-  /* Some headers inject a spacer; neutralize it here */
-  #site-header + .header-spacer,
-  .site-header-spacer,
-  .nav-spacer{
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    display: none !important;
-  }
-
-  /* If your header has extra bottom padding, clamp it */
-  header, .site-header{
-    padding-bottom: 0 !important;
-  }
-</style>
-
   </style>
 </head>
 <body>
+  <!-- Header is loaded the SAME WAY as Services (via main.js). -->
+  <div id="site-header"></div>
+
   <main class="page">
     <h1 class="title">Success Stories</h1>
     <div class="markers"></div>
@@ -155,23 +130,20 @@
     </section>
 
     <section class="story" aria-label="PalawanPay case">
-      <article class="story-card" id="use-cases">
+      <article class="card" id="use-cases">
         <h2>Use Cases</h2>
-        <p class="lede">Stand up Customer Care from scratch, then scale beyond 150 agents without letting SLAs or data integrity fall apart.</p>
-        <p>We needed clean omnichannel routing, a Help Center the team actually used, and governance that kept forms, fields, and macros from turning into spaghetti. Leadership wanted insight without spreadsheet gymnastics, and product needed a repeatable way to launch new services without blindsiding operations.</p>
+        <p>The mandate was simple and brutal: stand up Customer Care from scratch, then scale it past 150 agents without letting SLAs or data integrity fall apart. We needed clean omnichannel routing, a Help Center the team actually used, and governance that kept forms, fields, and macros from turning into spaghetti. Leadership wanted insight without spreadsheet gymnastics, and product needed a repeatable way to launch new services without blindsiding operations.</p>
       </article>
 
-      <article class="story-card" id="our-approach">
+      <article class="card" id="our-approach">
         <h2>Our Approach</h2>
-        <p class="lede">Build the backbone first, then add speed — automate where it pays.</p>
-        <p>We designed the operating model, stood up queues and schedules, and put real ownership in place. Zendesk went from zero to production with purpose: forms mapped to reporting, triggers and automations that respect clock rules, roles and permissions that keep admin safe, Guide for self-service, and Explore for leadership views that actually inform decisions.</p>
+        <p>Build the backbone first, then add speed — and automate where it pays. We designed the operating model, stood up queues and schedules, and put real ownership in place. Zendesk went from zero to production with purpose: forms mapped to reporting, triggers and automations that respect clock rules, roles and permissions that keep admin safe, Guide for self-service, and Explore for leadership views that actually inform decisions.</p>
         <p>Integrations brought orders, payments, and shipping context into tickets. We authored the policies and playbooks, set the KPIs that matter (FRT, AHT, CSAT, backlog health, reopen rate), and enforced review cadences. For new products, we created a rollout framework so routing, SLAs, macros, and dashboards ship with the release. Automation covered intent tagging, smart replies, and summaries with human-in-the-loop controls.</p>
         <p class="pull"><strong>Bottom line:</strong> org design, platform build, integrations, documentation, vendor management, and performance leadership — one accountable owner from blank slate to daily reliability.</p>
       </article>
 
-      <article class="story-card" id="success-story">
+      <article class="card" id="success-story">
         <h2>Success Story</h2>
-        <p class="lede">Outcomes are expressed as ranges to preserve confidentiality.</p>
         <p>First-response times tightened by roughly <em>40–60%</em> on priority queues once routing, SLAs, and schedules were cleaned up. Data quality stopped lying — fewer misroutes and reopens meant managers could trust dashboards again. Onboarding moved faster because playbooks and macros weren’t optional; they were the way the work got done. Annualized savings landed around <strong>₱5M</strong> from automation, license/right-sizing, and removing wasted steps.</p>
       </article>
     </section>
@@ -198,24 +170,21 @@
     </section>
 
     <section class="story" aria-label="Unison case">
-      <article class="story-card" id="use-cases-unison">
+      <article class="card" id="use-cases-unison">
         <h2>Use Cases</h2>
-        <p class="lede">Centralize communications, impose a workflow, and make Zendesk the single source of truth.</p>
-        <p>With tickets used purely for documentation, leadership lacked SLA visibility and teams relied on inbox muscle memory. The mandate was to move conversations into Zendesk, enforce routing and ownership, and unlock reporting that reflects reality.</p>
+        <p>Centralize communications, impose a workflow, and make Zendesk the single source of truth. With tickets used purely for documentation, leadership lacked SLA visibility and teams relied on inbox muscle memory. The job was to move conversations into Zendesk, enforce routing and ownership, and unlock reporting that reflects reality.</p>
       </article>
 
-      <article class="story-card" id="our-approach-unison">
+      <article class="card" id="our-approach-unison">
         <h2>Our Approach</h2>
-        <p class="lede">Bring every conversation home to Zendesk — then codify the protocol in automations and macros.</p>
-        <p>We integrated Unison’s support email fully into Zendesk so all requests — customer or branch — enter a single triaged queue. We designed triggers, automations, and macros to mirror Unison’s protocol and enforce consistency. Technical dispatch was automated end-to-end using PDF generation and routing, removing manual follow-ups entirely.</p>
-        <p>We rebuilt the Help Center to match Unison’s brand and provide clear self-service paths, reducing repetitive requests and establishing a sane escalation path for the complex cases.</p>
+        <p>Bring every conversation home to Zendesk — then codify the protocol in automations and macros. We integrated Unison’s support email fully so all requests — customer or branch — enter a single triaged queue. We designed triggers, automations, and macros to mirror Unison’s protocol and enforce consistency. Technical dispatch was automated end-to-end using PDF generation and routing, removing manual follow-ups entirely.</p>
+        <p>We rebuilt the Help Center to match Unison’s brand and provide clear self-service paths, reducing repetitive requests and establishing a sane escalation path for complex cases.</p>
         <p class="pull"><strong>In short:</strong> email chaos became structured workflows; automation handled the predictable; agents focused on the meaningful.</p>
       </article>
 
-      <article class="story-card" id="success-story-unison">
+      <article class="card" id="success-story-unison">
         <h2>Success Story</h2>
-        <p class="lede">The effect was immediate where it counts: speed and accountability.</p>
-        <p>With unified routing and macros, throughput improved dramatically and dispatch lag vanished. Teams that lived in Outlook moved into a searchable, auditable system of record; leadership finally had trustworthy SLA and workload views. The branded Help Center deflected repeat questions and sharpened handoffs.</p>
+        <p>Throughput improved dramatically with unified routing and macros, and dispatch lag vanished once automation took over. Teams that lived in Outlook moved into a searchable, auditable system of record; leadership finally had trustworthy SLA and workload views. The branded Help Center deflected repeat questions and sharpened handoffs.</p>
       </article>
     </section>
 
@@ -223,10 +192,7 @@
 
   <div id="footer"></div>
   <script>
-    fetch("/footer.html")
-      .then(r=>r.text())
-      .then(h=>document.getElementById("footer").innerHTML=h)
-      .catch(()=>{});
+    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
   </script>
   <script>
     (function(){
