@@ -2715,5 +2715,52 @@ main, .page, .container {
   object-fit: contain;   /* switch to cover if you prefer cropped */
   aspect-ratio: 1 / 1;   /* forces uniform shape if images vary wildly */
 }
+/* ===== BRANDS (static logos) ===== */
+#brands.brands-logos {
+  max-width: 1180px;
+  margin: 80px auto;
+  padding: 0 18px;
+}
+#brands .brands-head { text-align: center; margin-bottom: 22px; }
+#brands .brands-head h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--accent, #007236);
+}
+
+/* Uniform, crisp logos in a responsive grid */
+.brand-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 28px 32px;
+  align-items: center;
+  justify-items: center;
+}
+.brand-grid li { display: grid; place-items: center; }
+
+.brand-grid img {
+  display: block;
+  height: 56px;           /* <- tweak if you want them taller/shorter */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.05);
+  opacity: 0.95;
+  transition: filter .2s ease, opacity .2s ease, transform .2s ease;
+}
+.brand-grid img:hover {
+  filter: grayscale(0%) contrast(1);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .brand-grid { gap: 20px 24px; }
+  .brand-grid img { height: 48px; }
+}
 
 
