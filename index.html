@@ -133,65 +133,80 @@
       .svc-media img { border-radius: 12px; margin: 18px auto; max-width: 420px; }
     }
 
-   /* ===== BRANDS MARQUEE (full-width, floats on page bg) ===== */
-#brands.brands-marquee{
-  width:100%;
-  background: transparent;         /* no panel — float over site bg */
-  padding: 36px 0 48px;            /* space around logos & heading */
+/* ===== BRANDS===== */
+#brands.brands-marquee {
+  width: 100vw;
+  margin: 0;
+  padding: clamp(28px, 4vw, 48px) 0;
+  background: transparent; /* floats directly on site background */
 }
 
-#brands.brands-marquee h2{
-  text-align:center;
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+#brands.brands-marquee h2 {
+  text-align: center;
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
   font-weight: 800;
-  letter-spacing:-0.01em;
+  letter-spacing: -0.01em;
   color: var(--accent, #007236);
-  margin: 0 0 26px;
+  margin: 0 0 clamp(16px, 2vw, 24px);
 }
 
-/* The viewport for the loop */
-.marquee{
-  width:100%;
-  overflow:hidden;
-  position:relative;
-  /* soft fade at edges so logos don’t “pop” */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+/* Viewport */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  /* subtle edge fade */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 }
 
-/* The endlessly scrolling row */
-.marquee-track{
-  display:flex;
-  align-items:center;
-  gap: clamp(28px, 4vw, 64px);
-  width:max-content;
-  animation: brandsScroll 24s linear infinite;
+/* Scrolling track */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(36px, 5vw, 80px);
+  width: max-content;
+  will-change: transform;
+  animation: brandsScroll 36s linear infinite;
 }
-.marquee-track:hover{ animation-play-state: paused; } /* pause on hover */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
 
-/* Logo “chips” that float on the dark bg */
+/* Bigger logo chips with glow */
 .marquee-track img {
-  height: clamp(64px, 8vw, 96px);   /* bigger logos — adjust upper limit if needed */
+  height: clamp(72px, 9vw, 110px);
   width: auto;
   object-fit: contain;
 
   background: #fff;
-  padding: clamp(10px, 1.8vw, 20px) clamp(16px, 2.4vw, 28px);
+  padding: clamp(12px, 2vw, 22px) clamp(18px, 2.8vw, 30px);
   border-radius: 18px;
   box-shadow:
-    0 12px 30px rgba(0,0,0,.25),
-    0 4px 10px rgba(0,0,0,.18);
-  transition: transform .18s ease;
+    0 8px 26px rgba(0, 0, 0, 0.25),
+    0 0 12px rgba(255, 255, 255, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.25s ease;
 }
 
 .marquee-track img:hover {
-  transform: translateY(-4px) scale(1.04);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(255, 255, 255, 0.35);
 }
 
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .marquee-track{ animation: none; }
+/* Smooth infinite scroll loop */
+@keyframes brandsScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* because the image set is duplicated */
 }
+
+/* Accessibility: stop animation if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
     /* ===== ZERO GAP: hero → services ===== */
     #servicesFW { margin-top: 0 !important; padding-top: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; box-shadow: none !important; background-clip: border-box; }
     .hero + #servicesFW { margin-top: -2px !important; } /* hide subpixel seam */
