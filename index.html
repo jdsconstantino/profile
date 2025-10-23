@@ -225,6 +225,17 @@
   margin-bottom: 0 !important;
   top: 0 !important;
 }
+/* Make hero truly full-screen and then some to cover the pulled-up services */
+:root { --hero-extend: 120px; } /* ~ equals .svc-shell negative margin */
+
+.hero{
+  height: auto !important;
+  min-height: calc(100svh + var(--hero-extend)) !important; /* use small-vh for mobile bars */
+}
+
+/* keep the seam invisible */
+.hero + #servicesFW { margin-top: -2px !important; }
+
 
 
   </style>
