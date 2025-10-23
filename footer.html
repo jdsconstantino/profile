@@ -45,13 +45,16 @@
     /* Grid: Services → Navigation → Policies → Connect */
     .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr; /* Services → Navigation → Policies → Connect */
       gap: 40px;
       align-items: start;
       text-align: left;
       position: relative;
       z-index: 2;
+
+       margin-left: clamp(120px, 15vw, 240px);
     }
+
 
     .dxp-footer .col h4 {
       margin: 0 0 10px;
