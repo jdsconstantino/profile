@@ -238,6 +238,58 @@
 .hero {
   opacity: 0.5; /* 0.0–1.0 */
 }
+/* ===== HERO TEXT OVERLAY ===== */
+.hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 3;
+  color: #ffffff;
+  padding: 0 24px;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.55);
+}
+
+.hero-text p.hero-sub {
+  font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+  color: #E0E9F4;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+  min-height: 1.6em; /* Prevent layout shift */
+}
+
+/* Fade animation for subline transitions */
+.hero-sub { 
+  transition: opacity .35s ease, transform .35s ease; 
+}
+.hero-sub.fade-in  { opacity: 1; transform: translateY(0); }
+.hero-sub.fade-out { opacity: 0; transform: translateY(6px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sub { transition: none; }
+}
+
+/* Optional: subtle dark gradient overlay for better contrast */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
+  z-index: 1;
+}
+
 
 
   </style>
@@ -251,7 +303,15 @@
   <!-- Hero -->
   <section class="hero" id="home" aria-label="DeskXP Hero">
     <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__content"></div>
+    <div class="hero__content">
+      <div class="hero-text">
+        <h1>Smart systems. Human support. Real scale.</h1>
+        <p class="hero-sub" id="heroSub" aria-live="polite">
+          <span>DeskXP builds the foundation for modern CX.</span>
+        </p>
+      </div>
+    </div>
+
   </section>
 
   <!-- FULL-WIDTH Services Slider -->
@@ -527,5 +587,34 @@
       });
     })();
   </script>
+  <script>
+  (function(){
+    const el = document.getElementById('heroSub');
+    if (!el) return;
+
+    const phrases = [
+      'DeskXP builds the foundation for modern CX.',
+      'Zendesk, Shopify, AI, and workflows that actually align.',
+      'Process, automation, and data that keep teams aligned.'
+    ];
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const transitionMs   = prefersReduced ? 0 : 350;
+    const intervalMs     = 2000;
+
+    let i = 0;
+    el.classList.add('fade-in'); // initial state
+
+    setInterval(() => {
+      if (!prefersReduced) el.classList.replace('fade-in', 'fade-out');
+
+      setTimeout(() => {
+        i = (i + 1) % phrases.length;
+        el.firstElementChild.textContent = phrases[i];
+        if (!prefersReduced) el.classList.replace('fade-out', 'fade-in');
+      }, transitionMs);
+    }, intervalMs);
+  })();
+</script>
 </body>
 </html>
