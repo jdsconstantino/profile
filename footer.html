@@ -6,8 +6,6 @@
       --dxp-green: #007236;
       --dxp-ink: #e7e9ee;
       --dxp-muted: #cfd4dc;
-      --dxp-bg-1: #2E424E;
-      --dxp-bg-2: #1c262c;
     }
 
     .dxp-footer {
@@ -30,7 +28,7 @@
 
     .dxp-footer .wrap { max-width: 1200px; margin: 0 auto; }
 
-    /* Big overlay logo (kept) */
+    /* Keep overlay logo only */
     .dxp-footer .footer-brand {
       position: absolute;
       z-index: 1;
@@ -41,20 +39,18 @@
       top: clamp(16px, 3vw, 32px);
       width: auto;
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
-      opacity: 0.98;
-      transition: transform .3s ease;
+      opacity: .98;
     }
-    .dxp-footer .footer-brand:hover { transform: scale(1.05); }
 
-    /* ===== Footer Grid → 5 columns, left-aligned ===== */
+    /* Grid: Services → Navigation → Policies → Connect */
     .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr; /* Brand, Policies, Nav, Services, Connect */
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
       gap: 40px;
       align-items: start;
       text-align: left;
       position: relative;
-      z-index: 2; /* above overlay logo */
+      z-index: 2;
     }
 
     .dxp-footer .col h4 {
@@ -77,16 +73,6 @@
     }
     .dxp-footer a:hover { opacity: 1; color: #fff; text-decoration: underline; }
 
-    /* Brand column (small inline mark to avoid relying only on overlay) */
-    .dxp-footer .brand-mini {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .dxp-footer .brand-mini img {
-      width: 44px; height: 44px; border-radius: 10px; display: block;
-      background: #fff;
-    }
-    .dxp-footer .brand-mini .name { font-weight: 700; letter-spacing: .2px; }
-
     .dxp-footer .rule {
       height: 1px;
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
@@ -102,7 +88,6 @@
     .dxp-footer .copy a { color: #fff; text-decoration: none; }
     .dxp-footer .copy a:hover { text-decoration: underline; }
 
-    /* Mobile: stack */
     @media (max-width: 640px) {
       .dxp-footer .footer-brand {
         position: static; display: block; margin: 0 auto 12px;
@@ -115,40 +100,10 @@
 
   <div class="surface">
     <div class="wrap">
-      <!-- Big overlay logo (kept for vibe) -->
       <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-brand" />
 
       <div class="grid">
-        <!-- 1) Brand column -->
-        <div class="col">
-          <div class="brand-mini">
-            <img src="/assets/favicon-64.png" alt="DeskXP">
-            <div class="name">DeskXP</div>
-          </div>
-        </div>
-
-        <!-- 2) Policies -->
-        <div class="col">
-          <h4>Policies</h4>
-          <ul class="links">
-            <li><a href="/privacy/">Privacy Policy</a></li>
-            <li><a href="/cookies/">Cookie</a></li>
-          </ul>
-        </div>
-
-        <!-- 3) Navigation -->
-        <div class="col">
-          <h4>Navigation</h4>
-          <ul class="links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/services/">Services</a></li>
-            <li><a href="/success-stories">Success Stories</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/#cta">Book a Call</a></li>
-          </ul>
-        </div>
-
-        <!-- 4) Services (new column) -->
+        <!-- 1️⃣ Services -->
         <div class="col">
           <h4>Services</h4>
           <ul class="links">
@@ -162,7 +117,28 @@
           </ul>
         </div>
 
-        <!-- 5) Connect -->
+        <!-- 2️⃣ Navigation -->
+        <div class="col">
+          <h4>Navigation</h4>
+          <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/success-stories">Success Stories</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/#cta">Book a Call</a></li>
+          </ul>
+        </div>
+
+        <!-- 3️⃣ Policies -->
+        <div class="col">
+          <h4>Policies</h4>
+          <ul class="links">
+            <li><a href="/privacy/">Privacy Policy</a></li>
+            <li><a href="/cookies/">Cookie</a></li>
+          </ul>
+        </div>
+
+        <!-- 4️⃣ Connect -->
         <div class="col">
           <h4>Connect with Me</h4>
           <ul class="links">
@@ -179,5 +155,7 @@
     </div>
   </div>
 
-  <script>document.getElementById("dxp-year").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("dxp-year").textContent = new Date().getFullYear();
+  </script>
 </footer>
