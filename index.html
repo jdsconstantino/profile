@@ -236,7 +236,7 @@
 /* keep the seam invisible */
 .hero + #servicesFW { margin-top: -2px !important; }
 .hero {
-  opacity: 0.5; /* 0.0–1.0 */
+  opacity: 0.6; /* 0.0–1.0 */
 }
 /* ===== HERO TEXT OVERLAY ===== */
 .hero__content {
@@ -254,7 +254,7 @@
 
 .hero-text h1 {
   font-size: clamp(2.4rem, 4vw, 3.6rem);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin: 0 0 0.6em;
@@ -600,7 +600,7 @@
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const transitionMs   = prefersReduced ? 0 : 350;
-    const intervalMs     = 2000;
+    const intervalMs     = 3000;
 
     let i = 0;
     el.classList.add('fade-in'); // initial state
