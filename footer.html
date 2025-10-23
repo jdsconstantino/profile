@@ -11,7 +11,7 @@
     .dxp-footer {
       font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: var(--dxp-ink);
-      margin: 60px auto 0;
+      margin: 50px auto 0;
     }
 
     .dxp-footer .surface {
@@ -21,40 +21,43 @@
         linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.25);
       overflow: hidden;
-      padding: 28px 32px 18px;
+      padding: 40px 48px 28px;
     }
 
-    .dxp-footer .wrap { max-width: 1200px; margin: 0 auto; }
+    .dxp-footer .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-    /* Keep overlay logo only */
+    /* Overlay logo */
     .dxp-footer .footer-brand {
       position: absolute;
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      height: clamp(140px, 18vw, 220px);
-      left: clamp(16px, 5vw, 48px);
-      top: clamp(16px, 3vw, 32px);
+      height: clamp(130px, 17vw, 200px);
+      left: clamp(20px, 4vw, 60px);
+      top: clamp(18px, 3vw, 36px);
       width: auto;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
-      opacity: .98;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+      opacity: 0.98;
     }
 
-    /* Grid: Services → Navigation → Policies → Connect */
+    /* Grid layout */
     .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr; /* Services → Navigation → Policies → Connect */
-      gap: 40px;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 36px;
       align-items: start;
+      justify-content: center;
       text-align: center;
       position: relative;
       z-index: 2;
-
-       margin-left: clamp(100px, 15vw, 240px);
+      margin-left: clamp(80px, 12vw, 200px);
     }
-
 
     .dxp-footer .col h4 {
       margin: 0 0 10px;
@@ -74,12 +77,14 @@
       opacity: 0.9;
       transition: color .2s, opacity .2s;
     }
+
     .dxp-footer a:hover { opacity: 1; color: #fff; text-decoration: underline; }
 
     .dxp-footer .rule {
       height: 1px;
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-      margin: 20px 0 12px;
+      margin: 26px auto 14px;
+      max-width: 90%;
     }
 
     .dxp-footer .copy {
@@ -88,16 +93,32 @@
       font-size: 0.92rem;
       letter-spacing: 0.01em;
     }
-    .dxp-footer .copy a { color: #fff; text-decoration: none; }
+
+    .dxp-footer .copy a {
+      color: #fff;
+      text-decoration: none;
+    }
+
     .dxp-footer .copy a:hover { text-decoration: underline; }
 
     @media (max-width: 640px) {
       .dxp-footer .footer-brand {
-        position: static; display: block; margin: 0 auto 12px;
-        height: 140px; left: auto; top: auto; pointer-events: auto;
+        position: static;
+        display: block;
+        margin: 0 auto 16px;
+        height: 130px;
+        pointer-events: auto;
       }
-      .dxp-footer .grid { grid-template-columns: 1fr; gap: 20px; }
-      .dxp-footer .surface { padding: 32px 20px 18px; }
+
+      .dxp-footer .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-left: 0;
+      }
+
+      .dxp-footer .surface {
+        padding: 32px 20px 18px;
+      }
     }
   </style>
 
