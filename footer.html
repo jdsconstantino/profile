@@ -18,21 +18,19 @@
 
     .dxp-footer .surface {
       position: relative;
-      background: radial-gradient(120% 160% at 50% -20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 55%),
-                  linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        radial-gradient(120% 160% at 50% -20%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%),
+        linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 16px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.25);
       overflow: hidden;
       padding: 28px 32px 18px;
     }
 
-    .dxp-footer .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .dxp-footer .wrap { max-width: 1200px; margin: 0 auto; }
 
-    /* ===== Overlay Logo (Pinned and Scalable) ===== */
+    /* Big overlay logo (kept) */
     .dxp-footer .footer-brand {
       position: absolute;
       z-index: 1;
@@ -42,22 +40,21 @@
       left: clamp(16px, 5vw, 48px);
       top: clamp(16px, 3vw, 32px);
       width: auto;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
       opacity: 0.98;
-      transition: transform 0.3s ease;
+      transition: transform .3s ease;
     }
+    .dxp-footer .footer-brand:hover { transform: scale(1.05); }
 
-    .dxp-footer .footer-brand:hover {
-      transform: scale(1.05);
-    }
-
-    /* ===== Footer Grid ===== */
+    /* ===== Footer Grid → 5 columns, left-aligned ===== */
     .dxp-footer .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr; /* Brand, Policies, Nav, Services, Connect */
       gap: 40px;
       align-items: start;
-      text-align: center;
+      text-align: left;
+      position: relative;
+      z-index: 2; /* above overlay logo */
     }
 
     .dxp-footer .col h4 {
@@ -67,15 +64,8 @@
       color: #f6f7f9;
     }
 
-    .dxp-footer .links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .dxp-footer .links li {
-      margin: 6px 0;
-    }
+    .dxp-footer .links { list-style: none; padding: 0; margin: 0; }
+    .dxp-footer .links li { margin: 6px 0; }
 
     .dxp-footer a {
       color: var(--dxp-ink);
@@ -83,18 +73,23 @@
       font-size: 0.95rem;
       line-height: 1.45;
       opacity: 0.9;
-      transition: color 0.2s, opacity 0.2s;
+      transition: color .2s, opacity .2s;
     }
+    .dxp-footer a:hover { opacity: 1; color: #fff; text-decoration: underline; }
 
-    .dxp-footer a:hover {
-      opacity: 1;
-      color: #fff;
-      text-decoration: underline;
+    /* Brand column (small inline mark to avoid relying only on overlay) */
+    .dxp-footer .brand-mini {
+      display: flex; align-items: center; gap: 10px;
     }
+    .dxp-footer .brand-mini img {
+      width: 44px; height: 44px; border-radius: 10px; display: block;
+      background: #fff;
+    }
+    .dxp-footer .brand-mini .name { font-weight: 700; letter-spacing: .2px; }
 
     .dxp-footer .rule {
       height: 1px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
       margin: 20px 0 12px;
     }
 
@@ -104,45 +99,35 @@
       font-size: 0.92rem;
       letter-spacing: 0.01em;
     }
+    .dxp-footer .copy a { color: #fff; text-decoration: none; }
+    .dxp-footer .copy a:hover { text-decoration: underline; }
 
-    .dxp-footer .copy a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .dxp-footer .copy a:hover {
-      text-decoration: underline;
-    }
-
-    /* ===== Mobile Adjustment ===== */
+    /* Mobile: stack */
     @media (max-width: 640px) {
       .dxp-footer .footer-brand {
-        position: static;
-        display: block;
-        margin: 0 auto 12px;
-        height: 140px;
-        left: auto;
-        top: auto;
-        pointer-events: auto;
+        position: static; display: block; margin: 0 auto 12px;
+        height: 140px; left: auto; top: auto; pointer-events: auto;
       }
-
-      .dxp-footer .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .dxp-footer .surface {
-        padding: 32px 20px 18px;
-      }
+      .dxp-footer .grid { grid-template-columns: 1fr; gap: 20px; }
+      .dxp-footer .surface { padding: 32px 20px 18px; }
     }
   </style>
 
   <div class="surface">
     <div class="wrap">
-      <!-- Big logo overlay (doesn’t move on resize) -->
+      <!-- Big overlay logo (kept for vibe) -->
       <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-brand" />
 
       <div class="grid">
+        <!-- 1) Brand column -->
+        <div class="col">
+          <div class="brand-mini">
+            <img src="/assets/favicon-64.png" alt="DeskXP">
+            <div class="name">DeskXP</div>
+          </div>
+        </div>
+
+        <!-- 2) Policies -->
         <div class="col">
           <h4>Policies</h4>
           <ul class="links">
@@ -151,6 +136,7 @@
           </ul>
         </div>
 
+        <!-- 3) Navigation -->
         <div class="col">
           <h4>Navigation</h4>
           <ul class="links">
@@ -162,6 +148,21 @@
           </ul>
         </div>
 
+        <!-- 4) Services (new column) -->
+        <div class="col">
+          <h4>Services</h4>
+          <ul class="links">
+            <li><a href="/services#zendesk">Zendesk</a></li>
+            <li><a href="/services#operations-design">Operations Design</a></li>
+            <li><a href="/services#systems-architecture">Systems Architecture</a></li>
+            <li><a href="/services#automation-ai">Automation &amp; AI</a></li>
+            <li><a href="/services#reporting-analytics">Reporting &amp; Analytics</a></li>
+            <li><a href="/services#ecommerce-integrations">eCommerce Integrations</a></li>
+            <li><a href="/services#customer-experience-servicing">Customer Experience &amp; Servicing</a></li>
+          </ul>
+        </div>
+
+        <!-- 5) Connect -->
         <div class="col">
           <h4>Connect with Me</h4>
           <ul class="links">
@@ -178,7 +179,5 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById("dxp-year").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("dxp-year").textContent = new Date().getFullYear();</script>
 </footer>
