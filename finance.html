@@ -55,7 +55,7 @@
       backdrop-filter: blur(16px);
     }
 
-    header {
+    header.finance-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -135,7 +135,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 0.6rem;
-      margin-top: 0.7rem;
+      margin-top: 0.6rem;
       font-size: 0.85rem;
     }
 
@@ -165,6 +165,12 @@
 
     .summary-value.negative {
       color: var(--danger);
+    }
+
+    .summary-caption {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
     }
 
     .section-title {
@@ -327,7 +333,7 @@
         grid-template-columns: repeat(3, minmax(0,1fr));
       }
 
-      header {
+      header.finance-header {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -337,7 +343,7 @@
 <body>
   <div class="container">
     <div class="card">
-      <header>
+      <header class="finance-header">
         <div>
           <h1>Finance</h1>
         </div>
@@ -356,28 +362,52 @@
 
       <!-- PAGE 1: SUMMARY + LINE GRAPH -->
       <div id="page-overview" class="page active">
+        <!-- YEAR SUMMARY -->
         <div class="summary-row">
           <div class="summary-item">
-            <div class="summary-label">Income</div>
+            <div class="summary-label">Year income</div>
+            <div class="summary-value" id="ytdIncome">₱0.00</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Year expense</div>
+            <div class="summary-value" id="ytdExpense">₱0.00</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Year net</div>
+            <div class="summary-value" id="ytdNet">₱0.00</div>
+          </div>
+        </div>
+        <div class="summary-caption" id="ytdCaption"></div>
+
+        <!-- MONTH SUMMARY -->
+        <div class="summary-row">
+          <div class="summary-item">
+            <div class="summary-label">Month income</div>
             <div class="summary-value" id="totalIncome">₱0.00</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Expense</div>
+            <div class="summary-label">Month expense</div>
             <div class="summary-value" id="totalExpense">₱0.00</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Net</div>
+            <div class="summary-label">Month net</div>
             <div class="summary-value" id="netAmount">₱0.00</div>
           </div>
         </div>
 
-        <div class="section-title">Income vs Expense (Year)</div>
+        <div class="section-title">Income vs Expense (Past 9 months + Next 3)</div>
         <div class="chart-wrapper">
           <canvas id="lineChart"></canvas>
         </div>
+
+        <!-- BUTTONS ON SUMMARY PAGE -->
+        <div class="button-row">
+          <button class="btn-income" id="btnAddIncome">Add income</button>
+          <button class="btn-expense" id="btnAddExpense">Add expense</button>
+        </div>
       </div>
 
-      <!-- PAGE 2: TABLES + ADD BUTTONS -->
+      <!-- PAGE 2: TABLES (no buttons here now) -->
       <div id="page-details" class="page">
         <div class="section-title">Income</div>
         <table>
@@ -404,11 +434,6 @@
           <tbody id="expenseBody"></tbody>
         </table>
         <div class="empty-note" id="expenseEmpty" style="display:none;">No expenses for this month.</div>
-
-        <div class="button-row">
-          <button class="btn-income" id="btnAddIncome">Add income</button>
-          <button class="btn-expense" id="btnAddExpense">Add expense</button>
-        </div>
       </div>
     </div>
   </div>
@@ -450,9 +475,16 @@
       'January','February','March','April','May','June',
       'July','August','September','October','November','December'
     ];
+    const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     const monthSelect   = document.getElementById('monthSelect');
     const headerMonth   = document.getElementById('headerMonth');
+
+    const ytdIncomeEl   = document.getElementById('ytdIncome');
+    const ytdExpenseEl  = document.getElementById('ytdExpense');
+    const ytdNetEl      = document.getElementById('ytdNet');
+    const ytdCaptionEl  = document.getElementById('ytdCaption');
+
     const totalIncomeEl = document.getElementById('totalIncome');
     const totalExpenseEl= document.getElementById('totalExpense');
     const netAmountEl   = document.getElementById('netAmount');
@@ -496,7 +528,6 @@
       });
       const now = new Date();
       monthSelect.value = String(now.getMonth());
-      headerMonth.textContent = months[now.getMonth()] + ' ' + now.getFullYear();
     }
 
     async function loadTransactions() {
@@ -529,29 +560,85 @@
       return true;
     }
 
-    function computeMonthlyTotals() {
-      const incomeTotals = Array(12).fill(0);
-      const expenseTotals = Array(12).fill(0);
+    // Build rolling 12-month window: past 9 months, next 3 months relative to today
+    function computeRollingWindowTotals() {
+      const now = new Date();
+      const baseYear = now.getFullYear();
+      const baseMonth = now.getMonth(); // 0-11
 
-      transactions.forEach(t => {
-        const d = new Date(t.date);
-        if (Number.isNaN(d.getTime())) return;
-        const m = d.getMonth();
-        if (t.type === 'income') {
-          incomeTotals[m] += Number(t.amount || 0);
-        } else if (t.type === 'expense') {
-          expenseTotals[m] += Number(t.amount || 0);
-        }
-      });
+      const labels = [];
+      const incomeTotals = [];
+      const expenseTotals = [];
 
-      return { incomeTotals, expenseTotals };
+      for (let offset = -9; offset <= 2; offset++) {
+        const slotDate = new Date(baseYear, baseMonth + offset, 1);
+        const slotYear = slotDate.getFullYear();
+        const slotMonth = slotDate.getMonth(); // 0-11
+
+        const label = `${monthsShort[slotMonth]} ${String(slotYear).slice(-2)}`;
+        labels.push(label);
+
+        let incomeSum = 0;
+        let expenseSum = 0;
+
+        transactions.forEach(t => {
+          const d = new Date(t.date);
+          if (Number.isNaN(d.getTime())) return;
+          if (d.getFullYear() === slotYear && d.getMonth() === slotMonth) {
+            if (t.type === 'income') {
+              incomeSum += Number(t.amount || 0);
+            } else if (t.type === 'expense') {
+              expenseSum += Number(t.amount || 0);
+            }
+          }
+        });
+
+        incomeTotals.push(incomeSum);
+        expenseTotals.push(expenseSum);
+      }
+
+      return { labels, incomeTotals, expenseTotals };
     }
 
     function refreshOverview() {
       const monthIndex = Number(monthSelect.value);
-      headerMonth.textContent = months[monthIndex];
 
-      const monthTx = transactions.filter(t => {
+      // Determine year based on transactions in that month, else current year
+      let selectedYear = new Date().getFullYear();
+      const monthTxForYear = transactions.filter(t => {
+        const d = new Date(t.date);
+        return d.getMonth() === monthIndex;
+      });
+      if (monthTxForYear.length > 0) {
+        selectedYear = new Date(monthTxForYear[0].date).getFullYear();
+      }
+
+      headerMonth.textContent = `${months[monthIndex]} ${selectedYear}`;
+
+      // Year totals
+      const yearTx = transactions.filter(t => {
+        const d = new Date(t.date);
+        return d.getFullYear() === selectedYear;
+      });
+      const yearIncome = yearTx
+        .filter(t => t.type === 'income')
+        .reduce((s,t)=>s+Number(t.amount||0),0);
+      const yearExpense = yearTx
+        .filter(t => t.type === 'expense')
+        .reduce((s,t)=>s+Number(t.amount||0),0);
+      const yearNet = yearIncome - yearExpense;
+
+      ytdIncomeEl.textContent  = money(yearIncome);
+      ytdExpenseEl.textContent = money(yearExpense);
+      ytdNetEl.textContent     = money(yearNet);
+      ytdNetEl.classList.remove('positive','negative');
+      if (yearNet > 0) ytdNetEl.classList.add('positive');
+      else if (yearNet < 0) ytdNetEl.classList.add('negative');
+
+      ytdCaptionEl.textContent = `Year-to-date for ${selectedYear}`;
+
+      // Month totals (within selected year)
+      const monthTx = yearTx.filter(t => {
         const d = new Date(t.date);
         return d.getMonth() === monthIndex;
       });
@@ -571,14 +658,15 @@
       if (net > 0) netAmountEl.classList.add('positive');
       else if (net < 0) netAmountEl.classList.add('negative');
 
-      const { incomeTotals, expenseTotals } = computeMonthlyTotals();
+      // Chart: rolling window with year-aware months
+      const { labels, incomeTotals, expenseTotals } = computeRollingWindowTotals();
 
       if (!chart) {
         const ctx = document.getElementById('lineChart').getContext('2d');
         chart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: months,
+            labels,
             datasets: [
               {
                 label: 'Income',
@@ -624,6 +712,7 @@
           }
         });
       } else {
+        chart.data.labels = labels;
         chart.data.datasets[0].data = incomeTotals;
         chart.data.datasets[1].data = expenseTotals;
         chart.update();
@@ -632,9 +721,20 @@
 
     function refreshDetails() {
       const monthIndex = Number(monthSelect.value);
-      const monthTx = transactions.filter(t => {
+
+      // Use same year logic as overview
+      let selectedYear = new Date().getFullYear();
+      const monthTxForYear = transactions.filter(t => {
         const d = new Date(t.date);
         return d.getMonth() === monthIndex;
+      });
+      if (monthTxForYear.length > 0) {
+        selectedYear = new Date(monthTxForYear[0].date).getFullYear();
+      }
+
+      const monthTx = transactions.filter(t => {
+        const d = new Date(t.date);
+        return d.getFullYear() === selectedYear && d.getMonth() === monthIndex;
       });
 
       const incomes = monthTx
