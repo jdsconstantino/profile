@@ -109,7 +109,6 @@
       background: #e11d48;
       color: #fdf2f8;
     }
-    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -171,7 +170,7 @@
   <div class="container">
     <div class="card">
       <h1>Monthly Overview</h1>
-      <div class="sub">Personal finance snapshot – only you can see this (Cloudflare-gated).</div>
+      <div class="sub">Personal finance snapshot – private page.</div>
 
       <div class="field">
         <label for="monthSelect">Month</label>
@@ -231,7 +230,7 @@
     <div class="modal">
       <h2 id="modalTitle">Add</h2>
       <div class="field">
-        <label for="entryDate">Date (YYYY-MM-DD)</label>
+        <label for="entryDate">Date</label>
         <input type="date" id="entryDate" />
       </div>
       <div class="field">
@@ -252,5 +251,163 @@
   <script>
     const STORAGE_KEY = 'financeTrackerData_v1';
 
-    // --- Data model ---
-    // { type: 'income' | 'expense', date: '2025-01-15', label: 'DnM',
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        return JSON.parse(raw);
+      } catch (e) {
+        console.error('Failed to parse storage', e);
+        return [];
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    let transactions = loadData();
+
+    const monthSelect = document.getElementById('monthSelect');
+    const totalIncomeEl = document.getElementById('totalIncome');
+    const totalExpenseEl = document.getElementById('totalExpense');
+    const netAmountEl = document.getElementById('netAmount');
+    const incomeBody = document.getElementById('incomeBody');
+    const expenseBody = document.getElementById('expenseBody');
+    const incomeEmpty = document.getElementById('incomeEmpty');
+    const expenseEmpty = document.getElementById('expenseEmpty');
+
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const entryDate = document.getElementById('entryDate');
+    const entryLabel = document.getElementById('entryLabel');
+    const entryAmount = document.getElementById('entryAmount');
+    const btnCancel = document.getElementById('btnCancel');
+    const btnSave = document.getElementById('btnSave');
+
+    let modalMode = 'income';
+
+    const months = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December'
+    ];
+
+    function initMonthSelect() {
+      months.forEach((m, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = m;
+        monthSelect.appendChild(opt);
+      });
+      const now = new Date();
+      monthSelect.value = String(now.getMonth());
+    }
+
+    function formatCurrency(value) {
+      return '₱' + Number(value).toLocaleString('en-PH', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr);
+      if (Number.isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString('en-PH', { day: '2-digit', month: 'short' });
+    }
+
+    function refreshView() {
+      const monthIndex = Number(monthSelect.value);
+
+      const monthTx = transactions.filter(t => {
+        const d = new Date(t.date);
+        return d.getMonth() === monthIndex;
+      });
+
+      const incomes = monthTx.filter(t => t.type === 'income');
+      const expenses = monthTx.filter(t => t.type === 'expense');
+
+      const totalIncome = incomes.reduce((sum, t) => sum + Number(t.amount || 0), 0);
+      const totalExpense = expenses.reduce((sum, t) => sum + Number(t.amount || 0), 0);
+
+      totalIncomeEl.textContent = formatCurrency(totalIncome);
+      totalExpenseEl.textContent = formatCurrency(totalExpense);
+      netAmountEl.textContent = formatCurrency(totalIncome - totalExpense);
+
+      incomeBody.innerHTML = '';
+      incomes
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .forEach(t => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${formatDate(t.date)}</td>
+            <td>${t.label}</td>
+            <td style="text-align:right;">${formatCurrency(t.amount)}</td>
+          `;
+          incomeBody.appendChild(tr);
+        });
+
+      expenseBody.innerHTML = '';
+      expenses
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .forEach(t => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${formatDate(t.date)}</td>
+            <td>${t.label}</td>
+            <td style="text-align:right;">${formatCurrency(t.amount)}</td>
+          `;
+          expenseBody.appendChild(tr);
+        });
+
+      incomeEmpty.style.display = incomes.length ? 'none' : 'block';
+      expenseEmpty.style.display = expenses.length ? 'none' : 'block';
+    }
+
+    function openModal(type) {
+      modalMode = type;
+      modalTitle.textContent = type === 'income' ? 'Add Income' : 'Add Expense';
+      entryDate.valueAsDate = new Date();
+      entryLabel.value = '';
+      entryAmount.value = '';
+      modalBackdrop.style.display = 'flex';
+      entryLabel.focus();
+    }
+
+    function closeModal() {
+      modalBackdrop.style.display = 'none';
+    }
+
+    function saveEntry() {
+      const dateVal = entryDate.value;
+      const labelVal = entryLabel.value.trim();
+      const amountVal = parseFloat(entryAmount.value);
+
+      if (!dateVal || !labelVal || !amountVal || amountVal <= 0) {
+        alert('Please enter a valid date, description, and amount.');
+        return;
+      }
+
+      transactions.push({
+        type: modalMode,
+        date: dateVal,
+        label: labelVal,
+        amount: amountVal
+      });
+
+      saveData(transactions);
+      closeModal();
+      refreshView();
+    }
+
+    document.getElementById('btnAddIncome').addEventListener('click', () => openModal('income'));
+    document.getElementById('btnAddExpense').addEventListener('click', () => openModal('expense'));
+    btnCancel.addEventListener('click', closeModal);
+    btnSave.addEventListener('click', saveEntry);
+    monthSelect.addEventListener('change', refreshView);
+
+    initMonthSelect();
+    refreshView();
+  </script>
+</body>
+</html>
