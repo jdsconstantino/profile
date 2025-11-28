@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance Tracker</title>
+
+  <!-- Supabase JS (v2) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     :root {
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -15,7 +21,7 @@
       color: #f9fafb;
     }
     .container {
-      max-width: 900px; /* mas wide, di masikip yung chart */
+      max-width: 900px;
       margin: 0 auto;
       padding: 1rem;
     }
@@ -193,7 +199,7 @@
       gap: 0.5rem;
       margin-top: 0.75rem;
     }
-    /* Chart wrapper para fixed height, hindi sobrang haba */
+    /* Chart wrapper to control height */
     .chart-wrapper {
       margin-top: 1rem;
       height: 260px;
@@ -208,7 +214,9 @@
   <div class="container">
     <div class="card">
       <h1>Finance</h1>
-      <div class="sub">Personal finance tracker (localStorage). Lock this URL with Cloudflare Access.</div>
+      <div class="sub">
+        Personal finance tracker using Supabase (cloud DB). Lock this URL with Cloudflare Access.
+      </div>
 
       <div class="tabs">
         <div class="tab active" data-page="overview">Page 1 · Summary</div>
@@ -304,66 +312,44 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'financeTrackerData_v1';
+    // ========= SUPABASE SETUP =========
+    const SUPABASE_URL = 'https://fgtakqdkovomrivljzin.supabase.co'; // TODO: replace
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZndGFrcWRrb3ZvbXJpdmxqemluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNjAwNjMsImV4cCI6MjA3OTkzNjA2M30.fDVT3jzMkpNTNxLgq7hc-c9OCrvPZW_qB_RV_XFTxFU';           // TODO: replace
 
-    function loadData() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        console.error('parse error', e);
-        return [];
-      }
-    }
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function saveData(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        console.error('save error', e);
-      }
-    }
-
-    let transactions = loadData();
+    // ========= STATE / DOM HANDLES =========
+    let transactions = []; // always comes from Supabase
 
     const months = [
       'January','February','March','April','May','June',
       'July','August','September','October','November','December'
     ];
 
-    const monthSelect = document.getElementById('monthSelect');
+    const monthSelect   = document.getElementById('monthSelect');
     const totalIncomeEl = document.getElementById('totalIncome');
-    const totalExpenseEl = document.getElementById('totalExpense');
-    const netAmountEl = document.getElementById('netAmount');
-    const incomeBody = document.getElementById('incomeBody');
-    const expenseBody = document.getElementById('expenseBody');
-    const incomeEmpty = document.getElementById('incomeEmpty');
-    const expenseEmpty = document.getElementById('expenseEmpty');
+    const totalExpenseEl= document.getElementById('totalExpense');
+    const netAmountEl   = document.getElementById('netAmount');
+    const incomeBody    = document.getElementById('incomeBody');
+    const expenseBody   = document.getElementById('expenseBody');
+    const incomeEmpty   = document.getElementById('incomeEmpty');
+    const expenseEmpty  = document.getElementById('expenseEmpty');
 
     const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle = document.getElementById('modalTitle');
-    const entryDate = document.getElementById('entryDate');
-    const entryLabel = document.getElementById('entryLabel');
-    const entryAmount = document.getElementById('entryAmount');
-    const btnCancel = document.getElementById('btnCancel');
-    const btnSave = document.getElementById('btnSave');
-    const btnAddIncome = document.getElementById('btnAddIncome');
+    const modalTitle    = document.getElementById('modalTitle');
+    const entryDate     = document.getElementById('entryDate');
+    const entryLabel    = document.getElementById('entryLabel');
+    const entryAmount   = document.getElementById('entryAmount');
+    const btnCancel     = document.getElementById('btnCancel');
+    const btnSave       = document.getElementById('btnSave');
+    const btnAddIncome  = document.getElementById('btnAddIncome');
     const btnAddExpense = document.getElementById('btnAddExpense');
 
     let modalMode = 'income';
     let chart;
 
-    function initMonthSelect() {
-      months.forEach((m, idx) => {
-        const opt = document.createElement('option');
-        opt.value = idx;
-        opt.textContent = m;
-        monthSelect.appendChild(opt);
-      });
-      const now = new Date();
-      monthSelect.value = String(now.getMonth());
-    }
-
+    // ========= UTIL =========
     function money(v) {
       return '₱' + Number(v || 0).toLocaleString('en-PH', {
         minimumFractionDigits: 2,
@@ -377,9 +363,53 @@
       return d.toLocaleDateString('en-PH', { day: '2-digit', month: 'short' });
     }
 
+    function initMonthSelect() {
+      months.forEach((m, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = m;
+        monthSelect.appendChild(opt);
+      });
+      const now = new Date();
+      monthSelect.value = String(now.getMonth());
+    }
+
+    // ========= SUPABASE QUERIES =========
+    async function loadTransactions() {
+      const { data, error } = await db
+        .from('transactions')
+        .select('*')
+        .order('date', { ascending: true });
+
+      if (error) {
+        console.error('Supabase load error', error);
+        alert('Error loading data from Supabase. Check console.');
+        return;
+      }
+
+      transactions = data || [];
+      refreshOverview();
+      refreshDetails();
+    }
+
+    async function insertTransaction(payload) {
+      const { error } = await db
+        .from('transactions')
+        .insert([payload]);
+
+      if (error) {
+        console.error('Supabase insert error', error);
+        alert('Error saving to Supabase. Check console.');
+        return false;
+      }
+      return true;
+    }
+
+    // ========= CALCULATIONS / RENDER =========
     function computeMonthlyTotals() {
       const incomeTotals = Array(12).fill(0);
       const expenseTotals = Array(12).fill(0);
+
       transactions.forEach(t => {
         const d = new Date(t.date);
         if (Number.isNaN(d.getTime())) return;
@@ -390,6 +420,7 @@
           expenseTotals[m] += Number(t.amount || 0);
         }
       });
+
       return { incomeTotals, expenseTotals };
     }
 
@@ -400,15 +431,15 @@
         return d.getMonth() === monthIndex;
       });
 
-      const incomes = monthTx.filter(t => t.type === 'income');
+      const incomes  = monthTx.filter(t => t.type === 'income');
       const expenses = monthTx.filter(t => t.type === 'expense');
 
-      const totalIncome = incomes.reduce((sum, t) => sum + Number(t.amount || 0), 0);
-      const totalExpense = expenses.reduce((sum, t) => sum + Number(t.amount || 0), 0);
+      const totalIncome  = incomes.reduce((s,t)=>s+Number(t.amount||0),0);
+      const totalExpense = expenses.reduce((s,t)=>s+Number(t.amount||0),0);
 
-      totalIncomeEl.textContent = money(totalIncome);
+      totalIncomeEl.textContent  = money(totalIncome);
       totalExpenseEl.textContent = money(totalExpense);
-      netAmountEl.textContent = money(totalIncome - totalExpense);
+      netAmountEl.textContent    = money(totalIncome - totalExpense);
 
       const { incomeTotals, expenseTotals } = computeMonthlyTotals();
 
@@ -435,7 +466,7 @@
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,  // kami na nag-control ng height sa CSS
+            maintainAspectRatio: false,
             plugins: {
               legend: {
                 position: 'bottom',
@@ -471,10 +502,10 @@
 
       const incomes = monthTx
         .filter(t => t.type === 'income')
-        .sort((a,b) => new Date(a.date) - new Date(b.date));
+        .sort((a,b)=>new Date(a.date)-new Date(b.date));
       const expenses = monthTx
         .filter(t => t.type === 'expense')
-        .sort((a,b) => new Date(a.date) - new Date(b.date));
+        .sort((a,b)=>new Date(a.date)-new Date(b.date));
 
       incomeBody.innerHTML = '';
       incomes.forEach(t => {
@@ -498,10 +529,11 @@
         expenseBody.appendChild(tr);
       });
 
-      incomeEmpty.style.display = incomes.length ? 'none' : 'block';
+      incomeEmpty.style.display  = incomes.length  ? 'none' : 'block';
       expenseEmpty.style.display = expenses.length ? 'none' : 'block';
     }
 
+    // ========= MODAL =========
     function openModal(type) {
       modalMode = type;
       modalTitle.textContent = type === 'income' ? 'Add Income' : 'Add Expense';
@@ -516,30 +548,30 @@
       modalBackdrop.style.display = 'none';
     }
 
-    function saveEntry() {
-      const dateVal = entryDate.value;
+    async function saveEntry() {
+      const dateVal  = entryDate.value;
       const labelVal = entryLabel.value.trim();
-      const amountVal = parseFloat(entryAmount.value);
+      const amountVal= parseFloat(entryAmount.value);
 
-      if (!dateVal || !labelVal || isNaN(amountVal) || amountVal <= 0) {
+      if (!dateVal || !labelVal || Number.isNaN(amountVal) || amountVal <= 0) {
         alert('Enter valid date, description, and amount.');
         return;
       }
 
-      transactions.push({
+      const ok = await insertTransaction({
         type: modalMode,
         date: dateVal,
         label: labelVal,
         amount: amountVal
       });
 
-      saveData(transactions);
+      if (!ok) return;
+
       closeModal();
-      refreshOverview();
-      refreshDetails();
+      await loadTransactions(); // re-sync from cloud
     }
 
-    // Tabs
+    // ========= TABS / EVENTS =========
     document.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -550,21 +582,19 @@
       });
     });
 
-    if (btnAddIncome && btnAddExpense) {
-      btnAddIncome.addEventListener('click', () => openModal('income'));
-      btnAddExpense.addEventListener('click', () => openModal('expense'));
-    }
+    btnAddIncome.addEventListener('click', () => openModal('income'));
+    btnAddExpense.addEventListener('click', () => openModal('expense'));
     btnCancel.addEventListener('click', closeModal);
     btnSave.addEventListener('click', saveEntry);
+
     monthSelect.addEventListener('change', () => {
       refreshOverview();
       refreshDetails();
     });
 
-    // Init
+    // ========= INIT =========
     initMonthSelect();
-    refreshOverview();
-    refreshDetails();
+    loadTransactions();
   </script>
 </body>
 </html>
