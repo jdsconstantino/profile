@@ -40,10 +40,6 @@
       color: var(--text-main);
     }
 
-    #dxp-header {
-      margin-bottom: 16px;
-    }
-
     .container {
       max-width: 840px;
       margin: 0 auto;
@@ -345,9 +341,6 @@
   </style>
 </head>
 <body>
-  <!-- Global header holder -->
-  <header id="dxp-header"></header>
-
   <div class="container">
     <div class="card">
       <header class="finance-header">
@@ -402,13 +395,19 @@
           </div>
         </div>
 
-        <div class="section-title">Income vs Expense (Year)</div>
+        <div class="section-title">Income vs Expense (Past 9 months + Next 3)</div>
         <div class="chart-wrapper">
           <canvas id="lineChart"></canvas>
         </div>
+
+        <!-- BUTTONS ON SUMMARY PAGE -->
+        <div class="button-row">
+          <button class="btn-income" id="btnAddIncome">Add income</button>
+          <button class="btn-expense" id="btnAddExpense">Add expense</button>
+        </div>
       </div>
 
-      <!-- PAGE 2: TABLES + ADD BUTTONS -->
+      <!-- PAGE 2: TABLES (no buttons here now) -->
       <div id="page-details" class="page">
         <div class="section-title">Income</div>
         <table>
@@ -435,209 +434,34 @@
           <tbody id="expenseBody"></tbody>
         </table>
         <div class="empty-note" id="expenseEmpty" style="display:none;">No expenses for this month.</div>
-
-        <div class="button-row">
-          <button class="btn-income" id="btnAddIncome">Add income</button>
-          <button class="btn-expense" id="btnAddExpense">Add expense</button>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- DeskXP global footer -->
-  <footer class="dxp-footer">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
-
-      :root {
-        --dxp-green: #007236;
-        --dxp-ink: #e7e9ee;
-        --dxp-muted: #cfd4dc;
-      }
-
-      .dxp-footer {
-        font-family: "Plus Jakarta Sans", Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-        color: var(--dxp-ink);
-        margin: 50px auto 0;
-      }
-
-      .dxp-footer .surface {
-        position: relative;
-        background:
-          radial-gradient(120% 160% at 50% -20%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%),
-          linear-gradient(180deg, #37535F 0%, #2E424E 35%, #24353D 80%, #1c262c 100%);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        box-shadow: 0 10px 32px rgba(0,0,0,0.25);
-        overflow: hidden;
-        padding: 40px 48px 28px;
-      }
-
-      .dxp-footer .wrap {
-        max-width: 1100px;
-        margin: 0 auto;
-        text-align: left;
-      }
-
-      .dxp-footer .footer-brand {
-        position: absolute;
-        z-index: 1;
-        pointer-events: none;
-        user-select: none;
-        height: clamp(130px, 17vw, 200px);
-        left: clamp(20px, 4vw, 60px);
-        top: clamp(18px, 3vw, 36px);
-        width: auto;
-        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
-        opacity: 0.98;
-      }
-
-      .dxp-footer .grid {
-        display: grid;
-        grid-template-columns: 1.3fr 1fr 1fr 1fr;
-        gap: 36px;
-        align-items: start;
-        justify-content: center;
-        text-align: left;
-        position: relative;
-        z-index: 2;
-        margin-left: clamp(60px, 8vw, 1400px);
-      }
-
-      .dxp-footer .col h4 {
-        margin: 0 0 10px;
-        font-weight: 700;
-        font-size: 1.05rem;
-        color: #f6f7f9;
-      }
-
-      .dxp-footer .links { list-style: none; padding: 0; margin: 0; }
-      .dxp-footer .links li { margin: 6px 0; }
-
-      .dxp-footer a {
-        color: var(--dxp-ink);
-        text-decoration: none;
-        font-size: 0.95rem;
-        line-height: 1.45;
-        opacity: 0.9;
-        transition: color .2s, opacity .2s;
-      }
-
-      .dxp-footer a:hover { opacity: 1; color: #fff; text-decoration: underline; }
-
-      .dxp-footer .rule {
-        height: 1px;
-        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-        margin: 26px auto 14px;
-        max-width: 90%;
-      }
-
-      .dxp-footer .copy {
-        text-align: left;
-        color: var(--dxp-muted);
-        font-size: 0.92rem;
-        letter-spacing: 0.01em;
-      }
-
-      .dxp-footer .copy a {
-        color: #fff;
-        text-decoration: none;
-      }
-
-      .dxp-footer .copy a:hover { text-decoration: underline; }
-
-      @media (max-width: 640px) {
-        .dxp-footer .footer-brand {
-          position: static;
-          display: block;
-          margin: 0 auto 16px;
-          height: 130px;
-          pointer-events: auto;
-        }
-
-        .dxp-footer .grid {
-          grid-template-columns: 1fr;
-          gap: 20px;
-          margin-left: 0;
-        }
-
-        .dxp-footer .surface {
-          padding: 32px 20px 18px;
-        }
-      }
-    </style>
-
-    <div class="surface">
-      <div class="wrap">
-        <img src="/assets/logo.png" alt="DeskXP Logo" class="footer-brand" />
-
-        <div class="grid">
-          <div class="col">
-            <h4>Services</h4>
-            <ul class="links">
-              <li><a href="/services#zendesk">Zendesk</a></li>
-              <li><a href="/services#operations-design">Operations Design</a></li>
-              <li><a href="/services#systems-architecture">Systems Architecture</a></li>
-              <li><a href="/services#automation-ai">Automation &amp; AI</a></li>
-              <li><a href="/services#reporting-analytics">Reporting &amp; Analytics</a></li>
-              <li><a href="/services#ecommerce-integrations">eCommerce Integrations</a></li>
-              <li><a href="/services#customer-experience-servicing">Customer Experience &amp; Servicing</a></li>
-            </ul>
-          </div>
-
-          <div class="col">
-            <h4>Navigation</h4>
-            <ul class="links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/services/">Services</a></li>
-              <li><a href="/success-stories">Success Stories</a></li>
-              <li><a href="/about/">About</a></li>
-              <li><a href="/personalized-specs">Personalized Specifications</a></li>
-            </ul>
-          </div>
-
-          <div class="col">
-            <h4>Policies</h4>
-            <ul class="links">
-              <li><a href="/privacy/">Privacy Policy</a></li>
-              <li><a href="/cookies/">Cookie</a></li>
-            </ul>
-          </div>
-
-          <div class="col">
-            <h4>Connect with Me</h4>
-            <ul class="links">
-              <li><a href="https://linkedin.com/in/jdsconstantino" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li><a href="https://www.upwork.com/freelancers/~019be0250d1b9db328" target="_blank" rel="noopener">Upwork</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="rule"></div>
-        <p class="copy">
-          © <span id="dxp-year"></span> DeskXP • <a href="https://deskxp.com">deskxp.com</a>
-        </p>
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <h2 id="modalTitle">Add</h2>
+      <div class="field">
+        <label for="entryDate">Date</label>
+        <input type="date" id="entryDate" />
+      </div>
+      <div class="field">
+        <label for="entryLabel">Label</label>
+        <input type="text" id="entryLabel" />
+      </div>
+      <div class="field">
+        <label for="entryAmount">Amount</label>
+        <input type="number" id="entryAmount" step="0.01" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btnCancel">Cancel</button>
+        <button class="btn-income" id="btnSave">Save</button>
       </div>
     </div>
-
-    <script>
-      document.getElementById("dxp-year").textContent = new Date().getFullYear();
-    </script>
-  </footer>
+  </div>
 
   <script>
-    // ===== Load global header from partial =====
-    (async function loadHeader() {
-      try {
-        const res = await fetch('/partials/header.html');
-        if (res.ok) {
-          document.getElementById('dxp-header').innerHTML = await res.text();
-        }
-      } catch (e) {
-        console.error('Failed to load header partial', e);
-      }
-    })();
-
     // ===== Supabase config (your project) =====
     const SUPABASE_URL = 'https://fgtakqdkovomrivljzin.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZndGFrcWRrb3ZvbXJpdmxqemluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNjAwNjMsImV4cCI6MjA3OTkzNjA2M30.fDVT3jzMkpNTNxLgq7hc-c9OCrvPZW_qB_RV_XFTxFU';
@@ -651,6 +475,7 @@
       'January','February','March','April','May','June',
       'July','August','September','October','November','December'
     ];
+    const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     const monthSelect   = document.getElementById('monthSelect');
     const headerMonth   = document.getElementById('headerMonth');
@@ -735,22 +560,44 @@
       return true;
     }
 
-    function computeMonthlyTotals() {
-      const incomeTotals = Array(12).fill(0);
-      const expenseTotals = Array(12).fill(0);
+    // Build rolling 12-month window: past 9 months, next 3 months relative to today
+    function computeRollingWindowTotals() {
+      const now = new Date();
+      const baseYear = now.getFullYear();
+      const baseMonth = now.getMonth(); // 0-11
 
-      transactions.forEach(t => {
-        const d = new Date(t.date);
-        if (Number.isNaN(d.getTime())) return;
-        const m = d.getMonth();
-        if (t.type === 'income') {
-          incomeTotals[m] += Number(t.amount || 0);
-        } else if (t.type === 'expense') {
-          expenseTotals[m] += Number(t.amount || 0);
-        }
-      });
+      const labels = [];
+      const incomeTotals = [];
+      const expenseTotals = [];
 
-      return { incomeTotals, expenseTotals };
+      for (let offset = -9; offset <= 2; offset++) {
+        const slotDate = new Date(baseYear, baseMonth + offset, 1);
+        const slotYear = slotDate.getFullYear();
+        const slotMonth = slotDate.getMonth(); // 0-11
+
+        const label = `${monthsShort[slotMonth]} ${String(slotYear).slice(-2)}`;
+        labels.push(label);
+
+        let incomeSum = 0;
+        let expenseSum = 0;
+
+        transactions.forEach(t => {
+          const d = new Date(t.date);
+          if (Number.isNaN(d.getTime())) return;
+          if (d.getFullYear() === slotYear && d.getMonth() === slotMonth) {
+            if (t.type === 'income') {
+              incomeSum += Number(t.amount || 0);
+            } else if (t.type === 'expense') {
+              expenseSum += Number(t.amount || 0);
+            }
+          }
+        });
+
+        incomeTotals.push(incomeSum);
+        expenseTotals.push(expenseSum);
+      }
+
+      return { labels, incomeTotals, expenseTotals };
     }
 
     function refreshOverview() {
@@ -790,7 +637,7 @@
 
       ytdCaptionEl.textContent = `Year-to-date for ${selectedYear}`;
 
-      // Month totals
+      // Month totals (within selected year)
       const monthTx = yearTx.filter(t => {
         const d = new Date(t.date);
         return d.getMonth() === monthIndex;
@@ -811,15 +658,15 @@
       if (net > 0) netAmountEl.classList.add('positive');
       else if (net < 0) netAmountEl.classList.add('negative');
 
-      // Chart
-      const { incomeTotals, expenseTotals } = computeMonthlyTotals();
+      // Chart: rolling window with year-aware months
+      const { labels, incomeTotals, expenseTotals } = computeRollingWindowTotals();
 
       if (!chart) {
         const ctx = document.getElementById('lineChart').getContext('2d');
         chart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: months,
+            labels,
             datasets: [
               {
                 label: 'Income',
@@ -865,6 +712,7 @@
           }
         });
       } else {
+        chart.data.labels = labels;
         chart.data.datasets[0].data = incomeTotals;
         chart.data.datasets[1].data = expenseTotals;
         chart.update();
