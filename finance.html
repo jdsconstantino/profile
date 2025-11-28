@@ -15,7 +15,7 @@
       color: #f9fafb;
     }
     .container {
-      max-width: 680px;
+      max-width: 900px; /* mas wide, di masikip yung chart */
       margin: 0 auto;
       padding: 1rem;
     }
@@ -193,13 +193,22 @@
       gap: 0.5rem;
       margin-top: 0.75rem;
     }
+    /* Chart wrapper para fixed height, hindi sobrang haba */
+    .chart-wrapper {
+      margin-top: 1rem;
+      height: 260px;
+    }
+    .chart-wrapper canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="card">
       <h1>Finance</h1>
-      <div class="sub">Personal finance tracker (localStorage). Protect this URL via Cloudflare Access.</div>
+      <div class="sub">Personal finance tracker (localStorage). Lock this URL with Cloudflare Access.</div>
 
       <div class="tabs">
         <div class="tab active" data-page="overview">Page 1 · Summary</div>
@@ -230,7 +239,9 @@
         </div>
 
         <div class="section-title" style="margin-top:1.2rem;">Income vs Expense (All Months)</div>
-        <canvas id="lineChart" height="220"></canvas>
+        <div class="chart-wrapper">
+          <canvas id="lineChart"></canvas>
+        </div>
       </div>
 
       <!-- PAGE 2: TABLES + ADD BUTTONS -->
@@ -306,7 +317,11 @@
     }
 
     function saveData(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.error('save error', e);
+      }
     }
 
     let transactions = loadData();
@@ -350,7 +365,7 @@
     }
 
     function money(v) {
-      return '₱' + Number(v).toLocaleString('en-PH', {
+      return '₱' + Number(v || 0).toLocaleString('en-PH', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
@@ -420,9 +435,10 @@
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: false,  // kami na nag-control ng height sa CSS
             plugins: {
               legend: {
+                position: 'bottom',
                 labels: { color: '#e5e7eb' }
               }
             },
@@ -432,6 +448,7 @@
                 grid: { display: false }
               },
               y: {
+                beginAtZero: true,
                 ticks: { color: '#9ca3af' },
                 grid: { color: '#1f2937' }
               }
@@ -452,9 +469,11 @@
         return d.getMonth() === monthIndex;
       });
 
-      const incomes = monthTx.filter(t => t.type === 'income')
+      const incomes = monthTx
+        .filter(t => t.type === 'income')
         .sort((a,b) => new Date(a.date) - new Date(b.date));
-      const expenses = monthTx.filter(t => t.type === 'expense')
+      const expenses = monthTx
+        .filter(t => t.type === 'expense')
         .sort((a,b) => new Date(a.date) - new Date(b.date));
 
       incomeBody.innerHTML = '';
@@ -502,7 +521,7 @@
       const labelVal = entryLabel.value.trim();
       const amountVal = parseFloat(entryAmount.value);
 
-      if (!dateVal || !labelVal || !amountVal || amountVal <= 0) {
+      if (!dateVal || !labelVal || isNaN(amountVal) || amountVal <= 0) {
         alert('Enter valid date, description, and amount.');
         return;
       }
@@ -531,8 +550,10 @@
       });
     });
 
-    btnAddIncome.addEventListener('click', () => openModal('income'));
-    btnAddExpense.addEventListener('click', () => openModal('expense'));
+    if (btnAddIncome && btnAddExpense) {
+      btnAddIncome.addEventListener('click', () => openModal('income'));
+      btnAddExpense.addEventListener('click', () => openModal('expense'));
+    }
     btnCancel.addEventListener('click', closeModal);
     btnSave.addEventListener('click', saveEntry);
     monthSelect.addEventListener('change', () => {
