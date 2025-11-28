@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal Finance Tracker</title>
+  <style>
+    :root {
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #f9fafb;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .card {
+      background: #020617;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      border: 1px solid #1e293b;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem;
+    }
+    .sub {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 0.75rem;
+    }
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      background: #020617;
+      color: #f9fafb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+    }
+    th, td {
+      padding: 0.4rem 0.35rem;
+      border-bottom: 1px solid #1e293b;
+    }
+    th {
+      text-align: left;
+      font-weight: 600;
+      color: #e5e7eb;
+      background: #020617;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+    }
+    .summary-item {
+      background: #020617;
+      border-radius: 10px;
+      padding: 0.5rem;
+      border: 1px solid #1e293b;
+    }
+    .summary-label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+    .summary-value {
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+    .section-title {
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .button-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-income {
+      background: #22c55e;
+      color: #022c22;
+    }
+    .btn-expense {
+      background: #e11d48;
+      color: #fdf2f8;
+    }
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .modal {
+      background: #020617;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 92%;
+      max-width: 420px;
+      border: 1px solid #1e293b;
+    }
+    .modal h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .field {
+      margin-bottom: 0.6rem;
+    }
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 0.15rem;
+      color: #9ca3af;
+    }
+    .field input {
+      width: 100%;
+      padding: 0.45rem;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      background: #020617;
+      color: #f9fafb;
+      font-size: 0.85rem;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .btn-secondary {
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    .empty-note {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Monthly Overview</h1>
+      <div class="sub">Personal finance snapshot – only you can see this (Cloudflare-gated).</div>
+
+      <div class="field">
+        <label for="monthSelect">Month</label>
+        <select id="monthSelect"></select>
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-item">
+          <div class="summary-label">Total Income</div>
+          <div class="summary-value" id="totalIncome">₱0.00</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Total Expense</div>
+          <div class="summary-value" id="totalExpense">₱0.00</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Net</div>
+          <div class="summary-value" id="netAmount">₱0.00</div>
+        </div>
+      </div>
+
+      <div class="section-title">Income</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Date</th>
+            <th style="width: 40%;">Source</th>
+            <th style="width: 30%; text-align:right;">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="incomeBody"></tbody>
+      </table>
+      <div class="empty-note" id="incomeEmpty" style="display:none;">No income recorded for this month.</div>
+
+      <div class="section-title">Expenses</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Date</th>
+            <th style="width: 40%;">Expense</th>
+            <th style="width: 30%; text-align:right;">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="expenseBody"></tbody>
+      </table>
+      <div class="empty-note" id="expenseEmpty" style="display:none;">No expenses recorded for this month.</div>
+
+      <div class="button-row">
+        <button class="btn-income" id="btnAddIncome">Add Income</button>
+        <button class="btn-expense" id="btnAddExpense">Add Expense</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <h2 id="modalTitle">Add</h2>
+      <div class="field">
+        <label for="entryDate">Date (YYYY-MM-DD)</label>
+        <input type="date" id="entryDate" />
+      </div>
+      <div class="field">
+        <label for="entryLabel">Source / Expense</label>
+        <input type="text" id="entryLabel" placeholder="Valuehub, Rent, etc." />
+      </div>
+      <div class="field">
+        <label for="entryAmount">Amount</label>
+        <input type="number" id="entryAmount" step="0.01" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btnCancel">Cancel</button>
+        <button class="btn-income" id="btnSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'financeTrackerData_v1';
+
+    // --- Data model ---
+    // { type: 'income' | 'expense', date: '2025-01-15', label: 'DnM',
