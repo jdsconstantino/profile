@@ -184,7 +184,7 @@
     }
 
     .metric-value {
-      font-size: 19px;
+      font-size: 18px;  /* slightly smaller so it doesn’t feel “lagpas” */
       font-weight: 600;
     }
 
@@ -819,6 +819,10 @@
         expenseData.push(monthExpense);
       }
 
+      // Existing scaling logic (unchanged)
+      const maxVal = Math.max(...incomeData, ...expenseData, 0);
+      const suggestedMax = maxVal > 0 ? maxVal * 1.15 : 1;
+
       const ctx = document.getElementById('trendChart').getContext('2d');
       if (trendChart) {
         trendChart.destroy();
@@ -853,12 +857,16 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          layout: {
+            padding: { top: 10, right: 10, bottom: 8, left: 4 }
+          },
           scales: {
             x: {
               ticks: { color: '#9ba5b8', maxRotation: 45, minRotation: 45 },
               grid: { display: false }
             },
             y: {
+              suggestedMax,
               ticks: {
                 color: '#9ba5b8',
                 callback: (value) => value.toLocaleString('en-PH')
@@ -868,7 +876,12 @@
           },
           plugins: {
             legend: {
-              labels: { color: '#c2cad8', usePointStyle: true },
+              labels: {
+                color: '#c2cad8',
+                usePointStyle: false,      // ← line-style legend instead of circles
+                boxWidth: 40,
+                boxHeight: 2
+              },
               position: 'bottom'
             },
             tooltip: {
