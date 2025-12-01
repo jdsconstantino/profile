@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance</title>
 
-  <!-- Font: Plus Jakarta Sans -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Supabase JS v2 -->
@@ -266,7 +266,21 @@
       border: 1px solid var(--glass-border);
     }
 
+    .btn-danger {
+      background: rgba(239,68,68,0.14);
+      color: #fecaca;
+      border: 1px solid rgba(248,113,113,0.7);
+    }
+
     button:active { transform: translateY(1px); }
+
+    .clickable-row {
+      cursor: pointer;
+    }
+
+    .clickable-row:hover {
+      background: rgba(15,23,42,0.9);
+    }
 
     /* Modal */
     .modal-backdrop {
@@ -298,7 +312,8 @@
 
     .modal .field label { margin-bottom: 0.2rem; }
 
-    .modal .field input {
+    .modal .field input,
+    .modal .field select {
       width: 100%;
       padding: 0.48rem 0.55rem;
       border-radius: 10px;
@@ -309,16 +324,25 @@
       outline: none;
     }
 
-    .modal .field input:focus {
+    .modal .field input:focus,
+    .modal .field select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 1px rgba(56,189,248,0.35);
     }
 
     .modal-actions {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       gap: 0.5rem;
       margin-top: 0.6rem;
+    }
+
+    .modal-actions-right {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      flex: 1;
     }
 
     @media (max-width: 640px) {
@@ -414,8 +438,8 @@
         <table>
           <thead>
             <tr>
-              <th style="width: 28%;">Date</th>
-              <th style="width: 42%;">Source</th>
+              <th style="width: 22%;">Date</th>
+              <th style="width: 48%;">Source</th>
               <th style="width: 30%; text-align:right;">Amount</th>
             </tr>
           </thead>
@@ -427,9 +451,11 @@
         <table>
           <thead>
             <tr>
-              <th style="width: 28%;">Date</th>
-              <th style="width: 42%;">Item</th>
-              <th style="width: 30%; text-align:right;">Amount</th>
+              <th style="width: 18%;">Date</th>
+              <th style="width: 26%;">Item</th>
+              <th style="width: 14%;">Status</th>
+              <th style="width: 22%;">Note</th>
+              <th style="width: 20%; text-align:right;">Amount</th>
             </tr>
           </thead>
           <tbody id="expenseBody"></tbody>
@@ -439,7 +465,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal (Create/Edit) -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
       <h2 id="modalTitle">Add</h2>
@@ -455,9 +481,23 @@
         <label for="entryAmount">Amount</label>
         <input type="number" id="entryAmount" step="0.01" />
       </div>
+      <div class="field" id="statusField">
+        <label for="entryStatus">Status</label>
+        <select id="entryStatus">
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="entryNote">Note</label>
+        <input type="text" id="entryNote" />
+      </div>
       <div class="modal-actions">
         <button class="btn-secondary" id="btnCancel">Cancel</button>
-        <button class="btn-income" id="btnSave">Save</button>
+        <div class="modal-actions-right">
+          <button class="btn-danger" id="btnDelete" style="display:none;">Delete</button>
+          <button class="btn-income" id="btnSave">Save</button>
+        </div>
       </div>
     </div>
   </div>
@@ -500,19 +540,32 @@
     const entryDate     = document.getElementById('entryDate');
     const entryLabel    = document.getElementById('entryLabel');
     const entryAmount   = document.getElementById('entryAmount');
+    const entryStatus   = document.getElementById('entryStatus');
+    const entryNote     = document.getElementById('entryNote');
+    const statusField   = document.getElementById('statusField');
     const btnCancel     = document.getElementById('btnCancel');
     const btnSave       = document.getElementById('btnSave');
+    const btnDelete     = document.getElementById('btnDelete');
     const btnAddIncome  = document.getElementById('btnAddIncome');
     const btnAddExpense = document.getElementById('btnAddExpense');
 
-    let modalMode = 'income';
+    let modalMode = 'income';       // 'income' | 'expense'
+    let modalAction = 'create';     // 'create' | 'edit'
+    let selectedTransaction = null; // current record (for edit/delete)
     let chart;
 
     function money(v) {
-      return '₱' + Number(v || 0).toLocaleString('en-PH', {
+      return '₱' + cleanAmount(v).toLocaleString('en-PH', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
+    }
+
+    // Parse any bullshit (₱, commas, strings) into a safe number
+    function cleanAmount(v) {
+      if (v === null || v === undefined) return 0;
+      const n = Number(String(v).replace(/[₱,]/g,'').trim());
+      return Number.isFinite(n) ? n : 0;
     }
 
     function formatDate(dateStr) {
@@ -597,6 +650,34 @@
       return true;
     }
 
+    async function updateTransaction(id, payload) {
+      const { error } = await db
+        .from('transactions')
+        .update(payload)
+        .eq('id', id);
+
+      if (error) {
+        console.error('Supabase update error', error);
+        alert('Error updating data.');
+        return false;
+      }
+      return true;
+    }
+
+    async function deleteTransaction(id) {
+      const { error } = await db
+        .from('transactions')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Supabase delete error', error);
+        alert('Error deleting data.');
+        return false;
+      }
+      return true;
+    }
+
     // Rolling 12-month window: past 9, next 3 from today
     function computeRollingWindowTotals() {
       const now = new Date();
@@ -622,8 +703,8 @@
           const d = new Date(t.date);
           if (Number.isNaN(d.getTime())) return;
           if (d.getFullYear() === slotYear && d.getMonth() === slotMonth) {
-            if (t.type === 'income') incomeSum += Number(t.amount || 0);
-            else if (t.type === 'expense') expenseSum += Number(t.amount || 0);
+            if (t.type === 'income') incomeSum += cleanAmount(t.amount);
+            else if (t.type === 'expense') expenseSum += cleanAmount(t.amount);
           }
         });
 
@@ -640,7 +721,7 @@
 
       headerMonth.textContent = `${months[monthIndex]} ${selectedYear}`;
 
-      // MONTH totals
+      // ===== MONTH TOTALS (month + year) =====
       const monthTx = transactions.filter(t => {
         const d = new Date(t.date);
         return !Number.isNaN(d.getTime()) &&
@@ -650,10 +731,10 @@
 
       const monthIncome = monthTx
         .filter(t => t.type === 'income')
-        .reduce((s,t)=>s+Number(t.amount||0),0);
+        .reduce((s,t)=>s+cleanAmount(t.amount),0);
       const monthExpense = monthTx
         .filter(t => t.type === 'expense')
-        .reduce((s,t)=>s+Number(t.amount||0),0);
+        .reduce((s,t)=>s+cleanAmount(t.amount),0);
       const monthNet = monthIncome - monthExpense;
 
       totalIncomeEl.textContent  = money(monthIncome);
@@ -663,22 +744,19 @@
       if (monthNet > 0) netAmountEl.classList.add('positive');
       else if (monthNet < 0) netAmountEl.classList.add('negative');
 
-      // YTD: Jan 1 of selectedYear up to last day of selected month
-      const ytdStart = new Date(selectedYear, 0, 1);
-      const ytdEnd   = new Date(selectedYear, monthIndex + 1, 0); // last day of month
-
-      const ytdTx = transactions.filter(t => {
+      // ===== YTD / YEAR TOTALS (full year, year filter ONLY) =====
+      const yearTx = transactions.filter(t => {
         const d = new Date(t.date);
         return !Number.isNaN(d.getTime()) &&
-               d >= ytdStart && d <= ytdEnd;
+               d.getFullYear() === selectedYear;
       });
 
-      const yearIncome = ytdTx
+      const yearIncome = yearTx
         .filter(t => t.type === 'income')
-        .reduce((s,t)=>s+Number(t.amount||0),0);
-      const yearExpense = ytdTx
+        .reduce((s,t)=>s+cleanAmount(t.amount),0);
+      const yearExpense = yearTx
         .filter(t => t.type === 'expense')
-        .reduce((s,t)=>s+Number(t.amount||0),0);
+        .reduce((s,t)=>s+cleanAmount(t.amount),0);
       const yearNet = yearIncome - yearExpense;
 
       ytdIncomeEl.textContent  = money(yearIncome);
@@ -688,10 +766,9 @@
       if (yearNet > 0) ytdNetEl.classList.add('positive');
       else if (yearNet < 0) ytdNetEl.classList.add('negative');
 
-      ytdCaptionEl.textContent =
-        `Year-to-date for ${selectedYear} (through ${months[monthIndex]}).`;
+      ytdCaptionEl.textContent = `Full-year totals for ${selectedYear}.`;
 
-      // CHART: rolling window, independent of filters
+      // ===== CHART: rolling window (independent of filters) =====
       const { labels, incomeTotals, expenseTotals } = computeRollingWindowTotals();
 
       if (!chart) {
@@ -773,22 +850,31 @@
       incomeBody.innerHTML = '';
       incomes.forEach(t => {
         const tr = document.createElement('tr');
+        tr.className = 'clickable-row';
+        tr.dataset.id = t.id;
         tr.innerHTML = `
           <td>${formatDate(t.date)}</td>
           <td>${t.label}</td>
           <td class="amount-cell">${money(t.amount)}</td>
         `;
+        tr.addEventListener('click', () => openEditModal(t.id));
         incomeBody.appendChild(tr);
       });
 
       expenseBody.innerHTML = '';
       expenses.forEach(t => {
         const tr = document.createElement('tr');
+        tr.className = 'clickable-row';
+        tr.dataset.id = t.id;
+        const statusText = (t.status || '').toLowerCase() === 'unpaid' ? 'Unpaid' : 'Paid';
         tr.innerHTML = `
           <td>${formatDate(t.date)}</td>
           <td>${t.label}</td>
+          <td>${statusText}</td>
+          <td>${t.note || ''}</td>
           <td class="amount-cell">${money(t.amount)}</td>
         `;
+        tr.addEventListener('click', () => openEditModal(t.id));
         expenseBody.appendChild(tr);
       });
 
@@ -796,14 +882,48 @@
       expenseEmpty.style.display = expenses.length ? 'none' : 'block';
     }
 
-    function openModal(type) {
+    // ===== Modal logic =====
+    function openCreateModal(type) {
       modalMode = type;
+      modalAction = 'create';
+      selectedTransaction = null;
+
       modalTitle.textContent = type === 'income' ? 'Add income' : 'Add expense';
       entryDate.valueAsDate = new Date();
       entryLabel.value = '';
       entryAmount.value = '';
+      entryNote.value = '';
+      entryStatus.value = 'paid';
+      statusField.style.display = (type === 'expense') ? 'block' : 'none';
+      btnDelete.style.display = 'none';
+
       modalBackdrop.style.display = 'flex';
       entryLabel.focus();
+    }
+
+    function openEditModal(id) {
+      const tx = transactions.find(t => t.id === id);
+      if (!tx) return;
+
+      selectedTransaction = tx;
+      modalMode = tx.type;
+      modalAction = 'edit';
+
+      modalTitle.textContent = modalMode === 'income' ? 'Edit income' : 'Edit expense';
+      entryDate.value = tx.date;
+      entryLabel.value = tx.label || '';
+      entryAmount.value = cleanAmount(tx.amount);
+      entryNote.value = tx.note || '';
+
+      if (modalMode === 'expense') {
+        statusField.style.display = 'block';
+        entryStatus.value = (tx.status || 'paid').toLowerCase() === 'unpaid' ? 'unpaid' : 'paid';
+      } else {
+        statusField.style.display = 'none';
+      }
+
+      btnDelete.style.display = 'inline-flex';
+      modalBackdrop.style.display = 'flex';
     }
 
     function closeModal() {
@@ -813,20 +933,42 @@
     async function saveEntry() {
       const dateVal  = entryDate.value;
       const labelVal = entryLabel.value.trim();
-      const amountVal= parseFloat(entryAmount.value);
+      const amountVal= cleanAmount(entryAmount.value);
+      const noteVal  = entryNote.value.trim() || null;
+      const statusVal= entryStatus.value;
 
-      if (!dateVal || !labelVal || Number.isNaN(amountVal) || amountVal <= 0) {
-        alert('Enter valid date, label, and amount.');
+      if (!dateVal || !labelVal || !amountVal || amountVal <= 0) {
+        alert('Enter valid date, label, and positive amount.');
         return;
       }
 
-      const ok = await insertTransaction({
+      const payload = {
         type: modalMode,
         date: dateVal,
         label: labelVal,
-        amount: amountVal
-      });
+        amount: amountVal,
+        status: modalMode === 'expense' ? statusVal : null,
+        note: noteVal
+      };
 
+      let ok = false;
+      if (modalAction === 'create') {
+        ok = await insertTransaction(payload);
+      } else if (modalAction === 'edit' && selectedTransaction) {
+        ok = await updateTransaction(selectedTransaction.id, payload);
+      }
+
+      if (!ok) return;
+
+      closeModal();
+      await loadTransactions();
+    }
+
+    async function handleDelete() {
+      if (!selectedTransaction) return;
+      if (!confirm('Delete this entry?')) return;
+
+      const ok = await deleteTransaction(selectedTransaction.id);
       if (!ok) return;
 
       closeModal();
@@ -844,10 +986,11 @@
       });
     });
 
-    btnAddIncome.addEventListener('click', () => openModal('income'));
-    btnAddExpense.addEventListener('click', () => openModal('expense'));
+    btnAddIncome.addEventListener('click', () => openCreateModal('income'));
+    btnAddExpense.addEventListener('click', () => openCreateModal('expense'));
     btnCancel.addEventListener('click', closeModal);
     btnSave.addEventListener('click', saveEntry);
+    btnDelete.addEventListener('click', handleDelete);
 
     monthSelect.addEventListener('change', () => {
       refreshOverview();
