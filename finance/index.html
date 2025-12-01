@@ -162,7 +162,7 @@
     .period-nav {
       margin-top: 8px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;  /* center instead of right */
       gap: 8px;
     }
 
@@ -172,11 +172,13 @@
       background: rgba(5,9,15,0.9);
       color: var(--muted);
       font-size: 11px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      min-width: 110px;
+      justify-content: center;
     }
 
     .nav-btn span {
@@ -384,6 +386,27 @@
       color: var(--danger);
     }
 
+    /* Details pie section */
+    .details-pie {
+      margin-top: 16px;
+    }
+    .details-pie.hidden {
+      display: none;
+    }
+    #expensePie {
+      height: 220px !important;
+    }
+    #expensePieSummary {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+    #expensePieSummary strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
     /* Modal */
     .modal-backdrop {
       position: fixed;
@@ -538,6 +561,15 @@
     <div class="tabs">
       <button class="tab active" id="tabSummary">Summary</button>
       <button class="tab" id="tabDetails">Details</button>
+    </div>
+
+    <!-- Details-only pie chart (visible on Details tab) -->
+    <div class="details-pie hidden" id="detailsPieWrapper">
+      <div class="section-title">Expenses breakdown</div>
+      <div class="chart-container">
+        <canvas id="expensePie"></canvas>
+      </div>
+      <div id="expensePieSummary"></div>
     </div>
 
     <div class="filters-row">
@@ -698,6 +730,7 @@
     let currentUser = null;
     let allTransactions = [];
     let trendChart = null;
+    let expensePieChart = null;
 
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
@@ -724,6 +757,9 @@
     const tabDetails = document.getElementById('tabDetails');
     const pageSummary = document.getElementById('pageSummary');
     const pageDetails = document.getElementById('pageDetails');
+
+    const detailsPieWrapper = document.getElementById('detailsPieWrapper');
+    const expensePieSummary = document.getElementById('expensePieSummary');
 
     const btnAddIncome = document.getElementById('btnAddIncome');
     const btnAddExpense = document.getElementById('btnAddExpense');
@@ -893,6 +929,19 @@
       yearNetEl.classList.toggle('negative', yearNetTotal < 0);
       ytdNoteEl.textContent = `Year-to-date for ${year} (through December).`;
 
+      // Paid vs unpaid breakdown for current month
+      let paidTotal = 0;
+      let unpaidTotal = 0;
+      for (const t of monthExpenseTx) {
+        const status = (t.status || 'paid').toLowerCase();
+        if (status === 'unpaid') {
+          unpaidTotal += t._amt;
+        } else {
+          paidTotal += t._amt;
+        }
+      }
+      renderExpensePie(paidTotal, unpaidTotal);
+
       renderChart(year, monthIdx);
       renderDetailsTables(monthIncomeTx, monthExpenseTx);
     }
@@ -993,7 +1042,7 @@
                 color: '#c2cad8',
                 usePointStyle: false,
                 boxWidth: 40,
-                boxHeight: 2   // flattened legend boxes → look like lines
+                boxHeight: 2
               },
               position: 'bottom'
             },
@@ -1005,6 +1054,65 @@
           }
         }
       });
+    }
+
+    function renderExpensePie(paid, unpaid) {
+      if (!detailsPieWrapper) return;
+
+      const total = paid + unpaid;
+
+      if (total <= 0) {
+        if (expensePieChart) {
+          expensePieChart.destroy();
+          expensePieChart = null;
+        }
+        expensePieSummary.textContent = 'No expenses with status for this month.';
+        return;
+      }
+
+      const ctx = document.getElementById('expensePie').getContext('2d');
+      if (expensePieChart) {
+        expensePieChart.destroy();
+      }
+
+      expensePieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Paid', 'Unpaid'],
+          datasets: [{
+            data: [paid, unpaid],
+            backgroundColor: ['#32d583', '#ff6b81'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '55%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#c2cad8'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const val = ctx.parsed;
+                  const pct = ((val / total) * 100).toFixed(1);
+                  return `${ctx.label}: ${formatCurrency(val)} (${pct}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      const paidPct = ((paid / total) * 100).toFixed(1);
+      const unpaidPct = ((unpaid / total) * 100).toFixed(1);
+
+      expensePieSummary.innerHTML =
+        `Paid: <strong>${formatCurrency(paid)}</strong> (${paidPct}%) · ` +
+        `Unpaid: <strong>${formatCurrency(unpaid)}</strong> (${unpaidPct}%)`;
     }
 
     function renderDetailsTables(monthIncomeTx, monthExpenseTx) {
@@ -1191,6 +1299,7 @@
       tabDetails.classList.remove('active');
       pageSummary.classList.remove('hidden');
       pageDetails.classList.add('hidden');
+      detailsPieWrapper.classList.add('hidden');
     });
 
     tabDetails.addEventListener('click', () => {
@@ -1198,6 +1307,7 @@
       tabSummary.classList.remove('active');
       pageDetails.classList.remove('hidden');
       pageSummary.classList.add('hidden');
+      detailsPieWrapper.classList.remove('hidden');
     });
 
     monthSelect.addEventListener('change', recomputeAndRender);
@@ -1228,7 +1338,6 @@
         monthSelect.appendChild(opt);
       });
 
-      // For now, allow a range of years around current
       const minYear = currentYear - 2;
       const maxYear = currentYear + 2;
       for (let y = minYear; y <= maxYear; y++) {
