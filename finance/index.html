@@ -184,7 +184,7 @@
     }
 
     .metric-value {
-      font-size: 18px;  /* slightly smaller so it doesn’t feel “lagpas” */
+      font-size: 16px;  
       font-weight: 600;
     }
 
@@ -461,6 +461,16 @@
       color: var(--muted);
       margin-top: 6px;
     }
+   
+      @media (max-width: 480px) {
+    .metric-card {
+      padding: 10px 10px; /* a bit tighter so numbers have more room */
+    }
+    .metric-value {
+      font-size: 14px;    /* smaller on very narrow screens so it never hits the edges */
+    }
+  }
+
   </style>
 </head>
 <body>
