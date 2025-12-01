@@ -162,7 +162,7 @@
     .period-nav {
       margin-top: 8px;
       display: flex;
-      justify-content: center;  /* center instead of right */
+      justify-content: center;
       gap: 8px;
     }
 
@@ -393,9 +393,15 @@
     .details-pie.hidden {
       display: none;
     }
+
+    /* make pie small, centered, circular */
     #expensePie {
+      width: 220px !important;
       height: 220px !important;
+      margin: 0 auto;
+      display: block;
     }
+
     #expensePieSummary {
       margin-top: 6px;
       font-size: 12px;
@@ -563,7 +569,7 @@
       <button class="tab" id="tabDetails">Details</button>
     </div>
 
-    <!-- Details-only pie chart (visible on Details tab) -->
+    <!-- Details-only pie chart -->
     <div class="details-pie hidden" id="detailsPieWrapper">
       <div class="section-title">Expenses breakdown</div>
       <div class="chart-container">
@@ -788,6 +794,44 @@
     let modalMode = 'income'; // 'income' | 'expense'
     let editingId = null;
 
+    // ===== Chart.js center text plugin for pie =====
+    const centerTextPlugin = {
+      id: 'centerText',
+      beforeDraw(chart, args, pluginOptions) {
+        const lines = pluginOptions && pluginOptions.lines;
+        if (!lines || !lines.length) return;
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+        if (!meta.data || !meta.data.length) return;
+
+        const centerX = meta.data[0].x;
+        const centerY = meta.data[0].y;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#f5f7fb';
+        const lineHeight = 16;
+        const totalHeight = lineHeight * (lines.length - 1);
+
+        lines.forEach((line, index) => {
+          ctx.font = (index === 0)
+            ? '600 14px "Plus Jakarta Sans", system-ui'
+            : '400 11px "Plus Jakarta Sans", system-ui';
+          ctx.fillText(
+            line,
+            centerX,
+            centerY - totalHeight / 2 + index * lineHeight
+          );
+        });
+
+        ctx.restore();
+      }
+    };
+
+    Chart.register(centerTextPlugin);
+
     // ============ AUTH GUARD =================
     async function requireAuth() {
       const { data, error } = await db.auth.getSession();
@@ -846,7 +890,6 @@
         y += 1;
       }
 
-      // Ensure year exists in dropdown; if not, append it
       const existingYears = Array.from(yearSelect.options).map(o => Number(o.value));
       if (!existingYears.includes(y)) {
         const opt = document.createElement('option');
@@ -882,7 +925,6 @@
 
       currentPeriodLabel.textContent = `${monthNames[monthIdx]} ${year}`;
 
-      // Month & year filtering
       const monthIncomeTx = [];
       const monthExpenseTx = [];
       const yearIncomeTx = [];
@@ -1086,7 +1128,9 @@
           }]
         },
         options: {
-          cutout: '55%',
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '70%',
           plugins: {
             legend: {
               position: 'bottom',
@@ -1102,6 +1146,12 @@
                   return `${ctx.label}: ${formatCurrency(val)} (${pct}%)`;
                 }
               }
+            },
+            centerText: {
+              lines: [
+                formatCurrency(total),
+                'Total expenses'
+              ]
             }
           }
         }
@@ -1265,7 +1315,7 @@
         } else {
           const { error } = await db
             .from('transactions')
-            .insert(payload); // user_id filled by default auth.uid()
+            .insert(payload);
           if (error) throw error;
         }
         closeModal();
@@ -1325,7 +1375,6 @@
     (async function init() {
       await requireAuth();
 
-      // populate month/year selects
       const now = new Date();
       const currentYear = now.getFullYear();
       const currentMonth = now.getMonth();
