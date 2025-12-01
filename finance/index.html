@@ -158,6 +158,37 @@
       box-shadow: 0 0 0 1px rgba(0,194,106,0.4);
     }
 
+    /* period nav arrows */
+    .period-nav {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(5,9,15,0.9);
+      color: var(--muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn span {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .nav-btn:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--text);
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
@@ -184,7 +215,7 @@
     }
 
     .metric-value {
-      font-size: 16px;  
+      font-size: 16px;
       font-weight: 600;
     }
 
@@ -461,36 +492,35 @@
       color: var(--muted);
       margin-top: 6px;
     }
-   
-      @media (max-width: 480px) {
-    .metric-card {
-      padding: 10px 10px; /* a bit tighter so numbers have more room */
+
+    /* mobile tweaks for metric card numbers */
+    @media (max-width: 480px) {
+      .metric-card {
+        padding: 10px 10px;
+      }
+      .metric-value {
+        font-size: 14px;
+      }
     }
-    .metric-value {
-      font-size: 14px;    /* smaller on very narrow screens so it never hits the edges */
-    }
-  }
-    
+
+    /* date field fix inside modal */
     .modal-body input[type="date"] {
-    -webkit-appearance: none;
-    appearance: none;
-    font-size: 14px;
-    padding: 10px 12px;
-  }
+      -webkit-appearance: none;
+      appearance: none;
+      font-size: 14px;
+      padding: 10px 12px;
+    }
 
-/* Make the modal a bit narrower & give extra side padding on small screens */
-@media (max-width: 480px) {
-  .modal {
-    padding: 16px 14px 14px;
-  }
+    @media (max-width: 480px) {
+      .modal {
+        padding: 16px 14px 14px;
+      }
 
-  .modal-body input[type="date"] {
-    font-size: 13px;
-    padding: 9px 10px;
-  }
-}
-
-
+      .modal-body input[type="date"] {
+        font-size: 13px;
+        padding: 9px 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -519,6 +549,18 @@
         <label>Year</label>
         <select id="yearSelect"></select>
       </div>
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <div class="period-nav">
+      <button class="nav-btn" id="prevPeriodBtn">
+        <span>←</span>
+        <span>Previous</span>
+      </button>
+      <button class="nav-btn" id="nextPeriodBtn">
+        <span>Next</span>
+        <span>→</span>
+      </button>
     </div>
 
     <!-- SUMMARY PAGE -->
@@ -597,6 +639,12 @@
           <tbody id="expenseTableBody"></tbody>
         </table>
         <div class="empty-note" id="expenseEmpty"></div>
+      </div>
+
+      <!-- Add income / expense buttons also on Details page -->
+      <div class="actions-row">
+        <button class="btn btn-income" id="btnAddIncomeDetails">Add income</button>
+        <button class="btn btn-expense" id="btnAddExpenseDetails">Add expense</button>
       </div>
     </div>
   </div>
@@ -679,7 +727,12 @@
 
     const btnAddIncome = document.getElementById('btnAddIncome');
     const btnAddExpense = document.getElementById('btnAddExpense');
+    const btnAddIncomeDetails = document.getElementById('btnAddIncomeDetails');
+    const btnAddExpenseDetails = document.getElementById('btnAddExpenseDetails');
     const logoutBtn = document.getElementById('logoutBtn');
+
+    const prevPeriodBtn = document.getElementById('prevPeriodBtn');
+    const nextPeriodBtn = document.getElementById('nextPeriodBtn');
 
     // Modal refs
     const modalBackdrop = document.getElementById('modalBackdrop');
@@ -739,6 +792,37 @@
     }
     function getSelectedMonthIndex() {
       return Number(monthSelect.value);
+    }
+
+    // Change period with +/- months (used by arrow buttons)
+    function shiftPeriod(deltaMonths) {
+      let m = getSelectedMonthIndex();
+      let y = getSelectedYear();
+
+      m += deltaMonths;
+
+      while (m < 0) {
+        m += 12;
+        y -= 1;
+      }
+      while (m > 11) {
+        m -= 12;
+        y += 1;
+      }
+
+      // Ensure year exists in dropdown; if not, append it
+      const existingYears = Array.from(yearSelect.options).map(o => Number(o.value));
+      if (!existingYears.includes(y)) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
+
+      monthSelect.value = String(m);
+      yearSelect.value = String(y);
+
+      recomputeAndRender();
     }
 
     // ============ DATA LOAD ==================
@@ -849,7 +933,6 @@
         expenseData.push(monthExpense);
       }
 
-      // Existing scaling logic (unchanged)
       const maxVal = Math.max(...incomeData, ...expenseData, 0);
       const suggestedMax = maxVal > 0 ? maxVal * 1.15 : 1;
 
@@ -908,9 +991,9 @@
             legend: {
               labels: {
                 color: '#c2cad8',
-                usePointStyle: false,      // ← line-style legend instead of circles
+                usePointStyle: false,
                 boxWidth: 40,
-                boxHeight: 2
+                boxHeight: 2   // flattened legend boxes → look like lines
               },
               position: 'bottom'
             },
@@ -1122,6 +1205,11 @@
 
     btnAddIncome.addEventListener('click', () => openAddModal('income'));
     btnAddExpense.addEventListener('click', () => openAddModal('expense'));
+    btnAddIncomeDetails.addEventListener('click', () => openAddModal('income'));
+    btnAddExpenseDetails.addEventListener('click', () => openAddModal('expense'));
+
+    prevPeriodBtn.addEventListener('click', () => shiftPeriod(-1));
+    nextPeriodBtn.addEventListener('click', () => shiftPeriod(1));
 
     // ============ INIT =============
     (async function init() {
