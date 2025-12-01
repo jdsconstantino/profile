@@ -2,457 +2,571 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Finance | DeskXP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Finance</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #1b272e;
-      --panel: #2E424E;
-      --border: #1b1f26;
-      --glass: rgba(255,255,255,.08);
-      --glass-border: rgba(255,255,255,.16);
-      --accent: #0ea5e9;
-      --accent-soft: rgba(14,165,233,0.12);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --danger: #e11d48;
-      --success: #22c55e;
+      --bg: #070c11;
+      --panel: #121a22;
+      --panel-soft: #151f29;
+      --accent: #00c26a;
+      --accent-soft: rgba(0, 194, 106, 0.14);
+      --danger: #ff4b6a;
+      --danger-soft: rgba(255, 75, 106, 0.12);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --text: #f5f7fb;
+      --muted: #99a2b3;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top left, #22313b 0, #1b272e 40%, #10151a 100%);
-      color: var(--text-main);
-    }
-
-    .container {
-      max-width: 840px;
-      margin: 0 auto;
-      padding: 1.25rem 1rem 2rem;
-    }
-
-    .card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border-radius: 18px;
-      padding: 1rem 1rem 1.25rem;
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
-      backdrop-filter: blur(16px);
-    }
-
-    header.finance-header {
+      min-height: 100vh;
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b2833 0, #070c11 42%, #020509 100%);
+      color: var(--text);
       display: flex;
+      justify-content: center;
+      padding: 18px 10px 36px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      background: radial-gradient(140% 220% at top, rgba(255,255,255,0.08) 0, transparent 45%),
+                  linear-gradient(160deg, #111722 0, #050910 45%, #050910 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px 22px;
+    }
+
+    @media (min-width: 640px) {
+      .shell { padding: 24px 26px 26px; }
+    }
+
+    .shell-header {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .title-block h1 {
       margin: 0;
+      font-size: 24px;
+      letter-spacing: 0.02em;
     }
 
-    .header-right {
+    .title-block .sub {
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .top-actions {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.25rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      align-items: center;
+      gap: 10px;
     }
 
-    .btn-logout {
-      padding: 0.25rem 0.7rem;
+    .logout-btn {
       border-radius: 999px;
-      border: 1px solid var(--glass-border);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      font-size: 0.72rem;
-      font-weight: 500;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(4,10,16,0.9);
+      color: var(--muted);
+      font-size: 12px;
       cursor: pointer;
-      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-
-    .btn-logout:active { transform: translateY(1px); }
+    .logout-btn:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--text);
+    }
 
     .tabs {
+      margin-top: 12px;
       display: inline-flex;
-      gap: 0.35rem;
-      background: rgba(15,23,42,0.7);
-      padding: 0.2rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.2);
-      margin-bottom: 0.75rem;
+      background: rgba(6,12,18,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px;
     }
 
     .tab {
-      padding: 0.35rem 0.75rem;
       border-radius: 999px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: var(--text-muted);
+      padding: 6px 16px;
+      font-size: 13px;
       border: none;
+      color: var(--muted);
       background: transparent;
-      font-family: inherit;
-      font-weight: 500;
-      white-space: nowrap;
+      cursor: pointer;
+      min-width: 84px;
     }
 
     .tab.active {
-      background: var(--accent-soft);
-      color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.2);
+      background: linear-gradient(135deg, #009f54, #00c26a);
+      color: #050910;
+      font-weight: 600;
     }
 
-    label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-
-    select {
-      width: 100%;
-      padding: 0.5rem 0.6rem;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.35);
-    }
-
-    .filter-row {
+    .filters-row {
+      margin-top: 18px;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 0.2rem;
+      gap: 10px;
     }
 
     .field {
       flex: 1 1 140px;
-      margin-bottom: 0.4rem;
+      min-width: 0;
     }
 
-    .summary-row {
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    select, input[type="date"], input[type="text"], input[type="number"], textarea {
+      width: 100%;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(7,11,18,0.95);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: rgba(0,194,106,0.9);
+      box-shadow: 0 0 0 1px rgba(0,194,106,0.4);
+    }
+
+    .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 0.6rem;
-      margin-top: 0.6rem;
-      font-size: 0.85rem;
+      gap: 10px;
+      margin-top: 16px;
     }
 
-    .summary-item {
-      background: rgba(15,23,42,0.9);
-      border-radius: 14px;
-      padding: 0.6rem 0.65rem;
-      border: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
+    @media (min-width: 640px) {
+      .grid-3 { gap: 14px; }
     }
 
-    .summary-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
+    .metric-card {
+      background: radial-gradient(circle at top, rgba(255,255,255,0.05) 0, rgba(12,18,24,0.98) 55%);
+      border-radius: var(--card-radius);
+      padding: 12px 14px;
+      border: 1px solid var(--border-subtle);
+      min-height: 68px;
     }
 
-    .summary-value {
-      font-size: 0.95rem;
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 19px;
       font-weight: 600;
     }
 
-    .summary-value.positive { color: var(--success); }
-    .summary-value.negative { color: var(--danger); }
+    .metric-value.positive {
+      color: var(--accent);
+    }
 
-    .summary-caption {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
+    .metric-value.negative {
+      color: var(--danger);
     }
 
     .section-title {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      margin: 20px 0 6px;
+      font-size: 13px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--muted);
     }
 
-    .chart-wrapper {
-      margin-top: 0.6rem;
-      height: 240px;
-      padding: 0.4rem 0.1rem 0.2rem;
+    .chart-container {
+      background: var(--panel-soft);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 12px 10px 8px;
     }
 
-    .chart-wrapper canvas {
+    @media (min-width: 640px) {
+      .chart-container { padding: 16px 16px 12px; }
+    }
+
+    canvas {
       width: 100% !important;
-      height: 100% !important;
+      height: 260px !important;
     }
 
-    .page {
-      display: none;
-      margin-top: 0.3rem;
+    .ytd-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 10px;
+      margin-top: 14px;
     }
-    .page.active { display: block; }
+
+    .ytd-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .actions-row {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1 1 150px;
+      border-radius: 999px;
+      padding: 11px 14px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-income {
+      background: linear-gradient(135deg, #00b55e, #00d06e);
+      color: #020607;
+    }
+
+    .btn-expense {
+      background: linear-gradient(135deg, #ff4b6a, #ff7a5c);
+      color: #020607;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      opacity: 0.96;
+    }
+
+    .tab-page {
+      margin-top: 8px;
+    }
+
+    .tab-page.hidden {
+      display: none;
+    }
+
+    /* Details tables */
+    .details-section {
+      margin-top: 16px;
+    }
+
+    .table-title {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 0.4rem;
-      font-size: 0.8rem;
+      font-size: 13px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(4,10,16,0.9);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    thead {
+      background: rgba(10,18,26,1);
     }
 
     th, td {
-      padding: 0.35rem 0.3rem;
-      border-bottom: 1px solid rgba(148,163,184,0.26);
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     th {
-      text-align: left;
-      font-weight: 500;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-    }
-
-    td { color: #e5e7eb; }
-
-    td.amount-cell {
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .empty-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-    }
-
-    .button-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 0.9rem;
-    }
-
-    button {
-      flex: 1;
-      padding: 0.55rem 0.75rem;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.8rem;
       font-weight: 600;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    tbody tr {
       cursor: pointer;
-      font-family: inherit;
     }
 
-    .btn-income { background: var(--success); color: #022c22; }
-    .btn-expense { background: var(--danger); color: #fdf2f8; }
-    .btn-secondary {
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      border: 1px solid var(--glass-border);
+    tbody tr:nth-child(even) {
+      background: rgba(255,255,255,0.01);
     }
-    .btn-danger {
-      background: rgba(239,68,68,0.14);
-      color: #fecaca;
-      border: 1px solid rgba(248,113,113,0.7);
-    }
-    button:active { transform: translateY(1px); }
 
-    .clickable-row { cursor: pointer; }
-    .clickable-row:hover { background: rgba(15,23,42,0.9); }
+    tbody tr:hover {
+      background: rgba(0,194,106,0.06);
+    }
+
+    .amount-cell {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .status-paid {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .status-unpaid {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
 
     /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.9);
+      background: rgba(0,0,0,0.7);
       display: none;
       align-items: center;
       justify-content: center;
+      padding: 16px;
       z-index: 50;
+    }
+    .modal-backdrop.show {
+      display: flex;
     }
 
     .modal {
-      background: #0b141a;
-      border-radius: 18px;
-      padding: 1rem 1rem 0.9rem;
-      width: 92%;
-      max-width: 420px;
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.9);
-    }
-
-    .modal h2 {
-      margin-top: 0;
-      font-size: 0.98rem;
-      margin-bottom: 0.7rem;
-      font-weight: 600;
-    }
-
-    .modal .field label { margin-bottom: 0.2rem; }
-
-    .modal .field input,
-    .modal .field select {
       width: 100%;
-      padding: 0.48rem 0.55rem;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-main);
-      font-size: 0.85rem;
-      outline: none;
+      max-width: 420px;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08) 0, rgba(9,12,19,1) 55%);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
     }
 
-    .modal .field input:focus,
-    .modal .field select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.35);
-    }
-
-    .modal-actions {
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.6rem;
+      margin-bottom: 10px;
     }
 
-    .modal-actions-right {
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: var(--muted);
+      padding: 2px 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .modal-body .field {
+      margin-bottom: 10px;
+    }
+
+    .modal-body select,
+    .modal-body input,
+    .modal-body textarea {
+      border-radius: 12px;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .modal-footer {
       display: flex;
-      gap: 0.5rem;
-      justify-content: flex-end;
-      flex: 1;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    @media (max-width: 640px) {
-      header.finance-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .btn-primary {
+      flex: 1;
+      border-radius: 999px;
+      padding: 9px 0;
+      border: none;
+      background: linear-gradient(135deg, #00b55e,#00d06e);
+      color: #020607;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      border-radius: 999px;
+      padding: 9px 0;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 9px 14px;
+      border: none;
+      background: var(--danger);
+      color: #020607;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .empty-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <header class="finance-header">
-        <div>
-          <h1>Finance</h1>
-        </div>
-        <div class="header-right">
-          <div id="headerMonth"></div>
-          <button class="btn-logout" id="btnLogout">Logout</button>
-        </div>
-      </header>
-
-      <div class="tabs">
-        <button class="tab active" data-page="overview">Summary</button>
-        <button class="tab" data-page="details">Details</button>
+  <div class="shell">
+    <div class="shell-header">
+      <div class="title-block">
+        <h1>Finance</h1>
+        <div class="sub" id="currentPeriodLabel">Loading…</div>
       </div>
-
-      <div class="filter-row">
-        <div class="field">
-          <label for="monthSelect">Month</label>
-          <select id="monthSelect"></select>
-        </div>
-        <div class="field">
-          <label for="yearSelect">Year</label>
-          <select id="yearSelect"></select>
-        </div>
+      <div class="top-actions">
+        <button class="logout-btn" id="logoutBtn">Logout</button>
       </div>
+    </div>
 
-      <!-- PAGE 1: SUMMARY -->
-      <div id="page-overview" class="page active">
-        <div class="summary-row">
-          <div class="summary-item">
-            <div class="summary-label">Month income</div>
-            <div class="summary-value" id="totalIncome">₱0.00</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Month expense</div>
-            <div class="summary-value" id="totalExpense">₱0.00</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Month net</div>
-            <div class="summary-value" id="netAmount">₱0.00</div>
-          </div>
+    <div class="tabs">
+      <button class="tab active" id="tabSummary">Summary</button>
+      <button class="tab" id="tabDetails">Details</button>
+    </div>
+
+    <div class="filters-row">
+      <div class="field">
+        <label>Month</label>
+        <select id="monthSelect"></select>
+      </div>
+      <div class="field">
+        <label>Year</label>
+        <select id="yearSelect"></select>
+      </div>
+    </div>
+
+    <!-- SUMMARY PAGE -->
+    <div class="tab-page" id="pageSummary">
+      <div class="grid-3">
+        <div class="metric-card">
+          <div class="metric-label">Month income</div>
+          <div class="metric-value" id="monthIncome">₱0.00</div>
         </div>
-
-        <div class="section-title">Income vs Expense (Past 9 Months + Next 3)</div>
-        <div class="chart-wrapper">
-          <canvas id="lineChart"></canvas>
+        <div class="metric-card">
+          <div class="metric-label">Month expense</div>
+          <div class="metric-value" id="monthExpense">₱0.00</div>
         </div>
-
-        <div class="section-title" style="margin-top: 1.1rem;">Year-to-date</div>
-        <div class="summary-row">
-          <div class="summary-item">
-            <div class="summary-label">Year income (YTD)</div>
-            <div class="summary-value" id="ytdIncome">₱0.00</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Year expense (YTD)</div>
-            <div class="summary-value" id="ytdExpense">₱0.00</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Year net (YTD)</div>
-            <div class="summary-value" id="ytdNet">₱0.00</div>
-          </div>
-        </div>
-        <div class="summary-caption" id="ytdCaption"></div>
-
-        <div class="button-row">
-          <button class="btn-income" id="btnAddIncome">Add income</button>
-          <button class="btn-expense" id="btnAddExpense">Add expense</button>
+        <div class="metric-card">
+          <div class="metric-label">Month net</div>
+          <div class="metric-value positive" id="monthNet">₱0.00</div>
         </div>
       </div>
 
-      <!-- PAGE 2: DETAILS -->
-      <div id="page-details" class="page">
-        <div class="section-title">Income</div>
+      <div class="section-title">Income vs Expense (past 9 months + next 3)</div>
+      <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+      </div>
+
+      <div class="section-title">Year-to-date</div>
+      <div class="ytd-grid">
+        <div class="metric-card">
+          <div class="metric-label">Year income (YTD)</div>
+          <div class="metric-value" id="yearIncome">₱0.00</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Year expense (YTD)</div>
+          <div class="metric-value" id="yearExpense">₱0.00</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Year net (YTD)</div>
+          <div class="metric-value positive" id="yearNet">₱0.00</div>
+        </div>
+      </div>
+      <div class="ytd-note" id="ytdNote"></div>
+
+      <div class="actions-row">
+        <button class="btn btn-income" id="btnAddIncome">Add income</button>
+        <button class="btn btn-expense" id="btnAddExpense">Add expense</button>
+      </div>
+    </div>
+
+    <!-- DETAILS PAGE -->
+    <div class="tab-page hidden" id="pageDetails">
+      <div class="details-section">
+        <div class="table-title">Income</div>
         <table>
           <thead>
             <tr>
-              <th style="width:22%;">Date</th>
-              <th style="width:48%;">Source</th>
-              <th style="width:30%;text-align:right;">Amount</th>
+              <th style="width: 30%;">Date</th>
+              <th>Source</th>
+              <th style="width: 25%; text-align:right;">Amount</th>
             </tr>
           </thead>
-          <tbody id="incomeBody"></tbody>
+          <tbody id="incomeTableBody"></tbody>
         </table>
-        <div class="empty-note" id="incomeEmpty" style="display:none;">No income for this month.</div>
+        <div class="empty-note" id="incomeEmpty"></div>
+      </div>
 
-        <div class="section-title" style="margin-top:0.9rem;">Expenses</div>
+      <div class="details-section">
+        <div class="table-title">Expenses</div>
         <table>
           <thead>
             <tr>
-              <th style="width:18%;">Date</th>
-              <th style="width:26%;">Item</th>
-              <th style="width:14%;">Status</th>
-              <th style="width:22%;">Note</th>
-              <th style="width:20%;text-align:right;">Amount</th>
+              <th style="width: 26%;">Date</th>
+              <th>Item</th>
+              <th style="width: 18%;">Status</th>
+              <th style="width: 25%; text-align:right;">Amount</th>
             </tr>
           </thead>
-          <tbody id="expenseBody"></tbody>
+          <tbody id="expenseTableBody"></tbody>
         </table>
-        <div class="empty-note" id="expenseEmpty" style="display:none;">No expenses for this month.</div>
+        <div class="empty-note" id="expenseEmpty"></div>
       </div>
     </div>
   </div>
@@ -460,153 +574,144 @@
   <!-- MODAL -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
-      <h2 id="modalTitle">Add</h2>
-      <div class="field">
-        <label for="entryDate">Date</label>
-        <input type="date" id="entryDate" />
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Add transaction</div>
+        <button class="modal-close" id="modalCloseBtn">Close</button>
       </div>
-      <div class="field">
-        <label for="entryLabel">Label</label>
-        <input type="text" id="entryLabel" />
-      </div>
-      <div class="field">
-        <label for="entryAmount">Amount</label>
-        <input type="number" id="entryAmount" step="0.01" />
-      </div>
-      <div class="field" id="statusField">
-        <label for="entryStatus">Status</label>
-        <select id="entryStatus">
-          <option value="paid">Paid</option>
-          <option value="unpaid">Unpaid</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="entryNote">Note</label>
-        <input type="text" id="entryNote" />
-      </div>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="btnCancel">Cancel</button>
-        <div class="modal-actions-right">
-          <button class="btn-danger" id="btnDelete" style="display:none;">Delete</button>
-          <button class="btn-income" id="btnSave">Save</button>
+      <div class="modal-body">
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="txDate" />
         </div>
+        <div class="field">
+          <label id="labelLabel">Source / Item</label>
+          <input type="text" id="txLabel" placeholder="e.g. DnM, Rent, Groceries" />
+        </div>
+        <div class="field">
+          <label>Amount</label>
+          <input type="number" id="txAmount" step="0.01" min="0" />
+        </div>
+        <div class="field" id="statusField">
+          <label>Status</label>
+          <select id="txStatus">
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Note</label>
+          <textarea id="txNote" placeholder="Optional notes"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-danger" id="btnDeleteTx" style="display:none;">Delete</button>
+        <button class="btn-secondary" id="btnCancelTx">Cancel</button>
+        <button class="btn-primary" id="btnSaveTx">Save</button>
       </div>
     </div>
   </div>
 
   <script>
+    // ================== SUPABASE INIT ==================
     const SUPABASE_URL = 'https://fgtakqdkovomrivljzin.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZndGFrcWRrb3ZvbXJpdmxqemluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNjAwNjMsImV4cCI6MjA3OTkzNjA2M30.fDVT3jzMkpNTNxLgq7hc-c9OCrvPZW_qB_RV_XFTxFU';
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const { createClient } = supabase;
-    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let currentUser = null;
+    let allTransactions = [];
+    let trendChart = null;
 
-    let transactions = [];
-    let chart;
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthSelect = document.getElementById('monthSelect');
+    const yearSelect = document.getElementById('yearSelect');
 
-    const monthSelect   = document.getElementById('monthSelect');
-    const yearSelect    = document.getElementById('yearSelect');
-    const headerMonth   = document.getElementById('headerMonth');
-    const btnLogout     = document.getElementById('btnLogout');
+    const monthIncomeEl = document.getElementById('monthIncome');
+    const monthExpenseEl = document.getElementById('monthExpense');
+    const monthNetEl = document.getElementById('monthNet');
 
-    const ytdIncomeEl   = document.getElementById('ytdIncome');
-    const ytdExpenseEl  = document.getElementById('ytdExpense');
-    const ytdNetEl      = document.getElementById('ytdNet');
-    const ytdCaptionEl  = document.getElementById('ytdCaption');
+    const yearIncomeEl = document.getElementById('yearIncome');
+    const yearExpenseEl = document.getElementById('yearExpense');
+    const yearNetEl = document.getElementById('yearNet');
+    const ytdNoteEl = document.getElementById('ytdNote');
 
-    const totalIncomeEl = document.getElementById('totalIncome');
-    const totalExpenseEl= document.getElementById('totalExpense');
-    const netAmountEl   = document.getElementById('netAmount');
-    const incomeBody    = document.getElementById('incomeBody');
-    const expenseBody   = document.getElementById('expenseBody');
-    const incomeEmpty   = document.getElementById('incomeEmpty');
-    const expenseEmpty  = document.getElementById('expenseEmpty');
+    const currentPeriodLabel = document.getElementById('currentPeriodLabel');
 
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle    = document.getElementById('modalTitle');
-    const entryDate     = document.getElementById('entryDate');
-    const entryLabel    = document.getElementById('entryLabel');
-    const entryAmount   = document.getElementById('entryAmount');
-    const entryStatus   = document.getElementById('entryStatus');
-    const entryNote     = document.getElementById('entryNote');
-    const statusField   = document.getElementById('statusField');
-    const btnCancel     = document.getElementById('btnCancel');
-    const btnSave       = document.getElementById('btnSave');
-    const btnDelete     = document.getElementById('btnDelete');
-    const btnAddIncome  = document.getElementById('btnAddIncome');
+    const incomeTableBody = document.getElementById('incomeTableBody');
+    const expenseTableBody = document.getElementById('expenseTableBody');
+    const incomeEmpty = document.getElementById('incomeEmpty');
+    const expenseEmpty = document.getElementById('expenseEmpty');
+
+    const tabSummary = document.getElementById('tabSummary');
+    const tabDetails = document.getElementById('tabDetails');
+    const pageSummary = document.getElementById('pageSummary');
+    const pageDetails = document.getElementById('pageDetails');
+
+    const btnAddIncome = document.getElementById('btnAddIncome');
     const btnAddExpense = document.getElementById('btnAddExpense');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-    let modalMode = 'income';
-    let modalAction = 'create';
-    let selectedTransaction = null;
+    // Modal refs
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const btnCancelTx = document.getElementById('btnCancelTx');
+    const btnSaveTx = document.getElementById('btnSaveTx');
+    const btnDeleteTx = document.getElementById('btnDeleteTx');
+    const txDate = document.getElementById('txDate');
+    const txLabel = document.getElementById('txLabel');
+    const txAmount = document.getElementById('txAmount');
+    const txStatus = document.getElementById('txStatus');
+    const txNote = document.getElementById('txNote');
+    const statusField = document.getElementById('statusField');
+    const labelLabel = document.getElementById('labelLabel');
 
-    function money(v) {
-      return '₱' + cleanAmount(v).toLocaleString('en-PH', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
+    let modalMode = 'income'; // 'income' | 'expense'
+    let editingId = null;
 
-    function cleanAmount(v) {
-      if (v === null || v === undefined) return 0;
-      const n = Number(String(v).replace(/[₱,]/g,'').trim());
-      return Number.isFinite(n) ? n : 0;
-    }
-
-    function formatDate(dateStr) {
-      const d = new Date(dateStr);
-      if (Number.isNaN(d.getTime())) return dateStr;
-      return d.toLocaleDateString('en-PH', { day: '2-digit', month: 'short' });
-    }
-
-    function initMonthSelect() {
-      months.forEach((m, idx) => {
-        const opt = document.createElement('option');
-        opt.value = idx;
-        opt.textContent = m;
-        monthSelect.appendChild(opt);
-      });
-      const now = new Date();
-      monthSelect.value = String(now.getMonth());
-    }
-
-    function populateYearSelect() {
-      const existing = Number(yearSelect.value) || null;
-
-      const yearsSet = new Set();
-      transactions.forEach(t => {
-        const d = new Date(t.date);
-        if (!Number.isNaN(d.getTime())) yearsSet.add(d.getFullYear());
-      });
-
-      const years = Array.from(yearsSet).sort((a,b) => a - b);
-      if (years.length === 0) {
-        const nowYear = new Date().getFullYear();
-        yearSelect.innerHTML = `<option value="${nowYear}">${nowYear}</option>`;
+    // ============ AUTH GUARD =================
+    async function requireAuth() {
+      const { data, error } = await db.auth.getSession();
+      if (error) {
+        console.error('Error getting session', error);
+        window.location.href = '/login.html';
         return;
       }
-
-      yearSelect.innerHTML = '';
-      years.forEach(y => {
-        const opt = document.createElement('option');
-        opt.value = y;
-        opt.textContent = y;
-        yearSelect.appendChild(opt);
-      });
-
-      if (existing && years.includes(existing)) {
-        yearSelect.value = existing;
-      } else {
-        const currentYear = new Date().getFullYear();
-        yearSelect.value = years.includes(currentYear)
-          ? currentYear
-          : years[years.length - 1];
+      if (!data.session) {
+        window.location.href = '/login.html';
+        return;
       }
+      currentUser = data.session.user;
     }
 
+    logoutBtn.addEventListener('click', async () => {
+      await db.auth.signOut();
+      window.location.href = '/login.html';
+    });
+
+    // ============ UTILITIES ==================
+    function formatCurrency(n) {
+      const num = typeof n === 'number' ? n : Number(String(n || '0').replace(/,/g,''));
+      return '₱' + num.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function dateToParts(iso) {
+      const d = new Date(iso);
+      return {
+        y: d.getFullYear(),
+        m: d.getMonth(), // 0-based
+        label: d.toLocaleDateString('en-PH', { month: 'short', day: '2-digit' })
+      };
+    }
+
+    function getSelectedYear() {
+      return Number(yearSelect.value);
+    }
+    function getSelectedMonthIndex() {
+      return Number(monthSelect.value);
+    }
+
+    // ============ DATA LOAD ==================
     async function loadTransactions() {
       const { data, error } = await db
         .from('transactions')
@@ -614,311 +719,296 @@
         .order('date', { ascending: true });
 
       if (error) {
-        console.error('Supabase load error', error);
-        alert('Error loading data from Supabase.');
+        console.error('Error loading transactions', error);
         return;
       }
-
-      transactions = data || [];
-      populateYearSelect();
-      refreshOverview();
-      refreshDetails();
+      allTransactions = data || [];
+      recomputeAndRender();
     }
 
-    async function insertTransaction(payload) {
-      const { error } = await db
-        .from('transactions')
-        .insert([payload]);
-      if (error) {
-        console.error('Supabase insert error', error);
-        alert('Error saving data.');
-        return false;
+    function recomputeAndRender() {
+      const year = getSelectedYear();
+      const monthIdx = getSelectedMonthIndex();
+
+      currentPeriodLabel.textContent = `${monthNames[monthIdx]} ${year}`;
+
+      // Month & year filtering
+      const monthIncomeTx = [];
+      const monthExpenseTx = [];
+      const yearIncomeTx = [];
+      const yearExpenseTx = [];
+
+      for (const t of allTransactions) {
+        if (!t.date) continue;
+        const d = new Date(t.date);
+        const y = d.getFullYear();
+        const m = d.getMonth();
+        const amount = typeof t.amount === 'number'
+          ? t.amount
+          : Number(String(t.amount || '0').replace(/,/g,''));
+
+        if (y === year) {
+          if (t.type === 'income') yearIncomeTx.push({ ...t, _amt: amount });
+          if (t.type === 'expense') yearExpenseTx.push({ ...t, _amt: amount });
+        }
+
+        if (y === year && m === monthIdx) {
+          if (t.type === 'income') monthIncomeTx.push({ ...t, _amt: amount });
+          if (t.type === 'expense') monthExpenseTx.push({ ...t, _amt: amount });
+        }
       }
-      return true;
+
+      const monthIncomeTotal = monthIncomeTx.reduce((s,t)=>s + t._amt, 0);
+      const monthExpenseTotal = monthExpenseTx.reduce((s,t)=>s + t._amt, 0);
+      const monthNetTotal = monthIncomeTotal - monthExpenseTotal;
+
+      const yearIncomeTotal = yearIncomeTx.reduce((s,t)=>s + t._amt, 0);
+      const yearExpenseTotal = yearExpenseTx.reduce((s,t)=>s + t._amt, 0);
+      const yearNetTotal = yearIncomeTotal - yearExpenseTotal;
+
+      monthIncomeEl.textContent = formatCurrency(monthIncomeTotal);
+      monthExpenseEl.textContent = formatCurrency(monthExpenseTotal);
+      monthNetEl.textContent = formatCurrency(monthNetTotal);
+      monthNetEl.classList.toggle('positive', monthNetTotal >= 0);
+      monthNetEl.classList.toggle('negative', monthNetTotal < 0);
+
+      yearIncomeEl.textContent = formatCurrency(yearIncomeTotal);
+      yearExpenseEl.textContent = formatCurrency(yearExpenseTotal);
+      yearNetEl.textContent = formatCurrency(yearNetTotal);
+      yearNetEl.classList.toggle('positive', yearNetTotal >= 0);
+      yearNetEl.classList.toggle('negative', yearNetTotal < 0);
+      ytdNoteEl.textContent = `Year-to-date for ${year} (through December).`;
+
+      renderChart(year, monthIdx);
+      renderDetailsTables(monthIncomeTx, monthExpenseTx);
     }
 
-    async function updateTransaction(id, payload) {
-      const { error } = await db
-        .from('transactions')
-        .update(payload)
-        .eq('id', id);
-      if (error) {
-        console.error('Supabase update error', error);
-        alert('Error updating data.');
-        return false;
-      }
-      return true;
-    }
-
-    async function deleteTransaction(id) {
-      const { error } = await db
-        .from('transactions')
-        .delete()
-        .eq('id', id);
-      if (error) {
-        console.error('Supabase delete error', error);
-        alert('Error deleting data.');
-        return false;
-      }
-      return true;
-    }
-
-    function computeRollingWindowTotals() {
-      const now = new Date();
-      const baseYear = now.getFullYear();
-      const baseMonth = now.getMonth();
-
+    function renderChart(year, monthIdx) {
       const labels = [];
-      const incomeTotals = [];
-      const expenseTotals = [];
+      const incomeData = [];
+      const expenseData = [];
 
-      for (let offset = -9; offset <= 2; offset++) {
-        const slotDate = new Date(baseYear, baseMonth + offset, 1);
-        const slotYear = slotDate.getFullYear();
-        const slotMonth = slotDate.getMonth();
+      for (let offset = -9; offset <= 3; offset++) {
+        const d = new Date(year, monthIdx + offset, 1);
+        const y = d.getFullYear();
+        const m = d.getMonth();
 
-        const label = `${monthsShort[slotMonth]} ${String(slotYear).slice(-2)}`;
-        labels.push(label);
+        labels.push(
+          d.toLocaleDateString('en-PH', { month: 'short', year: '2-digit' })
+        );
 
-        let incomeSum = 0;
-        let expenseSum = 0;
+        const monthIncome = allTransactions
+          .filter(t => t.type === 'income' && t.date && (new Date(t.date)).getFullYear() === y && (new Date(t.date)).getMonth() === m)
+          .reduce((s,t)=>{
+            const amt = typeof t.amount === 'number'
+              ? t.amount
+              : Number(String(t.amount || '0').replace(/,/g,''));
+            return s + amt;
+          },0);
 
-        transactions.forEach(t => {
-          const d = new Date(t.date);
-          if (Number.isNaN(d.getTime())) return;
-          if (d.getFullYear() === slotYear && d.getMonth() === slotMonth) {
-            if (t.type === 'income') incomeSum += cleanAmount(t.amount);
-            else if (t.type === 'expense') expenseSum += cleanAmount(t.amount);
-          }
-        });
+        const monthExpense = allTransactions
+          .filter(t => t.type === 'expense' && t.date && (new Date(t.date)).getFullYear() === y && (new Date(t.date)).getMonth() === m)
+          .reduce((s,t)=>{
+            const amt = typeof t.amount === 'number'
+              ? t.amount
+              : Number(String(t.amount || '0').replace(/,/g,''));
+            return s + amt;
+          },0);
 
-        incomeTotals.push(incomeSum);
-        expenseTotals.push(expenseSum);
+        incomeData.push(monthIncome);
+        expenseData.push(monthExpense);
       }
 
-      return { labels, incomeTotals, expenseTotals };
-    }
-
-    function refreshOverview() {
-      const monthIndex = Number(monthSelect.value);
-      const selectedYear = Number(yearSelect.value) || new Date().getFullYear();
-
-      headerMonth.textContent = `${months[monthIndex]} ${selectedYear}`;
-
-      const monthTx = transactions.filter(t => {
-        const d = new Date(t.date);
-        return !Number.isNaN(d.getTime()) &&
-               d.getFullYear() === selectedYear &&
-               d.getMonth() === monthIndex;
-      });
-
-      const monthIncome = monthTx
-        .filter(t => t.type === 'income')
-        .reduce((s,t)=>s+cleanAmount(t.amount),0);
-      const monthExpense = monthTx
-        .filter(t => t.type === 'expense')
-        .reduce((s,t)=>s+cleanAmount(t.amount),0);
-      const monthNet = monthIncome - monthExpense;
-
-      totalIncomeEl.textContent  = money(monthIncome);
-      totalExpenseEl.textContent = money(monthExpense);
-      netAmountEl.textContent    = money(monthNet);
-      netAmountEl.classList.remove('positive','negative');
-      if (monthNet > 0) netAmountEl.classList.add('positive');
-      else if (monthNet < 0) netAmountEl.classList.add('negative');
-
-      const yearTx = transactions.filter(t => {
-        const d = new Date(t.date);
-        return !Number.isNaN(d.getTime()) &&
-               d.getFullYear() === selectedYear;
-      });
-
-      const yearIncome = yearTx
-        .filter(t => t.type === 'income')
-        .reduce((s,t)=>s+cleanAmount(t.amount),0);
-      const yearExpense = yearTx
-        .filter(t => t.type === 'expense')
-        .reduce((s,t)=>s+cleanAmount(t.amount),0);
-      const yearNet = yearIncome - yearExpense;
-
-      ytdIncomeEl.textContent  = money(yearIncome);
-      ytdExpenseEl.textContent = money(yearExpense);
-      ytdNetEl.textContent     = money(yearNet);
-      ytdNetEl.classList.remove('positive','negative');
-      if (yearNet > 0) ytdNetEl.classList.add('positive');
-      else if (yearNet < 0) ytdNetEl.classList.add('negative');
-
-      ytdCaptionEl.textContent = `Full-year totals for ${selectedYear}.`;
-
-      const { labels, incomeTotals, expenseTotals } = computeRollingWindowTotals();
-
-      if (!chart) {
-        const ctx = document.getElementById('lineChart').getContext('2d');
-        chart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels,
-            datasets: [
-              {
-                label: 'Income',
-                data: incomeTotals,
-                borderWidth: 2,
-                tension: 0.28,
-                borderColor: '#22c55e',
-                pointRadius: 2.5
-              },
-              {
-                label: 'Expense',
-                data: expenseTotals,
-                borderWidth: 2,
-                tension: 0.28,
-                borderColor: '#e11d48',
-                pointRadius: 2.5
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: 'bottom',
-                labels: {
-                  color: '#e5e7eb',
-                  font: { size: 11 }
-                }
-              }
+      const ctx = document.getElementById('trendChart').getContext('2d');
+      if (trendChart) {
+        trendChart.destroy();
+      }
+      trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Income',
+              data: incomeData,
+              borderColor: '#32d583',
+              backgroundColor: 'rgba(50,213,131,0.12)',
+              tension: 0.3,
+              pointRadius: 3,
+              pointHoverRadius: 4,
+              borderWidth: 2
             },
-            scales: {
-              x: {
-                ticks: { color: '#9ca3af', font: { size: 10 } },
-                grid: { display: false }
+            {
+              label: 'Expense',
+              data: expenseData,
+              borderColor: '#ff6b81',
+              backgroundColor: 'rgba(255,107,129,0.12)',
+              tension: 0.3,
+              pointRadius: 3,
+              pointHoverRadius: 4,
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              ticks: { color: '#9ba5b8', maxRotation: 45, minRotation: 45 },
+              grid: { display: false }
+            },
+            y: {
+              ticks: {
+                color: '#9ba5b8',
+                callback: (value) => value.toLocaleString('en-PH')
               },
-              y: {
-                beginAtZero: true,
-                ticks: { color: '#9ca3af', font: { size: 10 } },
-                grid: { color: 'rgba(148,163,184,0.2)' }
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: { color: '#c2cad8', usePointStyle: true },
+              position: 'bottom'
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}`
               }
             }
           }
-        });
+        }
+      });
+    }
+
+    function renderDetailsTables(monthIncomeTx, monthExpenseTx) {
+      incomeTableBody.innerHTML = '';
+      expenseTableBody.innerHTML = '';
+
+      if (monthIncomeTx.length === 0) {
+        incomeEmpty.textContent = 'No income entries for this month.';
       } else {
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = incomeTotals;
-        chart.data.datasets[1].data = expenseTotals;
-        chart.update();
+        incomeEmpty.textContent = '';
       }
+      if (monthExpenseTx.length === 0) {
+        expenseEmpty.textContent = 'No expense entries for this month.';
+      } else {
+        expenseEmpty.textContent = '';
+      }
+
+      monthIncomeTx
+        .sort((a,b)=>new Date(a.date) - new Date(b.date))
+        .forEach(t => {
+          const tr = document.createElement('tr');
+          const { label: dateLabel } = dateToParts(t.date);
+          tr.innerHTML = `
+            <td>${dateLabel}</td>
+            <td>${t.label || ''}</td>
+            <td class="amount-cell">${formatCurrency(t._amt)}</td>
+          `;
+          tr.dataset.id = t.id;
+          tr.dataset.type = 'income';
+          incomeTableBody.appendChild(tr);
+        });
+
+      monthExpenseTx
+        .sort((a,b)=>new Date(a.date) - new Date(b.date))
+        .forEach(t => {
+          const tr = document.createElement('tr');
+          const { label: dateLabel } = dateToParts(t.date);
+          const status = (t.status || '').toLowerCase();
+          const pillClass = status === 'paid' ? 'status-paid' : status === 'unpaid' ? 'status-unpaid' : '';
+          const pillLabel = status ? status.charAt(0).toUpperCase() + status.slice(1) : '';
+          tr.innerHTML = `
+            <td>${dateLabel}</td>
+            <td>${t.label || ''}</td>
+            <td>${status ? `<span class="status-pill ${pillClass}">${pillLabel}</span>` : ''}</td>
+            <td class="amount-cell">${formatCurrency(t._amt)}</td>
+          `;
+          tr.dataset.id = t.id;
+          tr.dataset.type = 'expense';
+          expenseTableBody.appendChild(tr);
+        });
+
+      incomeTableBody.querySelectorAll('tr').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.dataset.id;
+          const tx = allTransactions.find(t => t.id === id);
+          if (tx) openEditModal(tx);
+        });
+      });
+
+      expenseTableBody.querySelectorAll('tr').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.dataset.id;
+          const tx = allTransactions.find(t => t.id === id);
+          if (tx) openEditModal(tx);
+        });
+      });
     }
 
-    function refreshDetails() {
-      const monthIndex = Number(monthSelect.value);
-      const selectedYear = Number(yearSelect.value) || new Date().getFullYear();
-
-      const monthTx = transactions.filter(t => {
-        const d = new Date(t.date);
-        return !Number.isNaN(d.getTime()) &&
-               d.getFullYear() === selectedYear &&
-               d.getMonth() === monthIndex;
-      });
-
-      const incomes = monthTx
-        .filter(t => t.type === 'income')
-        .sort((a,b)=>new Date(a.date)-new Date(b.date));
-      const expenses = monthTx
-        .filter(t => t.type === 'expense')
-        .sort((a,b)=>new Date(a.date)-new Date(b.date));
-
-      incomeBody.innerHTML = '';
-      incomes.forEach(t => {
-        const tr = document.createElement('tr');
-        tr.className = 'clickable-row';
-        tr.dataset.id = t.id;
-        tr.innerHTML = `
-          <td>${formatDate(t.date)}</td>
-          <td>${t.label}</td>
-          <td class="amount-cell">${money(t.amount)}</td>
-        `;
-        tr.addEventListener('click', () => openEditModal(t.id));
-        incomeBody.appendChild(tr);
-      });
-
-      expenseBody.innerHTML = '';
-      expenses.forEach(t => {
-        const tr = document.createElement('tr');
-        tr.className = 'clickable-row';
-        tr.dataset.id = t.id;
-        tr.innerHTML = `
-          <td>${formatDate(t.date)}</td>
-          <td>${t.label}</td>
-          <td>${(t.status || '').toLowerCase() === 'unpaid' ? 'Unpaid' : 'Paid'}</td>
-          <td>${t.note || ''}</td>
-          <td class="amount-cell">${money(t.amount)}</td>
-        `;
-        tr.addEventListener('click', () => openEditModal(t.id));
-        expenseBody.appendChild(tr);
-      });
-
-      incomeEmpty.style.display  = incomes.length  ? 'none' : 'block';
-      expenseEmpty.style.display = expenses.length ? 'none' : 'block';
-    }
-
-    // MODAL
-    function openCreateModal(type) {
+    // ============ MODAL HANDLING ==================
+    function openAddModal(type) {
       modalMode = type;
-      modalAction = 'create';
-      selectedTransaction = null;
+      editingId = null;
 
       modalTitle.textContent = type === 'income' ? 'Add income' : 'Add expense';
-      entryDate.valueAsDate = new Date();
-      entryLabel.value = '';
-      entryAmount.value = '';
-      entryNote.value = '';
-      entryStatus.value = 'paid';
-      statusField.style.display = (type === 'expense') ? 'block' : 'none';
-      btnDelete.style.display = 'none';
+      labelLabel.textContent = type === 'income' ? 'Source' : 'Item';
+      statusField.style.display = type === 'expense' ? 'block' : 'none';
+      btnDeleteTx.style.display = 'none';
 
-      modalBackdrop.style.display = 'flex';
-      entryLabel.focus();
+      const year = getSelectedYear();
+      const monthIdx = getSelectedMonthIndex();
+      const defaultDate = new Date(year, monthIdx, 1).toISOString().slice(0,10);
+
+      txDate.value = defaultDate;
+      txLabel.value = '';
+      txAmount.value = '';
+      txStatus.value = 'paid';
+      txNote.value = '';
+
+      modalBackdrop.classList.add('show');
     }
 
-    function openEditModal(id) {
-      const tx = transactions.find(t => t.id === id);
-      if (!tx) return;
-
-      selectedTransaction = tx;
+    function openEditModal(tx) {
       modalMode = tx.type;
-      modalAction = 'edit';
+      editingId = tx.id;
 
-      modalTitle.textContent = modalMode === 'income' ? 'Edit income' : 'Edit expense';
-      entryDate.value = tx.date;
-      entryLabel.value = tx.label || '';
-      entryAmount.value = cleanAmount(tx.amount);
-      entryNote.value = tx.note || '';
+      modalTitle.textContent = tx.type === 'income' ? 'Edit income' : 'Edit expense';
+      labelLabel.textContent = tx.type === 'income' ? 'Source' : 'Item';
+      statusField.style.display = tx.type === 'expense' ? 'block' : 'none';
+      btnDeleteTx.style.display = 'inline-flex';
 
-      if (modalMode === 'expense') {
-        statusField.style.display = 'block';
-        entryStatus.value = (tx.status || 'paid').toLowerCase() === 'unpaid' ? 'unpaid' : 'paid';
-      } else {
-        statusField.style.display = 'none';
-      }
+      txDate.value = tx.date ? String(tx.date).slice(0,10) : '';
+      txLabel.value = tx.label || '';
+      txAmount.value = typeof tx.amount === 'number'
+        ? tx.amount
+        : Number(String(tx.amount || '0').replace(/,/g,''));
+      txStatus.value = (tx.status || 'paid').toLowerCase();
+      txNote.value = tx.note || '';
 
-      btnDelete.style.display = 'inline-flex';
-      modalBackdrop.style.display = 'flex';
+      modalBackdrop.classList.add('show');
     }
 
     function closeModal() {
-      modalBackdrop.style.display = 'none';
+      modalBackdrop.classList.remove('show');
     }
 
-    async function saveEntry() {
-      const dateVal  = entryDate.value;
-      const labelVal = entryLabel.value.trim();
-      const amountVal= cleanAmount(entryAmount.value);
-      const noteVal  = entryNote.value.trim() || null;
-      const statusVal= entryStatus.value;
+    modalCloseBtn.addEventListener('click', closeModal);
+    btnCancelTx.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
 
-      if (!dateVal || !labelVal || !amountVal || amountVal <= 0) {
-        alert('Enter valid date, label, and positive amount.');
+    btnSaveTx.addEventListener('click', async () => {
+      const dateVal = txDate.value;
+      const labelVal = txLabel.value.trim();
+      const amountVal = Number(txAmount.value || 0);
+      const statusVal = txStatus.value;
+      const noteVal = txNote.value.trim();
+
+      if (!dateVal || !labelVal || !amountVal) {
+        alert('Date, label, and amount are required.');
         return;
       }
 
@@ -928,90 +1018,98 @@
         label: labelVal,
         amount: amountVal,
         status: modalMode === 'expense' ? statusVal : null,
-        note: noteVal
+        note: noteVal || null
       };
 
-      let ok = false;
-      if (modalAction === 'create') {
-        ok = await insertTransaction(payload);
-      } else if (modalAction === 'edit' && selectedTransaction) {
-        ok = await updateTransaction(selectedTransaction.id, payload);
+      try {
+        if (editingId) {
+          const { error } = await db
+            .from('transactions')
+            .update(payload)
+            .eq('id', editingId);
+          if (error) throw error;
+        } else {
+          const { error } = await db
+            .from('transactions')
+            .insert(payload); // user_id filled by default auth.uid()
+          if (error) throw error;
+        }
+        closeModal();
+        await loadTransactions();
+      } catch (err) {
+        console.error('Save error', err);
+        alert('Failed to save transaction.');
       }
+    });
 
-      if (!ok) return;
-
-      closeModal();
-      await loadTransactions();
-    }
-
-    async function handleDelete() {
-      if (!selectedTransaction) return;
-      if (!confirm('Delete this entry?')) return;
-
-      const ok = await deleteTransaction(selectedTransaction.id);
-      if (!ok) return;
-
-      closeModal();
-      await loadTransactions();
-    }
-
-    // AUTH
-    async function checkSession() {
-      const { data, error } = await db.auth.getSession();
-      if (error) {
-        console.error('Auth session error', error);
-        window.location.href = '/login.html';
-        return;
+    btnDeleteTx.addEventListener('click', async () => {
+      if (!editingId) return;
+      if (!confirm('Delete this transaction?')) return;
+      try {
+        const { error } = await db
+          .from('transactions')
+          .delete()
+          .eq('id', editingId);
+        if (error) throw error;
+        closeModal();
+        await loadTransactions();
+      } catch (err) {
+        console.error('Delete error', err);
+        alert('Failed to delete transaction.');
       }
-      if (!data.session) {
-        window.location.href = '/login.html';
-      }
-    }
+    });
 
-    async function doLogout() {
-      await db.auth.signOut();
-      window.location.href = '/login.html';
-    }
+    // ============ TABS & FILTER EVENTS =============
+    tabSummary.addEventListener('click', () => {
+      tabSummary.classList.add('active');
+      tabDetails.classList.remove('active');
+      pageSummary.classList.remove('hidden');
+      pageDetails.classList.add('hidden');
+    });
 
-    // INIT
-    async function initApp() {
-      await checkSession();
-      await loadTransactions();
-    }
+    tabDetails.addEventListener('click', () => {
+      tabDetails.classList.add('active');
+      tabSummary.classList.remove('active');
+      pageDetails.classList.remove('hidden');
+      pageSummary.classList.add('hidden');
+    });
 
-    // EVENTS
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const target = tab.getAttribute('data-page');
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page-' + target).classList.add('active');
+    monthSelect.addEventListener('change', recomputeAndRender);
+    yearSelect.addEventListener('change', recomputeAndRender);
+
+    btnAddIncome.addEventListener('click', () => openAddModal('income'));
+    btnAddExpense.addEventListener('click', () => openAddModal('expense'));
+
+    // ============ INIT =============
+    (async function init() {
+      await requireAuth();
+
+      // populate month/year selects
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+
+      monthNames.forEach((name, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = name;
+        if (idx === currentMonth) opt.selected = true;
+        monthSelect.appendChild(opt);
       });
-    });
 
-    btnAddIncome.addEventListener('click', () => openCreateModal('income'));
-    btnAddExpense.addEventListener('click', () => openCreateModal('expense'));
-    btnCancel.addEventListener('click', closeModal);
-    btnSave.addEventListener('click', saveEntry);
-    btnDelete.addEventListener('click', handleDelete);
+      // For now, allow a range of years around current
+      const minYear = currentYear - 2;
+      const maxYear = currentYear + 2;
+      for (let y = minYear; y <= maxYear; y++) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        if (y === currentYear) opt.selected = true;
+        yearSelect.appendChild(opt);
+      }
 
-    monthSelect.addEventListener('change', () => {
-      refreshOverview();
-      refreshDetails();
-    });
-
-    yearSelect.addEventListener('change', () => {
-      refreshOverview();
-      refreshDetails();
-    });
-
-    btnLogout.addEventListener('click', doLogout);
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initMonthSelect();
-      initApp();
-    });
+      await loadTransactions();
+    })();
   </script>
 </body>
 </html>
