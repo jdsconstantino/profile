@@ -470,6 +470,26 @@
       font-size: 14px;    /* smaller on very narrow screens so it never hits the edges */
     }
   }
+    
+    .modal-body input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+/* Make the modal a bit narrower & give extra side padding on small screens */
+@media (max-width: 480px) {
+  .modal {
+    padding: 16px 14px 14px;
+  }
+
+  .modal-body input[type="date"] {
+    font-size: 13px;
+    padding: 9px 10px;
+  }
+}
+
 
   </style>
 </head>
