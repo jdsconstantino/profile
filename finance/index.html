@@ -158,7 +158,6 @@
       box-shadow: 0 0 0 1px rgba(0,194,106,0.4);
     }
 
-    /* period nav arrows */
     .period-nav {
       margin-top: 8px;
       display: flex;
@@ -310,7 +309,6 @@
       display: none;
     }
 
-    /* Details tables */
     .details-section {
       margin-top: 16px;
     }
@@ -386,7 +384,6 @@
       color: var(--danger);
     }
 
-    /* Details pie section */
     .details-pie {
       margin-top: 16px;
     }
@@ -394,7 +391,6 @@
       display: none;
     }
 
-    /* make pie small, centered, circular */
     #expensePie {
       width: 220px !important;
       height: 220px !important;
@@ -413,7 +409,6 @@
       color: var(--text);
     }
 
-    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -522,7 +517,6 @@
       margin-top: 6px;
     }
 
-    /* mobile tweaks for metric card numbers */
     @media (max-width: 480px) {
       .metric-card {
         padding: 10px 10px;
@@ -532,7 +526,6 @@
       }
     }
 
-    /* date field fix inside modal */
     .modal-body input[type="date"] {
       -webkit-appearance: none;
       appearance: none;
@@ -549,6 +542,57 @@
         font-size: 13px;
         padding: 9px 10px;
       }
+    }
+
+    /* Sub-items UI */
+    #subItemsContainer {
+      border-radius: 14px;
+      padding: 8px 10px 6px;
+      background: rgba(8, 14, 20, 0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    #subItemsContainer label {
+      margin-bottom: 6px;
+    }
+
+    .subitem-row {
+      display: grid;
+      grid-template-columns: 2fr 1.1fr;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .subitem-row input[type="text"],
+    .subitem-row input[type="number"] {
+      border-radius: 999px;
+      font-size: 12px;
+      padding: 7px 10px;
+    }
+
+    .subitem-add-btn {
+      margin-top: 2px;
+      border-radius: 999px;
+      border: 1px dashed rgba(255,255,255,0.25);
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .subitem-add-btn span {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .subitem-total {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -569,7 +613,6 @@
       <button class="tab" id="tabDetails">Details</button>
     </div>
 
-    <!-- Details-only pie chart -->
     <div class="details-pie hidden" id="detailsPieWrapper">
       <div class="section-title">Expenses breakdown</div>
       <div class="chart-container">
@@ -589,7 +632,6 @@
       </div>
     </div>
 
-    <!-- Prev / Next arrows -->
     <div class="period-nav">
       <button class="nav-btn" id="prevPeriodBtn">
         <span>←</span>
@@ -601,7 +643,6 @@
       </button>
     </div>
 
-    <!-- SUMMARY PAGE -->
     <div class="tab-page" id="pageSummary">
       <div class="grid-3">
         <div class="metric-card">
@@ -646,7 +687,6 @@
       </div>
     </div>
 
-    <!-- DETAILS PAGE -->
     <div class="tab-page hidden" id="pageDetails">
       <div class="details-section">
         <div class="table-title">Income</div>
@@ -679,7 +719,6 @@
         <div class="empty-note" id="expenseEmpty"></div>
       </div>
 
-      <!-- Add income / expense buttons also on Details page -->
       <div class="actions-row">
         <button class="btn btn-income" id="btnAddIncomeDetails">Add income</button>
         <button class="btn btn-expense" id="btnAddExpenseDetails">Add expense</button>
@@ -687,7 +726,6 @@
     </div>
   </div>
 
-  <!-- MODAL -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal">
       <div class="modal-header">
@@ -701,11 +739,20 @@
         </div>
         <div class="field">
           <label id="labelLabel">Source / Item</label>
-          <input type="text" id="txLabel" placeholder="e.g. DnM, Rent, Groceries" />
+          <input type="text" id="txLabel" />
         </div>
         <div class="field">
           <label>Amount</label>
           <input type="number" id="txAmount" step="0.01" min="0" />
+        </div>
+        <div class="field" id="subItemsContainer" style="display:none;">
+          <label>Sub items</label>
+          <div id="subItemsList"></div>
+          <button type="button" class="subitem-add-btn" id="btnAddSubItem">
+            <span>＋</span>
+            <span>Add sub item</span>
+          </button>
+          <div class="subitem-total" id="subItemsTotal"></div>
         </div>
         <div class="field" id="statusField">
           <label>Status</label>
@@ -716,7 +763,7 @@
         </div>
         <div class="field">
           <label>Note</label>
-          <textarea id="txNote" placeholder="Optional notes"></textarea>
+          <textarea id="txNote"></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -728,7 +775,6 @@
   </div>
 
   <script>
-    // ================== SUPABASE INIT ==================
     const SUPABASE_URL = 'https://fgtakqdkovomrivljzin.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZndGFrcWRrb3ZvbXJpdmxqemluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNjAwNjMsImV4cCI6MjA3OTkzNjA2M30.fDVT3jzMkpNTNxLgq7hc-c9OCrvPZW_qB_RV_XFTxFU';
     const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -776,13 +822,13 @@
     const prevPeriodBtn = document.getElementById('prevPeriodBtn');
     const nextPeriodBtn = document.getElementById('nextPeriodBtn');
 
-    // Modal refs
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modalTitle = document.getElementById('modalTitle');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const btnCancelTx = document.getElementById('btnCancelTx');
     const btnSaveTx = document.getElementById('btnSaveTx');
     const btnDeleteTx = document.getElementById('btnDeleteTx');
+
     const txDate = document.getElementById('txDate');
     const txLabel = document.getElementById('txLabel');
     const txAmount = document.getElementById('txAmount');
@@ -791,20 +837,22 @@
     const statusField = document.getElementById('statusField');
     const labelLabel = document.getElementById('labelLabel');
 
-    let modalMode = 'income'; // 'income' | 'expense'
+    const subItemsContainer = document.getElementById('subItemsContainer');
+    const subItemsList = document.getElementById('subItemsList');
+    const subItemsTotal = document.getElementById('subItemsTotal');
+    const btnAddSubItem = document.getElementById('btnAddSubItem');
+
+    let modalMode = 'income';
     let editingId = null;
 
-    // ===== Chart.js center text plugin for pie =====
     const centerTextPlugin = {
       id: 'centerText',
       beforeDraw(chart, args, pluginOptions) {
         const lines = pluginOptions && pluginOptions.lines;
         if (!lines || !lines.length) return;
-
         const { ctx } = chart;
         const meta = chart.getDatasetMeta(0);
         if (!meta.data || !meta.data.length) return;
-
         const centerX = meta.data[0].x;
         const centerY = meta.data[0].y;
 
@@ -832,7 +880,6 @@
 
     Chart.register(centerTextPlugin);
 
-    // ============ AUTH GUARD =================
     async function requireAuth() {
       const { data, error } = await db.auth.getSession();
       if (error) {
@@ -852,7 +899,6 @@
       window.location.href = '/login.html';
     });
 
-    // ============ UTILITIES ==================
     function formatCurrency(n) {
       const num = typeof n === 'number' ? n : Number(String(n || '0').replace(/,/g,''));
       return '₱' + num.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -862,7 +908,7 @@
       const d = new Date(iso);
       return {
         y: d.getFullYear(),
-        m: d.getMonth(), // 0-based
+        m: d.getMonth(),
         label: d.toLocaleDateString('en-PH', { month: 'short', day: '2-digit' })
       };
     }
@@ -874,7 +920,6 @@
       return Number(monthSelect.value);
     }
 
-    // Change period with +/- months (used by arrow buttons)
     function shiftPeriod(deltaMonths) {
       let m = getSelectedMonthIndex();
       let y = getSelectedYear();
@@ -904,7 +949,6 @@
       recomputeAndRender();
     }
 
-    // ============ DATA LOAD ==================
     async function loadTransactions() {
       const { data, error } = await db
         .from('transactions')
@@ -971,7 +1015,6 @@
       yearNetEl.classList.toggle('negative', yearNetTotal < 0);
       ytdNoteEl.textContent = `Year-to-date for ${year} (through December).`;
 
-      // Paid vs unpaid breakdown for current month
       let paidTotal = 0;
       let unpaidTotal = 0;
       for (const t of monthExpenseTx) {
@@ -1231,7 +1274,70 @@
       });
     }
 
-    // ============ MODAL HANDLING ==================
+    function resetSubItems() {
+      if (!subItemsList) return;
+      subItemsList.innerHTML = '';
+      if (subItemsTotal) subItemsTotal.textContent = '';
+    }
+
+    function addSubItemRow(initial) {
+      const row = document.createElement('div');
+      row.className = 'subitem-row';
+      const labelVal = initial && initial.label ? initial.label : '';
+      const amountVal = initial && typeof initial.amount !== 'undefined' ? initial.amount : '';
+
+      row.innerHTML = `
+        <input type="text" class="subitem-label" placeholder="Sub item" value="${labelVal}">
+        <input type="number" class="subitem-amount" step="0.01" min="0" placeholder="0.00" value="${amountVal}">
+      `;
+
+      const amountInput = row.querySelector('.subitem-amount');
+      const labelInput = row.querySelector('.subitem-label');
+      amountInput.addEventListener('input', recalculateSubItemsTotal);
+      labelInput.addEventListener('input', recalculateSubItemsTotal);
+
+      subItemsList.appendChild(row);
+      recalculateSubItemsTotal();
+    }
+
+    function recalculateSubItemsTotal() {
+      if (!subItemsList) return;
+      const rows = subItemsList.querySelectorAll('.subitem-row');
+      let total = 0;
+      let hasAny = false;
+
+      rows.forEach(row => {
+        const labelInput = row.querySelector('.subitem-label');
+        const amountInput = row.querySelector('.subitem-amount');
+        const label = labelInput.value.trim();
+        const amount = Number(amountInput.value || 0);
+        if (label || amount) {
+          hasAny = true;
+        }
+        if (!Number.isNaN(amount)) {
+          total += amount;
+        }
+      });
+
+      if (subItemsTotal) {
+        if (hasAny) {
+          subItemsTotal.textContent = `Total of sub items: ${formatCurrency(total)}`;
+        } else {
+          subItemsTotal.textContent = '';
+        }
+      }
+
+      if (hasAny && txAmount) {
+        txAmount.value = total.toFixed(2);
+      }
+    }
+
+    if (btnAddSubItem) {
+      btnAddSubItem.addEventListener('click', () => {
+        addSubItemRow();
+      });
+    }
+
     function openAddModal(type) {
       modalMode = type;
       editingId = null;
@@ -1241,15 +1347,22 @@
       statusField.style.display = type === 'expense' ? 'block' : 'none';
       btnDeleteTx.style.display = 'none';
 
-      const year = getSelectedYear();
-      const monthIdx = getSelectedMonthIndex();
-      const defaultDate = new Date(year, monthIdx, 1).toISOString().slice(0,10);
+      const today = new Date();
+      const isoToday = today.toISOString().slice(0,10);
+      txDate.value = isoToday;
 
-      txDate.value = defaultDate;
       txLabel.value = '';
       txAmount.value = '';
       txStatus.value = 'paid';
       txNote.value = '';
+
+      if (type === 'expense') {
+        subItemsContainer.style.display = 'block';
+        resetSubItems();
+      } else {
+        subItemsContainer.style.display = 'none';
+        resetSubItems();
+      }
 
       modalBackdrop.classList.add('show');
     }
@@ -1270,6 +1383,32 @@
         : Number(String(tx.amount || '0').replace(/,/g,''));
       txStatus.value = (tx.status || 'paid').toLowerCase();
       txNote.value = tx.note || '';
+
+      if (tx.type === 'expense') {
+        subItemsContainer.style.display = 'block';
+        resetSubItems();
+
+        let items = [];
+        if (tx.sub_items) {
+          if (typeof tx.sub_items === 'string') {
+            try {
+              items = JSON.parse(tx.sub_items);
+            } catch (e) {
+              items = [];
+            }
+          } else if (Array.isArray(tx.sub_items)) {
+            items = tx.sub_items;
+          }
+        }
+        if (items.length) {
+          items.forEach(it => addSubItemRow(it));
+        } else {
+          recalculateSubItemsTotal();
+        }
+      } else {
+        subItemsContainer.style.display = 'none';
+        resetSubItems();
+      }
 
       modalBackdrop.classList.add('show');
     }
@@ -1296,13 +1435,32 @@
         return;
       }
 
+      let subItems = null;
+      if (modalMode === 'expense' && subItemsList) {
+        const rows = subItemsList.querySelectorAll('.subitem-row');
+        const arr = [];
+        rows.forEach(row => {
+          const labelInput = row.querySelector('.subitem-label');
+          const amountInput = row.querySelector('.subitem-amount');
+          const subLabel = labelInput.value.trim();
+          const subAmount = Number(amountInput.value || 0);
+          if (subLabel || subAmount) {
+            arr.push({ label: subLabel, amount: subAmount });
+          }
+        });
+        if (arr.length) {
+          subItems = arr;
+        }
+      }
+
       const payload = {
         type: modalMode,
         date: dateVal,
         label: labelVal,
         amount: amountVal,
         status: modalMode === 'expense' ? statusVal : null,
-        note: noteVal || null
+        note: noteVal || null,
+        sub_items: modalMode === 'expense' ? (subItems || null) : null
       };
 
       try {
@@ -1343,7 +1501,6 @@
       }
     });
 
-    // ============ TABS & FILTER EVENTS =============
     tabSummary.addEventListener('click', () => {
       tabSummary.classList.add('active');
       tabDetails.classList.remove('active');
@@ -1371,7 +1528,6 @@
     prevPeriodBtn.addEventListener('click', () => shiftPeriod(-1));
     nextPeriodBtn.addEventListener('click', () => shiftPeriod(1));
 
-    // ============ INIT =============
     (async function init() {
       await requireAuth();
 
