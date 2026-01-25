@@ -2968,31 +2968,6 @@ html, body, main, form, .captcha-wrap {
   position: relative !important;
   z-index: 1000 !important;
 }
-/* ===== MODAL SCROLL FIX ===== */
-
-.modal-backdrop.show {
-  overflow-y: auto;
-  align-items: flex-start;
-}
-
-.modal {
-  max-height: calc(100vh - 32px);
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
-.modal-header,
-.modal-footer {
-  flex: 0 0 auto;
-}
-
-.modal-body {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  min-height: 0;
-  -webkit-overflow-scrolling: touch;
-}
 
 
 
