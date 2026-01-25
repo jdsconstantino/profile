@@ -23,9 +23,7 @@
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -129,10 +127,7 @@
       gap: 10px;
     }
 
-    .field {
-      flex: 1 1 140px;
-      min-width: 0;
-    }
+    .field { flex: 1 1 140px; min-width: 0; }
 
     .field label {
       display: block;
@@ -180,10 +175,7 @@
       justify-content: center;
     }
 
-    .nav-btn span {
-      font-size: 14px;
-      line-height: 1;
-    }
+    .nav-btn span { font-size: 14px; line-height: 1; }
 
     .nav-btn:hover {
       border-color: rgba(255,255,255,0.3);
@@ -220,13 +212,8 @@
       font-weight: 600;
     }
 
-    .metric-value.positive {
-      color: var(--accent);
-    }
-
-    .metric-value.negative {
-      color: var(--danger);
-    }
+    .metric-value.positive { color: var(--accent); }
+    .metric-value.negative { color: var(--danger); }
 
     .section-title {
       margin: 20px 0 6px;
@@ -296,22 +283,12 @@
       color: #020607;
     }
 
-    .btn:active {
-      transform: translateY(1px);
-      opacity: 0.96;
-    }
+    .btn:active { transform: translateY(1px); opacity: 0.96; }
 
-    .tab-page {
-      margin-top: 8px;
-    }
+    .tab-page { margin-top: 8px; }
+    .tab-page.hidden { display: none; }
 
-    .tab-page.hidden {
-      display: none;
-    }
-
-    .details-section {
-      margin-top: 16px;
-    }
+    .details-section { margin-top: 16px; }
 
     .table-title {
       font-size: 12px;
@@ -332,9 +309,7 @@
       border: 1px solid rgba(255,255,255,0.06);
     }
 
-    thead {
-      background: rgba(10,18,26,1);
-    }
+    thead { background: rgba(10,18,26,1); }
 
     th, td {
       padding: 7px 10px;
@@ -350,22 +325,11 @@
       letter-spacing: 0.08em;
     }
 
-    tbody tr {
-      cursor: pointer;
-    }
+    tbody tr { cursor: pointer; }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+    tbody tr:hover { background: rgba(0,194,106,0.06); }
 
-    tbody tr:nth-child(even) {
-      background: rgba(255,255,255,0.01);
-    }
-
-    tbody tr:hover {
-      background: rgba(0,194,106,0.06);
-    }
-
-    .amount-cell {
-      text-align: right;
-      white-space: nowrap;
-    }
+    .amount-cell { text-align: right; white-space: nowrap; }
 
     .status-pill {
       display: inline-flex;
@@ -375,21 +339,11 @@
       font-size: 11px;
       font-weight: 500;
     }
-    .status-paid {
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
-    .status-unpaid {
-      background: var(--danger-soft);
-      color: var(--danger);
-    }
+    .status-paid { background: var(--accent-soft); color: var(--accent); }
+    .status-unpaid { background: var(--danger-soft); color: var(--danger); }
 
-    .details-pie {
-      margin-top: 16px;
-    }
-    .details-pie.hidden {
-      display: none;
-    }
+    .details-pie { margin-top: 16px; }
+    .details-pie.hidden { display: none; }
 
     #expensePie {
       width: 220px !important;
@@ -404,24 +358,24 @@
       color: var(--muted);
       text-align: center;
     }
-    #expensePieSummary strong {
-      font-weight: 600;
-      color: var(--text);
-    }
+    #expensePieSummary strong { font-weight: 600; color: var(--text); }
 
+    /* ===== MODAL (WITH WORKING SCROLL) ===== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.7);
       display: none;
-      align-items: center;
+
+      /* KEY FIXES */
+      overflow-y: auto;
+      align-items: flex-start;
       justify-content: center;
+
       padding: 16px;
       z-index: 50;
     }
-    .modal-backdrop.show {
-      display: flex;
-    }
+    .modal-backdrop.show { display: flex; }
 
     .modal {
       width: 100%;
@@ -431,6 +385,11 @@
       border: 1px solid rgba(255,255,255,0.12);
       padding: 18px 18px 16px;
       box-shadow: var(--shadow-soft);
+
+      /* KEY FIXES */
+      max-height: calc(100vh - 32px);
+      display: flex;
+      flex-direction: column;
     }
 
     .modal-header {
@@ -438,12 +397,10 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
+      flex: 0 0 auto;
     }
 
-    .modal-title {
-      font-size: 16px;
-      font-weight: 600;
-    }
+    .modal-title { font-size: 16px; font-weight: 600; }
 
     .modal-close {
       border-radius: 999px;
@@ -455,25 +412,27 @@
       cursor: pointer;
     }
 
-    .modal-body .field {
-      margin-bottom: 10px;
-    }
+    .modal-body .field { margin-bottom: 10px; }
 
     .modal-body select,
     .modal-body input,
-    .modal-body textarea {
-      border-radius: 12px;
-    }
+    .modal-body textarea { border-radius: 12px; }
 
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
+    textarea { min-height: 70px; resize: vertical; }
 
     .modal-footer {
       display: flex;
       gap: 8px;
       margin-top: 10px;
+      flex: 0 0 auto;
+    }
+
+    /* SCROLL LIVES HERE */
+    .modal-body {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      min-height: 0;
+      -webkit-overflow-scrolling: touch;
     }
 
     .btn-primary {
@@ -511,19 +470,11 @@
       cursor: pointer;
     }
 
-    .empty-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+    .empty-note { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
     @media (max-width: 480px) {
-      .metric-card {
-        padding: 10px 10px;
-      }
-      .metric-value {
-        font-size: 14px;
-      }
+      .metric-card { padding: 10px 10px; }
+      .metric-value { font-size: 14px; }
     }
 
     .modal-body input[type="date"] {
@@ -534,9 +485,7 @@
     }
 
     @media (max-width: 480px) {
-      .modal {
-        padding: 16px 14px 14px;
-      }
+      .modal { padding: 16px 14px 14px; }
 
       .modal-body input[type="date"] {
         font-size: 13px;
@@ -552,9 +501,7 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    #subItemsContainer label {
-      margin-bottom: 6px;
-    }
+    #subItemsContainer label { margin-bottom: 6px; }
 
     .subitem-row {
       display: grid;
@@ -584,16 +531,9 @@
       gap: 4px;
     }
 
-    .subitem-add-btn span {
-      font-size: 14px;
-      line-height: 1;
-    }
+    .subitem-add-btn span { font-size: 14px; line-height: 1; }
 
-    .subitem-total {
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .subitem-total { margin-top: 4px; font-size: 11px; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -913,12 +853,8 @@
       };
     }
 
-    function getSelectedYear() {
-      return Number(yearSelect.value);
-    }
-    function getSelectedMonthIndex() {
-      return Number(monthSelect.value);
-    }
+    function getSelectedYear() { return Number(yearSelect.value); }
+    function getSelectedMonthIndex() { return Number(monthSelect.value); }
 
     function shiftPeriod(deltaMonths) {
       let m = getSelectedMonthIndex();
@@ -926,14 +862,8 @@
 
       m += deltaMonths;
 
-      while (m < 0) {
-        m += 12;
-        y -= 1;
-      }
-      while (m > 11) {
-        m -= 12;
-        y += 1;
-      }
+      while (m < 0) { m += 12; y -= 1; }
+      while (m > 11) { m -= 12; y += 1; }
 
       const existingYears = Array.from(yearSelect.options).map(o => Number(o.value));
       if (!existingYears.includes(y)) {
@@ -1019,11 +949,8 @@
       let unpaidTotal = 0;
       for (const t of monthExpenseTx) {
         const status = (t.status || 'paid').toLowerCase();
-        if (status === 'unpaid') {
-          unpaidTotal += t._amt;
-        } else {
-          paidTotal += t._amt;
-        }
+        if (status === 'unpaid') unpaidTotal += t._amt;
+        else paidTotal += t._amt;
       }
       renderExpensePie(paidTotal, unpaidTotal);
 
@@ -1041,9 +968,7 @@
         const y = d.getFullYear();
         const m = d.getMonth();
 
-        labels.push(
-          d.toLocaleDateString('en-PH', { month: 'short', year: '2-digit' })
-        );
+        labels.push(d.toLocaleDateString('en-PH', { month: 'short', year: '2-digit' }));
 
         const monthIncome = allTransactions
           .filter(t => t.type === 'income' && t.date && (new Date(t.date)).getFullYear() === y && (new Date(t.date)).getMonth() === m)
@@ -1071,9 +996,8 @@
       const suggestedMax = maxVal > 0 ? maxVal * 1.15 : 1;
 
       const ctx = document.getElementById('trendChart').getContext('2d');
-      if (trendChart) {
-        trendChart.destroy();
-      }
+      if (trendChart) trendChart.destroy();
+
       trendChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -1104,38 +1028,21 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          layout: {
-            padding: { top: 10, right: 10, bottom: 8, left: 4 }
-          },
+          layout: { padding: { top: 10, right: 10, bottom: 8, left: 4 } },
           scales: {
-            x: {
-              ticks: { color: '#9ba5b8', maxRotation: 45, minRotation: 45 },
-              grid: { display: false }
-            },
+            x: { ticks: { color: '#9ba5b8', maxRotation: 45, minRotation: 45 }, grid: { display: false } },
             y: {
               suggestedMax,
-              ticks: {
-                color: '#9ba5b8',
-                callback: (value) => value.toLocaleString('en-PH')
-              },
+              ticks: { color: '#9ba5b8', callback: (value) => value.toLocaleString('en-PH') },
               grid: { color: 'rgba(255,255,255,0.05)' }
             }
           },
           plugins: {
             legend: {
-              labels: {
-                color: '#c2cad8',
-                usePointStyle: false,
-                boxWidth: 40,
-                boxHeight: 2
-              },
+              labels: { color: '#c2cad8', usePointStyle: false, boxWidth: 40, boxHeight: 2 },
               position: 'bottom'
             },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => `${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}`
-              }
-            }
+            tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}` } }
           }
         }
       });
@@ -1156,9 +1063,7 @@
       }
 
       const ctx = document.getElementById('expensePie').getContext('2d');
-      if (expensePieChart) {
-        expensePieChart.destroy();
-      }
+      if (expensePieChart) expensePieChart.destroy();
 
       expensePieChart = new Chart(ctx, {
         type: 'doughnut',
@@ -1175,12 +1080,7 @@
           maintainAspectRatio: true,
           cutout: '70%',
           plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: '#c2cad8'
-              }
-            },
+            legend: { position: 'bottom', labels: { color: '#c2cad8' } },
             tooltip: {
               callbacks: {
                 label: (ctx) => {
@@ -1190,12 +1090,7 @@
                 }
               }
             },
-            centerText: {
-              lines: [
-                formatCurrency(total),
-                'Total expenses'
-              ]
-            }
+            centerText: { lines: [ formatCurrency(total), 'Total expenses' ] }
           }
         }
       });
@@ -1212,16 +1107,8 @@
       incomeTableBody.innerHTML = '';
       expenseTableBody.innerHTML = '';
 
-      if (monthIncomeTx.length === 0) {
-        incomeEmpty.textContent = 'No income entries for this month.';
-      } else {
-        incomeEmpty.textContent = '';
-      }
-      if (monthExpenseTx.length === 0) {
-        expenseEmpty.textContent = 'No expense entries for this month.';
-      } else {
-        expenseEmpty.textContent = '';
-      }
+      incomeEmpty.textContent = monthIncomeTx.length === 0 ? 'No income entries for this month.' : '';
+      expenseEmpty.textContent = monthExpenseTx.length === 0 ? 'No expense entries for this month.' : '';
 
       monthIncomeTx
         .sort((a,b)=>new Date(a.date) - new Date(b.date))
@@ -1311,20 +1198,12 @@
         const amountInput = row.querySelector('.subitem-amount');
         const label = labelInput.value.trim();
         const amount = Number(amountInput.value || 0);
-        if (label || amount) {
-          hasAny = true;
-        }
-        if (!Number.isNaN(amount)) {
-          total += amount;
-        }
+        if (label || amount) hasAny = true;
+        if (!Number.isNaN(amount)) total += amount;
       });
 
       if (subItemsTotal) {
-        if (hasAny) {
-          subItemsTotal.textContent = `Total of sub items: ${formatCurrency(total)}`;
-        } else {
-          subItemsTotal.textContent = '';
-        }
+        subItemsTotal.textContent = hasAny ? `Total of sub items: ${formatCurrency(total)}` : '';
       }
 
       if (hasAny && txAmount) {
@@ -1333,9 +1212,7 @@
     }
 
     if (btnAddSubItem) {
-      btnAddSubItem.addEventListener('click', () => {
-        addSubItemRow();
-      });
+      btnAddSubItem.addEventListener('click', () => addSubItemRow());
     }
 
     function openAddModal(type) {
@@ -1348,8 +1225,7 @@
       btnDeleteTx.style.display = 'none';
 
       const today = new Date();
-      const isoToday = today.toISOString().slice(0,10);
-      txDate.value = isoToday;
+      txDate.value = today.toISOString().slice(0,10);
 
       txLabel.value = '';
       txAmount.value = '';
@@ -1391,20 +1267,13 @@
         let items = [];
         if (tx.sub_items) {
           if (typeof tx.sub_items === 'string') {
-            try {
-              items = JSON.parse(tx.sub_items);
-            } catch (e) {
-              items = [];
-            }
+            try { items = JSON.parse(tx.sub_items); } catch (e) { items = []; }
           } else if (Array.isArray(tx.sub_items)) {
             items = tx.sub_items;
           }
         }
-        if (items.length) {
-          items.forEach(it => addSubItemRow(it));
-        } else {
-          recalculateSubItemsTotal();
-        }
+        if (items.length) items.forEach(it => addSubItemRow(it));
+        else recalculateSubItemsTotal();
       } else {
         subItemsContainer.style.display = 'none';
         resetSubItems();
@@ -1413,9 +1282,7 @@
       modalBackdrop.classList.add('show');
     }
 
-    function closeModal() {
-      modalBackdrop.classList.remove('show');
-    }
+    function closeModal() { modalBackdrop.classList.remove('show'); }
 
     modalCloseBtn.addEventListener('click', closeModal);
     btnCancelTx.addEventListener('click', closeModal);
@@ -1444,13 +1311,9 @@
           const amountInput = row.querySelector('.subitem-amount');
           const subLabel = labelInput.value.trim();
           const subAmount = Number(amountInput.value || 0);
-          if (subLabel || subAmount) {
-            arr.push({ label: subLabel, amount: subAmount });
-          }
+          if (subLabel || subAmount) arr.push({ label: subLabel, amount: subAmount });
         });
-        if (arr.length) {
-          subItems = arr;
-        }
+        if (arr.length) subItems = arr;
       }
 
       const payload = {
@@ -1465,15 +1328,10 @@
 
       try {
         if (editingId) {
-          const { error } = await db
-            .from('transactions')
-            .update(payload)
-            .eq('id', editingId);
+          const { error } = await db.from('transactions').update(payload).eq('id', editingId);
           if (error) throw error;
         } else {
-          const { error } = await db
-            .from('transactions')
-            .insert(payload);
+          const { error } = await db.from('transactions').insert(payload);
           if (error) throw error;
         }
         closeModal();
@@ -1488,10 +1346,7 @@
       if (!editingId) return;
       if (!confirm('Delete this transaction?')) return;
       try {
-        const { error } = await db
-          .from('transactions')
-          .delete()
-          .eq('id', editingId);
+        const { error } = await db.from('transactions').delete().eq('id', editingId);
         if (error) throw error;
         closeModal();
         await loadTransactions();
