@@ -2980,6 +2980,25 @@ html, body, main, form, .captcha-wrap {
   -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
   min-height: 0; /* critical for flex children to allow scrolling */
 }
+/* FIX: make the backdrop scrollable when modal is taller than viewport */
+.modal-backdrop.show {
+  overflow-y: auto;
+  align-items: flex-start; /* stop vertical centering that clips the bottom */
+}
+
+/* keep modal within viewport and make body the scroll area */
+.modal {
+  max-height: calc(100vh - 32px); /* backdrop padding top+bottom = 16px + 16px */
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* centered horizontally */
+}
+
+.modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0; /* REQUIRED for flex children to scroll */
+}
 
 
 
