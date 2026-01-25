@@ -2968,37 +2968,32 @@ html, body, main, form, .captcha-wrap {
   position: relative !important;
   z-index: 1000 !important;
 }
-/* FIX: allow long modal content to scroll */
-.modal {
-  max-height: calc(100vh - 32px); /* matches backdrop padding (16px top/bottom) */
-  display: flex;
-  flex-direction: column;
-}
+/* ===== MODAL SCROLL FIX ===== */
 
-.modal-body {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-  min-height: 0; /* critical for flex children to allow scrolling */
-}
-/* FIX: make the backdrop scrollable when modal is taller than viewport */
 .modal-backdrop.show {
   overflow-y: auto;
-  align-items: flex-start; /* stop vertical centering that clips the bottom */
+  align-items: flex-start;
 }
 
-/* keep modal within viewport and make body the scroll area */
 .modal {
-  max-height: calc(100vh - 32px); /* backdrop padding top+bottom = 16px + 16px */
+  max-height: calc(100vh - 32px);
   display: flex;
   flex-direction: column;
-  margin: 0 auto; /* centered horizontally */
+  margin: 0 auto;
+}
+
+.modal-header,
+.modal-footer {
+  flex: 0 0 auto;
 }
 
 .modal-body {
+  flex: 1 1 auto;
   overflow-y: auto;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
-  min-height: 0; /* REQUIRED for flex children to scroll */
 }
+
 
 
 
