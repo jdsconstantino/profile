@@ -49,20 +49,20 @@
   }
   </script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "CX Operations and Customer Support Systems",
-  "serviceType": "CX operations, customer support systems, workflow automation, reporting, and helpdesk implementation",
-  "provider": {
-    "@type": "Organization",
-    "name": "DeskXP",
-    "url": "https://deskxp.com"
-  },
-  "areaServed": "Worldwide",
-  "description": "DeskXP designs and implements scalable CX operations, customer support systems, workflow automation, reporting, and multi-platform helpdesk environments."
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "CX Operations and Customer Support Systems",
+    "serviceType": "CX operations, customer support systems, workflow automation, reporting, and helpdesk implementation",
+    "provider": {
+      "@type": "Organization",
+      "name": "DeskXP",
+      "url": "https://deskxp.com"
+    },
+    "areaServed": "Worldwide",
+    "description": "DeskXP designs and implements scalable CX operations, customer support systems, workflow automation, reporting, and multi-platform helpdesk environments."
+  }
+  </script>
 
   <style>
     html, body {
@@ -154,6 +154,16 @@
       align-items: center;
       overflow: hidden;
       position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .hero-panel.hero-panel--secondary {
+        min-height: 0 !important;
+        min-height: 0 !important; /* svh and vh both */
+        height: auto !important;
+        align-items: flex-start !important;
+        overflow: visible !important;
+      }
     }
 
     .hero__content {
@@ -408,9 +418,6 @@
       transform: scale(1.08);
     }
 
-    /* =============================================
-       PANEL 2 — WHAT DESKXP DOES
-    ============================================= */
     .hero-panel--secondary .hero__content {
       padding-top: clamp(60px, 7vw, 90px);
       padding-bottom: clamp(60px, 7vw, 90px);
@@ -419,6 +426,24 @@
       align-items: center;
       justify-content: center;
       overflow: visible;
+    }
+
+    /* Mobile: kill the 120vh min-height and fix padding so content starts from top */
+    @media (max-width: 900px) {
+      .hero-panel.hero-panel--secondary {
+        min-height: 0 !important;
+        height: auto !important;
+        align-items: flex-start !important;
+      }
+
+      .hero-panel--secondary .hero__content {
+        padding-top: 72px !important;
+        padding-bottom: 48px !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+      }
     }
 
     .p2-card {
@@ -530,6 +555,10 @@
       margin-top: 4px;
     }
 
+    .p2-back-row {
+      margin-top: 16px;
+    }
+
     .p2-right {
       display: flex;
       align-items: center;
@@ -557,150 +586,6 @@
         0 0 80px rgba(65, 192, 255, 0.08);
     }
 
-    .p2-mockup-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      background: linear-gradient(135deg, rgba(20, 32, 48, 0.9) 0%, rgba(10, 18, 30, 0.95) 100%);
-      box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.50),
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .p2-mock-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.04);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .p2-mock-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-    }
-
-    .p2-mock-dot:nth-child(1) { background: rgba(255, 95, 87, 0.7); }
-    .p2-mock-dot:nth-child(2) { background: rgba(255, 189, 46, 0.7); }
-    .p2-mock-dot:nth-child(3) { background: rgba(39, 201, 63, 0.7); }
-
-    .p2-mock-title {
-      margin-left: 8px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.38);
-      letter-spacing: 0.04em;
-    }
-
-    .p2-mock-body {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 0;
-    }
-
-    .p2-mock-sidebar {
-      padding: 12px 10px;
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .p2-mock-nav-item {
-      height: 8px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .p2-mock-nav-item:first-child {
-      background: rgba(0, 193, 105, 0.30);
-      width: 70%;
-    }
-
-    .p2-mock-main {
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .p2-mock-chart {
-      height: 54px;
-      border-radius: 6px;
-      background: rgba(65, 192, 255, 0.06);
-      border: 1px solid rgba(65, 192, 255, 0.10);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .p2-mock-chart::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60%;
-      background: linear-gradient(to top, rgba(65, 192, 255, 0.15), transparent);
-    }
-
-    .p2-mock-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .p2-mock-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 8px;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .p2-mock-avatar {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: rgba(183, 140, 255, 0.35);
-      flex: 0 0 auto;
-    }
-
-    .p2-mock-line {
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.10);
-      flex: 1;
-    }
-
-    .p2-mock-badge {
-      height: 14px;
-      width: 32px;
-      border-radius: 3px;
-      flex: 0 0 auto;
-    }
-
-    .p2-mock-badge--green { background: rgba(0, 193, 105, 0.28); }
-    .p2-mock-badge--yellow { background: rgba(255, 189, 46, 0.28); }
-    .p2-mock-badge--blue { background: rgba(65, 192, 255, 0.28); }
-
-    .p2-back-row {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    /* =============================================
-       SERVICES
-    ============================================= */
     #servicesFW {
       position: relative;
       z-index: 2;
@@ -710,9 +595,8 @@
       padding: 0 0 44px !important;
       border: 0 !important;
       background:
-        radial-gradient(circle at 30% 40%, rgba(0, 200, 255, 0.06), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(108, 92, 255, 0.08), transparent 45%),
-        linear-gradient(180deg, #0b1218 0%, #0f1c26 100%);
+        radial-gradient(circle at 30% 40%, rgba(0, 200, 255, 0.05), transparent 40%),
+        linear-gradient(180deg, #0b1218 0%, #0b1218 100%);
     }
 
     #servicesFW::before {
@@ -903,17 +787,13 @@
       box-shadow: 0 0 0 4px rgba(0, 193, 105, 0.18);
     }
 
-    /* =============================================
-       BRANDS
-    ============================================= */
     #brands.brands-proof {
       width: 100%;
       margin: 0;
       padding: clamp(56px, 7vw, 88px) 20px clamp(42px, 5vw, 64px);
       background:
-        radial-gradient(circle at 20% 20%, rgba(0, 200, 255, 0.05), transparent 30%),
-        radial-gradient(circle at 80% 60%, rgba(108, 92, 255, 0.08), transparent 34%),
-        linear-gradient(180deg, #10202a 0%, #0f1c26 100%);
+        radial-gradient(circle at 80% 30%, rgba(0, 193, 105, 0.05), transparent 35%),
+        linear-gradient(180deg, #0b1218 0%, #0b1218 100%);
     }
 
     .brands-proof__inner {
@@ -1160,9 +1040,688 @@
       box-shadow: 0 16px 32px rgba(0, 114, 54, 0.38);
     }
 
-    /* =============================================
+    /* ============================================================
+       ABOUT SECTION — PATCHED
+       Changes: wider shell, better column balance, CRM fills width
+       ============================================================ */
+
+    /* Override site.css .about-teaser.reveal.v2 which sets max-width:1100px, padding, margin */
+    section.about-teaser--hero,
+    .about-teaser--hero {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      margin: 0 !important;
+      padding: clamp(72px, 8vw, 110px) 0 !important;
+      border-radius: 0 !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      background:
+        radial-gradient(circle at 18% 60%, rgba(65, 192, 255, 0.05), transparent 30%),
+        linear-gradient(180deg, #0b1218 0%, #0b1218 100%) !important;
+    }
+
+    .about-shell {
+      width: 100% !important;
+      max-width: 1440px !important;
+      margin: 0 auto !important;
+      padding: 0 clamp(20px, 4vw, 48px) !important;
+      box-sizing: border-box !important;
+      display: grid !important;
+      grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr) !important;
+      gap: clamp(28px, 4vw, 64px) !important;
+      align-items: start !important;
+    }
+
+    .about-copy {
+      text-align: left;
+    }
+
+    .about-copy h4 {
+      margin: 0 0 14px;
+      color: #9fbfd8;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .about-copy h2 {
+      margin: 0 0 18px;
+      max-width: 9ch;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    .about-copy .accent {
+      color: #00c169 !important;
+    }
+
+    .about-copy .tagline {
+      max-width: 56ch;
+      margin: 0 0 24px;
+      color: #cfe2f3;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .about-points {
+      margin: 0 0 24px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .about-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: #e7f3ff;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .about-points li::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+      margin-top: 1px;
+      border-radius: 999px;
+      background: rgba(0, 193, 105, 0.18);
+      border: 1px solid rgba(0, 193, 105, 0.36);
+      color: #00c169;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .about-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 24px;
+    }
+
+    .about-chips span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.04);
+      color: #dceafb;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .about-actions {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 14px !important;
+      align-items: stretch !important;  /* stretch so both buttons same height */
+    }
+
+    /* Override site.css .about-teaser.reveal.v2 .btn-outline — needs higher specificity */
+    section.about-teaser--hero .about-actions .book-call,
+    section.about-teaser--hero .about-actions .btn-outline,
+    .about-actions .book-call,
+    .about-actions .btn-outline {
+      min-width: 160px !important;
+      height: 52px !important;
+      padding: 0 28px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 14px !important;
+      font-size: 1rem !important;
+      font-weight: 800 !important;
+      text-decoration: none !important;
+      line-height: 1 !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      margin-top: 0 !important;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease !important;
+    }
+
+    section.about-teaser--hero .about-actions .book-call,
+    .about-actions .book-call {
+      background: linear-gradient(180deg, #0ea14e 0%, #007236 100%) !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 14px 28px rgba(0, 114, 54, 0.32) !important;
+    }
+
+    section.about-teaser--hero .about-actions .book-call:hover,
+    .about-actions .book-call:hover {
+      transform: translateY(-1px) !important;
+      background: linear-gradient(180deg, #12b357 0%, #068842 100%) !important;
+      box-shadow: 0 18px 36px rgba(0, 114, 54, 0.42) !important;
+    }
+
+    section.about-teaser--hero .about-actions .btn-outline,
+    .about-actions .btn-outline {
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.28) !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+
+    section.about-teaser--hero .about-actions .btn-outline:hover,
+    .about-actions .btn-outline:hover {
+      transform: translateY(-1px) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.40) !important;
+    }
+
+    /* ============================================================
+       CRM column — perspective container for 3D tilt
+       ============================================================ */
+    .about-crm {
+      min-width: 0;
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      perspective: 1400px;
+      perspective-origin: 20% 50%;
+      /* padding to give the tilted card room to breathe on edges */
+      padding: 20px 40px 40px 0;
+      box-sizing: border-box;
+    }
+
+    /* ============================================================
+       CRM UI CARD — 3D tilt + ambient glow
+       ============================================================ */
+    .crm-ui-card {
+      position: relative;
+      width: 100%;
+      padding: 16px;
+      border-radius: 30px;
+      /* overflow visible so shadow/glow isn't clipped */
+      overflow: visible;
+      background:
+        radial-gradient(circle at 80% 18%, rgba(65, 192, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 24% 86%, rgba(0, 193, 105, 0.12), transparent 28%),
+        linear-gradient(180deg, rgba(14, 25, 37, 0.98) 0%, rgba(8, 16, 26, 0.98) 100%);
+      border: 1px solid rgba(92, 216, 255, 0.18);
+      transform: rotateY(-14deg) rotateX(4deg) translateZ(0);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+      box-shadow:
+        0 48px 120px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        6px 0 40px rgba(65, 192, 255, 0.12),
+        0 60px 100px -20px rgba(0, 193, 105, 0.22),
+        0 0 90px rgba(65, 192, 255, 0.13);
+    }
+
+    /* Subtle straighten on hover */
+    .about-crm:hover .crm-ui-card {
+      transform: rotateY(-6deg) rotateX(2deg) translateZ(20px);
+      box-shadow:
+        0 60px 140px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+        8px 0 50px rgba(65, 192, 255, 0.20),
+        0 70px 110px -20px rgba(0, 193, 105, 0.28),
+        0 0 110px rgba(65, 192, 255, 0.16);
+    }
+
+    .crm-ui-window {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #0c1622 0%, #09111b 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 24px 60px rgba(0, 0, 0, 0.34);
+    }
+
+    .crm-ui-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .crm-ui-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .crm-ui-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #12324a 0%, #0a1d2d 100%);
+      border: 1px solid rgba(65, 192, 255, 0.24);
+      box-shadow: 0 0 20px rgba(65, 192, 255, 0.14);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .crm-ui-logo::before {
+      content: "";
+      position: absolute;
+      inset: 8px 9px 8px 8px;
+      border: 2px solid #ffffff;
+      border-left-width: 5px;
+      border-radius: 14px 10px 10px 14px;
+      opacity: 0.9;
+    }
+
+    .crm-ui-brand-text {
+      min-width: 0;
+    }
+
+    .crm-ui-brand-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .crm-ui-brand-text span {
+      display: block;
+      margin-top: 2px;
+      color: #9fc0db;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .crm-ui-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .crm-ui-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: #e7f3ff;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .crm-ui-pill--green {
+      color: #cffff1;
+      border-color: rgba(0, 193, 105, 0.22);
+      background: rgba(0, 193, 105, 0.14);
+    }
+
+    .crm-ui-body {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      min-height: 460px;
+    }
+
+    .crm-ui-sidebar {
+      padding: 14px 10px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(10, 20, 31, 0.92) 0%, rgba(7, 14, 22, 0.98) 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ============================================================
+       INTERACTIVE TAB NAV
+       ============================================================ */
+    .crm-ui-nav-item {
+      padding: 10px 10px;
+      border-radius: 12px;
+      color: #9fb8cd;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.25;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+      user-select: none;
+    }
+
+    .crm-ui-nav-item:hover:not(.is-active) {
+      color: #d0e8f8;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .crm-ui-nav-item.is-active {
+      color: #ffffff;
+      background: rgba(65, 192, 255, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(65, 192, 255, 0.14);
+    }
+
+    .crm-ui-main {
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(8, 17, 27, 0.9) 0%, rgba(8, 16, 24, 1) 100%);
+    }
+
+    /* Tab panels */
+    .crm-tab-panel {
+      display: none;
+      animation: crmFadeIn 0.22s ease;
+    }
+
+    .crm-tab-panel.is-visible {
+      display: grid;
+      gap: 12px;
+    }
+
+    @keyframes crmFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .crm-ui-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .crm-ui-stat {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .crm-ui-stat label {
+      display: block;
+      margin-bottom: 6px;
+      color: #8eaec5;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .crm-ui-stat strong {
+      display: block;
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .crm-ui-stat span {
+      display: block;
+      margin-top: 4px;
+      color: #9fc0db;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .crm-ui-chart-card,
+    .crm-ui-table-card,
+    .crm-ui-flow-card {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .crm-ui-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .crm-ui-section-head strong {
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .crm-ui-section-head span {
+      color: #8eaec5;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .crm-ui-chart {
+      position: relative;
+      height: 148px;
+      border-radius: 14px;
+      background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 100% 32px,
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 52px 100%,
+        linear-gradient(180deg, rgba(65, 192, 255, 0.05) 0%, rgba(65, 192, 255, 0.02) 100%);
+      overflow: hidden;
+    }
+
+    .crm-ui-chart svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .crm-ui-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(220px, 0.92fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .crm-ui-ticket {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .crm-ui-ticket + .crm-ui-ticket {
+      margin-top: 8px;
+    }
+
+    .crm-ui-ticket-main strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .crm-ui-ticket-main span {
+      display: block;
+      margin-top: 3px;
+      color: #8eaec5;
+      font-size: 0.74rem;
+      line-height: 1.35;
+    }
+
+    .crm-ui-ticket-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .crm-ui-ticket-side small {
+      color: #cde2f4;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .crm-ui-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      width: fit-content;
+    }
+
+    .crm-ui-status--open {
+      color: #bce9ff;
+      background: rgba(65, 192, 255, 0.14);
+      border: 1px solid rgba(65, 192, 255, 0.18);
+    }
+
+    .crm-ui-status--pending {
+      color: #ffe7b3;
+      background: rgba(255, 189, 46, 0.12);
+      border: 1px solid rgba(255, 189, 46, 0.18);
+    }
+
+    .crm-ui-status--solved {
+      color: #cbffe3;
+      background: rgba(0, 193, 105, 0.14);
+      border: 1px solid rgba(0, 193, 105, 0.18);
+    }
+
+    .crm-ui-flow-step {
+      position: relative;
+      padding: 12px 12px 12px 40px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.025);
+      color: #d9ebfb;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .crm-ui-flow-step + .crm-ui-flow-step {
+      margin-top: 10px;
+    }
+
+    .crm-ui-flow-step::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #12b357 0%, #007236 100%);
+      box-shadow: 0 0 0 6px rgba(0, 193, 105, 0.12);
+    }
+
+    .crm-ui-flow-step span {
+      display: block;
+      margin-top: 4px;
+      color: #8eaec5;
+      font-size: 0.74rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    /* Tickets tab list */
+    .crm-ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Orders tab */
+    .crm-order-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .crm-order-row:last-child { border-bottom: 0; }
+    .crm-order-row strong { display: block; color: #fff; font-size: 0.84rem; }
+    .crm-order-row > div > span { display: block; color: #8eaec5; font-size: 0.74rem; margin-top: 2px; }
+
+    /* Reports tab */
+    .crm-reports-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .crm-report-card {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .crm-report-card label {
+      display: block;
+      margin-bottom: 6px;
+      color: #8eaec5;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .crm-report-card strong {
+      display: block;
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .crm-report-card span {
+      display: block;
+      margin-top: 4px;
+      color: #9fc0db;
+      font-size: 0.8rem;
+    }
+
+    /* ============================================================
        RESPONSIVE
-    ============================================= */
+       ============================================================ */
+    /* On mobile, reset tilt so CRM card sits flat */
+    @media (max-width: 980px) {
+      .about-crm {
+        perspective: none;
+        padding: 0;
+      }
+
+      .crm-ui-card {
+        transform: none !important;
+        box-shadow:
+          0 34px 90px rgba(0, 0, 0, 0.42),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04),
+          0 0 60px rgba(65, 192, 255, 0.08) !important;
+      }
+
+      .about-crm:hover .crm-ui-card {
+        transform: none !important;
+      }
+    }
+
     @media (max-width: 980px) {
       .brands-proof__grid {
         grid-template-columns: 1fr;
@@ -1180,6 +1739,62 @@
       .brands-proof__logo-item:nth-child(7),
       .brands-proof__logo-item:nth-child(8) {
         grid-column: span 1;
+      }
+
+      /* Stack about section: copy on top, CRM below */
+      .about-shell {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+        padding: 0 20px !important;
+      }
+
+      .about-copy {
+        text-align: center !important;
+      }
+
+      .about-copy h2 {
+        max-width: none !important;
+        font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+      }
+
+      .about-copy .tagline {
+        max-width: none !important;
+      }
+
+      .about-points li {
+        text-align: left !important;
+      }
+
+      .about-chips,
+      .about-actions {
+        justify-content: center !important;
+      }
+
+      /* CRM card: no tilt, full width, contained */
+      .about-crm {
+        justify-content: center !important;
+        perspective: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        overflow: hidden !important;
+      }
+
+      .crm-ui-card {
+        transform: none !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 40px rgba(65, 192, 255, 0.08) !important;
+      }
+
+      .about-crm:hover .crm-ui-card {
+        transform: none !important;
+      }
+
+      /* Shrink CRM body height on mobile */
+      .crm-ui-body {
+        min-height: auto !important;
       }
     }
 
@@ -1208,30 +1823,108 @@
       }
 
       .p2-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        width: 92vw !important;
+        margin-top: 16px !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
       }
 
+      /* Hide image on mobile — text only */
       .p2-right {
-        order: -1;
-        padding: 0 clamp(20px, 4vw, 40px);
-      }
-
-      .p2-mockup-wrap {
-        width: 100%;
-        max-width: 100%;
-        margin-right: 0;
-        margin-top: -20px;
-        margin-bottom: 0;
+        display: none !important;
       }
 
       .p2-left {
-        padding-top: 32px;
+        padding: 20px 20px 28px !important;
+      }
+
+      .p2-kicker {
+        margin-bottom: 10px !important;
+      }
+
+      .p2-headline {
+        font-size: clamp(1.5rem, 5.5vw, 2rem) !important;
+        margin-bottom: 12px !important;
+      }
+
+      .p2-desc {
+        max-width: none !important;
+        font-size: 0.9rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 14px !important;
+      }
+
+      .p2-checklist {
+        margin-bottom: 16px !important;
+        gap: 8px !important;
+      }
+
+      .p2-checklist li {
+        font-size: 0.88rem !important;
+      }
+
+      .p2-cta-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        justify-content: flex-start !important;
+      }
+
+      .p2-cta-row .hero-btn {
+        min-width: 0 !important;
+        width: 100% !important;
+        height: 48px !important;
+        font-size: 0.9rem !important;
+      }
+
+      .p2-back-row {
+        justify-content: center !important;
+        margin-top: 10px !important;
+      }
+
+      /* Reduce the massive hero panel padding on mobile */
+      .hero-panel--secondary {
+        min-height: auto !important;
+        align-items: flex-start !important;
+      }
+
+      .hero-panel--secondary .hero__content {
+        padding: 72px 16px 48px !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+      }
+
+      .crm-ui-body {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-ui-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .crm-ui-bottom {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 768px) {
       .hero__content {
         padding: clamp(80px, 14vw, 120px) 20px clamp(60px, 10vw, 100px);
+      }
+
+      /* Secondary hero panel (p2) — tighter padding, align to top on mobile */
+      .hero-panel--secondary {
+        min-height: auto !important;
+        align-items: flex-start !important;
+      }
+
+      .hero-panel--secondary .hero__content {
+        padding: 72px 16px 48px !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
       }
 
       .hero-text {
@@ -1312,6 +2005,39 @@
       .p2-back-row {
         justify-content: center;
       }
+
+      .about-copy {
+        text-align: center;
+      }
+
+      .about-copy .tagline {
+        max-width: none;
+      }
+
+      .about-points li {
+        text-align: left;
+      }
+
+      .about-chips,
+      .about-actions {
+        justify-content: center;
+      }
+
+      .crm-ui-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-ui-ticket {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-ui-ticket-side {
+        align-items: flex-start;
+      }
+
+      .crm-reports-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1343,8 +2069,20 @@
         font-size: 0.82rem;
       }
 
-      .hero-slider-btn {
+      .hero-slider-btn,
+      .about-actions .book-call,
+      .about-actions .btn-outline {
         width: 100%;
+      }
+
+      .crm-ui-card {
+        padding: 12px;
+      }
+
+      .crm-ui-topbar,
+      .crm-ui-main {
+        padding-left: 12px;
+        padding-right: 12px;
       }
     }
 
@@ -1355,6 +2093,10 @@
 
       .hero-slider {
         transition: none;
+      }
+
+      .crm-tab-panel {
+        animation: none;
       }
     }
   </style>
@@ -1369,15 +2111,13 @@
     <div class="hero__overlay" aria-hidden="true"></div>
 
     <div class="hero-slider" id="heroSlider">
-
-      <!-- PANEL 1: PRIMARY BANNER -->
       <div class="hero-panel hero-panel--primary">
         <div class="hero__content">
           <div class="hero-text">
             <h1>All your CX operations. One powerful system.</h1>
 
             <p class="hero-sub" id="heroSub" aria-live="polite">
-              <span>CRM systems built for growth — not just setup.</span>
+              <span>Customer support systems built for scale.</span>
             </p>
 
             <div class="hero-actions">
@@ -1404,13 +2144,10 @@
         </div>
       </div>
 
-      <!-- PANEL 2: WHAT DESKXP DOES -->
       <div class="hero-panel hero-panel--secondary" aria-label="What DeskXP Does">
         <div class="hero__content">
           <div class="p2-card">
             <div class="p2-inner">
-
-              <!-- LEFT: Copy -->
               <div class="p2-left">
                 <span class="p2-kicker">What DeskXP Does</span>
 
@@ -1465,18 +2202,15 @@
                 </div>
               </div>
 
-              <!-- RIGHT: Dashboard image -->
               <div class="p2-right">
                 <div class="p2-mockup-wrap">
                   <img src="/assets/crm-dash.png" alt="DeskXP CRM Dashboard">
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="hero-slider-dots" aria-label="Hero slide controls">
@@ -1687,48 +2421,382 @@
     </div>
   </section>
 
-  <div class="container">
-    <section class="about-teaser reveal v2">
-      <div class="about-wrap">
+  <!-- ============================================================
+       ABOUT SECTION — PATCHED
+       - Wider layout, CRM card fills column
+       - Interactive tabs: Dashboard / Tickets / Orders / Flows / Reports
+       ============================================================ -->
+  <section class="about-teaser reveal v2 about-teaser--hero">
+    <div class="about-shell">
+      <div class="about-copy">
         <h4>About</h4>
-        <h2><span class="accent">Expert.</span> Seasoned. Tech-driven. Customer-First.</h2>
-        <p class="tagline">Systems that scale people, not just processes.</p>
-        <a class="btn-outline" href="/about/">Learn more</a>
-      </div>
-    </section>
+        <h2><span class="accent">Build a CX system</span> that scales without chaos.</h2>
+        <p class="tagline">
+          We design and implement structured CX operations that reduce manual workload, improve response times, and give your team full visibility across support.
+        </p>
 
-    <section id="cta" class="reveal v2">
-      <div class="cta-wrap">
-        <div class="cta-left">
-          <h2><span class="accent">Book a discovery call</span></h2>
-          <p class="lede">We'll review your current CX setup, surface quick wins, and outline an implementation plan.</p>
+        <ul class="about-points">
+          <li>Launch a working CX system in <strong>7 days</strong></li>
+          <li>Reduce repetitive tickets with automation, routing, and self-serve</li>
+          <li>Build cleaner reporting visibility across your support ops</li>
+        </ul>
 
-          <ul class="cta-list">
-            <li>MVP or prototype in <strong>7 days</strong></li>
-            <li>Cut repetitive inquiries with automation & self-serve</li>
-            <li>Eliminate manual busywork in daily ops</li>
-          </ul>
-
-          <div class="cta-chips">
-            <span>7-day MVP</span>
-            <span>Automation-first</span>
-            <span>Zendesk × Shopify</span>
-          </div>
-
-          <p class="cta-note">Free <strong>30-minute</strong> discovery call.</p>
+        <div class="about-chips">
+          <span>7-day MVP</span>
+          <span>Automation-first</span>
+          <span>Zendesk × Shopify</span>
         </div>
 
-        <aside class="cta-right">
-          <div class="cta-card">
-            <p class="cta-title">Ready to move?</p>
-            <p class="cta-copy">Pick a slot that works for you.</p>
-            <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="book-call">Book a Call</a>
-            <p class="cta-trust">No sales fluff. Actionable roadmap.</p>
-          </div>
-        </aside>
+        <div class="about-actions">
+          <a class="book-call" href="https://calendar.app.google/xPEbeHyWNfehWYgB9">Book a Call</a>
+          <a class="btn-outline" href="/about/">Learn more</a>
+        </div>
       </div>
-    </section>
-  </div>
+
+      <div class="about-crm">
+        <div class="crm-ui-card">
+          <div class="crm-ui-window">
+
+            <!-- Top bar -->
+            <div class="crm-ui-topbar">
+              <div class="crm-ui-brand">
+                <div class="crm-ui-logo"></div>
+                <div class="crm-ui-brand-text">
+                  <strong>DeskXP CRM</strong>
+                  <span>Support workspace · ticketing · automation</span>
+                </div>
+              </div>
+              <div class="crm-ui-top-actions">
+                <span class="crm-ui-pill">Today</span>
+                <span class="crm-ui-pill crm-ui-pill--green">Live</span>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="crm-ui-body">
+              <aside class="crm-ui-sidebar" id="crmSidebar">
+                <div class="crm-ui-nav-item is-active" data-tab="dashboard">Dashboard</div>
+                <div class="crm-ui-nav-item" data-tab="tickets">Tickets</div>
+                <div class="crm-ui-nav-item" data-tab="orders">Orders</div>
+                <div class="crm-ui-nav-item" data-tab="flows">Flows</div>
+                <div class="crm-ui-nav-item" data-tab="reports">Reports</div>
+              </aside>
+
+              <div class="crm-ui-main">
+
+                <!-- DASHBOARD TAB -->
+                <div class="crm-tab-panel is-visible" id="tab-dashboard">
+                  <div class="crm-ui-stats">
+                    <div class="crm-ui-stat">
+                      <label>Open Tickets</label>
+                      <strong>128</strong>
+                      <span>-14% vs last week</span>
+                    </div>
+                    <div class="crm-ui-stat">
+                      <label>CSAT</label>
+                      <strong>96.2%</strong>
+                      <span>Above target</span>
+                    </div>
+                    <div class="crm-ui-stat">
+                      <label>First Reply</label>
+                      <strong>4m12s</strong>
+                      <span>Automation-assisted</span>
+                    </div>
+                  </div>
+
+                  <div class="crm-ui-chart-card">
+                    <div class="crm-ui-section-head">
+                      <strong>Tickets &amp; Automation Volume</strong>
+                      <span>Last 30 days</span>
+                    </div>
+                    <div class="crm-ui-chart">
+                      <svg viewBox="0 0 420 150" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="chartFillBlue2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(65,192,255,0.35)"></stop>
+                            <stop offset="100%" stop-color="rgba(65,192,255,0)"></stop>
+                          </linearGradient>
+                          <linearGradient id="chartFillGreen2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(0,193,105,0.28)"></stop>
+                            <stop offset="100%" stop-color="rgba(0,193,105,0)"></stop>
+                          </linearGradient>
+                        </defs>
+                        <path d="M0,122 C24,118 40,100 68,102 C94,104 116,80 146,82 C176,84 200,64 228,65 C258,66 282,58 310,58 C338,58 366,42 392,28 C404,22 414,16 420,12 L420,150 L0,150 Z" fill="url(#chartFillBlue2)"></path>
+                        <path d="M0,132 C28,130 46,126 74,126 C102,126 124,112 152,108 C180,104 204,98 232,94 C260,90 286,90 314,86 C342,82 366,72 392,74 C404,74 414,64 420,52 L420,150 L0,150 Z" fill="url(#chartFillGreen2)"></path>
+                        <path d="M0,122 C24,118 40,100 68,102 C94,104 116,80 146,82 C176,84 200,64 228,65 C258,66 282,58 310,58 C338,58 366,42 392,28 C404,22 414,16 420,12" fill="none" stroke="#41c0ff" stroke-width="3" stroke-linecap="round"></path>
+                        <path d="M0,132 C28,130 46,126 74,126 C102,126 124,112 152,108 C180,104 204,98 232,94 C260,90 286,90 314,86 C342,82 366,72 392,74 C404,74 414,64 420,52" fill="none" stroke="#00c169" stroke-width="3" stroke-linecap="round"></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="crm-ui-bottom">
+                    <div class="crm-ui-table-card">
+                      <div class="crm-ui-section-head">
+                        <strong>Recent Tickets</strong>
+                        <span>Assigned queue</span>
+                      </div>
+                      <div class="crm-ui-ticket">
+                        <div class="crm-ui-ticket-main">
+                          <strong>Order not syncing to support panel</strong>
+                          <span>#48291 · Shopify integration</span>
+                        </div>
+                        <div class="crm-ui-ticket-side">
+                          <span class="crm-ui-status crm-ui-status--open">Open</span>
+                          <small>2m ago</small>
+                        </div>
+                      </div>
+                      <div class="crm-ui-ticket">
+                        <div class="crm-ui-ticket-main">
+                          <strong>Refund follow-up request</strong>
+                          <span>#48274 · Priority customer</span>
+                        </div>
+                        <div class="crm-ui-ticket-side">
+                          <span class="crm-ui-status crm-ui-status--pending">Pending</span>
+                          <small>11m ago</small>
+                        </div>
+                      </div>
+                      <div class="crm-ui-ticket">
+                        <div class="crm-ui-ticket-main">
+                          <strong>Tracking automation sent incorrect macro</strong>
+                          <span>#48233 · Workflow audit</span>
+                        </div>
+                        <div class="crm-ui-ticket-side">
+                          <span class="crm-ui-status crm-ui-status--solved">Solved</span>
+                          <small>29m ago</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="crm-ui-flow-card">
+                      <div class="crm-ui-section-head">
+                        <strong>Automation Flow</strong>
+                        <span>Live rules</span>
+                      </div>
+                      <div class="crm-ui-flow-step">
+                        Ticket received
+                        <span>Request enters intake form and routing layer</span>
+                      </div>
+                      <div class="crm-ui-flow-step">
+                        Intent tagged
+                        <span>Auto-classified by order, refund, or shipping issue</span>
+                      </div>
+                      <div class="crm-ui-flow-step">
+                        Routed to queue
+                        <span>Assigned by priority, brand, and operating hours</span>
+                      </div>
+                      <div class="crm-ui-flow-step">
+                        Agent action
+                        <span>Macro, SLA, and reporting events tracked automatically</span>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /tab-dashboard -->
+
+                <!-- TICKETS TAB -->
+                <div class="crm-tab-panel" id="tab-tickets">
+                  <div class="crm-ui-section-head">
+                    <strong>All Tickets</strong>
+                    <span>128 open</span>
+                  </div>
+                  <div class="crm-ticket-list">
+                    <div class="crm-ui-ticket">
+                      <div class="crm-ui-ticket-main">
+                        <strong>Order not syncing to support panel</strong>
+                        <span>#48291 · Shopify integration · Assigned: Maria</span>
+                      </div>
+                      <div class="crm-ui-ticket-side">
+                        <span class="crm-ui-status crm-ui-status--open">Open</span>
+                        <small>2m ago</small>
+                      </div>
+                    </div>
+                    <div class="crm-ui-ticket">
+                      <div class="crm-ui-ticket-main">
+                        <strong>Refund follow-up request</strong>
+                        <span>#48274 · Priority customer · Assigned: James</span>
+                      </div>
+                      <div class="crm-ui-ticket-side">
+                        <span class="crm-ui-status crm-ui-status--pending">Pending</span>
+                        <small>11m ago</small>
+                      </div>
+                    </div>
+                    <div class="crm-ui-ticket">
+                      <div class="crm-ui-ticket-main">
+                        <strong>Tracking automation sent incorrect macro</strong>
+                        <span>#48233 · Workflow audit · Assigned: Ana</span>
+                      </div>
+                      <div class="crm-ui-ticket-side">
+                        <span class="crm-ui-status crm-ui-status--solved">Solved</span>
+                        <small>29m ago</small>
+                      </div>
+                    </div>
+                    <div class="crm-ui-ticket">
+                      <div class="crm-ui-ticket-main">
+                        <strong>Missing tracking number on order #1092</strong>
+                        <span>#48219 · Shipping · Assigned: Maria</span>
+                      </div>
+                      <div class="crm-ui-ticket-side">
+                        <span class="crm-ui-status crm-ui-status--open">Open</span>
+                        <small>47m ago</small>
+                      </div>
+                    </div>
+                    <div class="crm-ui-ticket">
+                      <div class="crm-ui-ticket-main">
+                        <strong>Billing discrepancy on subscription</strong>
+                        <span>#48188 · Billing · Assigned: James</span>
+                      </div>
+                      <div class="crm-ui-ticket-side">
+                        <span class="crm-ui-status crm-ui-status--pending">Pending</span>
+                        <small>1h ago</small>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /tab-tickets -->
+
+                <!-- ORDERS TAB -->
+                <div class="crm-tab-panel" id="tab-orders">
+                  <div class="crm-ui-section-head">
+                    <strong>Recent Orders</strong>
+                    <span>Linked to tickets</span>
+                  </div>
+                  <div class="crm-ui-table-card" style="padding:0;overflow:hidden;">
+                    <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:#8eaec5;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">
+                      <span>Order</span><span>Status</span><span>Value</span>
+                    </div>
+                    <div class="crm-order-row">
+                      <div>
+                        <strong>#10921 — Blue Linen Shirt</strong>
+                        <span>Boutique de Sophie · Shopify</span>
+                      </div>
+                      <span class="crm-ui-status crm-ui-status--open">In Transit</span>
+                      <span style="color:#cde2f4;font-weight:700;font-size:0.84rem;">$148</span>
+                    </div>
+                    <div class="crm-order-row">
+                      <div>
+                        <strong>#10874 — Leather Crossbody Bag</strong>
+                        <span>Hanni Kleider · Shopify</span>
+                      </div>
+                      <span class="crm-ui-status crm-ui-status--solved">Delivered</span>
+                      <span style="color:#cde2f4;font-weight:700;font-size:0.84rem;">$212</span>
+                    </div>
+                    <div class="crm-order-row">
+                      <div>
+                        <strong>#10856 — Ceramic Vase Set</strong>
+                        <span>Casa di Sofia · Shopify</span>
+                      </div>
+                      <span class="crm-ui-status crm-ui-status--pending">Processing</span>
+                      <span style="color:#cde2f4;font-weight:700;font-size:0.84rem;">$89</span>
+                    </div>
+                    <div class="crm-order-row">
+                      <div>
+                        <strong>#10831 — Oak Entry Door</strong>
+                        <span>US Doormore · Magento</span>
+                      </div>
+                      <span class="crm-ui-status crm-ui-status--open">Awaiting Dispatch</span>
+                      <span style="color:#cde2f4;font-weight:700;font-size:0.84rem;">$1,240</span>
+                    </div>
+                  </div>
+                </div><!-- /tab-orders -->
+
+                <!-- FLOWS TAB -->
+                <div class="crm-tab-panel" id="tab-flows">
+                  <div class="crm-ui-section-head">
+                    <strong>Automation Flows</strong>
+                    <span>6 active rules</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    Ticket Intake &amp; Routing
+                    <span>Form → intent tag → queue assignment by brand &amp; hours</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    Auto-Deflection (FAQ)
+                    <span>Shipping, returns, and tracking queries → self-serve article sent</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    Escalation Handler
+                    <span>Priority flag on VIP accounts → immediate agent assignment</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    SLA Breach Alert
+                    <span>Tickets open &gt;4h without reply → Slack notification sent</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    CSAT Survey Trigger
+                    <span>Ticket solved → 24h delay → customer satisfaction survey sent</span>
+                  </div>
+                  <div class="crm-ui-flow-step">
+                    Order Sync Webhook
+                    <span>Shopify order update → ticket auto-updated with tracking data</span>
+                  </div>
+                </div><!-- /tab-flows -->
+
+                <!-- REPORTS TAB -->
+                <div class="crm-tab-panel" id="tab-reports">
+                  <div class="crm-ui-section-head">
+                    <strong>Performance Reports</strong>
+                    <span>This month</span>
+                  </div>
+                  <div class="crm-reports-grid">
+                    <div class="crm-report-card">
+                      <label>CSAT Score</label>
+                      <strong>96.2%</strong>
+                      <span>↑ 2.1% vs last month</span>
+                    </div>
+                    <div class="crm-report-card">
+                      <label>First Reply</label>
+                      <strong>4m12s</strong>
+                      <span>Target: &lt;5 min</span>
+                    </div>
+                    <div class="crm-report-card">
+                      <label>Resolution Time</label>
+                      <strong>6h 48m</strong>
+                      <span>↓ 18% vs last month</span>
+                    </div>
+                    <div class="crm-report-card">
+                      <label>Deflection Rate</label>
+                      <strong>34%</strong>
+                      <span>Via self-serve &amp; bots</span>
+                    </div>
+                    <div class="crm-report-card">
+                      <label>Tickets Solved</label>
+                      <strong>2,841</strong>
+                      <span>↑ 9% vs last month</span>
+                    </div>
+                    <div class="crm-report-card">
+                      <label>SLA Compliance</label>
+                      <strong>98.7%</strong>
+                      <span>Within policy</span>
+                    </div>
+                  </div>
+
+                  <div class="crm-ui-chart-card">
+                    <div class="crm-ui-section-head">
+                      <strong>Monthly Ticket Volume</strong>
+                      <span>Last 6 months</span>
+                    </div>
+                    <div class="crm-ui-chart">
+                      <svg viewBox="0 0 420 150" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="repFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(0,193,105,0.35)"></stop>
+                            <stop offset="100%" stop-color="rgba(0,193,105,0)"></stop>
+                          </linearGradient>
+                        </defs>
+                        <path d="M0,110 C40,108 80,90 120,86 C160,82 200,70 240,62 C280,54 320,46 360,34 C380,28 400,20 420,14 L420,150 L0,150 Z" fill="url(#repFill)"></path>
+                        <path d="M0,110 C40,108 80,90 120,86 C160,82 200,70 240,62 C280,54 320,46 360,34 C380,28 400,20 420,14" fill="none" stroke="#00c169" stroke-width="3" stroke-linecap="round"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div><!-- /tab-reports -->
+
+              </div><!-- /crm-ui-main -->
+            </div><!-- /crm-ui-body -->
+          </div><!-- /crm-ui-window -->
+        </div><!-- /crm-ui-card -->
+      </div><!-- /about-crm -->
+    </div><!-- /about-shell -->
+  </section>
+
+
 
   <div id="footer"></div>
   <script>
@@ -1836,14 +2904,8 @@
       root.addEventListener('mouseleave', start);
 
       root.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          prevSlide();
-          restart();
-        }
-        if (e.key === 'ArrowRight') {
-          nextSlide();
-          restart();
-        }
+        if (e.key === 'ArrowLeft') { prevSlide(); restart(); }
+        if (e.key === 'ArrowRight') { nextSlide(); restart(); }
       });
     })();
   </script>
@@ -1908,6 +2970,34 @@
       if (dot2) dot2.addEventListener('click', () => goToHero(1));
 
       renderHero();
+    })();
+  </script>
+
+  <!-- CRM Interactive Tabs -->
+  <script>
+    (function () {
+      const sidebar = document.getElementById('crmSidebar');
+      if (!sidebar) return;
+
+      const navItems = sidebar.querySelectorAll('.crm-ui-nav-item[data-tab]');
+      const panels   = document.querySelectorAll('.crm-tab-panel');
+
+      navItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          const target = item.getAttribute('data-tab');
+
+          navItems.forEach(function (n) { n.classList.remove('is-active'); });
+          item.classList.add('is-active');
+
+          panels.forEach(function (panel) {
+            if (panel.id === 'tab-' + target) {
+              panel.classList.add('is-visible');
+            } else {
+              panel.classList.remove('is-visible');
+            }
+          });
+        });
+      });
     })();
   </script>
 
