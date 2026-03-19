@@ -36,26 +36,54 @@
   <link rel="stylesheet" href="/css/site.css?v=2120">
   <link rel="preload" as="image" href="/assets/DeskXP-banner.jpg" fetchpriority="high">
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DeskXP",
+    "url": "https://deskxp.com",
+    "logo": "https://deskxp.com/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/deskxp"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Zendesk Setup and CX Operations",
+  "provider": {
+    "@type": "Organization",
+    "name": "DeskXP"
+  }
+}
+</script>
+
   <style>
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
     #cta .accent { color: #ffffff !important; }
     span.accent { color: #007236 !important; }
 
-    /* =============================================
-       HERO
-    ============================================= */
     .hero {
       position: relative;
       display: flex !important;
       align-items: center !important;
       min-height: 120svh !important;
       min-height: 120vh !important;
-      overflow: visible !important;
+      overflow: hidden !important;
+      clip-path: inset(0 0 0 0);
       isolation: isolate;
       margin: 0 !important;
       margin-bottom: 0 !important;
       padding: 0 !important;
       border: 0 !important;
       background: none !important;
+      max-width: 100vw;
     }
 
     .hero::before {
@@ -96,6 +124,32 @@
           rgba(0, 0, 0, 0.28) 55%,
           rgba(11, 18, 24, 0.98) 100%
         );
+    }
+
+    .hero-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      display: flex;
+      width: 200%;
+      height: 100%;
+      min-height: inherit;
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+      transform: translateX(0%);
+    }
+
+    .hero-panel {
+      flex: 0 0 50%;
+      width: 50%;
+      max-width: 50%;
+      min-height: 120svh;
+      min-height: 120vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
     }
 
     .hero__content {
@@ -255,6 +309,389 @@
     .hero-btn--secondary:hover {
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.65);
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #8fb7d4;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-sub--static {
+      min-height: 0 !important;
+    }
+
+    .hero-list {
+      margin: 24px 0 0;
+      padding-left: 18px;
+      color: #d8e6f5;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .hero-list li {
+      margin-bottom: 8px;
+    }
+
+    .hero-slider-controls {
+      margin-top: 18px;
+    }
+
+    .hero-slider-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(11, 17, 29, 0.34);
+      color: #f2f6ff;
+      font-size: 0.94rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .hero-slider-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero-slider-btn--ghost {
+      background: rgba(11, 17, 29, 0.18);
+    }
+
+    .hero-slider-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 28px;
+      z-index: 4;
+      display: flex;
+      gap: 8px;
+      transform: translateX(-50%);
+    }
+
+    .hero-slider-dots button {
+      width: 10px;
+      height: 10px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.34);
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .hero-slider-dots button.is-active {
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
+    }
+
+    .hero-slider-dots button:hover {
+      transform: scale(1.08);
+    }
+
+    /* =============================================
+       PANEL 2 — WHAT DESKXP DOES
+    ============================================= */
+    .hero-panel--secondary .hero__content {
+      padding-top: clamp(60px, 7vw, 90px);
+      padding-bottom: clamp(60px, 7vw, 90px);
+      padding-left: clamp(24px, 4vw, 48px);
+      padding-right: clamp(24px, 4vw, 48px);
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .p2-card {
+      position: relative;
+      width: min(1360px, 94vw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 28px;
+      background: rgba(8, 14, 24, 0.80);
+      backdrop-filter: blur(28px);
+      opacity: 95%;
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow:
+        0 48px 120px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      overflow: visible;
+    }
+
+    .p2-inner {
+      display: contents;
+    }
+
+    .p2-left {
+      padding: clamp(44px, 5.5vw, 80px) clamp(36px, 4.5vw, 68px);
+    }
+
+    .p2-kicker {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #8fb7d4;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .p2-headline {
+      margin: 0 0 22px;
+      font-size: clamp(2.2rem, 3.2vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .p2-headline .p2-accent {
+      color: #41c0ff;
+    }
+
+    .p2-desc {
+      margin: 0 0 28px;
+      font-size: 1.02rem;
+      line-height: 1.78;
+      color: #c8dff0;
+      max-width: 52ch;
+    }
+
+    .p2-checklist {
+      margin: 0 0 32px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .p2-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #dceefb;
+      line-height: 1.4;
+    }
+
+    .p2-checklist li .p2-check {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(0, 193, 105, 0.18);
+      border: 1px solid rgba(0, 193, 105, 0.38);
+    }
+
+    .p2-checklist li .p2-check svg {
+      width: 12px;
+      height: 12px;
+      stroke: #00c169;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .p2-checklist li strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .p2-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .p2-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      position: relative;
+    }
+
+    .p2-mockup-wrap {
+      position: relative;
+      width: calc(100% + 40px);
+      max-width: 700px;
+      margin-right: -20px;
+    }
+
+    .p2-mockup-wrap img {
+      width: 130%;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.60),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+        0 0 80px rgba(65, 192, 255, 0.08);
+    }
+
+    .p2-mockup-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: linear-gradient(135deg, rgba(20, 32, 48, 0.9) 0%, rgba(10, 18, 30, 0.95) 100%);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.50),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .p2-mock-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .p2-mock-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+
+    .p2-mock-dot:nth-child(1) { background: rgba(255, 95, 87, 0.7); }
+    .p2-mock-dot:nth-child(2) { background: rgba(255, 189, 46, 0.7); }
+    .p2-mock-dot:nth-child(3) { background: rgba(39, 201, 63, 0.7); }
+
+    .p2-mock-title {
+      margin-left: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.38);
+      letter-spacing: 0.04em;
+    }
+
+    .p2-mock-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 0;
+    }
+
+    .p2-mock-sidebar {
+      padding: 12px 10px;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .p2-mock-nav-item {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .p2-mock-nav-item:first-child {
+      background: rgba(0, 193, 105, 0.30);
+      width: 70%;
+    }
+
+    .p2-mock-main {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .p2-mock-chart {
+      height: 54px;
+      border-radius: 6px;
+      background: rgba(65, 192, 255, 0.06);
+      border: 1px solid rgba(65, 192, 255, 0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .p2-mock-chart::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(65, 192, 255, 0.15), transparent);
+    }
+
+    .p2-mock-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .p2-mock-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .p2-mock-avatar {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(183, 140, 255, 0.35);
+      flex: 0 0 auto;
+    }
+
+    .p2-mock-line {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.10);
+      flex: 1;
+    }
+
+    .p2-mock-badge {
+      height: 14px;
+      width: 32px;
+      border-radius: 3px;
+      flex: 0 0 auto;
+    }
+
+    .p2-mock-badge--green { background: rgba(0, 193, 105, 0.28); }
+    .p2-mock-badge--yellow { background: rgba(255, 189, 46, 0.28); }
+    .p2-mock-badge--blue { background: rgba(65, 192, 255, 0.28); }
+
+    .p2-back-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-start;
     }
 
     /* =============================================
@@ -765,6 +1202,27 @@
         max-width: 420px;
         border-radius: 12px;
       }
+
+      .p2-card {
+        grid-template-columns: 1fr;
+      }
+
+      .p2-right {
+        order: -1;
+        padding: 0 clamp(20px, 4vw, 40px);
+      }
+
+      .p2-mockup-wrap {
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+        margin-top: -20px;
+        margin-bottom: 0;
+      }
+
+      .p2-left {
+        padding-top: 32px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -825,6 +1283,31 @@
         top: -160px;
         height: 160px;
       }
+
+      .hero-slider-dots {
+        bottom: 18px;
+      }
+
+      .hero-list {
+        padding-left: 0;
+        list-style-position: inside;
+      }
+
+      .p2-card {
+        padding: 24px 20px;
+      }
+
+      .p2-desc {
+        max-width: none;
+      }
+
+      .p2-cta-row {
+        justify-content: center;
+      }
+
+      .p2-back-row {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 640px) {
@@ -855,10 +1338,18 @@
         padding: 0 12px;
         font-size: 0.82rem;
       }
+
+      .hero-slider-btn {
+        width: 100%;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .hero-sub {
+        transition: none;
+      }
+
+      .hero-slider {
         transition: none;
       }
     }
@@ -873,31 +1364,114 @@
   <section class="hero" id="home" aria-label="DeskXP Hero">
     <div class="hero__overlay" aria-hidden="true"></div>
 
-    <div class="hero__content">
-      <div class="hero-text">
-        <h1>All your CX operations. One powerful system.</h1>
+    <div class="hero-slider" id="heroSlider">
 
-        <p class="hero-sub" id="heroSub" aria-live="polite">
-          <span>CRM systems built for growth — not just setup.</span>
-        </p>
+      <!-- PANEL 1: PRIMARY BANNER -->
+      <div class="hero-panel hero-panel--primary">
+        <div class="hero__content">
+          <div class="hero-text">
+            <h1>All your CX operations. One powerful system.</h1>
 
-        <div class="hero-actions">
-          <div class="hero-badge">
-            <span class="hero-badge__icon">✓</span>
-            <span>Multi-platform CX Systems — Zendesk · Freshdesk · Gorgias · Zoho Desk</span>
-          </div>
+            <p class="hero-sub" id="heroSub" aria-live="polite">
+              <span>CRM systems built for growth — not just setup.</span>
+            </p>
 
-          <div class="hero-badge hero-badge--sub">
-            <span class="hero-badge__icon">✓</span>
-            End-to-End CX Systems & Operations — from Design to Scale
-          </div>
+            <div class="hero-actions">
+              <div class="hero-badge">
+                <span class="hero-badge__icon">✓</span>
+                <span>Multi-platform CX Systems — Zendesk · Freshdesk · Gorgias · Zoho Desk</span>
+              </div>
 
-          <div class="hero-cta-row">
-            <a href="https://deskxp.com/personalized-specs/" class="hero-btn hero-btn--primary">Get Started</a>
-            <a href="https://calendly.com/deskxp/30min" class="hero-btn hero-btn--secondary">Book Demo</a>
+              <div class="hero-badge hero-badge--sub">
+                <span class="hero-badge__icon">✓</span>
+                End-to-End CX Systems & Operations — from Design to Scale
+              </div>
+
+              <div class="hero-cta-row">
+                <a href="https://deskxp.com/personalized-specs/" class="hero-btn hero-btn--primary">Get Started</a>
+                <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="hero-btn hero-btn--secondary">Book Demo</a>
+              </div>
+
+              <div class="hero-slider-controls">
+                <button class="hero-slider-btn" type="button" id="heroNextBtn">What DeskXP Does →</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- PANEL 2: WHAT DESKXP DOES -->
+      <div class="hero-panel hero-panel--secondary" aria-label="What DeskXP Does">
+        <div class="hero__content">
+          <div class="p2-card">
+            <div class="p2-inner">
+
+              <!-- LEFT: Copy -->
+              <div class="p2-left">
+                <span class="p2-kicker">What DeskXP Does</span>
+
+                <h2 class="p2-headline">
+                  We build CX systems that <span class="p2-accent">scale support operations</span>
+                </h2>
+
+                <p class="p2-desc">
+                  DeskXP is a CX operations and systems agency specializing in designing and implementing scalable customer support environments. While we are deeply experienced in Zendesk, we also work across modern ticketing and support platforms including Shopify, Gorgias, and other helpdesk tools depending on your stack. We focus on building structured, automation-driven CX systems that reduce manual work, improve response times, and give teams full operational visibility.
+                </p>
+
+                <ul class="p2-checklist">
+                  <li>
+                    <span class="p2-check">
+                      <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    </span>
+                    <span><strong>Zendesk implementation</strong> and multi-platform support systems</span>
+                  </li>
+                  <li>
+                    <span class="p2-check">
+                      <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    </span>
+                    <span><strong>Workflow automation,</strong> ticket routing, and escalation design</span>
+                  </li>
+                  <li>
+                    <span class="p2-check">
+                      <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    </span>
+                    <span>CX <strong>reporting, dashboards,</strong> and performance insights</span>
+                  </li>
+                  <li>
+                    <span class="p2-check">
+                      <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+                    </span>
+                    <span><strong>eCommerce support systems</strong> (Shopify, Gorgias, and custom integrations)</span>
+                  </li>
+                </ul>
+
+                <div class="p2-cta-row">
+                  <a href="https://deskxp.com/personalized-specs/" class="hero-btn hero-btn--primary">Get Started</a>
+                  <a href="https://calendly.com/deskxp/30min" class="hero-btn hero-btn--secondary">Book Demo</a>
+                </div>
+
+                <div class="p2-back-row">
+                  <button class="hero-slider-btn hero-slider-btn--ghost" type="button" id="heroPrevBtn">← Main Banner</button>
+                </div>
+              </div>
+
+              <!-- RIGHT: Dashboard image -->
+              <div class="p2-right">
+                <div class="p2-mockup-wrap">
+                  <img src="/assets/crm-dash.png" alt="DeskXP CRM Dashboard">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-slider-dots" aria-label="Hero slide controls">
+      <button class="is-active" type="button" id="heroDot1" aria-label="Show primary banner"></button>
+      <button type="button" id="heroDot2" aria-label="Show secondary banner"></button>
     </div>
   </section>
 
@@ -1295,5 +1869,37 @@
       }, intervalMs);
     })();
   </script>
+
+  <script>
+    (function () {
+      const slider = document.getElementById('heroSlider');
+      const dot1 = document.getElementById('heroDot1');
+      const dot2 = document.getElementById('heroDot2');
+      const nextBtn = document.getElementById('heroNextBtn');
+      const prevBtn = document.getElementById('heroPrevBtn');
+      if (!slider) return;
+
+      let current = 0;
+
+      function renderHero() {
+        slider.style.transform = current === 0 ? 'translateX(0%)' : 'translateX(-50%)';
+        if (dot1) dot1.classList.toggle('is-active', current === 0);
+        if (dot2) dot2.classList.toggle('is-active', current === 1);
+      }
+
+      function goToHero(index) {
+        current = index;
+        renderHero();
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', () => goToHero(1));
+      if (prevBtn) prevBtn.addEventListener('click', () => goToHero(0));
+      if (dot1) dot1.addEventListener('click', () => goToHero(0));
+      if (dot2) dot2.addEventListener('click', () => goToHero(1));
+
+      renderHero();
+    })();
+  </script>
+
 </body>
 </html>
