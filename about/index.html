@@ -17,26 +17,24 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Include italics too, because About copy uses <em> -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=223">
   <link rel="canonical" href="https://deskxp.com/about/">
 
   <style>
-    /* ===== Tokens ===== */
     :root{
-      --brand:#007236;                  /* DeskXP green */
-      --accent:#FFD400;                 /* optional brand yellow */
+      --brand:#007236;
+      --accent:#FFD400;
       --ink:#0f1222;
       --muted:#a3adba;
       --panel:rgba(255,255,255,.06);
       --border:rgba(255,255,255,.14);
       --overlay:rgba(10,12,16,.72);
-      --dark:#2E424E;                   /* requested dark background */
+      --dark:#2E424E;
     }
+
     .container{max-width:1100px;margin:0 auto;padding:24px 16px}
 
-    /* ===== SECTION 1: DeskXP brand (white card) ===== */
     .about-hero{
       position:relative;
       background:#fff;color:#0b0f1a;border:1px solid #e6e6e6;
@@ -53,7 +51,6 @@
       .about-grid{ grid-template-columns:1fr; gap:18px }
     }
 
-    /* Image shares container with text */
     .about-illustration{
       width:100%; height:auto; display:block;
       max-width:980px; min-width:420px;
@@ -61,7 +58,6 @@
     }
     @media (max-width:900px){ .about-illustration{ min-width:0; max-width:100% } }
 
-    /* Optional framed variant */
     .about-hero .about-media {
       position: relative;
       z-index: 1;
@@ -92,7 +88,6 @@
     .pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start;margin-top:10px}
     .pill{border:1px solid #e5e7eb;border-radius:999px;padding:8px 12px;font-size:.92rem;background:#fafafa}
 
-    /* Stats row */
     .stats-row{
       display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px;
     }
@@ -103,14 +98,12 @@
     .stat .n{font-weight:800; font-size:1.15rem; color:#2E424E;}
     .stat .t{font-size:.92rem; color:#475466}
 
-    /* Mobile tweaks */
     @media (max-width:900px){
       .about-hero{padding:22px 16px}
       .stats-row{grid-template-columns:1fr; gap:10px}
       .pill-row{justify-content:center}
     }
 
-    /* ===== SECTION 2: Work with DeskXP (dark bg) ===== */
     .expert{
       position:relative;
       background:var(--dark);
@@ -140,7 +133,7 @@
       padding:9px 12px; border-radius:999px; font-size:.93rem; line-height:1;
     }
 
-    /* ===== Certifications (dark, readable, autoscroll) ===== */
+    /* ===== Certifications ===== */
     .cert-section {
       background: #2E424E;
       border: 1px solid rgba(255,255,255,0.08);
@@ -156,43 +149,162 @@
       color: #7FC6FF;
       font-weight: 700;
       font-size: 1.8rem;
-      margin-bottom: 38px;
+      margin-bottom: 18px;
       letter-spacing: .5px;
     }
-    .cert-slider {
-      display: flex;
-      gap: 32px;
-      justify-content: flex-start;
-      align-items: center;
-      animation: certScroll 80s linear infinite;
-      width: max-content;
-      margin: 0 auto;
+
+    .cert-toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin-bottom:28px;
+      flex-wrap:wrap;
     }
-    @keyframes certScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .cert-nav{
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:1.2rem;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .cert-nav:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.14);
+      border-color:rgba(255,255,255,.28);
+    }
+
+    .cert-viewport{
+      overflow:hidden;
+      width:100%;
+      position:relative;
+    }
+
+    .cert-track{
+      display:flex;
+      gap:32px;
+      align-items:stretch;
+      width:max-content;
+      will-change:transform;
+    }
+
     .cert-card {
       background: rgba(255,255,255,0.06);
       border-radius: 16px;
       padding: 20px 16px 24px;
       min-width: 260px;
-      flex-shrink: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      max-width: 260px;
+      flex: 0 0 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
       transition: transform .3s ease, box-shadow .3s ease;
+      min-height: 378px;
     }
-    .cert-card:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
-    .cert-card h3 { color:#fff; font-size:1rem; font-weight:600; margin-bottom:14px; text-align:center }
-    .cert-card a { color:#FFD400; text-decoration:none; font-weight:500; font-size:.95rem; margin-top:12px; transition:color .2s ease }
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(255,255,255,0.15);
+    }
+    .cert-card h3 {
+      color:#fff;
+      font-size:1rem;
+      font-weight:600;
+      margin:0 0 14px;
+      text-align:center;
+      line-height:1.4;
+      min-height: 48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cert-card a {
+      color:#FFD400;
+      text-decoration:none;
+      font-weight:500;
+      font-size:.95rem;
+      margin-top:14px;
+      transition:color .2s ease;
+    }
     .cert-card a:hover { color:#fff; }
-    .cert-card iframe, .cert-card div[data-share-badge-id]{
-      border-radius:8px; width:180px; height:260px; background:#fff; display:flex; justify-content:center; align-items:center;
+
+    .cert-card iframe,
+    .cert-card div[data-share-badge-id]{
+      border-radius:8px;
+      width:180px;
+      height:260px;
+      background:#fff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
+
+    .cert-visual{
+      width:180px;
+      height:260px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff 0%, #eef4f7 100%);
+      border:1px solid rgba(0,0,0,.08);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:20px 16px;
+      box-sizing:border-box;
+      text-align:center;
+    }
+    .cert-logo-wrap{
+      width:96px;
+      height:96px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:18px;
+      background:#fff;
+      box-shadow:0 10px 24px rgba(0,0,0,.10);
+      padding:14px;
+      margin-bottom:16px;
+    }
+    .cert-logo-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+    .cert-visual .vendor{
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.14em;
+      color:#647181;
+      margin-bottom:8px;
+      text-transform:uppercase;
+    }
+    .cert-visual .name{
+      font-size:.95rem;
+      line-height:1.35;
+      font-weight:700;
+      color:#1C2430;
+      max-width:140px;
+    }
+
     @media (max-width: 900px) {
       .cert-section { padding: 40px 20px 60px; }
-      .cert-card { min-width: 220px; }
+      .cert-card {
+        min-width: 220px;
+        max-width: 220px;
+        flex-basis: 220px;
+      }
     }
-    .cert-slider:hover { animation-play-state: paused; }
 
-    /* ===== Projects + modal (genie) ===== */
     .about-cases{margin:36px 0; background:var(--dark); padding:22px; border:1px solid var(--border); border-radius:14px}
     .about-cases h2{color:#ECF3FF}
     .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -225,7 +337,7 @@
       background:linear-gradient(180deg, rgba(53,70,80,1), rgba(46,66,78,1));
       border:1px solid rgba(255,255,255,.18);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.55);
       color:#F4F9FF;
-      transform-origin: top left; /* updated dynamically for genie */
+      transform-origin: top left;
     }
     .modal-head{
       position:sticky;top:0;z-index:1;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.16);
@@ -247,7 +359,6 @@
       border-radius:999px;padding:6px 10px;font-weight:700;cursor:pointer
     }
 
-    /* ===== CTA (About-only) ===== */
     .about-page .dc-card{
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
       gap:20px;padding:48px 32px;min-height:240px;margin:40px 0;
@@ -268,12 +379,11 @@
       padding: 0 3px; border-radius: 4px;
     }
 
-    /* === About page: make ONLY the about-hero full-bleed === */
     .about-page .about-hero{
-      width: 100vw;               /* span the full viewport */
-      margin-left: 50%;           /* center the 100vw element */
+      width: 100vw;
+      margin-left: 50%;
       transform: translateX(-50%);
-      margin-top: 0;              /* sit flush under the header */
+      margin-top: 0;
       border-radius: 0 !important;
       border: none !important;
       box-shadow: none !important;
@@ -281,16 +391,16 @@
     }
     .about-page .about-hero > .about-title,
     .about-page .about-hero > .about-grid{
-      max-width: 1100px;          /* same content width as the site */
+      max-width: 1100px;
       margin: 0 auto;
-      padding-left: 16px;         /* restore side padding that the container had */
+      padding-left: 16px;
       padding-right: 16px;
     }
     .about-page .container { 
-      padding-top: 0 !important;        /* kill the container’s 24px top padding */
+      padding-top: 0 !important;
     }
     .about-page .container > .about-hero {
-      margin-top: 0 !important;         /* avoid margin-collapsing creating a gap */
+      margin-top: 0 !important;
     }
   </style>
 
@@ -299,7 +409,6 @@
 
 <body class="about-page">
 
-  <!-- Global header mount -->
   <div id="site-header"></div>
 
   <div class="container">
@@ -307,7 +416,6 @@
       <h1 id="deskxp" class="about-title">About DeskXP</h1>
 
       <div class="about-grid">
-        <!-- Keep the original illustration -->
         <img
           class="about-illustration"
           src="/assets/about-cycle.png"
@@ -343,8 +451,6 @@
       </div>
     </section>
 
-
-    <!-- ===== SECTION 2: Work with DeskXP (no personal photo; logo instead) ===== -->
     <section class="expert reveal" aria-labelledby="expert-title">
       <div class="expert-grid">
         <div class="photo-wrap">
@@ -378,84 +484,277 @@
       </div>
     </section>
 
-    <!-- (REMOVED: Professional Career timeline) -->
-
-    <!-- ===== SECTION 4: Certifications — full-width auto slider with embeds ===== -->
     <section class="cert-section reveal">
       <h2>Certifications</h2>
 
-      <div class="cert-slider">
-        <div class="cert-card">
-          <h3>Zendesk Explore</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+      <div class="cert-toolbar" aria-label="Certification slider controls">
+        <button class="cert-nav cert-prev" type="button" aria-label="Previous certifications">‹</button>
+        <button class="cert-nav cert-next" type="button" aria-label="Next certifications">›</button>
+      </div>
 
-        <div class="cert-card">
-          <h3>Foundational Support</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+      <div class="cert-viewport" id="certViewport">
+        <div class="cert-track" id="certTrack">
+          <!-- Set A -->
+          <div class="cert-card">
+            <h3>Zendesk Explore</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Zendesk Guide</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+          <div class="cert-card">
+            <h3>Foundational Support</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Zendesk Messaging</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Guide</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Zendesk Omnichannel</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Messaging</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Sunshine Conversations (Developer)</h3>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Omnichannel</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Zendesk Professional Certificate</h3>
-          <a href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924" target="_blank" rel="noopener">View credential</a>
-        </div>
+          <div class="cert-card">
+            <h3>Sunshine Conversations (Developer)</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
+          </div>
 
-        <div class="cert-card">
-          <h3>Professional Certificate in Operations Management</h3>
-          <a href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Implementation Expert</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">Implementation Expert</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/o6ixossecx6s" target="_blank" rel="noopener">View credential</a>
+          </div>
 
-        <div class="cert-card">
-          <h3>Developing Secure Software</h3>
-          <a href="https://www.linkedin.com/learning/certificates/156c283d2605a6301dd3cd0439bcdfde245ba618a6751f6f240c1ba705bff8fd?u=139858924" target="_blank" rel="noopener">View credential</a>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk - AI Agents Advanced Expert Certification</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">AI Agents Advanced Expert</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/p6yddnj96qq7" target="_blank" rel="noopener">View credential</a>
+          </div>
 
-        <div class="cert-card">
-          <h3>Secure Coding</h3>
-          <a href="https://www.linkedin.com/learning/certificates/ab0d38f79985d464a87a69128b199d8b61f1eb9d7e4d83957ed333a38e7745ba?u=139858924" target="_blank" rel="noopener">View credential</a>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Copilot Technical Accreditation for Partners v1</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">Copilot Technical Accreditation</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/ziytyacwx7dq" target="_blank" rel="noopener">View credential</a>
+          </div>
 
-        <div class="cert-card">
-          <h3>Customer Service Foundation</h3>
-          <a href="https://www.linkedin.com/learning/certificates/1edeecfc781813343a2145770422d6f41c9158a382af61772d0904a4f01e4979?u=139858924" target="_blank" rel="noopener">View credential</a>
-        </div>
+          <div class="cert-card">
+            <h3>Zendesk Professional Certificate</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Zendesk Professional Certificate</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
 
-        <!-- duplicate for seamless loop -->
-        <div class="cert-card"><h3>Zendesk Explore</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Foundational Support</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Guide</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Messaging</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Zendesk Omnichannel</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="cert-card"><h3>Sunshine Conversations (Developer)</h3><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div></div>
+          <div class="cert-card">
+            <h3>Professional Certificate in Operations Management</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/udemy.svg" alt="Udemy logo" loading="lazy">
+              </div>
+              <div class="vendor">Udemy</div>
+              <div class="name">Operations Management</div>
+            </div>
+            <a href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Developing Secure Software</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Developing Secure Software</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/156c283d2605a6301dd3cd0439bcdfde245ba618a6751f6f240c1ba705bff8fd?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Secure Coding</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Secure Coding</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/ab0d38f79985d464a87a69128b199d8b61f1eb9d7e4d83957ed333a38e7745ba?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Customer Service Foundation</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Customer Service Foundation</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/1edeecfc781813343a2145770422d6f41c9158a382af61772d0904a4f01e4979?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <!-- Set B duplicate for seamless loop -->
+          <div class="cert-card">
+            <h3>Zendesk Explore</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6406fa24-161c-45ed-ac3b-26cdc59503ce" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Foundational Support</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="0bcac0f3-1f8b-4d16-b8dc-bf575e9f54ea" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Guide</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="412f9d5d-abff-4304-8bbc-4aa2f64f726e" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Messaging</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="be8a0f71-121d-4d42-be6a-9b963d5ebfed" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Omnichannel</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="b9627160-4007-4bfe-b67b-19a07cf3b0aa" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Sunshine Conversations (Developer)</h3>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d32c0a79-9053-4fa6-ba20-c109388e3333" data-share-badge-host="https://www.credly.com"></div>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Implementation Expert</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">Implementation Expert</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/o6ixossecx6s" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk - AI Agents Advanced Expert Certification</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">AI Agents Advanced Expert</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/p6yddnj96qq7" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Copilot Technical Accreditation for Partners v1</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/zendesk.svg" alt="Zendesk logo" loading="lazy">
+              </div>
+              <div class="vendor">Zendesk</div>
+              <div class="name">Copilot Technical Accreditation</div>
+            </div>
+            <a href="https://verify.skilljar.com/c/ziytyacwx7dq" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Zendesk Professional Certificate</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Zendesk Professional Certificate</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/00ef9e14f9ebb8f397991a5974703252b68e342230f7e8f456e1bccf4da942a8?accountId=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Professional Certificate in Operations Management</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/udemy.svg" alt="Udemy logo" loading="lazy">
+              </div>
+              <div class="vendor">Udemy</div>
+              <div class="name">Operations Management</div>
+            </div>
+            <a href="https://www.udemy.com/certificate/UC-6c24a6ef-d171-4855-ad30-3639eaeebbdf/" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Developing Secure Software</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Developing Secure Software</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/156c283d2605a6301dd3cd0439bcdfde245ba618a6751f6f240c1ba705bff8fd?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Secure Coding</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Secure Coding</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/ab0d38f79985d464a87a69128b199d8b61f1eb9d7e4d83957ed333a38e7745ba?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+
+          <div class="cert-card">
+            <h3>Customer Service Foundation</h3>
+            <div class="cert-visual">
+              <div class="cert-logo-wrap">
+                <img src="/assets/linkedin.png" alt="LinkedIn Learning logo" loading="lazy">
+              </div>
+              <div class="vendor">LinkedIn Learning</div>
+              <div class="name">Customer Service Foundation</div>
+            </div>
+            <a href="https://www.linkedin.com/learning/certificates/1edeecfc781813343a2145770422d6f41c9158a382af61772d0904a4f01e4979?u=139858924" target="_blank" rel="noopener">View credential</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ===== SECTION 5: Projects ===== -->
     <section class="about-cases reveal">
       <h2>Projects</h2>
       <div class="case-grid">
 
-        <!-- PalawanPay -->
         <button class="case-card" data-brand="#007236" data-title="PalawanPay — CX Org & Advanced Zendesk"
                 data-meta="Zero-to-one org, routing discipline, bots, savings impact"
                 data-need='["Build Customer Care from scratch with strict SLAs across channels.","Standardized macros/policies, clear escalation paths, vendor governance.","Lower cost per resolution via automation and self-service."]'
@@ -469,7 +768,6 @@
           </div>
         </button>
 
-        <!-- Unison -->
         <button class="case-card" data-brand="#0A4A9E" data-title="Unison — Workflows & Help Center"
                 data-meta="Workflow overhaul, Guide UX, reporting discipline"
                 data-need='["Ticket chaos—no ownership, poor macro hygiene, weak reporting.","Help Center not driving deflection."]'
@@ -483,7 +781,6 @@
           </div>
         </button>
 
-        <!-- Boutique de Sophie -->
         <button class="case-card" data-brand="#D6A89E" data-title="Boutique de Sophie — E-commerce Scaling"
                 data-meta="Shopify ↔ Zendesk, post-purchase macros, deflection"
                 data-need='["Order status, returns, and refunds flooding the inbox.","No linkage between tickets and orders."]'
@@ -500,7 +797,6 @@
       </div>
     </section>
 
-    <!-- Modal root -->
     <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal-card">
         <div class="modal-head">
@@ -527,7 +823,6 @@
       </div>
     </div>
 
-    <!-- ===== CTA ===== -->
     <section class="dc-card reveal" aria-labelledby="cta-title">
       <div class="cta-text">
         <h3 id="cta-title">Need tailored specifications? We got you!</h3>
@@ -538,19 +833,15 @@
         Tell Us What You Need!
       </a>
     </section>
+  </div>
 
-  </div> <!-- CLOSE .container so the footer isn’t trapped -->
-
-  <!-- Footer (full-bleed again) -->
   <div id="footer"></div>
   <script>
     fetch("/footer.html").then(r=>r.text()).then(html=>document.getElementById("footer").innerHTML=html);
   </script>
 
-  <!-- Credly embed (once) -->
   <script async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
-  <!-- Modal logic with GENIE effect -->
   <script>
     (function(){
       const qs = s => document.querySelector(s);
@@ -585,7 +876,6 @@
         modal.setAttribute('aria-hidden','false');
         document.body.style.overflow='hidden';
 
-        // Genie effect
         const rect = card.getBoundingClientRect();
         const mc = modalCard.getBoundingClientRect();
         modalCard.style.transformOrigin = `${rect.left}px ${rect.top}px`;
@@ -631,6 +921,90 @@
     })();
   </script>
 
+  <script>
+    (function(){
+      const viewport = document.getElementById('certViewport');
+      const track = document.getElementById('certTrack');
+      const prevBtn = document.querySelector('.cert-prev');
+      const nextBtn = document.querySelector('.cert-next');
+      if (!viewport || !track || !prevBtn || !nextBtn) return;
+
+      let position = 0;
+      let isHovered = false;
+      let autoSpeed = 0.45;
+      let manualPauseUntil = 0;
+
+      function getLoopWidth(){
+        return track.scrollWidth / 2;
+      }
+
+      function applyTransform(withTransition = false){
+        track.style.transition = withTransition ? 'transform .45s ease' : 'none';
+        track.style.transform = `translate3d(${-position}px,0,0)`;
+      }
+
+      function normalizePosition(){
+        const loopWidth = getLoopWidth();
+        if (position >= loopWidth) {
+          position -= loopWidth;
+        }
+        if (position < 0) {
+          position += loopWidth;
+        }
+      }
+
+      function stepByCard(direction = 1){
+        const firstCard = track.querySelector('.cert-card');
+        if (!firstCard) return;
+        const gap = 32;
+        const move = firstCard.getBoundingClientRect().width + gap;
+        position += direction * move;
+        normalizePosition();
+        applyTransform(true);
+        manualPauseUntil = Date.now() + 2500;
+      }
+
+      prevBtn.addEventListener('click', () => stepByCard(-1));
+      nextBtn.addEventListener('click', () => stepByCard(1));
+
+      viewport.addEventListener('mouseenter', () => { isHovered = true; });
+      viewport.addEventListener('mouseleave', () => { isHovered = false; });
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const delta = touchStartX - touchEndX;
+        if (Math.abs(delta) > 40) {
+          if (delta > 0) stepByCard(1);
+          else stepByCard(-1);
+        }
+      }, { passive: true });
+
+      function tick(){
+        if (!isHovered && Date.now() > manualPauseUntil) {
+          position += autoSpeed;
+          normalizePosition();
+          applyTransform(false);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      applyTransform(false);
+      requestAnimationFrame(tick);
+
+      window.addEventListener('resize', () => {
+        normalizePosition();
+        applyTransform(false);
+      });
+    })();
+  </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -642,7 +1016,6 @@
   }
   </script>
 
-  <!-- Global JS -->
   <script src="/js/main.js?v=211" defer></script>
 </body>
 </html>
