@@ -3207,6 +3207,71 @@ section.about-hero{
     padding:22px 18px;
   }
 }
+.spec-modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:2000;
+}
 
+.spec-modal.is-open{
+  display:block;
+}
+
+.spec-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(5,10,16,.68);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.spec-modal__dialog{
+  position:relative;
+  width:min(760px, calc(100vw - 32px));
+  max-height:calc(100vh - 48px);
+  overflow:auto;
+  margin:24px auto;
+  background:#0f1821;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:28px;
+  z-index:1;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+
+.spec-modal__close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:1.25rem;
+  cursor:pointer;
+}
+
+.spec-modal__inner h2{
+  margin:0 0 10px;
+  color:#fff;
+}
+
+.spec-modal__inner p{
+  margin:0;
+  color:rgba(232,237,242,.72);
+}
+
+@media (max-width: 640px){
+  .spec-modal__dialog{
+    width:calc(100vw - 20px);
+    max-height:calc(100vh - 20px);
+    margin:10px auto;
+    border-radius:20px;
+    padding:22px 18px;
+  }
+}
 
 
