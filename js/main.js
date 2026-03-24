@@ -3,35 +3,6 @@
 // Enable .js gate for reveal transitions
 document.documentElement.classList.add("js");
 
-// ---------------------- PARTIALS: HEADER / FOOTER ----------------------
-document.addEventListener("DOMContentLoaded", () => {
-  const headerMount = document.getElementById("header-mount");
-  if (headerMount) {
-    fetch("/partials/header.html")
-      .then((r) => {
-        if (!r.ok) throw new Error(`Header fetch failed: ${r.status}`);
-        return r.text();
-      })
-      .then((html) => {
-        headerMount.innerHTML = html;
-      })
-      .catch((err) => console.error(err));
-  }
-
-  const footerMount = document.getElementById("footer");
-  if (footerMount) {
-    fetch("/footer.html")
-      .then((r) => {
-        if (!r.ok) throw new Error(`Footer fetch failed: ${r.status}`);
-        return r.text();
-      })
-      .then((html) => {
-        footerMount.innerHTML = html;
-      })
-      .catch((err) => console.error(err));
-  }
-});
-
 // --------------------------- YEAR ---------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const y = document.getElementById("y");
@@ -54,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.2 });
 
     els.forEach((el) => io.observe(el));
-  } catch (err) {
+  } catch {
     els.forEach((el) => el.classList.add("is-visible"));
   }
 })();
@@ -74,17 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
       className: "success-dots",
     });
 
-  if (!root.querySelector("#successDots")) {
-    root.appendChild(dotsWrap);
-  }
+  if (!root.querySelector("#successDots")) root.appendChild(dotsWrap);
 
   const slides = Array.from(track.children).filter((s) =>
     s.classList.contains("success-slide")
   );
   if (!slides.length) return;
 
-  let idx = 0;
-  let timer = null;
+  let idx = 0,
+    timer = null;
   const INTERVAL = 6000;
 
   const reduced =
@@ -92,15 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setActive(i) {
     slides.forEach((s, j) => s.classList.toggle("is-active", j === i));
-    Array.from(dotsWrap.children).forEach((d, j) => {
-      d.classList.toggle("active", j === i);
-    });
+    Array.from(dotsWrap.children).forEach((d, j) =>
+      d.classList.toggle("active", j === i)
+    );
   }
 
-  function go(i, userTriggered) {
+  function go(i, user) {
     idx = (i + slides.length) % slides.length;
     setActive(idx);
-    if (userTriggered) restart();
+    if (user) restart();
   }
 
   function buildDots() {
@@ -111,14 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
       )
       .join("");
 
-    Array.from(dotsWrap.children).forEach((dot, j) => {
-      dot.addEventListener("click", () => go(j, true));
-    });
+    Array.from(dotsWrap.children).forEach((dot, j) =>
+      dot.addEventListener("click", () => go(j, true))
+    );
   }
 
   function start() {
     if (reduced) return;
-    timer = setInterval(() => go(idx + 1, false), INTERVAL);
+    timer = setInterval(() => go(idx + 1), INTERVAL);
   }
 
   function stop() {
@@ -133,4 +102,50 @@ document.addEventListener("DOMContentLoaded", () => {
   buildDots();
   setActive(idx);
   start();
+})();
+
+// ===================== SPEC MODAL =====================
+(function () {
+  const modal = document.getElementById("specModal");
+  if (!modal) return;
+
+  function openSpecModal() {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSpecModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest("a[href]");
+    if (!link) return;
+
+    const href = (link.getAttribute("href") || "").trim();
+
+    if (
+      href === "/personalized-specs/" ||
+      href === "/personalized-specs" ||
+      href === "https://deskxp.com/personalized-specs/" ||
+      href === "https://deskxp.com/personalized-specs"
+    ) {
+      e.preventDefault();
+      console.log("SPEC INTERCEPTED");
+      openSpecModal();
+    }
+  });
+
+  modal.querySelectorAll("[data-spec-close]").forEach((el) => {
+    el.addEventListener("click", closeSpecModal);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) {
+      closeSpecModal();
+    }
+  });
 })();
