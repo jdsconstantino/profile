@@ -5,385 +5,1212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Success Stories — DeskXP</title>
 
-  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <meta name="theme-color" content="#0d0f12">
+  <link rel="canonical" href="https://deskxp.com/success-stories/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css?v=210">
-  <link rel="canonical" href="https://deskxp.com/success-stories/">
 
   <style>
-    :root{
-      --bg:#0d1720;
-      --panel:#0f1e27;
-      --grid:rgba(0,255,160,.07);
-      --line:#19e28e;
-      --text:#e6e9ef;
-      --muted:#9aa5b1;
-      --ink:#0f172a;
-      --chip:#eef5ef;
-      --chip-b:#dfe8e1;
-      --accent:#007236;
-      --accent2:#00b858;
-      --header-offset:84px;
-      --card-b:#e6e9ef;
-    }
-    @media (max-width:900px){ :root{ --header-offset:72px; } }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(180deg,rgba(0,114,54,.06),rgba(0,114,54,.04)),
-        radial-gradient(circle at 30% -10%, rgba(0,184,88,.18), transparent 32%),
-        radial-gradient(circle at 100% 10%, rgba(0,184,88,.12), transparent 32%),
-        var(--bg);
-      overflow-x:hidden;
+    :root {
+      --navy:        #0b1118;
+      --navy2:       #0e1820;
+      --navy3:       #111f2a;
+      --green:       #1db954;
+      --green2:      #25e068;
+      --green-dim:   rgba(29,185,84,0.12);
+      --green-border:rgba(29,185,84,0.22);
+      --text:        #e8edf2;
+      --muted:       #7a8c9a;
+      --border:      rgba(255,255,255,0.07);
+      --card-bg:     rgba(14,24,32,0.85);
+      --sidebar-w:   300px;
     }
 
-    /* Fixed opaque header override for inner pages */
-    #page-success-stories .site-header,
-    #page-success-stories header.site-header,
-    #page-success-stories #site-header header {
-      position: fixed !important;
-      top: 0; left: 0; right: 0;
-      background: rgba(13,15,18,.95) !important;
-      backdrop-filter: saturate(140%) blur(8px);
-      box-shadow: 0 8px 24px rgba(0,0,0,.35);
-      transform: translateZ(0);
-      z-index: 1000;
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
     }
 
-    .page{
-      max-width:1220px;
-      margin:32px auto 96px;
-      padding:0 18px;
-      position:relative;
+    /* ── PAGE HERO ─────────────────────────────────── */
+    .ss-hero {
+      position: relative;
+      padding: 120px 24px 72px;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .title{
-      text-align:center;
-      font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
-      font-weight:900;
-      letter-spacing:-.02em;
-      margin:10px 0 26px;
+    .ss-hero::before {
+      content: "";
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(29,185,84,0.12) 0%, transparent 65%);
+      pointer-events: none;
     }
 
-    .story{ display:grid; grid-template-columns:1fr; gap:18px; position:relative; z-index:2; }
-
-    .hero{
-      background:linear-gradient(180deg,#0f2026,#0c1b21);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:22px; padding:22px;
-      box-shadow:0 14px 40px rgba(0,0,0,.35), 0 0 36px rgba(0,255,160,.12);
-      margin-bottom:18px;
-      position:relative;
+    .ss-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--green-border);
+      background: var(--green-dim);
+      color: var(--green2);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
     }
 
-    .brand-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
-
-    /* === BADGE: force true visual center for all logos === */
-    .badge{
-      width:64px; height:64px;
-      border-radius:14px;
-      display:flex;               /* was grid; use flex for consistent centering */
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(180deg,var(--accent2),#ffff);
-      box-shadow:0 0 0 1px rgba(255,255,255,.16) inset, 0 8px 18px rgba(0,0,0,.35);
-      overflow:hidden;
-    }
-    .badge img{
-      display:block;
-      max-width:90%;              /* responsive and consistent */
-      max-height:80%;             /* prevents tall logos from sitting low */
-      height:auto;
-      object-fit:contain;         /* keep aspect while filling box nicely */
-      margin:auto;                /* belt & suspenders centering */
-      transform:translateY(0);    /* reset any older tweaks */
+    .ss-eyebrow::before {
+      content: "";
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: var(--green2);
+      box-shadow: 0 0 8px var(--green2);
     }
 
-    .hero h1{ margin:0; font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem); letter-spacing:-.01em }
-    .hero p{ margin:8px 0 0; color:#dfe7e2 }
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0 }
-    .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:700; color:#2f3b45; font-size:.9rem }
-    .disclaimer{ margin-top:10px; color:var(--muted); font-size:.92rem }
-
-    .card{
-      background:#fff; color:var(--ink);
-      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
-      box-shadow:0 16px 36px rgba(0,0,0,.18);
-      scroll-margin-top:calc(var(--header-offset) + 12px);
-    }
-    .card h2{ margin:0 0 8px; font-size:1.22rem; font-weight:900; letter-spacing:-.01em; color:#2e424e }
-    .card p{ color:#334155; margin:12px 0; line-height:1.65; }
-    .pull{ margin:14px 0; padding:12px 14px; border-left:4px solid var(--accent2); background:#f7faf7; color:#26323a; border-radius:10px }
-
-    .markers{
-      position:absolute; inset:0; pointer-events:none;
-      background-image:
-        linear-gradient(to right, var(--grid) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-      background-size:48px 48px, 48px 48px;
-      mask-image:linear-gradient(#0007,#000);
-      z-index:1; border-radius:22px;
+    .ss-hero__title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: #fff;
+      max-width: 700px;
+      margin: 0 auto 18px;
     }
 
-    body#page-success-stories .hero {
-      top: 0 !important;
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-      position: relative !important;
+    .ss-hero__title span { color: var(--green2); }
+
+    .ss-hero__sub {
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    #page-success-stories .page { padding-top: 100px !important; } /* below fixed header */
-
-    /* Bigger logos for success stories heroes */
-    #page-success-stories .badge {
-      width: 200px !important;
-      height: 88px !important;
-      border-radius: 18px !important;
+    /* ── SPLIT LAYOUT ──────────────────────────────── */
+    .ss-layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+      align-items: start;
     }
-    /* unify the img rule for this page; kill older width overrides */
-    #page-success-stories .badge img {
-      max-width: 90% !important;
-      max-height: 80% !important;
-      height: auto !important;
-      object-fit: contain !important;
-      transform: translateY(0) !important;
+
+    /* ── LEFT SIDEBAR ──────────────────────────────── */
+    .ss-sidebar {
+      position: sticky;
+      top: 100px;
+      padding-right: 28px;
+    }
+
+    .ss-sidebar__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      padding-left: 4px;
+    }
+
+    .ss-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ss-nav__item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .ss-nav__item:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .ss-nav__item.is-active {
+      background: var(--green-dim);
+      border-color: var(--green-border);
+    }
+
+    .ss-nav__logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      flex: 0 0 44px;
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .ss-nav__logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .ss-nav__item.is-active .ss-nav__logo {
+      background: rgba(255,255,255,0.10);
+      border-color: var(--green-border);
+    }
+
+    .ss-nav__text { flex: 1; min-width: 0; }
+
+    .ss-nav__name {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ss-nav__item.is-active .ss-nav__name { color: #fff; }
+
+    .ss-nav__type {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .ss-nav__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--border);
+      flex: 0 0 7px;
+      transition: background 0.2s;
+    }
+
+    .ss-nav__item.is-active .ss-nav__dot {
+      background: var(--green2);
+      box-shadow: 0 0 6px var(--green2);
+    }
+
+    /* ── RIGHT CONTENT PANELS ──────────────────────── */
+    .ss-panels {
+      min-width: 0;
+    }
+
+    .ss-panel {
+      display: none;
+      animation: ssIn 0.38s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .ss-panel.is-active { display: block; }
+
+    @keyframes ssIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Brand header */
+    .ss-brand-header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 40px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ss-brand-header::before {
+      content: "";
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(29,185,84,0.09), transparent 65%);
+      pointer-events: none;
+    }
+
+    .ss-brand-header__top {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .ss-brand-logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: grid;
+      place-items: center;
+      flex: 0 0 88px;
+      overflow: hidden;
+      padding: 10px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+
+    .ss-brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .ss-brand-header__info { flex: 1; }
+
+    .ss-brand-header__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green2);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .ss-brand-header__title {
+      font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .ss-brand-header__sub {
+      font-size: 0.95rem;
+      line-height: 1.68;
+      color: rgba(200,215,225,0.75);
+      max-width: 58ch;
+    }
+
+    .ss-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ss-chip {
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Metrics strip */
+    .ss-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .ss-metric {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .ss-metric:hover {
+      border-color: var(--green-border);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3), 0 0 20px rgba(29,185,84,0.07);
+    }
+
+    .ss-metric::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent);
+    }
+
+    .ss-metric__num {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--green2);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .ss-metric__label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Sections */
+    .ss-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .ss-section__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .ss-section__num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: var(--green2);
+      flex: 0 0 28px;
+    }
+
+    .ss-section__title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .ss-section p {
+      font-size: 0.95rem;
+      line-height: 1.76;
+      color: rgba(200,215,225,0.82);
+      margin-bottom: 14px;
+    }
+
+    .ss-section p:last-child { margin-bottom: 0; }
+
+    /* Pullout quote */
+    .ss-quote {
+      margin: 16px 0;
+      padding: 18px 20px 18px 24px;
+      border-left: 3px solid var(--green);
+      background: rgba(29,185,84,0.06);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .ss-quote p {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(220,235,225,0.92) !important;
+      font-style: italic;
+      margin: 0 !important;
+      line-height: 1.6;
+    }
+
+    /* Before / After */
+    .ss-ba {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0 4px;
+    }
+
+    .ss-ba__col {
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+    }
+
+    .ss-ba__col--before {
+      background: rgba(220,50,50,0.06);
+      border: 1px solid rgba(220,50,50,0.18);
+    }
+
+    .ss-ba__col--after {
+      background: rgba(29,185,84,0.07);
+      border: 1px solid var(--green-border);
+    }
+
+    .ss-ba__label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .ss-ba__col--before .ss-ba__label { color: rgba(240,100,100,0.85); }
+    .ss-ba__col--after  .ss-ba__label { color: var(--green2); }
+
+    .ss-ba__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ss-ba__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(200,215,225,0.85);
+      line-height: 1.45;
+    }
+
+    .ss-ba__list li::before {
+      content: "";
+      flex: 0 0 5px;
+      margin-top: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+    }
+
+    .ss-ba__col--before .ss-ba__list li::before { background: rgba(220,80,80,0.7); }
+    .ss-ba__col--after  .ss-ba__list li::before { background: var(--green); }
+
+    /* Disclaimer */
+    .ss-disclaimer {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 6px;
+      padding: 0 4px;
+    }
+
+    /* CTA */
+    .ss-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(29,185,84,0.10), rgba(14,24,32,0.6));
+      border: 1px solid var(--green-border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-top: 4px;
+    }
+
+    .ss-cta__text h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .ss-cta__text p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .ss-cta__btns { display: flex; gap: 10px; flex-shrink: 0; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 22px;
+      border-radius: 10px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(29,185,84,0.35);
+    }
+    .btn-primary:hover { background: var(--green2); transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 22px;
+      border-radius: 10px;
+      background: transparent;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.45); transform: translateY(-1px); }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 960px) {
+      .ss-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .ss-sidebar {
+        position: static;
+        padding-right: 0;
+        margin-bottom: 28px;
+      }
+
+      .ss-nav {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .ss-nav::-webkit-scrollbar { display: none; }
+
+      .ss-nav__item {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        min-width: 90px;
+        text-align: center;
+      }
+
+      .ss-nav__dot { display: none; }
+
+      .ss-nav__text { min-width: 0; }
+
+      .ss-nav__name {
+        font-size: 0.78rem;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .ss-nav__type { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .ss-metrics { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .ss-metric { padding: 16px 14px; }
+      .ss-metric__num { font-size: 1.6rem; }
+      .ss-brand-header { padding: 24px 20px; }
+      .ss-brand-header__top { gap: 16px; }
+      .ss-brand-logo { width: 64px; height: 64px; flex: 0 0 64px; }
+      .ss-section { padding: 22px 20px; }
+      .ss-ba { grid-template-columns: 1fr; }
+      .ss-cta { flex-direction: column; align-items: flex-start; }
+      .ss-cta__btns { width: 100%; }
+      .btn-primary, .btn-ghost { flex: 1; }
+      .ss-hero { padding: 100px 20px 56px; }
+      .ss-layout { padding: 0 16px 80px; }
     }
   </style>
 </head>
-
-<body id="page-success-stories" data-page="inner">
+<body data-page="inner">
   <div id="site-header"></div>
 
-  <main class="page">
-    <h1 class="title">Success Stories</h1>
-    <div class="markers"></div>
+  <div class="ss-hero">
+    <div class="ss-eyebrow">Client Success Stories</div>
+    <h1 class="ss-hero__title">Real results from <span>real operations</span></h1>
+    <p class="ss-hero__sub">How DeskXP built, fixed, and scaled CX systems for growing teams — across fintech, eCommerce, and enterprise.</p>
+  </div>
 
-    <!-- ===== PalawanPay ===== -->
-    <section class="hero" id="palawanpay" style="top:0!important;margin-top:0!important;padding-top:0!important;position:relative!important;">
-      <div class="brand-row">
-        <div class="badge" aria-hidden="true">
-          <img src="/assets/palawanpay.png" alt="PalawanPay logo">
+  <div class="ss-layout">
+
+    <!-- ── LEFT: Brand navigation ── -->
+    <aside class="ss-sidebar">
+      <div class="ss-sidebar__label">Case Studies</div>
+      <nav class="ss-nav" aria-label="Success stories navigation">
+
+        <button class="ss-nav__item is-active" data-story="palawanpay">
+          <div class="ss-nav__logo">
+            <img src="/assets/palawanpay.png" alt="PalawanPay">
+          </div>
+          <div class="ss-nav__text">
+            <div class="ss-nav__name">PalawanPay</div>
+            <div class="ss-nav__type">Fintech · Zendesk</div>
+          </div>
+          <div class="ss-nav__dot"></div>
+        </button>
+
+        <button class="ss-nav__item" data-story="unison">
+          <div class="ss-nav__logo">
+            <img src="/assets/unison.png" alt="Unison">
+          </div>
+          <div class="ss-nav__text">
+            <div class="ss-nav__name">Unison</div>
+            <div class="ss-nav__type">Tech · Zendesk</div>
+          </div>
+          <div class="ss-nav__dot"></div>
+        </button>
+
+        <button class="ss-nav__item" data-story="usdm">
+          <div class="ss-nav__logo">
+            <img src="/assets/doornmore.png" alt="US Door & More">
+          </div>
+          <div class="ss-nav__text">
+            <div class="ss-nav__name">US Door & More</div>
+            <div class="ss-nav__type">eCommerce · Zendesk</div>
+          </div>
+          <div class="ss-nav__dot"></div>
+        </button>
+
+        <button class="ss-nav__item" data-story="bds">
+          <div class="ss-nav__logo">
+            <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+          </div>
+          <div class="ss-nav__text">
+            <div class="ss-nav__name">Boutique de Sophie</div>
+            <div class="ss-nav__type">eCommerce · Zendesk</div>
+          </div>
+          <div class="ss-nav__dot"></div>
+        </button>
+
+      </nav>
+    </aside>
+
+    <!-- ── RIGHT: Story panels ── -->
+    <div class="ss-panels">
+
+      <!-- ════════════ PALAWANPAY ════════════ -->
+      <div class="ss-panel is-active" id="story-palawanpay">
+
+        <div class="ss-brand-header">
+          <div class="ss-brand-header__top">
+            <div class="ss-brand-logo">
+              <img src="/assets/palawanpay.png" alt="PalawanPay">
+            </div>
+            <div class="ss-brand-header__info">
+              <div class="ss-brand-header__tag">Fintech · Philippines · Zendesk Suite</div>
+              <h2 class="ss-brand-header__title">From Zero to a Scalable Care Organization</h2>
+              <p class="ss-brand-header__sub">PalawanPay launched in 2022 into a crowded PH fintech market. Competing with unicorns meant the bar wasn't "answer tickets" — it was building a disciplined, data-driven operation that could scale without chaos.</p>
+            </div>
+          </div>
+          <div class="ss-chips">
+            <span class="ss-chip">Operations Design</span>
+            <span class="ss-chip">Zendesk Suite</span>
+            <span class="ss-chip">Automation & AI</span>
+            <span class="ss-chip">Governance</span>
+            <span class="ss-chip">Reporting</span>
+            <span class="ss-chip">Cost Optimization</span>
+          </div>
         </div>
-        <div>
-          <h1>PalawanPay — From Zero to a Scalable Care Organization</h1>
-          <p>PalawanPay launched in 2022 into a crowded PH fintech market. Competing with unicorns meant the bar for customer care wasn’t “answer tickets” — it was to build a disciplined, data-driven operation that could scale without chaos.</p>
+
+        <div class="ss-metrics">
+          <div class="ss-metric">
+            <div class="ss-metric__num">40–60%</div>
+            <div class="ss-metric__label">Faster first-response on priority queues</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">₱5M</div>
+            <div class="ss-metric__label">Annualized savings from automation & right-sizing</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">150+</div>
+            <div class="ss-metric__label">Agents scaled without SLA degradation</div>
+          </div>
         </div>
-      </div>
-      <div class="chips" aria-label="Themes">
-        <span class="chip">Operations Design</span>
-        <span class="chip">Zendesk Suite</span>
-        <span class="chip">Automation &amp; AI</span>
-        <span class="chip">Governance</span>
-        <span class="chip">Reporting</span>
-        <span class="chip">Cost Optimization</span>
-      </div>
-      <p class="disclaimer">This narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts are shown.</p>
-    </section>
 
-    <section class="story" aria-label="PalawanPay case">
-      <article class="card" id="use-cases">
-        <h2>Use Cases</h2>
-        <p>The mandate was simple and brutal: stand up Customer Care from scratch, then scale it past 150 agents without letting SLAs or data integrity fall apart. We needed clean omnichannel routing, a Help Center the team actually used, and governance that kept forms, fields, and macros from turning into spaghetti. Leadership wanted insight without spreadsheet gymnastics, and product needed a repeatable way to launch new services without blindsiding operations.</p>
-      </article>
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">01</div>
+            <h3 class="ss-section__title">Use Cases</h3>
+          </div>
+          <p>The mandate was simple and brutal: stand up Customer Care from scratch, then scale it past 150 agents without letting SLAs or data integrity fall apart. We needed clean omnichannel routing, a Help Center the team actually used, and governance that kept forms, fields, and macros from turning into spaghetti.</p>
+          <p>Leadership wanted insight without spreadsheet gymnastics, and product needed a repeatable way to launch new services without blindsiding operations.</p>
 
-      <article class="card" id="our-approach">
-        <h2>Our Approach</h2>
-        <p>Build the backbone first, then add speed — and automate where it pays. We designed the operating model, stood up queues and schedules, and put real ownership in place. Zendesk went from zero to production with purpose: forms mapped to reporting, triggers and automations that respect clock rules, roles and permissions that keep admin safe, Guide for self-service, and Explore for leadership views that actually inform decisions.</p>
-        <p>Integrations brought orders, payments, and shipping context into tickets. We authored the policies and playbooks, set the KPIs that matter (FRT, AHT, CSAT, backlog health, reopen rate), and enforced review cadences. For new products, we created a rollout framework so routing, SLAs, macros, and dashboards ship with the release. Automation covered intent tagging, smart replies, and summaries with human-in-the-loop controls.</p>
-        <p class="pull"><strong>Bottom line:</strong> org design, platform build, integrations, documentation, vendor management, and performance leadership — one accountable owner from blank slate to daily reliability.</p>
-      </article>
-
-      <article class="card" id="success-story">
-        <h2>Success Story</h2>
-        <p>First-response times tightened by roughly <em>40–60%</em> on priority queues once routing, SLAs, and schedules were cleaned up. Data quality stopped lying — fewer misroutes and reopens meant managers could trust dashboards again. Onboarding moved faster because playbooks and macros weren’t optional; they were the way the work got done. Annualized savings landed around <strong>₱5M</strong> from automation, license/right-sizing, and removing wasted steps.</p>
-      </article>
-    </section>
-
-    <!-- ===== Unison Computer Systems Inc. ===== -->
-    <section class="hero" id="unison" style="top:0!important;margin-top:0!important;padding-top:0!important;position:relative!important;">
-      <div class="brand-row">
-        <div class="badge" aria-hidden="true">
-          <img src="/assets/unison.png" alt="Unison logo">
+          <div class="ss-ba">
+            <div class="ss-ba__col ss-ba__col--before">
+              <div class="ss-ba__label">Before</div>
+              <ul class="ss-ba__list">
+                <li>No formal CX structure — zero agents, zero processes</li>
+                <li>No ticketing system configured or in use</li>
+                <li>No SLAs, escalation paths, or queue ownership</li>
+                <li>New product launches blindsided support teams</li>
+                <li>Leadership had no visibility into support health</li>
+              </ul>
+            </div>
+            <div class="ss-ba__col ss-ba__col--after">
+              <div class="ss-ba__label">After</div>
+              <ul class="ss-ba__list">
+                <li>150+ agent operation with full omnichannel routing</li>
+                <li>Zendesk Suite live — forms mapped to reporting</li>
+                <li>SLAs, business hours, and escalation paths enforced</li>
+                <li>Product rollout framework ships routing with releases</li>
+                <li>Explore dashboards inform decisions in real time</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div>
-          <h1>Unison Computer Systems — Turning Email Chaos into Workflow Clarity</h1>
-          <p>Unison handled customer and branch coordination through Outlook. Zendesk existed, but only as a logbook; real work still lived in email threads, so there was no visibility or accountability.</p>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">02</div>
+            <h3 class="ss-section__title">Our Approach</h3>
+          </div>
+          <p>Build the backbone first, then add speed — and automate where it pays. We designed the operating model, stood up queues and schedules, and put real ownership in place. Zendesk went from zero to production with purpose: forms mapped to reporting, triggers and automations that respect clock rules, roles and permissions that keep admin safe.</p>
+          <p>Guide for self-service, Explore for leadership views that actually inform decisions. Integrations brought orders, payments, and shipping context into tickets. We authored the policies and playbooks, set the KPIs that matter (FRT, AHT, CSAT, backlog health, reopen rate), and enforced review cadences.</p>
+          <div class="ss-quote">
+            <p>"Org design, platform build, integrations, documentation, vendor management, and performance leadership — one accountable owner from blank slate to daily reliability."</p>
+          </div>
+          <p>For new products, we created a rollout framework so routing, SLAs, macros, and dashboards ship with the release. Automation covered intent tagging, smart replies, and summaries with human-in-the-loop controls.</p>
         </div>
-      </div>
-      <div class="chips">
-        <span class="chip">Workflow Design</span>
-        <span class="chip">Zendesk Implementation</span>
-        <span class="chip">Automation</span>
-        <span class="chip">Help Center</span>
-        <span class="chip">Efficiency</span>
-      </div>
-      <p class="disclaimer">Process-level description only; no sensitive data or internal artifacts.</p>
-    </section>
 
-    <section class="story" aria-label="Unison case">
-      <article class="card" id="use-cases-unison">
-        <h2>Use Cases</h2>
-        <p>Centralize communications, impose a workflow, and make Zendesk the single source of truth. With tickets used purely for documentation, leadership lacked SLA visibility and teams relied on inbox muscle memory. The job was to move conversations into Zendesk, enforce routing and ownership, and unlock reporting that reflects reality.</p>
-      </article>
-
-      <article class="card" id="our-approach-unison">
-        <h2>Our Approach</h2>
-        <p>Bring every conversation home to Zendesk — then codify the protocol in automations and macros. We integrated Unison’s support email fully so all requests — customer or branch — enter a single triaged queue. We designed triggers, automations, and macros to mirror Unison’s protocol and enforce consistency. Technical dispatch was automated end-to-end using PDF generation and routing, removing manual follow-ups entirely.</p>
-        <p>We rebuilt the Help Center to match Unison’s brand and provide clear self-service paths, reducing repetitive requests and establishing a sane escalation path for complex cases.</p>
-        <p class="pull"><strong>In short:</strong> email chaos became structured workflows; automation handled the predictable; agents focused on the meaningful.</p>
-      </article>
-
-      <article class="card" id="success-story-unison">
-        <h2>Success Story</h2>
-        <p>Throughput improved dramatically with unified routing and macros, and dispatch lag vanished once automation took over. Teams that lived in Outlook moved into a searchable, auditable system of record; leadership finally had trustworthy SLA and workload views. The branded Help Center deflected repeat questions and sharpened handoffs.</p>
-      </article>
-    </section>
-        <!-- ===== US Door & More ===== -->
-    <section class="hero" id="us-door-more" style="top:0!important;margin-top:0!important;padding-top:0!important;position:relative!important;">
-      <div class="brand-row">
-        <div class="badge" aria-hidden="true">
-          <img src="/assets/doornmore.png" alt="US Door &amp; More logo">
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">03</div>
+            <h3 class="ss-section__title">Success Story</h3>
+          </div>
+          <p>First-response times tightened by roughly <strong style="color:#fff">40–60%</strong> on priority queues once routing, SLAs, and schedules were cleaned up. Data quality stopped lying — fewer misroutes and reopens meant managers could trust dashboards again.</p>
+          <p>Onboarding moved faster because playbooks and macros weren't optional; they were the way the work got done. Annualized savings landed around <strong style="color:var(--green2)">₱5M</strong> from automation, license/right-sizing, and removing wasted steps.</p>
         </div>
-        <div>
-          <h1>US Door &amp; More — From Scattered Answers to an AI-Aware Help Center</h1>
-          <p>High-consideration e-commerce means lots of pre-purchase questions and WISMO churn. Support lived across email threads, CMS notes, and tribal memory, so agents rewrote the same answers and customers waited for basics.</p>
+
+        <div class="ss-cta">
+          <div class="ss-cta__text">
+            <h3>Want this for your operation?</h3>
+            <p>Free 30-minute discovery — we'll map out what your CX build needs.</p>
+          </div>
+          <div class="ss-cta__btns">
+            <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+            <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+          </div>
         </div>
+
+        <p class="ss-disclaimer">This narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts are shown.</p>
       </div>
-      <div class="chips" aria-label="Themes">
-        <span class="chip">Help Center</span>
-        <span class="chip">Knowledge Architecture</span>
-        <span class="chip">AI Agent Grounding</span>
-        <span class="chip">Deflection</span>
-        <span class="chip">Macros &amp; Governance</span>
-        <span class="chip">Reporting</span>
-      </div>
-      <p class="disclaimer">Narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts are shown.</p>
-    </section>
 
-    <section class="story" aria-label="US Door & More case">
-      <article class="card" id="use-cases-usdm">
-        <h2>Use Cases</h2>
-        <p>Centralize product guidance (sizes, handing, glass options, lead times), tame WISMO volume, and make the AI agent trustworthy. The goal: one place customers and agents both rely on — structured content the bot can cite, and macros that stop ad-hoc replies.</p>
-      </article>
+      <!-- ════════════ UNISON ════════════ -->
+      <div class="ss-panel" id="story-unison">
 
-      <article class="card" id="our-approach-usdm">
-        <h2>Our Approach</h2>
-        <p>We designed a help center that mirrors how shoppers decide: <em>Plan → Choose → Order → Track → Install → Warranty</em>. Each category used strict templates (Purpose, When to use, Steps, Specs, Edge cases, Links) so answers stay consistent.</p>
-        <p>Articles were tagged by intent (pre-purchase, order status, installation) and mapped to macros, so agents reply once with a canonical link instead of rewrites. The AI agent was grounded on this corpus and instructed to quote articles verbatim with links, not hallucinate.</p>
-        <p>We added form-based contact with required fields (order #, door series, glass family) to cut back-and-forth, and Explore views to track search-to-ticket and deflection by intent.</p>
-        <p class="pull"><strong>Translation:</strong> one knowledge spine, clean macros, AI that answers from source — not vibes.</p>
-      </article>
-
-      <article class="card" id="success-story-usdm">
-        <h2>Success Story</h2>
-        <p>Repeat “one-touch” questions (WISMO, sizing, handing) dropped materially once the AI agent was restricted to the help center and agents linked articles instead of rewriting. First-response quality improved, and leadership finally saw what customers searched before contacting support, which guided the next wave of articles.</p>
-      </article>
-    </section>
-        <!-- ===== Boutique de Sophie ===== -->
-    <section class="hero" id="boutique-de-sophie" style="top:0!important;margin-top:0!important;padding-top:0!important;position:relative!important;">
-      <div class="brand-row">
-        <div class="badge" aria-hidden="true">
-          <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie logo">
+        <div class="ss-brand-header">
+          <div class="ss-brand-header__top">
+            <div class="ss-brand-logo">
+              <img src="/assets/unison.png" alt="Unison">
+            </div>
+            <div class="ss-brand-header__info">
+              <div class="ss-brand-header__tag">Technology · Philippines · Zendesk</div>
+              <h2 class="ss-brand-header__title">Turning Email Chaos into Workflow Clarity</h2>
+              <p class="ss-brand-header__sub">Unison handled customer and branch coordination through Outlook. Zendesk existed but only as a logbook — real work still lived in email threads, so there was no visibility or accountability.</p>
+            </div>
+          </div>
+          <div class="ss-chips">
+            <span class="ss-chip">Workflow Design</span>
+            <span class="ss-chip">Zendesk Implementation</span>
+            <span class="ss-chip">Automation</span>
+            <span class="ss-chip">Help Center</span>
+            <span class="ss-chip">Efficiency</span>
+          </div>
         </div>
-        <div>
-          <h1>Boutique de Sophie — Scaling CX on a Budget Plan (EU Startup)</h1>
-          <p>Sales spiked; tickets, complaints, and disputes followed. The account was on a Support-tier plan, so no fancy enterprise add-ons. We had to ship scale with constraints — automate the boring, surface the risky, and give leadership a live view without buying new tools.</p>
+
+        <div class="ss-metrics">
+          <div class="ss-metric">
+            <div class="ss-metric__num">100%</div>
+            <div class="ss-metric__label">Tickets through single triaged queue</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">Zero</div>
+            <div class="ss-metric__label">Manual dispatch lag after automation</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">Full</div>
+            <div class="ss-metric__label">SLA & workload visibility for leadership</div>
+          </div>
         </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">01</div>
+            <h3 class="ss-section__title">Use Cases</h3>
+          </div>
+          <p>Centralize communications, impose a workflow, and make Zendesk the single source of truth. With tickets used purely for documentation, leadership lacked SLA visibility and teams relied on inbox muscle memory.</p>
+          <p>The job was to move conversations into Zendesk, enforce routing and ownership, and unlock reporting that reflects reality.</p>
+
+          <div class="ss-ba">
+            <div class="ss-ba__col ss-ba__col--before">
+              <div class="ss-ba__label">Before</div>
+              <ul class="ss-ba__list">
+                <li>All coordination happening inside Outlook</li>
+                <li>Zendesk used only as a logbook, not for real work</li>
+                <li>No SLA visibility or routing enforcement</li>
+                <li>Dispatch required manual follow-up every time</li>
+                <li>No searchable history or audit trail</li>
+              </ul>
+            </div>
+            <div class="ss-ba__col ss-ba__col--after">
+              <div class="ss-ba__label">After</div>
+              <ul class="ss-ba__list">
+                <li>All requests flow into a single triaged Zendesk queue</li>
+                <li>Triggers, automations, and macros enforce the protocol</li>
+                <li>Technical dispatch fully automated end-to-end</li>
+                <li>Branded Help Center deflects repeat requests</li>
+                <li>Searchable, auditable system of record for leadership</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">02</div>
+            <h3 class="ss-section__title">Our Approach</h3>
+          </div>
+          <p>Bring every conversation home to Zendesk — then codify the protocol in automations and macros. We integrated Unison's support email fully so all requests — customer or branch — enter a single triaged queue.</p>
+          <p>We designed triggers, automations, and macros to mirror Unison's protocol and enforce consistency. Technical dispatch was automated end-to-end using PDF generation and routing, removing manual follow-ups entirely.</p>
+          <div class="ss-quote">
+            <p>"Email chaos became structured workflows — automation handled the predictable, agents focused on the meaningful."</p>
+          </div>
+          <p>We rebuilt the Help Center to match Unison's brand and provide clear self-service paths, reducing repetitive requests and establishing a sane escalation path for complex cases.</p>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">03</div>
+            <h3 class="ss-section__title">Success Story</h3>
+          </div>
+          <p>Throughput improved dramatically with unified routing and macros, and dispatch lag vanished once automation took over. Teams that lived in Outlook moved into a searchable, auditable system of record — leadership finally had trustworthy SLA and workload views.</p>
+          <p>The branded Help Center deflected repeat questions and sharpened handoffs between departments.</p>
+        </div>
+
+        <div class="ss-cta">
+          <div class="ss-cta__text">
+            <h3>Still working out of email?</h3>
+            <p>We'll help you make Zendesk the real system of record — not just a logbook.</p>
+          </div>
+          <div class="ss-cta__btns">
+            <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+            <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+          </div>
+        </div>
+
+        <p class="ss-disclaimer">Process-level description only. No sensitive data or internal artifacts shown.</p>
       </div>
-      <div class="chips" aria-label="Themes">
-        <span class="chip">Shopify → Zendesk</span>
-        <span class="chip">Dispute Reduction</span>
-        <span class="chip">Automation &amp; Macros</span>
-        <span class="chip">Multilingual Support</span>
-        <span class="chip">Dashboards</span>
-        <span class="chip">Governance</span>
+
+      <!-- ════════════ US DOOR & MORE ════════════ -->
+      <div class="ss-panel" id="story-usdm">
+
+        <div class="ss-brand-header">
+          <div class="ss-brand-header__top">
+            <div class="ss-brand-logo">
+              <img src="/assets/doornmore.png" alt="US Door & More">
+            </div>
+            <div class="ss-brand-header__info">
+              <div class="ss-brand-header__tag">eCommerce · USA · Zendesk + AI</div>
+              <h2 class="ss-brand-header__title">From Scattered Answers to an AI-Aware Help Center</h2>
+              <p class="ss-brand-header__sub">High-consideration eCommerce means lots of pre-purchase questions and WISMO churn. Support lived across email threads, CMS notes, and tribal memory — agents rewrote the same answers and customers waited for basics.</p>
+            </div>
+          </div>
+          <div class="ss-chips">
+            <span class="ss-chip">Help Center</span>
+            <span class="ss-chip">Knowledge Architecture</span>
+            <span class="ss-chip">AI Agent Grounding</span>
+            <span class="ss-chip">Deflection</span>
+            <span class="ss-chip">Macros & Governance</span>
+            <span class="ss-chip">Reporting</span>
+          </div>
+        </div>
+
+        <div class="ss-metrics">
+          <div class="ss-metric">
+            <div class="ss-metric__num">↓ Vol</div>
+            <div class="ss-metric__label">WISMO & sizing tickets dropped materially</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">AI</div>
+            <div class="ss-metric__label">Bot grounded on verified help center content</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">1 spine</div>
+            <div class="ss-metric__label">Single knowledge source for agents + bot</div>
+          </div>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">01</div>
+            <h3 class="ss-section__title">Use Cases</h3>
+          </div>
+          <p>Centralize product guidance (sizes, handing, glass options, lead times), tame WISMO volume, and make the AI agent trustworthy. The goal: one place customers and agents both rely on — structured content the bot can cite, and macros that stop ad-hoc replies.</p>
+
+          <div class="ss-ba">
+            <div class="ss-ba__col ss-ba__col--before">
+              <div class="ss-ba__label">Before</div>
+              <ul class="ss-ba__list">
+                <li>Product knowledge scattered across email, CMS, and memory</li>
+                <li>Agents rewriting the same answers from scratch</li>
+                <li>AI bot hallucinating answers with no source content</li>
+                <li>No structured contact form — endless back-and-forth</li>
+                <li>No visibility into what customers searched before tickets</li>
+              </ul>
+            </div>
+            <div class="ss-ba__col ss-ba__col--after">
+              <div class="ss-ba__label">After</div>
+              <ul class="ss-ba__list">
+                <li>Structured help center: Plan → Choose → Order → Track → Install</li>
+                <li>Macros link to canonical articles — no more rewrites</li>
+                <li>AI bot grounded on help center, quotes with source links</li>
+                <li>Form fields require order #, door series, reason code</li>
+                <li>Explore views track search-to-ticket and deflection by intent</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">02</div>
+            <h3 class="ss-section__title">Our Approach</h3>
+          </div>
+          <p>We designed a help center that mirrors how shoppers decide: <em>Plan → Choose → Order → Track → Install → Warranty</em>. Each category used strict templates (Purpose, When to use, Steps, Specs, Edge cases, Links) so answers stay consistent regardless of who wrote the article.</p>
+          <p>Articles were tagged by intent (pre-purchase, order status, installation) and mapped to macros, so agents reply once with a canonical link instead of rewrites. The AI agent was grounded on this corpus and instructed to quote articles verbatim with links, not hallucinate.</p>
+          <div class="ss-quote">
+            <p>"One knowledge spine, clean macros, AI that answers from source — not vibes."</p>
+          </div>
+          <p>We added form-based contact with required fields (order #, door series, glass family) to cut back-and-forth, and Explore views to track search-to-ticket conversion and deflection by intent.</p>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">03</div>
+            <h3 class="ss-section__title">Success Story</h3>
+          </div>
+          <p>Repeat "one-touch" questions (WISMO, sizing, handing) dropped materially once the AI agent was restricted to the help center and agents linked articles instead of rewriting. First-response quality improved consistently.</p>
+          <p>Leadership finally saw what customers searched before contacting support — which guided the next wave of articles and reduced ticket creation at the source.</p>
+        </div>
+
+        <div class="ss-cta">
+          <div class="ss-cta__text">
+            <h3>Is your AI bot guessing?</h3>
+            <p>We build the knowledge spine that makes AI actually trustworthy.</p>
+          </div>
+          <div class="ss-cta__btns">
+            <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+            <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+          </div>
+        </div>
+
+        <p class="ss-disclaimer">Narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts shown.</p>
       </div>
-      <p class="disclaimer">Generalized narrative; no live data or private artifacts are shown.</p>
-    </section>
 
-    <section class="story" aria-label="Boutique de Sophie case">
-      <article class="card" id="use-cases-bds">
-        <h2>Use Cases</h2>
-        <p>Stabilize CX during a demand surge: cut one-touch noise, prevent avoidable chargebacks, and shorten the dispute cycle. Give agents canonical answers in multiple languages, enforce SLAs, and give leadership a real-time dashboard without upgrading plans.</p>
-      </article>
+      <!-- ════════════ BOUTIQUE DE SOPHIE ════════════ -->
+      <div class="ss-panel" id="story-bds">
 
-      <article class="card" id="our-approach-bds">
-        <h2>Our Approach</h2>
-        <p><strong>Wire the context in:</strong> used Shopify APIs and available Zendesk endpoints to inject orders, payment status, fulfillment events, and RMA flags directly into tickets. Built a lightweight middleware to <em>proactively</em> create tickets on risk signals (failed capture, carrier exception, refund request keywords) so we control the narrative before it becomes a chargeback.</p>
-        <p><strong>Make answers instant, in any language:</strong> codified macros per intent (WISMO, sizing, returns, refund timing) with translation variants; triggers apply locale based on Shopify shipping country or customer language and auto-tag by intent for reporting.</p>
-        <p><strong>Enforce flow, not vibes:</strong> added form-based contact with required fields (order #, gateway, SKU, reason codes) to kill the back-and-forth. SLA policies by queue; automations escalate aging “financial risk” tickets to a disputes lane with a checklist.</p>
-        <p><strong>Dashboards without new spend:</strong> Apps Script → incremental ticket sync to Sheets → Looker Studio. Views for FRT/AHT/CSAT, refund rate by intent, pre-dispute outreach, and disputes by gateway/carrier. Scheduled snapshots for month-end.</p>
-        <p><strong>Playbooks that stick:</strong> wrote the KPI set, Customer Care SOP, and a Disputes SOP (evidence packs, timelines per processor, response macros, win-rate tracking). Governance kept forms/fields/macros from turning into spaghetti.</p>
-        <p class="pull"><strong>Translation:</strong> connect the data, pre-empt the problems, standardize the reply, measure the fallout — all on a Support plan.</p>
-      </article>
+        <div class="ss-brand-header">
+          <div class="ss-brand-header__top">
+            <div class="ss-brand-logo">
+              <img src="/assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+            </div>
+            <div class="ss-brand-header__info">
+              <div class="ss-brand-header__tag">eCommerce · Europe · Zendesk Support Plan</div>
+              <h2 class="ss-brand-header__title">Scaling CX on a Budget Plan</h2>
+              <p class="ss-brand-header__sub">Sales spiked; tickets, complaints, and disputes followed. On a Support-tier plan with no enterprise add-ons, we had to ship scale with constraints — automate the boring, surface the risky, and give leadership a live view without buying new tools.</p>
+            </div>
+          </div>
+          <div class="ss-chips">
+            <span class="ss-chip">Shopify → Zendesk</span>
+            <span class="ss-chip">Dispute Reduction</span>
+            <span class="ss-chip">Automation & Macros</span>
+            <span class="ss-chip">Multilingual</span>
+            <span class="ss-chip">Dashboards</span>
+            <span class="ss-chip">Governance</span>
+          </div>
+        </div>
 
-      <article class="card" id="success-story-bds">
-        <h2>Success Story</h2>
-        <p>Total disputes trended down by <strong>~25–35%</strong> (net ≈ <strong>−30%</strong>) as pre-dispute outreach and clean evidence packs kicked in. KPIs became visible daily via Looker Studio; agents spent less time copy-pasting thanks to macros/triggers/automations and translation variants. Leadership finally saw where disputes were born (intent → gateway → carrier), and we tuned content to deflect more of them.</p>
-      </article>
-    </section>
-  </main>
+        <div class="ss-metrics">
+          <div class="ss-metric">
+            <div class="ss-metric__num">~30%</div>
+            <div class="ss-metric__label">Net reduction in total disputes</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">Live</div>
+            <div class="ss-metric__label">Looker Studio dashboards — no new spend</div>
+          </div>
+          <div class="ss-metric">
+            <div class="ss-metric__num">Multi</div>
+            <div class="ss-metric__label">Language macro variants auto-applied by locale</div>
+          </div>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">01</div>
+            <h3 class="ss-section__title">Use Cases</h3>
+          </div>
+          <p>Stabilize CX during a demand surge: cut one-touch noise, prevent avoidable chargebacks, and shorten the dispute cycle. Give agents canonical answers in multiple languages, enforce SLAs, and give leadership a real-time dashboard — all without upgrading the plan.</p>
+
+          <div class="ss-ba">
+            <div class="ss-ba__col ss-ba__col--before">
+              <div class="ss-ba__label">Before</div>
+              <ul class="ss-ba__list">
+                <li>Disputes rising with no early-warning system</li>
+                <li>Agents writing different answers in every language</li>
+                <li>No Shopify order context inside tickets</li>
+                <li>No dashboard — leadership flying blind on KPIs</li>
+                <li>Chargebacks escalating before CX could intervene</li>
+              </ul>
+            </div>
+            <div class="ss-ba__col ss-ba__col--after">
+              <div class="ss-ba__label">After</div>
+              <ul class="ss-ba__list">
+                <li>Pre-dispute tickets auto-created on risk signals</li>
+                <li>Macro library with translation variants per locale</li>
+                <li>Shopify orders, payment status, RMA flags in every ticket</li>
+                <li>Looker Studio dashboard for FRT, CSAT, disputes by gateway</li>
+                <li>Disputes SOP with evidence packs and timeline by processor</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">02</div>
+            <h3 class="ss-section__title">Our Approach</h3>
+          </div>
+          <p><strong style="color:#fff">Wire the context in:</strong> used Shopify APIs and available Zendesk endpoints to inject orders, payment status, fulfillment events, and RMA flags directly into tickets. Built a lightweight middleware to proactively create tickets on risk signals (failed capture, carrier exception, refund request keywords) so we control the narrative before it becomes a chargeback.</p>
+          <p><strong style="color:#fff">Make answers instant, in any language:</strong> codified macros per intent (WISMO, sizing, returns, refund timing) with translation variants. Triggers apply locale based on Shopify shipping country and auto-tag by intent for reporting.</p>
+          <div class="ss-quote">
+            <p>"Connect the data, pre-empt the problems, standardize the reply, measure the fallout — all on a Support plan."</p>
+          </div>
+          <p><strong style="color:#fff">Dashboards without new spend:</strong> Apps Script → incremental ticket sync to Sheets → Looker Studio. Views for FRT/AHT/CSAT, refund rate by intent, pre-dispute outreach, and disputes by gateway/carrier. Scheduled snapshots for month-end.</p>
+        </div>
+
+        <div class="ss-section">
+          <div class="ss-section__header">
+            <div class="ss-section__num">03</div>
+            <h3 class="ss-section__title">Success Story</h3>
+          </div>
+          <p>Total disputes trended down by <strong style="color:#fff">~25–35%</strong> (net ≈ <strong style="color:var(--green2)">−30%</strong>) as pre-dispute outreach and clean evidence packs kicked in. KPIs became visible daily via Looker Studio — agents spent less time copy-pasting thanks to macros, triggers, automations, and translation variants.</p>
+          <p>Leadership finally saw where disputes were born (intent → gateway → carrier), and we tuned content to deflect more of them at the source.</p>
+        </div>
+
+        <div class="ss-cta">
+          <div class="ss-cta__text">
+            <h3>Disputes climbing? Volume spiking?</h3>
+            <p>We build the systems that get ahead of the problems — before they become chargebacks.</p>
+          </div>
+          <div class="ss-cta__btns">
+            <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+            <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+          </div>
+        </div>
+
+        <p class="ss-disclaimer">Generalized narrative. No live data or private artifacts are shown.</p>
+      </div>
+
+    </div>
+  </div>
 
   <div id="footer"></div>
-
   <script>
-    fetch("/footer.html")
-      .then(r=>r.text())
-      .then(h=>document.getElementById("footer").innerHTML=h);
+    fetch("/footer.html").then(r => r.text()).then(h => document.getElementById("footer").innerHTML = h);
   </script>
 
   <script>
-    (function(){
-      const q=new URLSearchParams(location.search).get("s");
-      if(!q) return;
-      history.replaceState(null,"","#"+q);
-      const el=document.getElementById(q);
-      if(el) el.scrollIntoView({behavior:"instant",block:"start"});
+    (function () {
+      const navItems = document.querySelectorAll('.ss-nav__item');
+      const panels   = document.querySelectorAll('.ss-panel');
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const target = item.dataset.story;
+
+          navItems.forEach(n => n.classList.remove('is-active'));
+          panels.forEach(p => p.classList.remove('is-active'));
+
+          item.classList.add('is-active');
+          const panel = document.getElementById('story-' + target);
+          if (panel) panel.classList.add('is-active');
+        });
+      });
+
+      const q = new URLSearchParams(location.search).get('s');
+      if (q) {
+        const match = document.querySelector('[data-story="' + q + '"]');
+        if (match) {
+          match.click();
+          history.replaceState(null, '', '#' + q);
+        }
+      }
     })();
   </script>
 
-  <script src="/js/main.js?v=215" defer></script>
-
   <script>
-    (function normalizeHeader(){
+    (function normalizeHeader() {
       const ready = () => {
         const hdr =
           document.querySelector('#site-header header') ||
           document.querySelector('.site-header') ||
           document.querySelector('header.site-header');
-
         if (!hdr) return false;
         ['is-home','home','transparent','is-transparent','overlay','floating','at-top'].forEach(c => hdr.classList.remove(c));
-        hdr.style.position = 'fixed';
-        hdr.style.top = '0';
-        hdr.style.left = '0';
-        hdr.style.right = '0';
-        hdr.style.background = 'rgba(13,15,18,.95)';
+        hdr.style.position      = 'fixed';
+        hdr.style.top           = '0';
+        hdr.style.left          = '0';
+        hdr.style.right         = '0';
+        hdr.style.background    = 'rgba(13,15,18,.95)';
         hdr.style.backdropFilter = 'saturate(140%) blur(8px)';
-        hdr.style.boxShadow = '0 8px 24px rgba(0,0,0,.35)';
-        hdr.style.zIndex = '1000';
+        hdr.style.boxShadow     = '0 8px 24px rgba(0,0,0,.35)';
+        hdr.style.zIndex        = '1000';
         document.body.classList.remove('is-home');
         return true;
       };
       window.addEventListener('load', () => {
         if (ready()) return;
         const obs = new MutationObserver(() => { if (ready()) obs.disconnect(); });
-        obs.observe(document.getElementById('site-header'), { childList:true, subtree:true });
+        obs.observe(document.getElementById('site-header'), { childList: true, subtree: true });
       });
     })();
   </script>
+
+  <script src="/js/main.js?v=215" defer></script>
 </body>
 </html>
