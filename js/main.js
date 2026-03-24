@@ -5,7 +5,7 @@ document.documentElement.classList.add("js");
 
 // ---------------------- PARTIALS: HEADER / FOOTER ----------------------
 document.addEventListener("DOMContentLoaded", () => {
-  const headerMount = document.getElementById("site-header");
+  const headerMount = document.getElementById("header-mount");
   if (headerMount) {
     fetch("/partials/header.html")
       .then((r) => {
