@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.2 });
 
     els.forEach((el) => io.observe(el));
-  } catch {
+  } catch (err) {
     els.forEach((el) => el.classList.add("is-visible"));
   }
 })();
@@ -74,15 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
       className: "success-dots",
     });
 
-  if (!root.querySelector("#successDots")) root.appendChild(dotsWrap);
+  if (!root.querySelector("#successDots")) {
+    root.appendChild(dotsWrap);
+  }
 
   const slides = Array.from(track.children).filter((s) =>
     s.classList.contains("success-slide")
   );
   if (!slides.length) return;
 
-  let idx = 0,
-    timer = null;
+  let idx = 0;
+  let timer = null;
   const INTERVAL = 6000;
 
   const reduced =
@@ -90,15 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setActive(i) {
     slides.forEach((s, j) => s.classList.toggle("is-active", j === i));
-    Array.from(dotsWrap.children).forEach((d, j) =>
-      d.classList.toggle("active", j === i)
-    );
+    Array.from(dotsWrap.children).forEach((d, j) => {
+      d.classList.toggle("active", j === i);
+    });
   }
 
-  function go(i, user) {
+  function go(i, userTriggered) {
     idx = (i + slides.length) % slides.length;
     setActive(idx);
-    if (user) restart();
+    if (userTriggered) restart();
   }
 
   function buildDots() {
@@ -109,14 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
       )
       .join("");
 
-    Array.from(dotsWrap.children).forEach((dot, j) =>
-      dot.addEventListener("click", () => go(j, true))
-    );
+    Array.from(dotsWrap.children).forEach((dot, j) => {
+      dot.addEventListener("click", () => go(j, true));
+    });
   }
 
   function start() {
     if (reduced) return;
-    timer = setInterval(() => go(idx + 1), INTERVAL);
+    timer = setInterval(() => go(idx + 1, false), INTERVAL);
   }
 
   function stop() {
@@ -132,4 +134,3 @@ document.addEventListener("DOMContentLoaded", () => {
   setActive(idx);
   start();
 })();
-
