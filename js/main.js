@@ -303,6 +303,7 @@ function bindNonHeroOffset() {
       normalized === '/personalized-specs'
     ) {
       e.preventDefault();
+      console.log('SPEC INTERCEPTED', normalized);
       openSpecModal();
     }
   });
