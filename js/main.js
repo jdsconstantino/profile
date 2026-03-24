@@ -272,3 +272,49 @@ function bindNonHeroOffset() {
   window.addEventListener("resize", applyOffset);
   if ("ResizeObserver" in window) new ResizeObserver(applyOffset).observe(header);
 }
+<script>
+(function () {
+  const modal = document.getElementById('specModal');
+  if (!modal) return;
+
+  function openSpecModal() {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSpecModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    const normalized = href.trim();
+
+    if (
+      normalized === '/personalized-specs/' ||
+      normalized === '/personalized-specs'
+    ) {
+      e.preventDefault();
+      openSpecModal();
+    }
+  });
+
+  modal.querySelectorAll('[data-spec-close]').forEach((el) => {
+    el.addEventListener('click', closeSpecModal);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeSpecModal();
+    }
+  });
+})();
+</script>
