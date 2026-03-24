@@ -45,7 +45,6 @@
       min-height: 100vh;
     }
 
-    /* ── PAGE HERO ─────────────────────────────────── */
     .ss-hero {
       position: relative;
       padding: 120px 24px 72px;
@@ -107,7 +106,6 @@
       margin: 0 auto;
     }
 
-    /* ── SPLIT LAYOUT ──────────────────────────────── */
     .ss-layout {
       display: grid;
       grid-template-columns: var(--sidebar-w) 1fr;
@@ -118,7 +116,6 @@
       align-items: start;
     }
 
-    /* ── LEFT SIDEBAR ──────────────────────────────── */
     .ss-sidebar {
       position: sticky;
       top: 100px;
@@ -224,7 +221,6 @@
       box-shadow: 0 0 6px var(--green2);
     }
 
-    /* ── RIGHT CONTENT PANELS ──────────────────────── */
     .ss-panels {
       min-width: 0;
     }
@@ -241,7 +237,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Brand header */
     .ss-brand-header {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -341,7 +336,6 @@
       font-weight: 600;
     }
 
-    /* Metrics strip */
     .ss-metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -392,7 +386,6 @@
       line-height: 1.4;
     }
 
-    /* Sections */
     .ss-section {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -440,7 +433,6 @@
 
     .ss-section p:last-child { margin-bottom: 0; }
 
-    /* Pullout quote */
     .ss-quote {
       margin: 16px 0;
       padding: 18px 20px 18px 24px;
@@ -458,7 +450,6 @@
       line-height: 1.6;
     }
 
-    /* Before / After */
     .ss-ba {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -521,7 +512,6 @@
     .ss-ba__col--before .ss-ba__list li::before { background: rgba(220,80,80,0.7); }
     .ss-ba__col--after  .ss-ba__list li::before { background: var(--green); }
 
-    /* Disclaimer */
     .ss-disclaimer {
       font-size: 0.78rem;
       color: var(--muted);
@@ -529,7 +519,6 @@
       padding: 0 4px;
     }
 
-    /* CTA */
     .ss-cta {
       display: flex;
       align-items: center;
@@ -593,7 +582,6 @@
     }
     .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.45); transform: translateY(-1px); }
 
-    /* ── RESPONSIVE ────────────────────────────────── */
     @media (max-width: 960px) {
       .ss-layout {
         grid-template-columns: 1fr;
@@ -666,7 +654,6 @@
 
   <div class="ss-layout">
 
-    <!-- ── LEFT: Brand navigation ── -->
     <aside class="ss-sidebar">
       <div class="ss-sidebar__label">Case Studies</div>
       <nav class="ss-nav" aria-label="Success stories navigation">
@@ -718,10 +705,8 @@
       </nav>
     </aside>
 
-    <!-- ── RIGHT: Story panels ── -->
     <div class="ss-panels">
 
-      <!-- ════════════ PALAWANPAY ════════════ -->
       <div class="ss-panel is-active" id="story-palawanpay">
 
         <div class="ss-brand-header">
@@ -828,7 +813,6 @@
         <p class="ss-disclaimer">This narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts are shown.</p>
       </div>
 
-      <!-- ════════════ UNISON ════════════ -->
       <div class="ss-panel" id="story-unison">
 
         <div class="ss-brand-header">
@@ -934,7 +918,6 @@
         <p class="ss-disclaimer">Process-level description only. No sensitive data or internal artifacts shown.</p>
       </div>
 
-      <!-- ════════════ US DOOR & MORE ════════════ -->
       <div class="ss-panel" id="story-usdm">
 
         <div class="ss-brand-header">
@@ -1040,7 +1023,6 @@
         <p class="ss-disclaimer">Narrative uses generalized language and ranges to respect privacy. No live data or internal artifacts shown.</p>
       </div>
 
-      <!-- ════════════ BOUTIQUE DE SOPHIE ════════════ -->
       <div class="ss-panel" id="story-bds">
 
         <div class="ss-brand-header">
@@ -1230,6 +1212,53 @@
     </div>
   </div>
 
-</body>
+  <script>
+    (function () {
+      const modal = document.getElementById('specModal');
+      if (!modal) return;
+
+      function openSpecModal() {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSpecModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', function (e) {
+        const link = e.target.closest('a[href]');
+        if (!link) return;
+
+        const href = (link.getAttribute('href') || '').trim();
+        console.log('CLICKED HREF:', href);
+
+        if (
+          href === '/personalized-specs/' ||
+          href === '/personalized-specs' ||
+          href === 'https://deskxp.com/personalized-specs/' ||
+          href === 'https://deskxp.com/personalized-specs'
+        ) {
+          e.preventDefault();
+          console.log('SPEC INTERCEPTED');
+          openSpecModal();
+        }
+      });
+
+      modal.querySelectorAll('[data-spec-close]').forEach((el) => {
+        el.addEventListener('click', closeSpecModal);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeSpecModal();
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
