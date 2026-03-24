@@ -1,394 +1,274 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Personalized Specs — DeskXP</title>
-  <meta name="description" content="Pick the services you need, add your details, and I’ll email you a tailored CX plan." />
+// ======================= DeskXP main.js (v216) =======================
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#0d0f12">
+// Enable .js gate for reveal transitions
+document.documentElement.classList.add("js");
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=210">
+// -------------------- YEAR ----------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const y = document.getElementById("y");
+  if (y) y.textContent = new Date().getFullYear();
+});
 
-  <style>
-  body {
-    background: #1b272e;
-    color: #e6e9ef;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    line-height: 1.7;
-    letter-spacing: -0.01em;
-  }
-  main {
-    max-width: 860px;
-    margin: 80px auto 120px;
-    background: #14181d;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 20px;
-    padding: 56px 60px;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-  }
-  h1 { font-size: 2.4rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
-  h2 { color: #007236; font-size: 1.15rem; font-weight: 700; margin: 28px 0 8px; }
-  p, li { font-size: 1rem; color: #c9d1d9; margin-bottom: 14px; }
-  a { color: #00b858; text-decoration: none; font-weight: 500; }
-  a:hover { text-decoration: underline; }
-  strong { color: #ffffff; font-weight: 600; }
-  .hint { color:#9aa3ad; font-size:.95rem; margin-top:-6px; }
-
-  .pillset { display:flex; flex-wrap:wrap; gap:10px; }
-  .pill {
-    position: relative;
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:10px 14px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-    color:#e6e9ef; font-weight:700; cursor:pointer; user-select:none;
-    transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease, color .15s ease;
-    outline: none;
-  }
-  .pill input { position:absolute; inset:0; opacity:0; pointer-events:none; }
-  .pill:hover { transform: translateY(-1px); background: rgba(0,114,54,.15); border-color: rgba(0,255,153,.40); }
-  .pill:active { transform: scale(0.96); }
-  .pill:has(input:focus-visible) { box-shadow: 0 0 0 2px rgba(0,184,88,.45), 0 0 0 6px rgba(0,184,88,.18); }
-  .pill:has(input:checked) {
-    background: linear-gradient(135deg, rgba(0,184,88,.35), rgba(0,114,54,.55));
-    border-color: #00b858; color: #eafff4;
-    box-shadow: 0 0 0 2px rgba(0,184,88,.25), 0 0 12px rgba(0,184,88,.35);
-  }
-  .pill:has(input:checked)::before {
-    content:""; width:8px;height:8px;border-radius:50%;
-    background:#00e08a; margin-right:8px; box-shadow: 0 0 8px rgba(0,224,138,.6);
-  }
-
-  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-  .full { grid-column: 1 / -1; }
-  .form-field { display:flex; flex-direction:column; gap:6px; }
-  .form-field label { font-weight:700; color:#e6e9ef; }
-  .form-field input, .form-field textarea {
-    background: rgba(0,0,0,.25); color: #e6e9ee;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px; padding: 12px 14px;
-  }
-  textarea { resize: vertical; min-height: 120px; }
-
-  .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; justify-content:center; }
-  .btn {
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:12px 18px; border-radius:12px; font-weight:800; border:0; cursor:pointer;
-    position: relative; transition: transform .08s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
-  }
-  .btn:active { transform: translateY(1px); }
-  .btn-primary { background:#007236; color:#fff; }
-  .btn-primary:hover { background:#0a8b47; box-shadow: 0 6px 18px rgba(0,184,88,.25); }
-  .btn-ghost { background:transparent; color:#e6e9ef; border:1px solid rgba(255,255,255,.18); }
-  .btn-ghost:hover { border-color:#00b858; background: rgba(0,184,88,.08); }
-
-  .btn[disabled] { opacity: .85; cursor: not-allowed; box-shadow: none; }
-  .btn[disabled]::after {
-    content: ""; width: 16px; height: 16px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,.45); border-top-color: #fff;
-    position: absolute; right: 12px; animation: spin .7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .step { display:none; }
-  .step.active { display:block; animation: fadeIn .25s ease-in; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  #formMsg { color:#c9d1d9; }
-
-  #success { display:none; }
-  #success.active { display:block; animation: fadeIn .4s ease-in; }
-  .success-card {
-    background:#0f1419; border:1px solid rgba(0, 255, 153, 0.18);
-    border-radius:16px; padding:28px;
-    box-shadow: 0 12px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
-    text-align:center;
-  }
-  .check { width:56px;height:56px;border-radius:50%; background:#0a2d1a;border:1px solid rgba(0,255,153,.35);
-    display:flex;align-items:center;justify-content:center;margin:0 auto 12px; }
-  .check svg { width:28px;height:28px; }
-
-  /* Success button fade-in */
-  #successActions { opacity:0; transition: opacity .4s ease; }
-  #successActions.visible { opacity:1; }
-
-  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-
-  /* Keep Google’s bubble above everything */
-  .grecaptcha-badge,
-  .grecaptcha-bubble,
-  .grecaptcha-bubble-arrow { position: fixed !important; z-index: 2147483647 !important; }
-  html, body, main, form, .captcha-wrap { overflow: visible !important; transform: none !important; perspective: none !important; filter: none !important; }
-  #site-header { position: relative !important; z-index: 1000 !important; }
-
-  @media (max-width: 700px) {
-    main { padding: 32px 24px; margin: 60px auto; }
-    h1 { font-size: 2rem; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .pillset { justify-content: center; }
-  }
-  </style>
-</head>
-
-<body>
-  <div id="site-header"></div>
-
-  <main>
-    <h1 id="pageTitle">Personalized Specs</h1>
-    <p class="hint">Choose your scope → share your details → get a custom CX rollout plan.</p>
-
-    <!-- FORM -->
-    <form id="specForm" autocomplete="on" novalidate>
-      <input type="text" id="website" name="website" style="display:none!important" tabindex="-1" autocomplete="off" />
-
-      <!-- STEP 1 -->
-      <section class="step active" id="step1">
-        <h2>Select services you need</h2>
-        <p class="hint">Multi-select.</p>
-        <div class="pillset" id="servicesPills">
-          <label class="pill"><input type="checkbox" name="services" value="CX End to End management">CX End to End management</label>
-          <label class="pill"><input type="checkbox" name="services" value="Zendesk onboarding">Zendesk onboarding</label>
-          <label class="pill"><input type="checkbox" name="services" value="Zendesk optimization">Zendesk optimization</label>
-          <label class="pill"><input type="checkbox" name="services" value="Zendesk omnichannel integration">Zendesk omnichannel integration</label>
-          <label class="pill"><input type="checkbox" name="services" value="Dashboard">Dashboard</label>
-          <label class="pill"><input type="checkbox" name="services" value="Integration and automation">Integration and automation</label>
-          <label class="pill"><input type="checkbox" name="services" value="AI Agents">AI Agents</label>
-          <label class="pill"><input type="checkbox" name="services" value="QA and CSAT">QA and CSAT</label>
-          <label class="pill"><input type="checkbox" name="services" value="Zendesk Guide">Zendesk Guide</label>
-        </div>
-
-        <h2>Select your team size</h2>
-        <p class="hint">Pick one.</p>
-        <div class="pillset" id="sizePills">
-          <label class="pill"><input type="radio" name="team_size" value="1-10">1–10</label>
-          <label class="pill"><input type="radio" name="team_size" value="11-30">11–30</label>
-          <label class="pill"><input type="radio" name="team_size" value="31-50">31–50</label>
-          <label class="pill"><input type="radio" name="team_size" value="50-100">50–100</label>
-          <label class="pill"><input type="radio" name="team_size" value="100+">100+</label>
-        </div>
-
-        <div class="actions">
-          <button type="button" class="btn btn-primary" id="btnNext">Next</button>
-        </div>
-      </section>
-
-      <!-- STEP 2 -->
-      <section class="step" id="step2">
-        <h2>Your details</h2>
-        <div class="grid-2">
-          <div class="form-field">
-            <label for="name">Full Name *</label>
-            <input type="text" id="name" name="name" placeholder="Jane Doe" required>
-          </div>
-          <div class="form-field">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required>
-          </div>
-          <div class="form-field full">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX">
-          </div>
-          <div class="form-field full">
-            <label for="details">Project details / anything else</label>
-            <textarea id="details" name="details" placeholder="Tell me about your project, goals, or pain points..."></textarea>
-          </div>
-        </div>
-
-        <div class="captcha-wrap">
-          <small class="hint">AI’s cool. Bot’s not. 😭</small><br>
-          <small class="hint">Protected by reCAPTCHA —
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a> ·
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
-          </small>
-        </div>
-
-        <div class="actions">
-          <button type="button" class="btn btn-ghost" id="btnBack">Back</button>
-          <button type="button" class="btn btn-primary" id="submitBtn">Send Request</button>
-        </div>
-        <p id="formMsg" class="hint" role="status" aria-live="polite"></p>
-      </section>
-    </form>
-
-    <!-- SUCCESS -->
-    <section id="success">
-      <div class="success-card">
-        <div class="check">
-          <svg viewBox="0 0 24 24" fill="#00b858"><path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20 8l-1.4-1.4z"/></svg>
-        </div>
-        <h2>Request received</h2>
-        <p>Thanks <span id="confName">there</span> — We'll get back to you with your tailored plan.</p>
-        <div class="actions" id="successActions">
-          <a href="/" class="btn btn-primary">← Back to Homepage</a>
-        </div>
-      </div>
-    </section>
-
-    <p class="hint" style="margin-top:18px">By submitting, you agree to be contacted about your project. No spam. No BS.</p>
-  </main>
-
-  <div id="footer"></div>
-  <script>
-    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
-  </script>
-
-  <script>
-  const ENDPOINT="https://script.google.com/macros/s/AKfycbyjgKsK_Ug0XHWaZHk3KxnjX3UOzsPJ7AdxhlsUjmb-JiN7nbgIj-I2Uq-Cz8kaodxhtg/exec";
-  const SECRET="deskxp_spec_2025";
-  const SITE_KEY_V2="6LfDE_ErAAAAABZ3C8_grioLU9BD2CyFtVmhbUXs";
-
-  const form=document.getElementById('specForm'),
-        msg=document.getElementById('formMsg'),
-        step1=document.getElementById('step1'),
-        step2=document.getElementById('step2'),
-        btnNext=document.getElementById('btnNext'),
-        btnBack=document.getElementById('btnBack'),
-        submitBtn=document.getElementById('submitBtn'),
-        success=document.getElementById('success'),
-        confName=document.getElementById('confName'),
-        emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  let recaptchaWidgetId=null;
-
-  window.recaptchaReady=new Promise(resolve=>{
-    window.onRecaptchaLoad=function(){
-      recaptchaWidgetId=grecaptcha.render('recaptcha-root',{
-        sitekey:SITE_KEY_V2,
-        size:'invisible',
-        badge:'bottomright',
-        callback:onCaptchaOK,
-        'error-callback':onCaptchaError
+// -------------------- Reveal on scroll ----------------------
+(() => {
+  const els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  try {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add("is-visible");
+          io.unobserve(en.target);
+        }
       });
-      resolve();
-    };
-  });
+    }, { threshold: 0.2 });
+    els.forEach((el) => io.observe(el));
+  } catch {
+    els.forEach((el) => el.classList.add("is-visible"));
+  }
+})();
 
-  btnNext.onclick=()=>{
-    const s=document.querySelectorAll('input[name="services"]:checked').length;
-    const t=document.querySelector('input[name="team_size"]:checked');
-    if(!s) return alert("Pick at least one service.");
-    if(!t) return alert("Pick a team size.");
-    step1.classList.remove("active");
-    step2.classList.add("active");
-    document.getElementById("name").focus();
+// -------------------- Success slider (stable) ------------------------
+(() => {
+  const root = document.getElementById("success");
+  if (!root) return;
+  const track = root.querySelector("#successTrack");
+  if (!track) return;
+
+  const dotsWrap =
+    root.querySelector("#successDots") ||
+    Object.assign(document.createElement("div"), {
+      id: "successDots",
+      className: "success-dots",
+    });
+  if (!root.querySelector("#successDots")) root.appendChild(dotsWrap);
+
+  const slides = Array.from(track.children).filter((s) =>
+    s.classList.contains("success-slide")
+  );
+  if (!slides.length) return;
+
+  let idx = 0, timer = null;
+  const INTERVAL = 6000;
+  const reduced =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
+
+  function setActive(i) {
+    slides.forEach((s, j) => s.classList.toggle("is-active", j === i));
+    Array.from(dotsWrap.children).forEach((d, j) =>
+      d.classList.toggle("active", j === i)
+    );
+  }
+  function go(i, user) {
+    idx = (i + slides.length) % slides.length;
+    setActive(idx);
+    if (user) restart();
+  }
+  function buildDots() {
+    dotsWrap.innerHTML = slides
+      .map((_, i) => `<button aria-label="Go to slide ${i + 1}" type="button"></button>`)
+      .join("");
+    Array.from(dotsWrap.children).forEach((dot, j) =>
+      dot.addEventListener("click", () => go(j, true))
+    );
+    dotsWrap.children[0]?.classList.add("active");
+  }
+  function start() {
+    if (!reduced) {
+      stop();
+      timer = setInterval(() => go(idx + 1, false), INTERVAL);
+    }
+  }
+  function stop() { if (timer) clearInterval(timer), (timer = null); }
+  function restart() { stop(); start(); }
+
+  buildDots();
+  setActive(0);
+  start();
+  track.addEventListener("mouseenter", stop);
+  track.addEventListener("mouseleave", start);
+})();
+
+// ================== HEADER: mount + fetch + bind ==================
+(async function mountHeader() {
+  // Safety style: ANY curtain not open is inert everywhere.
+  const safety = document.createElement("style");
+  safety.textContent = `
+    .curtain:not(.open) {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  `;
+  document.head.appendChild(safety);
+
+  const mount = ensureHeaderMount(); // #header-mount (creates if missing)
+  const html = await fetchHeaderHTML();
+  mount.innerHTML = html;
+
+  bindCurtainMenu();
+  bindHeaderTransparency();   // hero → transparent vs solid
+  bindNonHeroOffset();        // pages without hero → push content down
+})();
+
+// Ensure a mount exists at the very top of <body>
+function ensureHeaderMount() {
+  let el = document.getElementById("header-mount");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "header-mount";
+    document.body.insertBefore(el, document.body.firstChild);
+  }
+  return el;
+}
+
+// Try to fetch /partials/header.html; fallback to minimal header if 404/blocked
+async function fetchHeaderHTML() {
+  const bust = `?v=${Date.now()}`;
+  const candidates = [
+    `/partials/header.html${bust}`,
+    new URL(`./partials/header.html${bust}`, window.location.href).href,
+  ];
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res.ok) return await res.text();
+    } catch {}
+  }
+  console.warn("Header partial not found — using inline fallback");
+  return `
+<nav class="nav-wrap transparent" role="navigation" aria-label="Primary">
+  <div class="nav">
+    <a class="brand" href="/" aria-label="DeskXP Home">
+      <img src="/assets/logo.png" alt="DeskXP" width="120" height="32" />
+    </a>
+    <a href="#" id="cdMenuTrigger" class="cd-primary-nav-trigger" aria-label="Toggle menu" aria-controls="navCurtain" aria-expanded="false">
+      <span class="cd-menu-text">Menu</span><span class="cd-menu-icon" aria-hidden="true"><i></i></span>
+    </a>
+  </div>
+  <div id="navCurtain" class="curtain" hidden>
+    <div class="curtain-inner">
+      <ul class="curtain-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/#success">Success Stories</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="https://calendly.com/deskxp/30min">Book a Call</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>`;
+}
+
+// ---------------- Curtain behaviour + offset handling ----------------
+function bindCurtainMenu() {
+  const trigger = document.getElementById("cdMenuTrigger");
+  const curtain = document.getElementById("navCurtain");
+  if (!trigger || !curtain) return;
+
+  const links = curtain.querySelectorAll("a");
+
+  const open = () => {
+    trigger.classList.add("is-open");
+    trigger.setAttribute("aria-expanded", "true");
+    curtain.hidden = false;           // expose element
+    void curtain.offsetHeight;        // force reflow
+    curtain.classList.add("open");    // visible + interactive via CSS
+    document.documentElement.classList.add("no-scroll");
+    adjustCurtainOffset();
+  };
+  const close = () => {
+    trigger.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", "false");
+    curtain.classList.remove("open");
+    document.documentElement.classList.remove("no-scroll");
+    setTimeout(() => { curtain.hidden = true; }, 260);
   };
 
-  btnBack.onclick=()=>{
-    step2.classList.remove("active");
-    step1.classList.add("active");
-  };
+  // Start CLOSED
+  close();
 
-  submitBtn.addEventListener('click',async e=>{
+  trigger.addEventListener("click", (e) => {
     e.preventDefault();
-    msg.textContent="";
-    if((document.getElementById("website").value||"").trim()!=="")
-      return showSuccess("(bot)","(n/a)");
-    const name=document.getElementById("name").value.trim();
-    const email=document.getElementById("email").value.trim();
-    if(!name||!emailRegex.test(email)){
-      msg.textContent="❌ Enter a valid name and email.";
-      return;
-    }
-
-    submitBtn.disabled=true;
-    submitBtn.textContent="Verifying…";
-
-    await window.recaptchaReady;
-    try{
-      grecaptcha.execute(recaptchaWidgetId);
-    }catch(err){
-      console.error(err);
-      msg.textContent="❌ Captcha init failed.";
-      submitBtn.disabled=false;
-      submitBtn.textContent="Send Request";
-    }
+    trigger.classList.contains("is-open") ? close() : open();
   });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && trigger.classList.contains("is-open")) close();
+  });
+  links.forEach((a) => a.addEventListener("click", close));
 
-  function onCaptchaOK(token){
-    if(!token){ onCaptchaError(); return; }
-    doSubmit(token);
+  const header = document.querySelector(".nav-wrap");
+  if (header && "ResizeObserver" in window) {
+    new ResizeObserver(adjustCurtainOffset).observe(header);
+  }
+  window.addEventListener("resize", adjustCurtainOffset);
+}
+
+// ---------------- Curtain below header (inline !important) ----------------
+function adjustCurtainOffset() {
+  const header = document.querySelector(".nav-wrap");
+  const curtain = document.getElementById("navCurtain");
+  if (!header || !curtain) return;
+  const h = Math.ceil(header.getBoundingClientRect().height) || 64;
+  curtain.style.setProperty("top", `${h}px`, "important");
+  curtain.style.setProperty("height", `calc(100vh - ${h}px)`, "important");
+}
+
+// ---------------- Header transparency over hero ----------------------
+function bindHeaderTransparency() {
+  const hero = document.querySelector(".hero");
+  const header = document.querySelector("nav.nav-wrap");
+  if (!header) return;
+
+  if (!hero) {
+    // No hero on this page → be solid
+    header.classList.remove("transparent");
+    header.classList.add("solid");
+    return;
   }
 
-  function onCaptchaError(){
-    msg.textContent="❌ Captcha failed (client). Try again.";
-    submitBtn.disabled=false;
-    submitBtn.textContent="Send Request";
-    if(recaptchaWidgetId!==null) grecaptcha.reset(recaptchaWidgetId);
-  }
+  // Start transparent for the “video-as-header” illusion
+  header.classList.add("transparent");
+  header.classList.remove("solid");
 
-  async function doSubmit(captchaToken){
-    msg.textContent="Sending…";
-    submitBtn.textContent="Sending…";
+  const io = new IntersectionObserver((entries) => {
+    const e = entries[0];
+    if (e && e.isIntersecting && e.intersectionRatio > 0.1) {
+      header.classList.add("transparent");
+      header.classList.remove("solid");
+    } else {
+      header.classList.add("solid");
+      header.classList.remove("transparent");
+    }
+  }, { threshold: [0, 0.1, 1] });
 
-    const services=[...document.querySelectorAll('input[name="services"]:checked')].map(i=>i.value);
-    const team_size=document.querySelector('input[name="team_size"]:checked')?.value||"";
-    const name=document.getElementById("name").value.trim();
-    const email=document.getElementById("email").value.trim();
-    const phone=document.getElementById("phone").value.trim();
-    const details=document.getElementById("details").value.trim();
+  io.observe(hero);
+}
 
-    const payload={
-      secret:SECRET, services, team_size, name, email, phone, details,
-      page:location.href, ua:navigator.userAgent,
-      g_recaptcha_response:captchaToken, "g-recaptcha-response":captchaToken
-    };
+// --------------- Non-hero pages: push content below fixed header ---------------
+function bindNonHeroOffset() {
+  const header = document.querySelector(".nav-wrap");
+  if (!header) return;
 
-    try{
-      const res=await fetch(ENDPOINT,{
-        method:"POST",
-        body:new URLSearchParams({ payload: JSON.stringify(payload) })
-      });
-      const json=await res.json().catch(()=>({}));
-      if(res.ok && json?.ok){
-        showSuccess(name);
-      }else{
-        msg.textContent=`❌ ${json?.error||"Send failed."} ${json?.codes?`(${json.codes.join(',')})`:""}`;
-        submitBtn.disabled=false;
-        submitBtn.textContent="Send Request";
-        if(recaptchaWidgetId!==null) grecaptcha.reset(recaptchaWidgetId);
-      }
-    }catch(err){
-      msg.textContent="❌ Network error. Try again.";
-      submitBtn.disabled=false;
-      submitBtn.textContent="Send Request";
-      if(recaptchaWidgetId!==null) grecaptcha.reset(recaptchaWidgetId);
+  const hasHero = !!document.querySelector(".hero");
+  document.body.classList.toggle("no-hero", !hasHero);
+  document.documentElement.classList.toggle("no-hero", !hasHero);
+
+  function applyOffset() {
+    const h = Math.ceil(header.getBoundingClientRect().height) || 92;
+    // expose actual height as a CSS variable if styles want it
+    document.documentElement.style.setProperty("--nav-h-actual", h + "px");
+
+    // On pages without a hero, ensure the whole page starts below the header
+    if (!hasHero) {
+      document.body.style.paddingTop = h + "px";
+    } else {
+      // Home: no padding; hero creates the illusion
+      document.body.style.paddingTop = "";
     }
   }
 
-  function showSuccess(name){
-    form.style.display='none';
-    success.classList.add('active');
-    confName.textContent=name||"there";
-    document.title="Request received — DeskXP";
-    // reveal the back button with a small delay for a smooth feel
-    setTimeout(()=>document.getElementById('successActions').classList.add('visible'), 200);
-  }
-
-  // Watcher: keep header from overlapping captcha bubble, etc.
-  (function watchCaptcha(){
-    const apply=()=>{
-      const bubble=document.querySelector('.grecaptcha-bubble');
-      const visible=bubble && getComputedStyle(bubble).visibility!=='hidden' && getComputedStyle(bubble).opacity!=='0';
-      document.body.classList.toggle('captcha-open', !!visible);
-    };
-    const mo=new MutationObserver(apply);
-    mo.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['style','class']});
-    apply();
-  })();
-  </script>
-
-  <!-- reCAPTCHA root -->
-  <div id="recaptcha-root"></div>
-  <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-</body>
-</html>
+  applyOffset();
+  window.addEventListener("resize", applyOffset);
+  if ("ResizeObserver" in window) new ResizeObserver(applyOffset).observe(header);
+}
