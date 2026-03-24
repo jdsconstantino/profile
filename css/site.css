@@ -1940,9 +1940,23 @@ section#services .service-card,
 /* ===== About (image shares container with text) ===== */
 .about-hero{
   position:relative;
-  background:#fff; color:#0b0f1a;
-  border-radius:18px; border:1px solid #e6e6e6;
-  padding:28px 22px; margin:20px 0 36px;
+  padding:112px 0 84px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 28% 30%, rgba(29,185,84,0.10), transparent 28%),
+    radial-gradient(circle at 72% 34%, rgba(37,224,104,0.06), transparent 24%),
+    linear-gradient(180deg, #0b1118 0%, #0f1821 100%);
+  border:none;
+  margin:0;
+  color:var(--text);
+}
+.about-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, rgba(11,17,24,0.78) 0%, rgba(11,17,24,0.42) 46%, rgba(11,17,24,0.16) 100%);
+  pointer-events:none;
+  z-index:0;
 }
 .about-title{ margin:0 0 14px }
 
