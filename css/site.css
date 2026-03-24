@@ -3132,6 +3132,15 @@ html, body, main, form, .captcha-wrap {
     background:linear-gradient(180deg, rgba(11,17,24,.36) 0%, rgba(11,17,24,.14) 100%) !important;
   }
 }
+section.about-hero{
+  background:
+    radial-gradient(circle at 28% 30%, rgba(29,185,84,0.10), transparent 28%),
+    radial-gradient(circle at 72% 34%, rgba(37,224,104,0.06), transparent 24%),
+    linear-gradient(180deg, #0b1118 0%, #0f1821 100%) !important;
+  color:var(--text) !important;
+  border:none !important;
+  margin:0 !important;
+}
 
 
 
