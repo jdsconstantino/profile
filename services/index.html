@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services — DeskXP</title>
 
-  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
@@ -19,402 +18,1170 @@
   <link rel="stylesheet" href="/css/site.css?v=210">
 
   <style>
-    :root{
-      --bg:#0d1720;
-      --panel:#0f1e27;
-      --grid:rgba(0,255,160,.07);
-      --line:#19e28e;
-      --text:#e6e9ef;
-      --muted:#9aa5b1;
-      --ink:#0f172a;
-      --chip:#eef5ef;
-      --chip-b:#dfe8e1;
-      --accent:#007236;
-      --accent2:#00b858;
-      --header-offset:84px;
-      --card-b:#e6e9ef;
-    }
-    @media (max-width:900px){ :root{ --header-offset:72px; } }
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(180deg,rgba(0,114,54,.06),rgba(0,114,54,.04)),
-        radial-gradient(circle at 30% -10%, rgba(0,184,88,.18), transparent 32%),
-        radial-gradient(circle at 100% 10%, rgba(0,184,88,.12), transparent 32%),
-        var(--bg);
-      overflow-x:hidden;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0b1118;
+      --navy2: #0e1820;
+      --navy3: #111f2a;
+      --green: #1db954;
+      --green2: #25e068;
+      --green-dim: rgba(29,185,84,0.12);
+      --green-border: rgba(29,185,84,0.22);
+      --text: #e8edf2;
+      --muted: #7a8c9a;
+      --border: rgba(255,255,255,0.07);
+      --card-bg: rgba(14,24,32,0.85);
     }
 
-    .page{ max-width:1220px; margin:32px auto 80px; padding:0 18px; position:relative; }
-    .title{
-      text-align:center;
-      font-size:clamp(1.8rem,1.2rem + 2.6vw,2.6rem);
-      font-weight:900; letter-spacing:-.02em; margin:10px 0 26px;
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
     }
 
-    /* ---------- NEW: Services Menu (compact tiles under title) ---------- */
-    .services-menu{
-      margin: 8px auto 38px;
+    /* ── PAGE HERO ─────────────────────────────────────── */
+    .svc-hero {
       position: relative;
-      z-index: 3;
+      padding: 120px 24px 80px;
+      text-align: center;
+      overflow: hidden;
     }
-    .services-menu .menu-grid{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap:14px;
+
+    .svc-hero::before {
+      content: "";
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(29,185,84,0.13) 0%, transparent 65%);
+      pointer-events: none;
     }
-    @media (max-width:980px){
-      .services-menu .menu-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+    .svc-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--green-border);
+      background: var(--green-dim);
+      color: var(--green2);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
     }
-    @media (max-width:520px){
-      .services-menu .menu-grid{ grid-template-columns: 1fr; }
+
+    .svc-hero__eyebrow::before {
+      content: "";
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: var(--green2);
+      box-shadow: 0 0 8px var(--green2);
     }
-    .services-menu .menu-card{
-      display:flex; align-items:center; gap:12px;
-      padding:14px 16px;
-      border-radius:14px;
-      background: linear-gradient(180deg,#0f2026,#0c1b21);
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 24px rgba(0,0,0,.28), 0 0 24px rgba(0,255,160,.10);
-      text-decoration:none;
-      color:var(--text);
-      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
-      will-change: transform;
+
+    .svc-hero__title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: #fff;
+      max-width: 760px;
+      margin: 0 auto 18px;
     }
-    .services-menu .menu-card:focus-visible{ outline:2px solid var(--accent2); outline-offset:2px; }
-    .services-menu .menu-card:hover{
+
+    .svc-hero__title span { color: var(--green2); }
+
+    .svc-hero__sub {
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── PLATFORM TABS ─────────────────────────────────── */
+    .svc-tabs-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    .panel-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .svc-tab-bar-outer {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .svc-tab-bar {
+      display: inline-flex;
+      gap: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .svc-tab-bar::-webkit-scrollbar { display: none; }
+
+    .svc-tab {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 18px;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .svc-tab:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    .svc-tab.is-active {
+      background: linear-gradient(135deg, rgba(29,185,84,0.18), rgba(29,185,84,0.08));
+      color: #fff;
+      border: 1px solid var(--green-border);
+      box-shadow: 0 4px 20px rgba(29,185,84,0.12);
+    }
+
+    .svc-tab__icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      flex: 0 0 36px;
+      background: rgba(255,255,255,0.06);
+      transition: background 0.2s;
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .svc-tab__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .svc-tab__icon img[src*="zendesk"],
+    .svc-tab__icon img[src*="zohodesk"] {
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+
+    .svc-tab.is-active .svc-tab__icon img[src*="zendesk"],
+    .svc-tab.is-active .svc-tab__icon img[src*="zohodesk"] {
+      filter: brightness(0) invert(1);
+      opacity: 1;
+    }
+
+    .svc-tab.is-active .svc-tab__icon {
+      background: var(--green-dim);
+    }
+
+    /* ── TAB PANELS ────────────────────────────────────── */
+    .svc-panel {
+      display: none;
+      animation: panelIn 0.38s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .svc-panel.is-active { display: block; }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Panel layout */
+    .panel-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(32px,4vw,56px);
+      margin-bottom: 28px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-hero::before {
+      content: "";
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(29,185,84,0.09), transparent 65%);
+      pointer-events: none;
+    }
+
+    .panel-hero__left { position: relative; z-index: 1; }
+
+    .panel-hero__platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 6px;
+      border-radius: 999px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green2);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .panel-hero__platform-dot {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+    }
+
+    .panel-hero__title {
+      font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .panel-hero__title span { color: var(--green2); }
+
+    .panel-hero__desc {
+      font-size: 1rem;
+      line-height: 1.74;
+      color: rgba(200,215,225,0.80);
+      max-width: 46ch;
+      margin-bottom: 28px;
+    }
+
+    .panel-hero__stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .panel-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .panel-stat__num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--green2);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .panel-stat__label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .panel-hero__img-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel-hero__img-wrap img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 40px rgba(29,185,84,0.07);
+    }
+
+    /* Services grid below hero */
+    .panel-services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .svc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 22px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svc-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .svc-card:hover {
+      border-color: var(--green-border);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35), 0 0 24px rgba(29,185,84,0.08);
       transform: translateY(-2px);
-      border-color: rgba(0,255,160,.25);
-      box-shadow: 0 14px 32px rgba(0,0,0,.36), 0 0 30px rgba(0,255,160,.16);
-    }
-    .services-menu .badge{
-      width:34px; height:34px; border-radius:10px;
-      display:grid; place-items:center;
-      background:linear-gradient(180deg, var(--accent2), var(--accent));
-      box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 6px 16px rgba(0,0,0,.3);
-      flex: 0 0 34px;
-    }
-    .services-menu .label{
-      font-weight:800; letter-spacing:-.01em; font-size:.98rem; color:#eaf4ee;
-    }
-    .services-menu .sub{ display:block; font-size:.86rem; color:var(--muted); font-weight:600; margin-top:2px; }
-
-    /* ------------------------------------------------------------------- */
-
-    .rail{
-      position:absolute; left:50%; top:110px; bottom:0; width:4px;
-      transform:translateX(-50%);
-      background:linear-gradient(180deg,var(--accent2),var(--accent));
-      box-shadow:0 0 22px rgba(0,255,160,.45), inset 0 0 10px rgba(0,0,0,.35);
-      border-radius:999px; opacity:.7;
-    }
-    @media (max-width:980px){ .rail{display:none;} }
-
-    .grid{ display:flex; flex-direction:column; gap:60px; position:relative; z-index:2; }
-
-    .row{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; }
-    .row.flip{ grid-auto-flow:dense; }
-    .row.flip .art{ order:2 }
-    .row.flip .card{ order:1 }
-    @media (max-width:980px){
-      .row{ grid-template-columns:1fr; gap:18px; }
-      .row.flip .art{ order:1 }
-      .row.flip .card{ order:2 }
     }
 
-    .art{
-      background:linear-gradient(180deg,#0e2026,#0c1b21);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:18px; display:grid; place-items:center; padding:22px;
-      box-shadow:0 14px 40px rgba(0,0,0,.35), 0 0 36px rgba(0,255,160,.14);
-      position:relative; min-height:260px;
-    }
-    .art::after{
-      content:""; position:absolute; inset:0; border-radius:18px;
-      box-shadow:0 0 0 1px rgba(255,255,255,.04) inset; pointer-events:none;
-    }
-    .art img{ width:min(92%,480px); height:auto; border-radius:14px; box-shadow:0 22px 48px rgba(0,0,0,.45); }
+    .svc-card:hover::before { opacity: 1; }
 
-    .card{
-      background:#fff; color:var(--ink);
-      border:1px solid var(--card-b); border-radius:18px; padding:22px 22px 18px;
-      box-shadow:0 16px 36px rgba(0,0,0,.18);
-      scroll-margin-top:calc(var(--header-offset) + 12px);
-    }
-    .meta{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-    .meta img{ width:46px; height:46px; border-radius:12px; border:1px solid var(--card-b); object-fit:cover; }
-    .meta h2{ margin:0; font-size:1.35rem; font-weight:900; letter-spacing:-.01em; color:#2e424e; }
-
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 14px; }
-    .chip{ padding:6px 12px; background:var(--chip); border:1px solid var(--chip-b); border-radius:999px; font-weight:600; color:#2f3b45; }
-
-    .card p{ color:#334155; margin:0 0 12px; line-height:1.55; }
-    .card h3{ margin:14px 0 8px; font-size:1rem; color:#0f172a; }
-    .card ul{ margin:0 0 10px 18px; }
-    .card li{ margin:5px 0; }
-
-    .markers{
-      position:absolute; inset:0; pointer-events:none;
-      background-image:
-        linear-gradient(to right, var(--grid) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-      background-size:48px 48px, 48px 48px;
-      mask-image:linear-gradient(#0007,#000);
-      z-index:1; border-radius:22px;
+    .svc-card__icon {
+      width: 40px; height: 40px;
+      border-radius: 11px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
     }
 
-    .knot{
-      position:absolute; left:50%; transform:translateX(-50%);
-      width:16px; height:16px; border-radius:999px;
-      background:#dffdf3; box-shadow:0 0 0 8px rgba(0,255,160,.18),0 0 0 2px var(--line),0 10px 24px rgba(0,0,0,.4);
-      z-index:3;
+    .svc-card__title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.25;
     }
-    .knot.t1{ top:210px } .knot.t2{ top:640px } .knot.t3{ top:1070px } .knot.t4{ top:1500px }
-    @media (max-width:980px){ .knot{display:none} }
 
-    @media (min-width:981px){
-      .row .art::before{
-        content:""; position:absolute; top:50%; width:66px; height:3px; border-radius:3px;
-        background:linear-gradient(90deg,var(--accent2),var(--accent));
-        box-shadow:0 0 14px rgba(0,255,160,.35);
-      }
-      .row:not(.flip) .art::before{ right:-66px }
-      .row.flip .art::before{ left:-66px }
+    .svc-card__desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .svc-card__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .svc-card__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: rgba(200,215,225,0.80);
+      line-height: 1.4;
+    }
+
+    .svc-card__list li::before {
+      content: "";
+      flex: 0 0 auto;
+      margin-top: 5px;
+      width: 5px; height: 5px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    /* Bottom CTA strip */
+    .panel-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(29,185,84,0.10), rgba(14,24,32,0.6));
+      border: 1px solid var(--green-border);
+      border-radius: 18px;
+      padding: 26px 32px;
+    }
+
+    .panel-cta__text h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .panel-cta__text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .panel-cta__btns {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      padding: 0 24px;
+      border-radius: 10px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(29,185,84,0.35);
+    }
+    .btn-primary:hover { background: var(--green2); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,185,84,0.45); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      padding: 0 24px;
+      border-radius: 10px;
+      background: transparent;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.45); transform: translateY(-1px); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .panel-services { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .panel-hero { grid-template-columns: 1fr; }
+      .panel-hero__img-wrap { order: -1; }
+      .panel-hero__img-wrap img { max-width: 100%; }
+      .panel-cta { flex-direction: column; align-items: flex-start; }
+      .panel-cta__btns { width: 100%; }
+      .btn-primary, .btn-ghost { flex: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .panel-services { grid-template-columns: 1fr; }
+      .svc-hero { padding: 100px 20px 60px; }
+      .svc-tabs-wrap { padding: 0 16px 80px; }
+      .panel-hero { padding: 28px 20px; }
+      .panel-hero__stats { gap: 16px; }
     }
   </style>
 </head>
 <body>
   <div id="site-header"></div>
 
-  <main class="page">
-    <h1 class="title">Services</h1>
+  <div class="svc-hero">
+    <div class="svc-hero__eyebrow">Multi-Platform CX Services</div>
+    <h1 class="svc-hero__title">Expert CX systems for every <span>platform you run</span></h1>
+    <p class="svc-hero__sub">From Zendesk to Gorgias, Freshdesk to Zoho Desk — we design, build, and scale your support operations end-to-end.</p>
+  </div>
 
-    <!-- ========= NEW: Services Menu block ========= -->
-    <nav class="services-menu" aria-label="Services quick menu">
-      <div class="menu-grid">
-        <a class="menu-card" href="javascript:void(0)" id="menu-onboarding">
-          <span class="badge" aria-hidden="true">✓</span>
-          <span>
-            <span class="label">Zendesk/Freshdesk Onboarding</span>
-            <span class="sub">Foundations, forms, SLAs, macros</span>
-          </span>
-        </a>
+  <div class="svc-tabs-wrap">
 
-        <a class="menu-card" href="javascript:void(0)" id="menu-optimization">
-          <span class="badge" aria-hidden="true">⚙</span>
-          <span>
-            <span class="label">Zendesk Optimization</span>
-            <span class="sub">Workflow cleanup, routing, hygiene</span>
-          </span>
-        </a>
+    <div class="svc-tab-bar-outer">
+    <div class="svc-tab-bar" role="tablist" aria-label="Service platforms">
+      <button class="svc-tab is-active" role="tab" aria-selected="true" aria-controls="panel-zendesk" data-panel="zendesk">
+        <span class="svc-tab__icon"><img src="/assets/zendesk.svg" alt="Zendesk"></span> Zendesk
+      </button>
+      <button class="svc-tab" role="tab" aria-selected="false" aria-controls="panel-gorgias" data-panel="gorgias">
+        <span class="svc-tab__icon"><img src="/assets/gorgias.svg" alt="Gorgias"></span> Gorgias
+      </button>
+      <button class="svc-tab" role="tab" aria-selected="false" aria-controls="panel-freshdesk" data-panel="freshdesk">
+        <span class="svc-tab__icon"><img src="/assets/freshdesk.jpeg" alt="Freshdesk"></span> Freshdesk
+      </button>
+      <button class="svc-tab" role="tab" aria-selected="false" aria-controls="panel-zoho" data-panel="zoho">
+        <span class="svc-tab__icon"><img src="/assets/zohodesk.png" alt="Zoho Desk"></span> Zoho Desk
+      </button>
+      <button class="svc-tab" role="tab" aria-selected="false" aria-controls="panel-staffing" data-panel="staffing">
+        <span class="svc-tab__icon">👥</span> CX Staffing
+      </button>
+    </div>
 
-        <a class="menu-card" href="javascript:void(0)" id="menu-integration">
-          <span class="badge" aria-hidden="true">↔</span>
-          <span>
-            <span class="label">System Integration</span>
-            <span class="sub">APIs, webhooks, orders, payments</span>
-          </span>
-        </a>
+    </div>
+    </div>
 
-        <a class="menu-card" href="javascript:void(0)e" id="menu-sunshine">
-          <span class="badge" aria-hidden="true">☀</span>
-          <span>
-            <span class="label">Zendesk Sunshine (Conversations)</span>
-            <span class="sub">Channels, events, custom objects</span>
-          </span>
-        </a>
-
-        <a class="menu-card" href="javascript:void(0)" id="menu-guide">
-          <span class="badge" aria-hidden="true">📚</span>
-          <span>
-            <span class="label">Zendesk Guide Customization</span>
-            <span class="sub">Theme, CSS/JS, permissions</span>
-          </span>
-        </a>
-
-        <a class="menu-card" href="javascript:void(0)" id="menu-explore">
-          <span class="badge" aria-hidden="true">📈</span>
-          <span>
-            <span class="label">Zendesk Explore</span>
-            <span class="sub">Dashboards, SLAs, QA/CSAT insights</span>
-          </span>
-        </a>
-
-        <a class="menu-card" href="javascript:void(0)" id="menu-ai">
-          <span class="badge" aria-hidden="true">🤖</span>
-          <span>
-            <span class="label">Zendesk Chatbot / AI</span>
-            <span class="sub">Intents, deflection, HITL controls</span>
-          </span>
-        </a>
-
-        <a class="menu-card" href="javascript:void(0)" id="menu-qa-csat">
-          <span class="badge" aria-hidden="true">⭐</span>
-          <span>
-            <span class="label">QA &amp; CSAT Program</span>
-            <span class="sub">Scorecards, calibration, coaching loops</span>
-          </span>
-        </a>
-      </div>
-    </nav>
-    <!-- =========================================== -->
-
-    <div class="markers"></div>
-    <span class="rail"></span>
-    <span class="knot t1"></span>
-    <span class="knot t2"></span>
-    <span class="knot t3"></span>
-    <span class="knot t4"></span>
-
-    <section class="grid" id="svc-flow">
-
-      <div class="row">
-        <div class="art"><img src="/assets/svc-1.jpg" alt=""></div>
-        <article class="card" id="operations-design">
-          <div class="meta"><img src="/assets/svc-1.jpg" alt=""><h2>Operations Design</h2></div>
-          <div class="chips"><span class="chip">Playbooks</span><span class="chip">SLAs</span><span class="chip">Escalations</span><span class="chip">CX Strategy</span></div>
-          <p>Backbone first: we turn reactive support into a structured, data-driven operation with clear flows and ownership.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Omnichannel triage maps</strong> that route to the right queue instantly.</li>
-            <li><strong>RACI & escalation</strong> frameworks with crystal-clear ownership.</li>
-            <li><strong>SLAs, schedules, and clock rules</strong> that reflect reality.</li>
-            <li>Macro libraries aligned with brand and compliance.</li>
-          </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li>Up to <strong>50% faster FRT</strong> and reduced AHT.</li>
-            <li><strong>Lower reopen rates</strong> via clean routing and ownership.</li>
-            <li>New agents ramp faster with playbooks.</li>
-          </ul>
-        </article>
+    <!-- ══════════════ ZENDESK ══════════════ -->
+    <div class="svc-panel is-active" id="panel-zendesk" role="tabpanel">
+      <div class="panel-inner">
+      <div class="panel-hero">
+        <div class="panel-hero__left">
+          <div class="panel-hero__platform">
+            <span class="panel-hero__platform-dot">⚡</span>
+            Zendesk Specialist
+          </div>
+          <h2 class="panel-hero__title">Full-stack Zendesk <span>implementation & optimization</span></h2>
+          <p class="panel-hero__desc">10+ years of Zendesk expertise across Suite, Support, Guide, Explore, and Sunshine. We build it right the first time — or clean up what's broken.</p>
+          <div class="panel-hero__stats">
+            <div class="panel-stat">
+              <span class="panel-stat__num">10+</span>
+              <span class="panel-stat__label">Years Zendesk</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">50%</span>
+              <span class="panel-stat__label">Avg FRT reduction</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">7 days</span>
+              <span class="panel-stat__label">MVP launch</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-hero__img-wrap">
+          <img src="/assets/svc-2.jpg" alt="Zendesk implementation">
+        </div>
       </div>
 
-      <div class="row flip">
-        <div class="art"><img src="/assets/svc-2.jpg" alt=""></div>
-        <article class="card" id="systems-architecture">
-          <div class="meta"><img src="/assets/svc-2.jpg" alt=""><h2>Systems Architecture</h2></div>
-          <div class="chips"><span class="chip">Zendesk</span><span class="chip">Workflows</span><span class="chip">Data Governance</span></div>
-          <p>Clean, intentional setup — fewer triggers, better data, faster agents.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Multi-brand form design</strong> without duplication or drift.</li>
-            <li><strong>Triggers & automations</strong> that respect SLAs and languages.</li>
-            <li><strong>Guide/KB framework</strong> with permissions and approvals.</li>
-            <li>API & webhook mapping across CRM/chat/orders.</li>
+      <div class="panel-services">
+        <div class="svc-card">
+          <div class="svc-card__icon">🏗️</div>
+          <h3 class="svc-card__title">New Instance Setup</h3>
+          <p class="svc-card__desc">Full from-scratch Zendesk build — structured for scale from day one.</p>
+          <ul class="svc-card__list">
+            <li>Ticket forms, fields, and brand configuration</li>
+            <li>SLA policies, schedules, and business hours</li>
+            <li>Macros, triggers, and automations library</li>
+            <li>Agent groups, roles, and permissions</li>
           </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li><strong>Simpler admin</strong> and higher reliability.</li>
-            <li><strong>Cleaner analytics</strong> from purposeful fields/tags.</li>
-            <li><strong>Fewer misroutes</strong> → better CSAT & handle time.</li>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">⚙️</div>
+          <h3 class="svc-card__title">Workflow Optimization</h3>
+          <p class="svc-card__desc">Clean up bloated instances and rebuild routing for real performance.</p>
+          <ul class="svc-card__list">
+            <li>Trigger and automation audit & rebuild</li>
+            <li>Smart routing and triage redesign</li>
+            <li>Tag hygiene and field governance</li>
+            <li>View consolidation and queue design</li>
           </ul>
-        </article>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🤖</div>
+          <h3 class="svc-card__title">AI & Chatbot</h3>
+          <p class="svc-card__desc">Zendesk AI, Answer Bot, and custom bot flows that actually deflect.</p>
+          <ul class="svc-card__list">
+            <li>Intent mapping and deflection flows</li>
+            <li>Human-in-the-loop escalation design</li>
+            <li>Article recommendations and auto-replies</li>
+            <li>Bot performance monitoring</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📚</div>
+          <h3 class="svc-card__title">Guide & Help Center</h3>
+          <p class="svc-card__desc">A self-serve knowledge base that reduces ticket volume and builds trust.</p>
+          <ul class="svc-card__list">
+            <li>Custom theme design and CSS/JS styling</li>
+            <li>Content architecture and article structure</li>
+            <li>User segments and permission controls</li>
+            <li>Search optimization and analytics</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📊</div>
+          <h3 class="svc-card__title">Explore & Reporting</h3>
+          <p class="svc-card__desc">Dashboards and datasets that give your team and leadership real visibility.</p>
+          <ul class="svc-card__list">
+            <li>Custom Explore dashboards by audience</li>
+            <li>SLA and backlog monitoring</li>
+            <li>CSAT × QA correlation reports</li>
+            <li>Executive-ready KPI summaries</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🔗</div>
+          <h3 class="svc-card__title">Integrations & API</h3>
+          <p class="svc-card__desc">Connect Zendesk to your tech stack — orders, CRM, payments, and more.</p>
+          <ul class="svc-card__list">
+            <li>Shopify, Magento, and eCommerce connectors</li>
+            <li>Webhooks, REST APIs, and custom apps</li>
+            <li>Sunshine Conversations and custom objects</li>
+            <li>Make, Zapier, and middleware automation</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="row">
-        <div class="art"><img src="/assets/svc-3.jpg" alt=""></div>
-        <article class="card" id="automation-ai">
-          <div class="meta"><img src="/assets/svc-3.jpg" alt=""><h2>Automation &amp; AI</h2></div>
-          <div class="chips"><span class="chip">Bots</span><span class="chip">Deflection</span><span class="chip">Workflows</span></div>
-          <p>Kill repetitive work without killing the human touch. Bots do the predictable; your team handles the meaningful.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Intent detection & auto-classification</strong> with smart tagging.</li>
-            <li><strong>Auto-responses & prefill</strong> for common inquiries.</li>
-            <li><strong>Human-in-the-loop</strong> safeguards and review queues.</li>
-            <li>Continuous learning loops from every convo.</li>
-          </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li><strong>20–40% deflection</strong> on high-volume issues.</li>
-            <li><strong>Shorter AHT</strong> via summaries and context.</li>
-            <li>Happier agents; less grunt work.</li>
-          </ul>
-        </article>
+      <div class="panel-cta">
+        <div class="panel-cta__text">
+          <h3>Ready to build or fix your Zendesk?</h3>
+          <p>Free 30-minute discovery call — we'll map out exactly what needs to happen.</p>
+        </div>
+        <div class="panel-cta__btns">
+          <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+          <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ GORGIAS ══════════════ -->
+    <div class="svc-panel" id="panel-gorgias" role="tabpanel">
+      <div class="panel-inner">
+      <div class="panel-hero">
+        <div class="panel-hero__left">
+          <div class="panel-hero__platform">
+            <span class="panel-hero__platform-dot">🛍</span>
+            Gorgias Specialist
+          </div>
+          <h2 class="panel-hero__title">Gorgias setup built <span>for eCommerce teams</span></h2>
+          <p class="panel-hero__desc">Gorgias is purpose-built for Shopify. We build your instance to convert support into revenue — with automations, macros, and Shopify deep integration.</p>
+          <div class="panel-hero__stats">
+            <div class="panel-stat">
+              <span class="panel-stat__num">40%</span>
+              <span class="panel-stat__label">Avg deflection rate</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">Shopify</span>
+              <span class="panel-stat__label">Native integration</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">5 days</span>
+              <span class="panel-stat__label">Live turnaround</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-hero__img-wrap">
+          <img src="/assets/svc-5.jpg" alt="Gorgias eCommerce setup">
+        </div>
       </div>
 
-      <div class="row flip">
-        <div class="art"><img src="/assets/svc-4.jpg" alt=""></div>
-        <article class="card" id="reporting-analytics">
-          <div class="meta"><img src="/assets/svc-4.jpg" alt=""><h2>Reporting &amp; Analytics</h2></div>
-          <div class="chips"><span class="chip">Dashboards</span><span class="chip">SLA</span><span class="chip">QA</span><span class="chip">Insights</span></div>
-          <p>From exports to insight: real-time performance, trendlines, and ROI — no spreadsheet circus.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Explore & Looker Studio</strong> dashboards by audience.</li>
-            <li><strong>SLA/backlog monitors</strong> with breach prediction.</li>
-            <li><strong>CSAT × QA correlation</strong> for root causes.</li>
+      <div class="panel-services">
+        <div class="svc-card">
+          <div class="svc-card__icon">🏪</div>
+          <h3 class="svc-card__title">Gorgias Onboarding</h3>
+          <p class="svc-card__desc">Full setup from account creation to live tickets — optimized for Shopify.</p>
+          <ul class="svc-card__list">
+            <li>Channel setup: email, chat, SMS, social</li>
+            <li>Shopify sidebar and order context config</li>
+            <li>Team structure, tags, and views</li>
+            <li>Satisfaction survey setup</li>
           </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li><strong>Decision clarity</strong> on what’s breaking and why.</li>
-            <li><strong>Better forecasts</strong> for staffing & SLAs.</li>
-            <li><strong>ROI visibility</strong> managers can defend.</li>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">⚡</div>
+          <h3 class="svc-card__title">Automation & Macros</h3>
+          <p class="svc-card__desc">Auto-close, auto-tag, and auto-respond to the tickets that don't need a human.</p>
+          <ul class="svc-card__list">
+            <li>Rule-based automation for order status, tracking</li>
+            <li>Macro library for returns, refunds, shipping</li>
+            <li>Priority routing by revenue tier</li>
+            <li>Auto-close flows for resolved inquiries</li>
           </ul>
-        </article>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🛒</div>
+          <h3 class="svc-card__title">Shopify Deep Integration</h3>
+          <p class="svc-card__desc">Pull full order data, refund, cancel, and tag customers — without leaving the ticket.</p>
+          <ul class="svc-card__list">
+            <li>Order lookup, refund, and cancel actions</li>
+            <li>Customer LTV and segment visibility</li>
+            <li>Custom integration with 3PL and OMS tools</li>
+            <li>Post-purchase flow automation</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📣</div>
+          <h3 class="svc-card__title">Social & Messaging</h3>
+          <p class="svc-card__desc">Manage Instagram DMs, Facebook comments, and SMS in one unified queue.</p>
+          <ul class="svc-card__list">
+            <li>Social channel unification and tagging</li>
+            <li>Comment moderation and auto-response rules</li>
+            <li>SMS support via Klaviyo or Postscript</li>
+            <li>Influencer and VIP escalation flows</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📈</div>
+          <h3 class="svc-card__title">Revenue & Reporting</h3>
+          <p class="svc-card__desc">Tie support interactions to revenue so leadership sees the ROI.</p>
+          <ul class="svc-card__list">
+            <li>Support-driven revenue attribution</li>
+            <li>CSAT and response time dashboards</li>
+            <li>Agent performance and workload reporting</li>
+            <li>Churn-risk ticket identification</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🔄</div>
+          <h3 class="svc-card__title">Migration to Gorgias</h3>
+          <p class="svc-card__desc">Moving from Zendesk, Re:amaze, or Freshdesk? We handle the full transition.</p>
+          <ul class="svc-card__list">
+            <li>Historical ticket and contact migration</li>
+            <li>Macro and workflow translation</li>
+            <li>Team training and cutover support</li>
+            <li>Zero-downtime handover plan</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="row">
-        <div class="art"><img src="/assets/svc-5.jpg" alt=""></div>
-        <article class="card" id="ecommerce-integrations">
-          <div class="meta"><img src="/assets/svc-5.jpg" alt=""><h2>eCommerce Integrations</h2></div>
-          <div class="chips"><span class="chip">Shopify</span><span class="chip">Magento</span><span class="chip">Payments</span><span class="chip">APIs</span></div>
-          <p>Pull order, shipping, and payment context into every ticket. Less tab-switching, more resolving.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Store apps</strong> that surface live orders & tracking in Zendesk.</li>
-            <li><strong>RMA/refund flows</strong> that create tickets automatically.</li>
-            <li><strong>Dispute integrations</strong> with auto-docs.</li>
-          </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li><strong>Faster resolutions</strong> — full context in one place.</li>
-            <li><strong>Fewer refunds & disputes</strong> via proactive comms.</li>
-            <li><strong>Higher post-purchase CSAT</strong>.</li>
-          </ul>
-        </article>
+      <div class="panel-cta">
+        <div class="panel-cta__text">
+          <h3>Ready to build your Gorgias setup?</h3>
+          <p>Ideal for Shopify brands doing 500+ tickets/month. Let's scope it together.</p>
+        </div>
+        <div class="panel-cta__btns">
+          <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+          <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ FRESHDESK ══════════════ -->
+    <div class="svc-panel" id="panel-freshdesk" role="tabpanel">
+      <div class="panel-inner">
+      <div class="panel-hero">
+        <div class="panel-hero__left">
+          <div class="panel-hero__platform">
+            <span class="panel-hero__platform-dot">🌿</span>
+            Freshdesk Specialist
+          </div>
+          <h2 class="panel-hero__title">Freshdesk built for <span>growing support teams</span></h2>
+          <p class="panel-hero__desc">Freshdesk is powerful and affordable. We configure it to handle real ticket volume — with automation, routing, and reporting that scales with your team.</p>
+          <div class="panel-hero__stats">
+            <div class="panel-stat">
+              <span class="panel-stat__num">30%</span>
+              <span class="panel-stat__label">Faster resolution</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">Multi</span>
+              <span class="panel-stat__label">Channel support</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">7 days</span>
+              <span class="panel-stat__label">Go-live target</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-hero__img-wrap">
+          <img src="/assets/svc-1.jpg" alt="Freshdesk setup">
+        </div>
       </div>
 
-      <div class="row flip">
-        <div class="art"><img src="/assets/svc-6.jpg" alt=""></div>
-        <article class="card" id="customer-experience-servicing">
-          <div class="meta"><img src="/assets/svc-6.jpg" alt=""><h2>Customer Experience &amp; Servicing</h2></div>
-          <div class="chips"><span class="chip">Hiring</span><span class="chip">Training</span><span class="chip">QA</span><span class="chip">Policies</span></div>
-          <p>Zero ➜ scaled care org. People, process, tools, and governance — launched fast and built to last.</p>
-          <h3>What we do</h3>
-          <ul>
-            <li><strong>Team build-out</strong>: roles, hiring, onboarding plans.</li>
-            <li><strong>Training curriculum</strong> with certification paths.</li>
-            <li><strong>QA program & calibration</strong> tied to business outcomes.</li>
+      <div class="panel-services">
+        <div class="svc-card">
+          <div class="svc-card__icon">🛠️</div>
+          <h3 class="svc-card__title">Instance Setup & Config</h3>
+          <p class="svc-card__desc">From blank account to production-ready in under a week.</p>
+          <ul class="svc-card__list">
+            <li>Email, portal, and channel configuration</li>
+            <li>Agent groups, roles, and skill-based routing</li>
+            <li>SLA policies and business hour setup</li>
+            <li>Custom ticket fields and forms</li>
           </ul>
-          <h3>Outcomes</h3>
-          <ul>
-            <li><strong>Launch a functioning care org</strong> in weeks.</li>
-            <li><strong>Consistent quality</strong> via training + QA + policy.</li>
-            <li><strong>Lower cost-to-serve</strong> with right-sizing and automation.</li>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🔁</div>
+          <h3 class="svc-card__title">Automation & Dispatch</h3>
+          <p class="svc-card__desc">Auto-assign, auto-escalate, and auto-close based on ticket rules and conditions.</p>
+          <ul class="svc-card__list">
+            <li>Dispatch'r and Observer rules build-out</li>
+            <li>Priority routing by channel, keyword, or tag</li>
+            <li>Auto-close and SLA escalation flows</li>
+            <li>Canned response and solution article linking</li>
           </ul>
-        </article>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🤝</div>
+          <h3 class="svc-card__title">Omnichannel Setup</h3>
+          <p class="svc-card__desc">Unify email, chat, phone, and social into one clean support queue.</p>
+          <ul class="svc-card__list">
+            <li>Freshchat live chat integration</li>
+            <li>Twitter, Facebook, and Instagram setup</li>
+            <li>Freshcaller phone integration</li>
+            <li>WhatsApp Business channel config</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📋</div>
+          <h3 class="svc-card__title">Freddy AI & Bots</h3>
+          <p class="svc-card__desc">Deploy Freshdesk's Freddy AI to deflect, classify, and assist agents in real time.</p>
+          <ul class="svc-card__list">
+            <li>Freddy Self Service bot configuration</li>
+            <li>Intent training and article suggestion</li>
+            <li>Agent Assist for response drafting</li>
+            <li>Escalation path design and testing</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🗂️</div>
+          <h3 class="svc-card__title">Knowledge Base</h3>
+          <p class="svc-card__desc">Build a searchable, customer-facing help center that deflects common tickets.</p>
+          <ul class="svc-card__list">
+            <li>Category architecture and article templates</li>
+            <li>Multilingual content structure</li>
+            <li>Portal branding and custom domain</li>
+            <li>Article performance and gap analysis</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📊</div>
+          <h3 class="svc-card__title">Analytics & Reporting</h3>
+          <p class="svc-card__desc">Out-of-the-box Freshdesk reports plus custom dashboards for your stakeholders.</p>
+          <ul class="svc-card__list">
+            <li>Custom report builder setup</li>
+            <li>SLA breach and backlog dashboards</li>
+            <li>Agent productivity tracking</li>
+            <li>CSAT trend analysis and alerts</li>
+          </ul>
+        </div>
       </div>
-    </section>
-  </main>
+
+      <div class="panel-cta">
+        <div class="panel-cta__text">
+          <h3>Looking to get more out of Freshdesk?</h3>
+          <p>Whether you're starting fresh or cleaning up an existing instance — we've got you.</p>
+        </div>
+        <div class="panel-cta__btns">
+          <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+          <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ ZOHO DESK ══════════════ -->
+    <div class="svc-panel" id="panel-zoho" role="tabpanel">
+      <div class="panel-inner">
+      <div class="panel-hero">
+        <div class="panel-hero__left">
+          <div class="panel-hero__platform">
+            <span class="panel-hero__platform-dot">🔷</span>
+            Zoho Desk Specialist
+          </div>
+          <h2 class="panel-hero__title">Zoho Desk configured <span>for context-aware support</span></h2>
+          <p class="panel-hero__desc">Zoho Desk's Zia AI, Blueprint, and CRM integration make it a powerful platform when configured correctly. We build it so your agents always have context.</p>
+          <div class="panel-hero__stats">
+            <div class="panel-stat">
+              <span class="panel-stat__num">Zia AI</span>
+              <span class="panel-stat__label">Native assistant</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">CRM</span>
+              <span class="panel-stat__label">Native integration</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">Blueprint</span>
+              <span class="panel-stat__label">Process automation</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-hero__img-wrap">
+          <img src="/assets/svc-3.jpg" alt="Zoho Desk setup">
+        </div>
+      </div>
+
+      <div class="panel-services">
+        <div class="svc-card">
+          <div class="svc-card__icon">⚡</div>
+          <h3 class="svc-card__title">Account Setup & Config</h3>
+          <p class="svc-card__desc">A properly structured Zoho Desk instance — departments, routing, and forms built for real operations.</p>
+          <ul class="svc-card__list">
+            <li>Multi-department and multi-brand setup</li>
+            <li>Ticket layouts, fields, and validation rules</li>
+            <li>SLA policies per department and priority</li>
+            <li>Agent roles, teams, and territory mapping</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🗺️</div>
+          <h3 class="svc-card__title">Blueprint & Process Design</h3>
+          <p class="svc-card__desc">Build stateful ticket workflows using Zoho's Blueprint — no code needed.</p>
+          <ul class="svc-card__list">
+            <li>End-to-end ticket process mapping</li>
+            <li>State transitions with mandatory field rules</li>
+            <li>Approval stages and escalation paths</li>
+            <li>SLA enforcement per Blueprint state</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🧠</div>
+          <h3 class="svc-card__title">Zia AI Configuration</h3>
+          <p class="svc-card__desc">Activate Zoho's AI assistant to classify, predict, and assist agents automatically.</p>
+          <ul class="svc-card__list">
+            <li>Zia sentiment and urgency detection</li>
+            <li>Tag and department prediction training</li>
+            <li>Article recommendations in agent view</li>
+            <li>Anomaly detection for volume spikes</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🔗</div>
+          <h3 class="svc-card__title">Zoho CRM Integration</h3>
+          <p class="svc-card__desc">Native CRM integration so agents see account history, deals, and contacts in every ticket.</p>
+          <ul class="svc-card__list">
+            <li>CRM contact and deal data in ticket sidebar</li>
+            <li>Bi-directional sync for tickets and activities</li>
+            <li>Lead creation from support interactions</li>
+            <li>Custom CRM fields visible in Zoho Desk</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🏪</div>
+          <h3 class="svc-card__title">Self-Service Portal</h3>
+          <p class="svc-card__desc">A branded help center that deflects tickets and builds customer confidence.</p>
+          <ul class="svc-card__list">
+            <li>Portal branding, themes, and custom domain</li>
+            <li>Article structure and category design</li>
+            <li>Community forum setup and moderation</li>
+            <li>Ticket submission forms with smart defaults</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📊</div>
+          <h3 class="svc-card__title">Radar App & Analytics</h3>
+          <p class="svc-card__desc">Mobile and desktop dashboards that give managers real-time ops visibility.</p>
+          <ul class="svc-card__list">
+            <li>Radar mobile app setup for team leads</li>
+            <li>Custom report builder configuration</li>
+            <li>SLA, CSAT, and agent performance tracking</li>
+            <li>Scheduled report delivery to stakeholders</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel-cta">
+        <div class="panel-cta__text">
+          <h3>Need a properly built Zoho Desk?</h3>
+          <p>Especially powerful for teams already using Zoho CRM. Let's connect the dots.</p>
+        </div>
+        <div class="panel-cta__btns">
+          <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+          <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ CX STAFFING ══════════════ -->
+    <div class="svc-panel" id="panel-staffing" role="tabpanel">
+      <div class="panel-inner">
+      <div class="panel-hero">
+        <div class="panel-hero__left">
+          <div class="panel-hero__platform">
+            <span class="panel-hero__platform-dot">👥</span>
+            CX Staffing Agency
+          </div>
+          <h2 class="panel-hero__title">Built, trained, and <span>managed support teams</span></h2>
+          <p class="panel-hero__desc">We don't just set up your tools — we build the team to run them. From hiring to QA to process design, DeskXP operates as your embedded CX team.</p>
+          <div class="panel-hero__stats">
+            <div class="panel-stat">
+              <span class="panel-stat__num">2 wks</span>
+              <span class="panel-stat__label">First hire live</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">QA</span>
+              <span class="panel-stat__label">Built-in program</span>
+            </div>
+            <div class="panel-stat">
+              <span class="panel-stat__num">Scale</span>
+              <span class="panel-stat__label">On-demand growth</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-hero__img-wrap">
+          <img src="/assets/svc-6.jpg" alt="CX Staffing and team building">
+        </div>
+      </div>
+
+      <div class="panel-services">
+        <div class="svc-card">
+          <div class="svc-card__icon">🎯</div>
+          <h3 class="svc-card__title">Hiring & Recruitment</h3>
+          <p class="svc-card__desc">We source, screen, and place CX agents who are trained for your brand and tools.</p>
+          <ul class="svc-card__list">
+            <li>Role design and job description writing</li>
+            <li>Candidate sourcing and screening</li>
+            <li>Skills testing and platform proficiency checks</li>
+            <li>Offer management and onboarding handoff</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📖</div>
+          <h3 class="svc-card__title">Training Programs</h3>
+          <p class="svc-card__desc">Structured onboarding and training designed for real ticket volume from week one.</p>
+          <ul class="svc-card__list">
+            <li>Platform training: Zendesk, Gorgias, Freshdesk</li>
+            <li>Brand voice and product knowledge curriculum</li>
+            <li>Escalation and edge case handling modules</li>
+            <li>Certification paths and competency checks</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">✅</div>
+          <h3 class="svc-card__title">QA Programs</h3>
+          <p class="svc-card__desc">Scorecard-based quality review cycles that keep your team performing consistently.</p>
+          <ul class="svc-card__list">
+            <li>Custom QA scorecard design</li>
+            <li>Calibration sessions and inter-rater reliability</li>
+            <li>Agent feedback loops and coaching plans</li>
+            <li>Trend reporting tied to CSAT outcomes</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📝</div>
+          <h3 class="svc-card__title">Policies & SOPs</h3>
+          <p class="svc-card__desc">Every team needs documented rules. We write the playbooks your agents actually follow.</p>
+          <ul class="svc-card__list">
+            <li>Refund, return, and exception policies</li>
+            <li>Escalation trees and approval flows</li>
+            <li>Brand communication guidelines</li>
+            <li>Channel-specific response standards</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">📅</div>
+          <h3 class="svc-card__title">Scheduling & Operations</h3>
+          <p class="svc-card__desc">Coverage design that matches your ticket volume and customer time zones.</p>
+          <ul class="svc-card__list">
+            <li>Shift coverage modeling and WFM setup</li>
+            <li>Overflow and surge contingency plans</li>
+            <li>Attendance and performance tracking systems</li>
+            <li>Team lead structure and reporting lines</li>
+          </ul>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card__icon">🚀</div>
+          <h3 class="svc-card__title">Zero-to-One CX Build</h3>
+          <p class="svc-card__desc">Launching a brand-new support operation? We design, staff, and run it for you.</p>
+          <ul class="svc-card__list">
+            <li>Platform selection and full implementation</li>
+            <li>Team build-out from scratch</li>
+            <li>Process, policy, and playbook creation</li>
+            <li>Ongoing operations management option</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel-cta">
+        <div class="panel-cta__text">
+          <h3>Need a CX team, not just a tool?</h3>
+          <p>We embed as your support ops partner — from first hire to full-scale operation.</p>
+        </div>
+        <div class="panel-cta__btns">
+          <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="btn-primary">Book a Call</a>
+          <a href="https://deskxp.com/personalized-specs/" class="btn-ghost">Get a Spec</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
 
   <div id="footer"></div>
   <script>
-    fetch("/footer.html").then(r=>r.text()).then(h=>document.getElementById("footer").innerHTML=h);
+    fetch("/footer.html").then(r => r.text()).then(h => document.getElementById("footer").innerHTML = h);
   </script>
+
   <script>
-    (function(){
-      const q=new URLSearchParams(location.search).get("s");
-      if(!q) return;
-      history.replaceState(null,"","#"+q);
-      const el=document.getElementById(q);
-      if(el) el.scrollIntoView({behavior:"instant",block:"start"});
+    (function () {
+      const tabs = document.querySelectorAll('.svc-tab');
+      const panels = document.querySelectorAll('.svc-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.panel;
+
+          tabs.forEach(t => {
+            t.classList.remove('is-active');
+            t.setAttribute('aria-selected', 'false');
+          });
+
+          panels.forEach(p => p.classList.remove('is-active'));
+
+          tab.classList.add('is-active');
+          tab.setAttribute('aria-selected', 'true');
+
+          const panel = document.getElementById('panel-' + target);
+          if (panel) panel.classList.add('is-active');
+        });
+      });
+
+      const q = new URLSearchParams(location.search).get('s');
+      if (q) {
+        const matchTab = document.querySelector('[data-panel="' + q + '"]');
+        if (matchTab) {
+          matchTab.click();
+          history.replaceState(null, '', '#' + q);
+        } else {
+          const el = document.getElementById(q);
+          if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }
     })();
   </script>
+
   <script src="/js/main.js?v=215" defer></script>
 </body>
 </html>
