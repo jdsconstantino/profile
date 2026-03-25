@@ -570,6 +570,17 @@
       perspective: none !important;
       filter: none !important;
     }
+    
+    .pill-group-label {
+  width: 100%;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(122,140,154,0.8);
+  margin: 18px 0 6px;
+  padding-left: 4px;
+}
   </style>
 </head>
 
@@ -615,19 +626,88 @@
             <p class="spec-step__hint">Select all that apply — multi-select.</p>
 
             <div class="pillset">
-              <label class="pill"><input type="checkbox" name="services" value="CX End to End management">CX End-to-End Management</label>
-              <label class="pill"><input type="checkbox" name="services" value="Zendesk onboarding">Zendesk Onboarding</label>
-              <label class="pill"><input type="checkbox" name="services" value="Zendesk optimization">Zendesk Optimization</label>
-              <label class="pill"><input type="checkbox" name="services" value="Zendesk omnichannel integration">Zendesk Omnichannel</label>
-              <label class="pill"><input type="checkbox" name="services" value="Dashboard">Dashboards & Reporting</label>
-              <label class="pill"><input type="checkbox" name="services" value="Integration and automation">Integration & Automation</label>
-              <label class="pill"><input type="checkbox" name="services" value="AI Agents">AI Agents</label>
-              <label class="pill"><input type="checkbox" name="services" value="QA and CSAT">QA & CSAT</label>
-              <label class="pill"><input type="checkbox" name="services" value="Zendesk Guide">Zendesk Guide / Help Center</label>
-              <label class="pill"><input type="checkbox" name="services" value="Gorgias setup">Gorgias Setup</label>
-              <label class="pill"><input type="checkbox" name="services" value="Freshdesk setup">Freshdesk Setup</label>
-              <label class="pill"><input type="checkbox" name="services" value="CX Staffing">CX Staffing & Hiring</label>
-            </div>
+
+  <!-- CORE CX SYSTEMS -->
+  <div class="pill-group-label">Core CX Systems</div>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Zendesk">
+    Zendesk
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Freshdesk">
+    Freshdesk
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Gorgias">
+    Gorgias
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Zoho Desk">
+    Zoho Desk
+  </label>
+
+
+  <!-- SUPPORT OPERATIONS -->
+  <div class="pill-group-label">Support Operations</div>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Process Optimization">
+    Process Optimization
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="QA CSAT Systems">
+    QA, CSAT & Performance
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="CX Reporting">
+    CX Reporting & Dashboards
+  </label>
+
+
+  <!-- CHANNELS & INTEGRATIONS -->
+  <div class="pill-group-label">Channels & Integrations</div>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Omnichannel Support">
+    Omnichannel Support Setup
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Ecommerce Support">
+    eCommerce Systems
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="API Integrations">
+    API & Custom Integrations
+  </label>
+
+
+  <!-- ADVANCED / SCALE -->
+  <div class="pill-group-label">Advanced / Scale</div>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="AI Automation">
+    AI Agents & Automation
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="Help Center">
+    Help Center & Self-Service
+  </label>
+
+  <label class="pill">
+    <input type="checkbox" name="services" value="CX Hiring">
+    CX Hiring & Team Design
+  </label>
+
+</div>
 
             <div class="spec-divider"></div>
 
@@ -654,7 +734,7 @@
             <div class="field-grid">
               <div class="form-field">
                 <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+                <input type="text" id="name" name="name" placeholder="James Daniel" required>
               </div>
 
               <div class="form-field">
