@@ -1035,6 +1035,7 @@
       transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
     }
 
+
     .brands-proof__cta:hover {
       transform: translateY(-1px);
       background: #068842;
@@ -2100,6 +2101,12 @@
         animation: none;
       }
     }
+    .brands-proof__cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
   </style>
 
   <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
@@ -2133,7 +2140,7 @@
               </div>
 
               <div class="hero-cta-row">
-                <a href="https://deskxp.com/personalized-specs/" class="hero-btn hero-btn--primary">Get Started</a>
+                <a href="https://deskxp.com/personalized-specs/" class="hero-btn hero-btn--primary" data-modal="specs">Get Started</a>
                 <a href="https://calendar.app.google/xPEbeHyWNfehWYgB9" class="hero-btn hero-btn--secondary">Book Demo</a>
               </div>
 
@@ -2250,7 +2257,7 @@
             <li>Escalation paths and ownership design</li>
             <li>Process standardization across teams</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
 
@@ -2268,7 +2275,7 @@
             <li>Ticket data hygiene and governance</li>
             <li>Reporting-ready support architecture</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
 
@@ -2286,7 +2293,7 @@
             <li>Bots, deflection, and workflow automation</li>
             <li>Faster handling with less manual work</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
 
@@ -2304,7 +2311,7 @@
             <li>Custom reporting structures and KPIs</li>
             <li>Visibility that drives accountability</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
 
@@ -2322,7 +2329,7 @@
             <li>Make, Zapier, and webhook automations</li>
             <li>Cleaner data flow across systems</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
 
@@ -2340,7 +2347,7 @@
             <li>Policies, SOPs, and servicing workflows</li>
             <li>Operational design from zero to scale</li>
           </ul>
-          <a class="svc-cta" href="/services">Explore Services</a>
+          <a class="svc-cta" href="/services">Explore Service</a>
         </div>
       </article>
     </div>
@@ -2416,7 +2423,10 @@
             </ul>
           </div>
 
-          <a class="brands-proof__cta" href="/success-stories/">View Success Stories</a>
+          <div class="brands-proof__cta-group">
+            <a class="brands-proof__cta" href="/success-stories/">View Success Stories</a>
+            <a class="brands-proof__cta" href="/personalized-specs/">Tell Us What You Need</a>
+          </div>
         </aside>
       </div>
     </div>
