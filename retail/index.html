@@ -1,1 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Retail | DeskXP</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #070c11;
+      --card: #121a22;
+      --border: rgba(255,255,255,0.08);
+      --text: #f5f7fb;
+      --muted: #9aa4b2;
+      --accent: #00c2a8;
+      --danger: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top, #0b2833, #070c11 60%);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 { margin-bottom: 10px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      color: black;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: white;
+      color: black;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LOGIN -->
+  <div id="authCard" class="card">
+    <h1>DeskXP Retail</h1>
+    <input id="email" type="email" placeholder="Email"/>
+    <input id="password" type="password" placeholder="Password"/>
+    <button class="btn" onclick="login()">Login</button>
+    <button class="btn-outline" onclick="signup()">Signup</button>
+    <p id="authMsg"></p>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="hidden">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h1>DeskXP Retail</h1>
+      <button class="btn-outline" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- ADD -->
+    <div class="card">
+      <input id="name" placeholder="Item name"/>
+      <input id="qty" type="number" placeholder="Quantity"/>
+      <input id="unit" placeholder="Unit"/>
+      <textarea id="notes" placeholder="Notes"></textarea>
+      <button class="btn" onclick="addItem()">Add Item</button>
+    </div>
+
+    <!-- LIST -->
+    <div>
+      <h3>Pending</h3>
+      <div id="pending"></div>
+
+      <h3>Bought</h3>
+      <div id="bought"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://fgtakqdkovomrivljzin.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+)
+
+const HOUSEHOLD_ID = "cb6bc26a-bc8d-498d-9829-0013016fef55"
+
+async function login() {
+  const email = emailInput().value
+  const password = passwordInput().value
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+  if (error) return msg(error.message)
+  init()
+}
+
+async function signup() {
+  const email = emailInput().value
+  const password = passwordInput().value
+
+  const { error } = await supabase.auth.signUp({ email, password })
+
+  if (error) return msg(error.message)
+  msg("Account created. Login now.")
+}
+
+async function logout() {
+  await supabase.auth.signOut()
+  location.reload()
+}
+
+function msg(t) {
+  document.getElementById("authMsg").innerText = t
+}
+
+function emailInput(){ return document.getElementById("email") }
+function passwordInput(){ return document.getElementById("password") }
+
+async function init() {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) return
+
+  document.getElementById("authCard").classList.add("hidden")
+  document.getElementById("app").classList.remove("hidden")
+
+  load()
+
+  supabase.channel("realtime")
+    .on("postgres_changes", { event: "*", schema: "public", table: "grocery_items" }, load)
+    .subscribe()
+}
+
+async function load() {
+  const { data } = await supabase
+    .from("grocery_items")
+    .select("*")
+    .eq("household_id", HOUSEHOLD_ID)
+    .order("created_at", { ascending: false })
+
+  const pending = data.filter(x => x.status === "pending")
+  const bought = data.filter(x => x.status === "bought")
+
+  render("pending", pending)
+  render("bought", bought)
+}
+
+function render(target, items) {
+  const el = document.getElementById(target)
+  el.innerHTML = ""
+
+  items.forEach(i => {
+    const div = document.createElement("div")
+    div.className = "item"
+
+    div.innerHTML = `
+      <div>
+        <b>${i.name}</b>
+        <div class="muted">${i.quantity || "-"} ${i.unit || ""}</div>
+        <div class="muted">${i.notes || ""}</div>
+      </div>
+
+      <div>
+        <button onclick="toggle('${i.id}','${i.status}')">
+          ${i.status === "bought" ? "Undo" : "Bought"}
+        </button>
+        <button onclick="del('${i.id}')" class="btn-danger">X</button>
+      </div>
+    `
+
+    el.appendChild(div)
+  })
+}
+
+async function addItem() {
+  const { data: { session } } = await supabase.auth.getSession()
+
+  await supabase.from("grocery_items").insert({
+    household_id: HOUSEHOLD_ID,
+    name: document.getElementById("name").value,
+    quantity: document.getElementById("qty").value || null,
+    unit: document.getElementById("unit").value,
+    notes: document.getElementById("notes").value,
+    status: "pending",
+    added_by: session.user.id
+  })
+
+  document.getElementById("name").value = ""
+  document.getElementById("qty").value = ""
+  document.getElementById("unit").value = ""
+  document.getElementById("notes").value = ""
+}
+
+async function toggle(id, status) {
+  const { data: { session } } = await supabase.auth.getSession()
+
+  await supabase.from("grocery_items")
+    .update({
+      status: status === "bought" ? "pending" : "bought",
+      bought_by: status === "bought" ? null : session.user.id
+    })
+    .eq("id", id)
+}
+
+async function del(id) {
+  if (!confirm("Delete?")) return
+  await supabase.from("grocery_items").delete().eq("id", id)
+}
+
+init()
+</script>
+
+</body>
+</html>
