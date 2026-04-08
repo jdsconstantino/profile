@@ -2,276 +2,989 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Retail | DeskXP</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#070c11" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #070c11;
-      --card: #121a22;
-      --border: rgba(255,255,255,0.08);
-      --text: #f5f7fb;
-      --muted: #9aa4b2;
-      --accent: #00c2a8;
-      --danger: #ff6b6b;
+      --bg:           #070c11;
+      --surface:      #0e1820;
+      --surface-2:    #131f2b;
+      --surface-3:    #172230;
+      --accent:       #00c2a8;
+      --accent-dim:   rgba(0,194,168,0.12);
+      --accent-glow:  rgba(0,194,168,0.22);
+      --text:         #eef2f8;
+      --text-2:       #8898af;
+      --text-3:       #536070;
+      --border:       rgba(255,255,255,0.07);
+      --border-2:     rgba(255,255,255,0.12);
+      --danger:       #ff5e5e;
+      --danger-dim:   rgba(255,94,94,0.10);
+      --warn:         #ffb347;
+      --warn-dim:     rgba(255,179,71,0.10);
+      --radius-sm:    10px;
+      --radius:       16px;
+      --radius-lg:    22px;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at top, #0b2833, #070c11 60%);
+    html, body {
+      min-height: 100%;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      font-size: 15px;
       color: var(--text);
-      padding: 20px;
+      background:
+        radial-gradient(ellipse 1000px 500px at 50% -80px, rgba(0,194,168,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse 700px 500px at 0% 10%, rgba(0,80,130,0.15) 0%, transparent 50%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
+    body { padding: 20px 12px 48px; }
+
+    /* ── SHELL ── */
+    .shell {
+      max-width: 900px;
+      margin: 0 auto;
+      background: linear-gradient(160deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 50%, transparent 100%),
+                  var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 28px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+      overflow: hidden;
     }
 
-    h1 { margin-bottom: 10px; }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 24px 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, transparent 100%);
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: white;
-      color: black;
-      margin-bottom: 10px;
+    .logo-row { display: flex; align-items: center; gap: 14px; }
+
+    .logo-mark {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0,194,168,0.25) 0%, rgba(0,194,168,0.08) 100%);
+      border: 1px solid rgba(0,194,168,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
     }
 
-    button {
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+
+    .logo-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(90deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      color: var(--text-3);
       font-weight: 500;
     }
 
-    .btn {
-      background: white;
-      color: black;
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+    .user-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-2);
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: white;
+    .user-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      flex-shrink: 0;
     }
+
+    /* ── CONTENT ── */
+    .content { padding: 24px; }
+
+    /* ── AUTH ── */
+    .auth-wrap {
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .auth-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .auth-heading {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .auth-sub {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    /* ── FORM ── */
+    .form-group { display: grid; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .field { display: grid; gap: 6px; }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font: inherit;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--text-3); }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(0,194,168,0.4);
+      background: rgba(0,194,168,0.04);
+    }
+
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      border: 0;
+      border-radius: var(--radius-sm);
+      padding: 11px 18px;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-accent {
+      background: linear-gradient(180deg, #0fd6bc 0%, #00b09a 100%);
+      color: #05150f;
+    }
+
+    .btn-white {
+      background: linear-gradient(180deg, #fff 0%, #e6edf5 100%);
+      color: #09121e;
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
 
     .btn-danger {
-      background: var(--danger);
-      color: white;
+      background: var(--danger-dim);
+      color: var(--danger);
+      border: 1px solid rgba(255,94,94,0.18);
     }
 
-    .item {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
+    .btn-sm {
+      font-size: 13px;
+      padding: 8px 13px;
+    }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    /* ── STATUS ── */
+    .status {
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      margin-top: 14px;
+    }
+
+    .status.show { display: block; }
+
+    .status.error {
+      background: var(--danger-dim);
+      border: 1px solid rgba(255,94,94,0.2);
+      color: #ffb3b3;
+    }
+
+    .status.success {
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,194,168,0.22);
+      color: #8ffde7;
+    }
+
+    /* ── APP LAYOUT ── */
+    .app-layout {
+      display: grid;
+      gap: 20px;
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: rgba(255,255,255,0.018);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
-    .muted {
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-body { padding: 18px 20px; }
+
+    .count-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 24px; height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
       font-size: 12px;
-      color: var(--muted);
+      font-weight: 800;
     }
 
-    .hidden { display: none; }
+    .badge-pending {
+      background: var(--warn-dim);
+      color: var(--warn);
+      border: 1px solid rgba(255,179,71,0.2);
+    }
+
+    .badge-bought {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(0,194,168,0.2);
+    }
+
+    .badge-neutral {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── ADD PANEL (top) ── */
+    .add-panel {
+      background: rgba(0,194,168,0.04);
+      border: 1px solid rgba(0,194,168,0.12);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .add-panel-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .add-panel-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .add-panel-sub {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-top: 3px;
+    }
+
+    /* ── ITEM LIST ── */
+    .item-list { display: grid; gap: 10px; }
+
+    .empty-state {
+      border: 1px dashed rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-3);
+      font-style: italic;
+    }
+
+    /* ── ITEM CARD ── */
+    .item-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .item-card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .item-card.is-bought {
+      background: rgba(0,194,168,0.03);
+      border-color: rgba(0,194,168,0.1);
+    }
+
+    .item-check {
+      width: 22px; height: 22px;
+      border-radius: 7px;
+      border: 2px solid var(--border-2);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+      background: transparent;
+    }
+
+    .item-card.is-bought .item-check {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .item-check svg {
+      display: none;
+    }
+
+    .item-card.is-bought .item-check svg { display: block; }
+
+    .item-body { flex: 1; min-width: 0; }
+
+    .item-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .item-card.is-bought .item-name {
+      color: var(--text-2);
+      text-decoration: line-through;
+      text-decoration-color: rgba(255,255,255,0.25);
+    }
+
+    .item-qty {
+      font-size: 13px;
+      color: var(--text-3);
+      margin-top: 3px;
+    }
+
+    .item-notes-text {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-top: 6px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .item-card.is-bought .item-notes-text { color: var(--text-3); }
+
+    .item-actions {
+      display: flex; align-items: center; gap: 6px;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .item-card:hover .item-actions { opacity: 1; }
+
+    /* always show on touch */
+    @media (hover: none) {
+      .item-actions { opacity: 1; }
+    }
+
+    /* ── DIVIDERS ── */
+    .section-divider {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text-3);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 4px 0 10px;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── HIDDEN ── */
+    .hidden { display: none !important; }
+
+    /* ── EDIT MODE HIGHLIGHT ── */
+    .add-panel.editing {
+      border-color: rgba(255,179,71,0.3);
+      background: rgba(255,179,71,0.03);
+    }
+
+    .edit-banner {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      background: var(--warn-dim);
+      border: 1px solid rgba(255,179,71,0.2);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warn);
+      margin-bottom: 16px;
+    }
+
+    .edit-banner.show { display: flex; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 10px 8px 32px; }
+
+      .topbar { padding: 14px 16px; }
+      .content { padding: 16px; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .logo-title { font-size: 18px; }
+
+      .item-actions { opacity: 1; }
+
+      .add-panel, .panel-body { padding: 16px; }
+      .panel-header { padding: 14px 16px; }
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
+<div class="shell">
 
-  <!-- LOGIN -->
-  <div id="authCard" class="card">
-    <h1>DeskXP Retail</h1>
-    <input id="email" type="email" placeholder="Email"/>
-    <input id="password" type="password" placeholder="Password"/>
-    <button class="btn" onclick="login()">Login</button>
-    <button class="btn-outline" onclick="signup()">Signup</button>
-    <p id="authMsg"></p>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo-row">
+      <div class="logo-mark">🛒</div>
+      <div class="logo-text">
+        <div class="logo-title">DeskXP Retail</div>
+        <div class="logo-sub">Shared household grocery list</div>
+      </div>
+    </div>
+
+    <div class="topbar-right" id="topbarRight">
+      <div id="userChip" class="user-chip hidden">
+        <div class="user-dot"></div>
+        <span id="userLabel">–</span>
+      </div>
+      <button id="logoutBtn" class="btn btn-ghost btn-sm hidden">Sign out</button>
+    </div>
   </div>
 
-  <!-- APP -->
-  <div id="app" class="hidden">
+  <!-- CONTENT -->
+  <div class="content">
 
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <h1>DeskXP Retail</h1>
-      <button class="btn-outline" onclick="logout()">Logout</button>
+    <!-- AUTH VIEW -->
+    <div id="authView" class="auth-wrap hidden">
+      <div class="auth-eyebrow">DeskXP Retail</div>
+      <h1 class="auth-heading">Welcome back</h1>
+      <p class="auth-sub">Sign in to access your household grocery list. Both you and your partner share the same list once logged in.</p>
+
+      <div class="form-group">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password" />
+        </div>
+
+        <div class="btn-row">
+          <button id="loginBtn" class="btn btn-white">Sign in</button>
+          <button id="signupBtn" class="btn btn-ghost">Create account</button>
+        </div>
+
+        <div id="authStatus" class="status"></div>
+      </div>
     </div>
 
-    <!-- ADD -->
-    <div class="card">
-      <input id="name" placeholder="Item name"/>
-      <input id="qty" type="number" placeholder="Quantity"/>
-      <input id="unit" placeholder="Unit"/>
-      <textarea id="notes" placeholder="Notes"></textarea>
-      <button class="btn" onclick="addItem()">Add Item</button>
+    <!-- APP VIEW -->
+    <div id="appView" class="app-layout hidden">
+
+      <!-- ADD / EDIT PANEL -->
+      <div class="add-panel" id="addPanel">
+        <div class="add-panel-header">
+          <div>
+            <div class="add-panel-title" id="addPanelTitle">Add item</div>
+            <div class="add-panel-sub">Grocery or household essentials — anything you need to grab</div>
+          </div>
+        </div>
+
+        <div class="edit-banner" id="editBanner">
+          ✏️ Editing item — make your changes and save
+        </div>
+
+        <div class="form-group">
+          <div class="field">
+            <label for="itemName">Item name <span style="color:var(--danger)">*</span></label>
+            <input id="itemName" type="text" placeholder="e.g. Milk, Tide detergent, Eggs…" autocomplete="off" />
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="itemQty">Quantity</label>
+              <input id="itemQty" type="number" step="any" min="0" placeholder="2" />
+            </div>
+
+            <div class="field">
+              <label for="itemUnit">Unit</label>
+              <input id="itemUnit" type="text" placeholder="pcs, kg, pack…" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="itemNotes">Notes <span style="color:var(--text-3);font-weight:500;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <textarea id="itemNotes" placeholder="Brand preference, store, or any reminders…"></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button id="submitBtn" class="btn btn-accent">Add to list</button>
+            <button id="cancelEditBtn" class="btn btn-ghost hidden">Cancel</button>
+          </div>
+
+          <div id="appStatus" class="status"></div>
+        </div>
+      </div>
+
+      <!-- LIST PANEL -->
+      <div class="panel">
+        <div class="panel-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="panel-title">Shopping list</span>
+            <span id="totalBadge" class="count-badge badge-neutral">0</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="boughtBadge" class="count-badge badge-bought hidden">0 bought</span>
+            <button id="clearBoughtBtn" class="btn btn-ghost btn-sm hidden">Clear bought</button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div id="listContainer">
+            <div class="empty-state">Your list is empty — add items above.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <!-- LIST -->
-    <div>
-      <h3>Pending</h3>
-      <div id="pending"></div>
-
-      <h3>Bought</h3>
-      <div id="bought"></div>
-    </div>
-
   </div>
-
 </div>
 
 <script>
-const supabase = window.supabase.createClient(
-  "https://fgtakqdkovomrivljzin.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-)
+  const SUPABASE_URL  = "https://fgtakqdkovomrivljzin.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZndGFrcWRrb3ZvbXJpdmxqemluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNjAwNjMsImV4cCI6MjA3OTkzNjA2M30.fDVT3jzMkpNTNxLgq7hc-c9OCrvPZW_qB_RV_XFTxFU";
+  const HOUSEHOLD_ID  = "cb6bc26a-bc8d-498d-9829-0013016fef55";
 
-const HOUSEHOLD_ID = "cb6bc26a-bc8d-498d-9829-0013016fef55"
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-async function login() {
-  const email = emailInput().value
-  const password = passwordInput().value
+  let session     = null;
+  let editingId   = null;
+  let realtimeCh  = null;
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  /* ── DOM refs ── */
+  const $ = id => document.getElementById(id);
 
-  if (error) return msg(error.message)
-  init()
-}
+  const authView     = $("authView");
+  const appView      = $("appView");
+  const logoutBtn    = $("logoutBtn");
+  const userChip     = $("userChip");
+  const userLabel    = $("userLabel");
+  const loginBtn     = $("loginBtn");
+  const signupBtn    = $("signupBtn");
+  const authStatus   = $("authStatus");
+  const emailEl      = $("email");
+  const passEl       = $("password");
 
-async function signup() {
-  const email = emailInput().value
-  const password = passwordInput().value
+  const addPanel     = $("addPanel");
+  const addTitle     = $("addPanelTitle");
+  const editBanner   = $("editBanner");
+  const itemName     = $("itemName");
+  const itemQty      = $("itemQty");
+  const itemUnit     = $("itemUnit");
+  const itemNotes    = $("itemNotes");
+  const submitBtn    = $("submitBtn");
+  const cancelBtn    = $("cancelEditBtn");
+  const appStatus    = $("appStatus");
 
-  const { error } = await supabase.auth.signUp({ email, password })
+  const listContainer = $("listContainer");
+  const totalBadge   = $("totalBadge");
+  const boughtBadge  = $("boughtBadge");
+  const clearBought  = $("clearBoughtBtn");
 
-  if (error) return msg(error.message)
-  msg("Account created. Login now.")
-}
+  /* ── Utilities ── */
+  function esc(v) {
+    return String(v ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;");
+  }
 
-async function logout() {
-  await supabase.auth.signOut()
-  location.reload()
-}
+  function flash(el, msg, type = "error") {
+    el.textContent  = msg;
+    el.className    = `status show ${type}`;
+    if (type === "success") setTimeout(() => el.className = "status", 3000);
+  }
 
-function msg(t) {
-  document.getElementById("authMsg").innerText = t
-}
+  function clearFlash(el) { el.className = "status"; }
 
-function emailInput(){ return document.getElementById("email") }
-function passwordInput(){ return document.getElementById("password") }
+  /* ── Auth views ── */
+  function showAuth() {
+    authView.classList.remove("hidden");
+    appView.classList.add("hidden");
+    logoutBtn.classList.add("hidden");
+    userChip.classList.add("hidden");
+  }
 
-async function init() {
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return
+  function showApp(s) {
+    session = s;
+    authView.classList.add("hidden");
+    appView.classList.remove("hidden");
+    logoutBtn.classList.remove("hidden");
+    userChip.classList.remove("hidden");
+    userLabel.textContent = s.user.email.split("@")[0];
+  }
 
-  document.getElementById("authCard").classList.add("hidden")
-  document.getElementById("app").classList.remove("hidden")
+  /* ── Auth actions ── */
+  loginBtn.addEventListener("click", async () => {
+    clearFlash(authStatus);
+    const email = emailEl.value.trim(), pass = passEl.value;
+    if (!email || !pass) { flash(authStatus, "Enter email and password."); return; }
+    loginBtn.disabled = true; loginBtn.textContent = "Signing in…";
+    const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+    loginBtn.disabled = false; loginBtn.textContent = "Sign in";
+    if (error) { flash(authStatus, error.message); return; }
+    emailEl.value = ""; passEl.value = "";
+    await boot();
+  });
 
-  load()
+  signupBtn.addEventListener("click", async () => {
+    clearFlash(authStatus);
+    const email = emailEl.value.trim(), pass = passEl.value;
+    if (!email || !pass) { flash(authStatus, "Enter email and password."); return; }
+    signupBtn.disabled = true; signupBtn.textContent = "Creating…";
+    const { error } = await sb.auth.signUp({ email, password: pass });
+    signupBtn.disabled = false; signupBtn.textContent = "Create account";
+    if (error) { flash(authStatus, error.message); return; }
+    flash(authStatus, "Account created! You can now sign in.", "success");
+  });
 
-  supabase.channel("realtime")
-    .on("postgres_changes", { event: "*", schema: "public", table: "grocery_items" }, load)
-    .subscribe()
-}
+  logoutBtn.addEventListener("click", async () => {
+    await sb.auth.signOut();
+    if (realtimeCh) { await sb.removeChannel(realtimeCh); realtimeCh = null; }
+    session = null; editingId = null;
+    resetForm();
+    showAuth();
+  });
 
-async function load() {
-  const { data } = await supabase
-    .from("grocery_items")
-    .select("*")
-    .eq("household_id", HOUSEHOLD_ID)
-    .order("created_at", { ascending: false })
+  /* ── Password enter key ── */
+  passEl.addEventListener("keydown", e => { if (e.key === "Enter") loginBtn.click(); });
 
-  const pending = data.filter(x => x.status === "pending")
-  const bought = data.filter(x => x.status === "bought")
+  /* ── Boot ── */
+  async function boot() {
+    const { data } = await sb.auth.getSession();
+    if (!data?.session) { showAuth(); return; }
+    showApp(data.session);
+    await loadItems();
+    initRealtime();
+  }
 
-  render("pending", pending)
-  render("bought", bought)
-}
+  function initRealtime() {
+    if (realtimeCh) return;
+    realtimeCh = sb
+      .channel("retail-list")
+      .on("postgres_changes", {
+        event: "*", schema: "public", table: "grocery_items",
+        filter: `household_id=eq.${HOUSEHOLD_ID}`
+      }, async () => { await loadItems(); })
+      .subscribe();
+  }
 
-function render(target, items) {
-  const el = document.getElementById(target)
-  el.innerHTML = ""
+  /* ── Load & render ── */
+  async function loadItems() {
+    const { data, error } = await sb
+      .from("grocery_items")
+      .select("*")
+      .eq("household_id", HOUSEHOLD_ID)
+      .order("created_at", { ascending: true });
 
-  items.forEach(i => {
-    const div = document.createElement("div")
-    div.className = "item"
+    if (error) { flash(appStatus, error.message); return; }
 
-    div.innerHTML = `
-      <div>
-        <b>${i.name}</b>
-        <div class="muted">${i.quantity || "-"} ${i.unit || ""}</div>
-        <div class="muted">${i.notes || ""}</div>
+    const items = data ?? [];
+    const pending = items.filter(i => i.status === "pending");
+    const bought  = items.filter(i => i.status === "bought");
+
+    totalBadge.textContent = String(items.length);
+
+    if (bought.length > 0) {
+      boughtBadge.textContent = `${bought.length} bought`;
+      boughtBadge.classList.remove("hidden");
+      clearBought.classList.remove("hidden");
+    } else {
+      boughtBadge.classList.add("hidden");
+      clearBought.classList.add("hidden");
+    }
+
+    renderList(pending, bought);
+  }
+
+  function renderList(pending, bought) {
+    if (pending.length === 0 && bought.length === 0) {
+      listContainer.innerHTML = `<div class="empty-state">Your list is empty — add items above.</div>`;
+      return;
+    }
+
+    let html = "";
+
+    if (pending.length > 0) {
+      html += `<div class="section-divider">To buy · ${pending.length}</div>`;
+      html += `<div class="item-list">`;
+      pending.forEach(item => { html += buildItemCard(item); });
+      html += `</div>`;
+    }
+
+    if (bought.length > 0) {
+      if (pending.length > 0) html += `<div style="height:16px"></div>`;
+      html += `<div class="section-divider">Bought · ${bought.length}</div>`;
+      html += `<div class="item-list">`;
+      bought.forEach(item => { html += buildItemCard(item); });
+      html += `</div>`;
+    }
+
+    listContainer.innerHTML = html;
+  }
+
+  function buildItemCard(item) {
+    const isBought = item.status === "bought";
+    const qty  = item.quantity != null ? item.quantity : "";
+    const unit = item.unit ?? "";
+    const qtyText = (qty || unit) ? `${qty}${qty && unit ? " " : ""}${esc(unit)}` : "";
+
+    return `
+      <div class="item-card${isBought ? " is-bought" : ""}" data-id="${item.id}">
+        <div class="item-check" data-action="toggle" data-id="${item.id}" data-status="${item.status}" title="${isBought ? "Mark as pending" : "Mark as bought"}">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+            <path d="M1 5l3.5 3.5L11 1" stroke="#05150f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="item-body">
+          <div class="item-name">${esc(item.name || "Untitled")}</div>
+          ${qtyText ? `<div class="item-qty">${qtyText}</div>` : ""}
+          ${item.notes ? `<div class="item-notes-text">${esc(item.notes)}</div>` : ""}
+        </div>
+
+        <div class="item-actions">
+          <button class="btn btn-ghost btn-sm" data-action="edit" data-id="${item.id}" title="Edit">✏️</button>
+          <button class="btn btn-danger btn-sm" data-action="delete" data-id="${item.id}" title="Delete">🗑</button>
+        </div>
       </div>
+    `;
+  }
 
-      <div>
-        <button onclick="toggle('${i.id}','${i.status}')">
-          ${i.status === "bought" ? "Undo" : "Bought"}
-        </button>
-        <button onclick="del('${i.id}')" class="btn-danger">X</button>
-      </div>
-    `
+  /* ── Add / edit ── */
+  submitBtn.addEventListener("click", handleSubmit);
 
-    el.appendChild(div)
-  })
-}
+  itemName.addEventListener("keydown", e => { if (e.key === "Enter") handleSubmit(); });
 
-async function addItem() {
-  const { data: { session } } = await supabase.auth.getSession()
+  async function handleSubmit() {
+    clearFlash(appStatus);
 
-  await supabase.from("grocery_items").insert({
-    household_id: HOUSEHOLD_ID,
-    name: document.getElementById("name").value,
-    quantity: document.getElementById("qty").value || null,
-    unit: document.getElementById("unit").value,
-    notes: document.getElementById("notes").value,
-    status: "pending",
-    added_by: session.user.id
-  })
+    const name  = itemName.value.trim();
+    const qty   = itemQty.value.trim();
+    const unit  = itemUnit.value.trim() || null;
+    const notes = itemNotes.value.trim() || null;
 
-  document.getElementById("name").value = ""
-  document.getElementById("qty").value = ""
-  document.getElementById("unit").value = ""
-  document.getElementById("notes").value = ""
-}
+    if (!name) { flash(appStatus, "Item name is required."); return; }
+    if (!session?.user?.id) { flash(appStatus, "You are not signed in."); return; }
 
-async function toggle(id, status) {
-  const { data: { session } } = await supabase.auth.getSession()
+    submitBtn.disabled = true;
 
-  await supabase.from("grocery_items")
-    .update({
-      status: status === "bought" ? "pending" : "bought",
-      bought_by: status === "bought" ? null : session.user.id
-    })
-    .eq("id", id)
-}
+    if (editingId) {
+      const { error } = await sb
+        .from("grocery_items")
+        .update({ name, quantity: qty === "" ? null : Number(qty), unit, notes })
+        .eq("id", editingId);
 
-async function del(id) {
-  if (!confirm("Delete?")) return
-  await supabase.from("grocery_items").delete().eq("id", id)
-}
+      submitBtn.disabled = false;
+      if (error) { flash(appStatus, error.message); return; }
+      resetForm();
+      flash(appStatus, "Item updated.", "success");
+      await loadItems();
+      return;
+    }
 
-init()
+    const { error } = await sb.from("grocery_items").insert({
+      household_id: HOUSEHOLD_ID,
+      name,
+      quantity: qty === "" ? null : Number(qty),
+      unit,
+      notes,
+      status: "pending",
+      added_by: session.user.id
+    });
+
+    submitBtn.disabled = false;
+    if (error) { flash(appStatus, error.message); return; }
+    resetForm();
+    flash(appStatus, `"${name}" added to list.`, "success");
+    await loadItems();
+  }
+
+  cancelBtn.addEventListener("click", resetForm);
+
+  function resetForm() {
+    editingId = null;
+    itemName.value = "";
+    itemQty.value  = "";
+    itemUnit.value = "";
+    itemNotes.value = "";
+    submitBtn.textContent = "Add to list";
+    submitBtn.className   = "btn btn-accent";
+    addTitle.textContent  = "Add item";
+    addPanel.classList.remove("editing");
+    editBanner.classList.remove("show");
+    cancelBtn.classList.add("hidden");
+  }
+
+  /* ── Delegation: toggle / edit / delete ── */
+  document.addEventListener("click", async e => {
+    const el = e.target.closest("[data-action]");
+    if (!el) return;
+
+    const action = el.dataset.action;
+    const id     = el.dataset.id;
+    if (!id) return;
+
+    if (action === "toggle") {
+      const status = el.dataset.status;
+      const next   = status === "bought" ? "pending" : "bought";
+      const payload = next === "bought"
+        ? { status: "bought",  bought_by: session?.user?.id ?? null }
+        : { status: "pending", bought_by: null };
+
+      const { error } = await sb.from("grocery_items").update(payload).eq("id", id);
+      if (error) flash(appStatus, error.message);
+      else await loadItems();
+    }
+
+    if (action === "edit") {
+      const { data, error } = await sb
+        .from("grocery_items").select("*").eq("id", id).single();
+      if (error) { flash(appStatus, error.message); return; }
+
+      editingId         = id;
+      itemName.value    = data.name ?? "";
+      itemQty.value     = data.quantity ?? "";
+      itemUnit.value    = data.unit ?? "";
+      itemNotes.value   = data.notes ?? "";
+
+      addTitle.textContent  = "Edit item";
+      submitBtn.textContent = "Save changes";
+      submitBtn.className   = "btn btn-ghost";
+      addPanel.classList.add("editing");
+      editBanner.classList.add("show");
+      cancelBtn.classList.remove("hidden");
+
+      addPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => itemName.focus(), 300);
+    }
+
+    if (action === "delete") {
+      if (!window.confirm("Delete this item?")) return;
+      const { error } = await sb.from("grocery_items").delete().eq("id", id);
+      if (error) { flash(appStatus, error.message); return; }
+      if (editingId === id) resetForm();
+      await loadItems();
+    }
+  });
+
+  /* ── Clear all bought ── */
+  clearBought.addEventListener("click", async () => {
+    if (!window.confirm("Remove all bought items from the list?")) return;
+    const { error } = await sb
+      .from("grocery_items")
+      .delete()
+      .eq("household_id", HOUSEHOLD_ID)
+      .eq("status", "bought");
+    if (error) flash(appStatus, error.message);
+    else await loadItems();
+  });
+
+  /* ── Init ── */
+  boot();
 </script>
 
 </body>
