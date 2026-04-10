@@ -648,21 +648,64 @@
 
     .sel-clear:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
 
+    .portfolio-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .portfolio-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .portfolio-stat-card {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.05) 0, rgba(12,18,24,0.98) 65%);
+    }
+
+    .portfolio-stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .portfolio-stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .portfolio-stat-card.selected-total-card .portfolio-stat-value {
+      color: #4e9eff;
+    }
+
+    .portfolio-stat-sub {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
     .bank-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .bank-card {
       background: radial-gradient(circle at top left, rgba(255,255,255,0.07) 0, rgba(10,16,22,0.98) 60%);
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.07);
-      padding: 16px 16px 14px;
+      padding: 14px 16px 14px;
       position: relative;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s, opacity 0.15s;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      user-select: none;
     }
 
     .bank-card:hover {
@@ -671,8 +714,8 @@
     }
 
     .bank-card.selected {
-      outline: 2px solid rgba(0,194,106,0.85);
-      box-shadow: 0 0 0 1px rgba(0,194,106,0.3) inset;
+      border-color: rgba(0,194,106,0.55);
+      box-shadow: 0 0 0 1px rgba(0,194,106,0.28) inset, 0 0 0 3px rgba(0,194,106,0.08);
     }
 
     .bank-card.dragging {
@@ -681,7 +724,28 @@
     }
 
     .bank-card.drag-over {
-      border-color: rgba(0,194,106,0.45);
+      border-color: rgba(78,158,255,0.7);
+      box-shadow: 0 0 0 1px rgba(78,158,255,0.28) inset, 0 0 0 3px rgba(78,158,255,0.07);
+    }
+
+    .bank-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .bank-card-name-wrap {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .bank-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .bank-card-name {
@@ -692,7 +756,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding-right: 24px;
     }
 
     .bank-card-type {
@@ -716,25 +779,38 @@
       text-overflow: ellipsis;
     }
 
-    .bank-card-edit-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 24px;
-      height: 24px;
+    .bank-card-edit-btn,
+    .bank-card-drag-btn {
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
       color: var(--muted);
-      font-size: 11px;
-      display: flex;
+      font-size: 12px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       line-height: 1;
+      flex-shrink: 0;
     }
 
-    .bank-card-edit-btn:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+    .bank-card-edit-btn:hover,
+    .bank-card-drag-btn:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .bank-card-drag-btn {
+      cursor: grab;
+      font-size: 13px;
+      letter-spacing: -1px;
+    }
+
+    .bank-card-drag-btn:active {
+      cursor: grabbing;
+    }
 
     .bank-add-card {
       background: transparent;
@@ -758,65 +834,6 @@
     }
 
     .bank-add-card .plus { font-size: 20px; line-height: 1; }
-
-    .portfolio-total {
-      margin-top: 10px;
-      padding: 10px 16px;
-      background: rgba(0,194,106,0.07);
-      border: 1px solid rgba(0,194,106,0.18);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .portfolio-total-label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .portfolio-total-value {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .portfolio-toolbar {
-      margin-top: 10px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .portfolio-mode-btn,
-    .portfolio-clear-btn {
-      border-radius: 999px;
-      padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(5,9,15,0.9);
-      color: var(--muted);
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .portfolio-mode-btn:hover,
-    .portfolio-clear-btn:hover {
-      border-color: rgba(255,255,255,0.28);
-      color: var(--text);
-    }
-
-    .portfolio-mode-btn.active {
-      background: rgba(0,194,106,0.12);
-      border-color: rgba(0,194,106,0.35);
-      color: var(--accent);
-    }
-
-    .portfolio-selected-total {
-      margin-top: 8px;
-      background: rgba(78,158,255,0.08);
-      border-color: rgba(78,158,255,0.2);
-    }
 
     .bank-accent-dot {
       width: 8px;
@@ -979,9 +996,16 @@
     <div class="tab-page hidden" id="pagePortfolio">
       <div class="section-title" style="margin-top:8px">Asset portfolio</div>
 
-      <div class="portfolio-toolbar">
-        <button class="portfolio-mode-btn" id="togglePortfolioSelect">Select cards</button>
-        <button class="portfolio-clear-btn" id="clearPortfolioSelection" style="display:none;">Clear selection</button>
+      <div class="portfolio-stats">
+        <div class="portfolio-stat-card">
+          <div class="portfolio-stat-label">Total portfolio balance</div>
+          <div class="portfolio-stat-value" id="portfolioTotalValue">₱0.00</div>
+        </div>
+        <div class="portfolio-stat-card selected-total-card">
+          <div class="portfolio-stat-label">Selected total</div>
+          <div class="portfolio-stat-value" id="portfolioSelectedTotalValue">₱0.00</div>
+          <div class="portfolio-stat-sub" id="portfolioSelectedCount">0 selected</div>
+        </div>
       </div>
 
       <div class="bank-grid" id="bankGrid">
@@ -989,16 +1013,6 @@
           <span class="plus">＋</span>
           <span>Add account</span>
         </div>
-      </div>
-
-      <div class="portfolio-total" id="portfolioTotal" style="display:none">
-        <span class="portfolio-total-label">Total portfolio balance</span>
-        <span class="portfolio-total-value" id="portfolioTotalValue">₱0.00</span>
-      </div>
-
-      <div class="portfolio-total portfolio-selected-total" id="portfolioSelectedTotalBar" style="display:none">
-        <span class="portfolio-total-label" id="portfolioSelectedCount">0 selected</span>
-        <span class="portfolio-total-value" id="portfolioSelectedTotalValue">₱0.00</span>
       </div>
     </div>
   </div>
@@ -1119,7 +1133,6 @@
     let trendChart = null;
     let expensePieChart = null;
 
-    let portfolioSelectMode = false;
     let selectedBankIds = new Set();
     let draggedBankId = null;
 
@@ -1181,8 +1194,10 @@
 
     const bankGrid = document.getElementById('bankGrid');
     const btnAddBankCard = document.getElementById('btnAddBank');
-    const portfolioTotal = document.getElementById('portfolioTotal');
     const portfolioTotalValue = document.getElementById('portfolioTotalValue');
+    const portfolioSelectedTotalValue = document.getElementById('portfolioSelectedTotalValue');
+    const portfolioSelectedCount = document.getElementById('portfolioSelectedCount');
+
     const bankModalBackdrop = document.getElementById('bankModalBackdrop');
     const bankModalTitle = document.getElementById('bankModalTitle');
     const bankModalCloseBtn = document.getElementById('bankModalCloseBtn');
@@ -1194,12 +1209,6 @@
     const bankBalance = document.getElementById('bankBalance');
     const bankColor = document.getElementById('bankColor');
     const bankNote = document.getElementById('bankNote');
-
-    const togglePortfolioSelect = document.getElementById('togglePortfolioSelect');
-    const clearPortfolioSelection = document.getElementById('clearPortfolioSelection');
-    const portfolioSelectedTotalBar = document.getElementById('portfolioSelectedTotalBar');
-    const portfolioSelectedCount = document.getElementById('portfolioSelectedCount');
-    const portfolioSelectedTotalValue = document.getElementById('portfolioSelectedTotalValue');
 
     let editingBankId = null;
     let modalMode = 'income';
@@ -1804,29 +1813,25 @@
       renderBankGrid();
     }
 
-    function updatePortfolioSelectionUI() {
-      const selectedBanks = allBanks.filter(bank => selectedBankIds.has(bank.id));
-      const total = selectedBanks.reduce((sum, bank) => {
+    function updatePortfolioSummary() {
+      const total = allBanks.reduce((sum, bank) => {
         const balance = typeof bank.balance === 'number'
           ? bank.balance
           : Number(String(bank.balance || '0').replace(/,/g,''));
         return sum + balance;
       }, 0);
 
-      togglePortfolioSelect.classList.toggle('active', portfolioSelectMode);
-      togglePortfolioSelect.textContent = portfolioSelectMode ? 'Exit select mode' : 'Select cards';
+      const selectedBanks = allBanks.filter(bank => selectedBankIds.has(bank.id));
+      const selectedTotal = selectedBanks.reduce((sum, bank) => {
+        const balance = typeof bank.balance === 'number'
+          ? bank.balance
+          : Number(String(bank.balance || '0').replace(/,/g,''));
+        return sum + balance;
+      }, 0);
 
-      clearPortfolioSelection.style.display = selectedBankIds.size > 0 ? 'inline-flex' : 'none';
-      portfolioSelectedTotalBar.style.display = selectedBankIds.size > 0 ? 'flex' : 'none';
-
+      portfolioTotalValue.textContent = formatCurrency(total);
+      portfolioSelectedTotalValue.textContent = formatCurrency(selectedTotal);
       portfolioSelectedCount.textContent = `${selectedBankIds.size} selected`;
-      portfolioSelectedTotalValue.textContent = formatCurrency(total);
-    }
-
-    function clearPortfolioSelections() {
-      selectedBankIds.clear();
-      updatePortfolioSelectionUI();
-      renderBankGrid();
     }
 
     function moveBankInArray(fromId, toId) {
@@ -1861,19 +1866,14 @@
     function renderBankGrid() {
       bankGrid.querySelectorAll('.bank-card').forEach(c => c.remove());
 
-      let portfolioSum = 0;
-
       allBanks.forEach(bank => {
         const balance = typeof bank.balance === 'number'
           ? bank.balance
           : Number(String(bank.balance || '0').replace(/,/g,''));
 
-        portfolioSum += balance;
-
         const color = bank.color || '#00c26a';
         const card = document.createElement('div');
         card.className = 'bank-card';
-        card.draggable = !portfolioSelectMode;
         card.dataset.id = bank.id;
         card.style.borderTopColor = color;
         card.style.borderTopWidth = '2px';
@@ -1883,56 +1883,58 @@
         }
 
         card.innerHTML = `
-          <button class="bank-card-edit-btn" title="Edit">✎</button>
-          <div class="bank-card-name">
-            <span class="bank-accent-dot" style="background:${color}"></span>${bank.name || 'Unnamed'}
+          <div class="bank-card-top">
+            <div class="bank-card-name-wrap">
+              <div class="bank-card-name">
+                <span class="bank-accent-dot" style="background:${color}"></span>${bank.name || 'Unnamed'}
+              </div>
+              <div class="bank-card-type">${bank.account_type || 'Account'}</div>
+            </div>
+            <div class="bank-card-actions">
+              <button class="bank-card-drag-btn" title="Reorder" draggable="true">⋮⋮</button>
+              <button class="bank-card-edit-btn" title="Edit">✎</button>
+            </div>
           </div>
-          <div class="bank-card-type">${bank.account_type || 'Account'}</div>
           <div class="bank-card-balance" style="color:${color}">${formatCurrency(balance)}</div>
           ${bank.note ? `<div class="bank-card-note">${bank.note}</div>` : ''}
         `;
 
         const editBtn = card.querySelector('.bank-card-edit-btn');
+        const dragBtn = card.querySelector('.bank-card-drag-btn');
 
         editBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           openEditBankModal(bank);
         });
 
-        card.addEventListener('click', () => {
-          if (portfolioSelectMode) {
-            if (selectedBankIds.has(bank.id)) selectedBankIds.delete(bank.id);
-            else selectedBankIds.add(bank.id);
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.bank-card-edit-btn')) return;
+          if (e.target.closest('.bank-card-drag-btn')) return;
 
-            updatePortfolioSelectionUI();
-            renderBankGrid();
-            return;
-          }
+          if (selectedBankIds.has(bank.id)) selectedBankIds.delete(bank.id);
+          else selectedBankIds.add(bank.id);
 
-          openEditBankModal(bank);
+          card.classList.toggle('selected', selectedBankIds.has(bank.id));
+          updatePortfolioSummary();
         });
 
-        card.addEventListener('dragstart', (e) => {
-          if (portfolioSelectMode) {
-            e.preventDefault();
-            return;
-          }
+        dragBtn.addEventListener('dragstart', (e) => {
           draggedBankId = bank.id;
           card.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', bank.id);
         });
 
-        card.addEventListener('dragend', () => {
+        dragBtn.addEventListener('dragend', () => {
           draggedBankId = null;
           card.classList.remove('dragging');
           bankGrid.querySelectorAll('.bank-card').forEach(el => el.classList.remove('drag-over'));
         });
 
         card.addEventListener('dragover', (e) => {
-          if (portfolioSelectMode) return;
+          if (!draggedBankId || draggedBankId === bank.id) return;
           e.preventDefault();
-          if (draggedBankId && draggedBankId !== bank.id) {
-            card.classList.add('drag-over');
-          }
+          card.classList.add('drag-over');
         });
 
         card.addEventListener('dragleave', () => {
@@ -1940,11 +1942,9 @@
         });
 
         card.addEventListener('drop', async (e) => {
-          if (portfolioSelectMode) return;
+          if (!draggedBankId || draggedBankId === bank.id) return;
           e.preventDefault();
           card.classList.remove('drag-over');
-
-          if (!draggedBankId || draggedBankId === bank.id) return;
 
           const moved = moveBankInArray(draggedBankId, bank.id);
           if (!moved) return;
@@ -1956,14 +1956,7 @@
         bankGrid.insertBefore(card, btnAddBankCard);
       });
 
-      if (allBanks.length > 0) {
-        portfolioTotal.style.display = 'flex';
-        portfolioTotalValue.textContent = formatCurrency(portfolioSum);
-      } else {
-        portfolioTotal.style.display = 'none';
-      }
-
-      updatePortfolioSelectionUI();
+      updatePortfolioSummary();
     }
 
     function openAddBankModal() {
@@ -2060,21 +2053,6 @@
         console.error('Delete bank error', err);
         alert('Failed to delete account.');
       }
-    });
-
-    togglePortfolioSelect.addEventListener('click', () => {
-      portfolioSelectMode = !portfolioSelectMode;
-
-      if (!portfolioSelectMode) {
-        selectedBankIds.clear();
-      }
-
-      updatePortfolioSelectionUI();
-      renderBankGrid();
-    });
-
-    clearPortfolioSelection.addEventListener('click', () => {
-      clearPortfolioSelections();
     });
 
     const periodControls = document.getElementById('periodControls');
