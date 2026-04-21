@@ -1,1 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="James Daniel Constantino — Zendesk Expert & Customer Support Manager">
+    <title>James Constantino | Zendesk + CX Operations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+        :root {
+            --navy: #0b1118;
+            --navy2: #0e1820;
+            --navy3: #111f2a;
+            --green: #1db954;
+            --green2: #25e068;
+            --green-dim: rgba(29,185,84,0.12);
+            --green-border: rgba(29,185,84,0.22);
+            --text: #e8edf2;
+            --muted: #7a8c9a;
+            --border: rgba(255,255,255,0.07);
+            --card-bg: rgba(14,24,32,0.85);
+        }
+
+        html, body { overflow-x: hidden; }
+
+        body {
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            background: var(--navy);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ─────────────────────────────────── */
+        .cv-header {
+            position: relative;
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cv-header::before {
+            content: "";
+            position: absolute;
+            top: -80px; left: 50%;
+            transform: translateX(-50%);
+            width: 900px; height: 500px;
+            background: radial-gradient(ellipse, rgba(29,185,84,0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .cv-header__name {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            color: #fff;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cv-header__title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--green2);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .cv-header__location {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .cv-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .cv-contact a {
+            color: var(--green2);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .cv-contact a:hover { opacity: 0.8; }
+
+        .cv-contact__sep {
+            color: var(--muted);
+        }
+
+        /* Highlight combo */
+        .cv-header__combo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--green-border);
+            background: var(--green-dim);
+            margin-top: 16px;
+        }
+
+        .cv-header__combo::before {
+            content: "";
+            width: 7px; height: 7px;
+            border-radius: 999px;
+            background: var(--green2);
+            box-shadow: 0 0 8px var(--green2);
+        }
+
+        .cv-header__combo-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--green2);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ── MAIN ───────────────────────────────────── */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 100px;
+        }
+
+        /* ── SECTION ────────────────────────────────── */
+        .cv-section {
+            margin-bottom: 48px;
+        }
+
+        .cv-section__title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            color: #fff;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--green-border);
+            position: relative;
+        }
+
+        .cv-section__title::before {
+            content: "";
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 60px; height: 2px;
+            background: var(--green);
+        }
+
+        /* ── JOB ENTRY ──────────────────────────────── */
+        .job-entry {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--green);
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(12px);
+            transition: border-left-color 0.2s, box-shadow 0.2s;
+        }
+
+        .job-entry:hover {
+            border-left-color: var(--green2);
+            box-shadow: 0 8px 28px rgba(29,185,84,0.15);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .job-title-block h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .job-title-block h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--green2);
+            margin-bottom: 6px;
+        }
+
+        .job-dates {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .job-meta {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .job-period {
+            font-size: 0.85rem;
+            color: var(--green2);
+            font-weight: 700;
+            white-space: nowrap;
+            background: var(--green-dim);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--green-border);
+        }
+
+        .job-description {
+            list-style: none;
+            margin: 16px 0 0;
+        }
+
+        .job-description li {
+            padding: 10px 0 10px 20px;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.72;
+            color: rgba(200,215,225,0.85);
+        }
+
+        .job-description li::before {
+            content: "▪";
+            position: absolute;
+            left: 2px;
+            color: var(--green2);
+            font-weight: bold;
+        }
+
+        .job-description strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* ── HIGHLIGHTS ─────────────────────────────── */
+        .highlight-box {
+            background: rgba(29,185,84,0.08);
+            border: 1px solid var(--green-border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .highlight-box h4 {
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green2);
+            margin-bottom: 12px;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .highlight-item {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(200,215,225,0.9);
+        }
+
+        .highlight-metric {
+            color: var(--green2);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ── SKILLS / TAGS ──────────────────────────– */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .skill-tag {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(29,185,84,0.1);
+            border: 1px solid var(--green-border);
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(29,185,84,0.18);
+            border-color: var(--green2);
+        }
+
+        /* ── EDUCATION ──────────────────────────────– */
+        .edu-entry {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--green);
+            border-radius: 12px;
+            padding: 24px 28px;
+            backdrop-filter: blur(12px);
+        }
+
+        .edu-entry h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .edu-entry .degree {
+            font-size: 0.9rem;
+            color: var(--green2);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .edu-entry p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ── RESPONSIVE ─────────────────────────────– */
+        @media (max-width: 640px) {
+            .cv-header { padding: 60px 16px 40px; }
+            .cv-header__name { font-size: 1.8rem; }
+            .cv-contact { gap: 12px; font-size: 0.85rem; }
+            .job-header { flex-direction: column; }
+            .job-period { width: fit-content; }
+            main { padding: 0 16px 60px; }
+            .job-entry { padding: 20px 20px; }
+        }
+
+        @media print {
+            body { background: white; }
+            .cv-header { padding: 40px 24px 30px; }
+            .job-entry, .edu-entry { box-shadow: none; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <header class="cv-header">
+        <div class="cv-header__title">Zendesk Expert + Customer Support Manager</div>
+        <h1 class="cv-header__name">James Daniel Constantino</h1>
+        <p class="cv-header__location">Taguig, Metro Manila, Philippines</p>
+        
+        <div class="cv-contact">
+            <a href="tel:+63917314504">+63917314504</a>
+            <span class="cv-contact__sep">•</span>
+            <a href="mailto:james.constantino18@gmail.com">james.constantino18@gmail.com</a>
+            <span class="cv-contact__sep">•</span>
+            <a href="https://deskxp.com">deskxp.com</a>
+        </div>
+
+        <div class="cv-header__combo">
+            <span class="cv-header__combo-text">8+ years | Zendesk + CX Ops Leadership</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- CORE COMPETENCIES -->
+        <section class="cv-section">
+            <h2 class="cv-section__title">Core Competencies</h2>
+            
+            <div class="highlight-box">
+                <h4>System Architecture & Administration</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Zendesk Suite (Support, Guide, Explore)</span>
+                    <span class="skill-tag">Triggers & Automations</span>
+                    <span class="skill-tag">Macros & Views</span>
+                    <span class="skill-tag">SLA Configuration</span>
+                    <span class="skill-tag">Third-Party Integrations</span>
+                    <span class="skill-tag">Help Center Architecture</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Customer Support Leadership</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Team Leadership (150+ agents)</span>
+                    <span class="skill-tag">Performance Management</span>
+                    <span class="skill-tag">SLA Compliance</span>
+                    <span class="skill-tag">Omnichannel Routing</span>
+                    <span class="skill-tag">Escalation Management</span>
+                    <span class="skill-tag">KPI Reporting (CSAT, NPS, AHT)</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Platforms & Integrations</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Shopify</span>
+                    <span class="skill-tag">Magento</span>
+                    <span class="skill-tag">Gorgias</span>
+                    <span class="skill-tag">Sunshine Conversations</span>
+                    <span class="skill-tag">Google Workspace</span>
+                    <span class="skill-tag">APIs & Webhooks</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFESSIONAL EXPERIENCE -->
+        <section class="cv-section">
+            <h2 class="cv-section__title">Professional Experience</h2>
+
+            <!-- ValueHub -->
+            <div class="job-entry">
+                <div class="job-header">
+                    <div class="job-title-block">
+                        <h3>ValueHub IT</h3>
+                        <h4>Zendesk Lead Consultant</h4>
+                        <div class="job-dates">September 2025 – Present</div>
+                        <div class="job-meta">Enterprise & Fintech Implementations</div>
+                    </div>
+                    <div class="job-period">Current</div>
+                </div>
+                <ul class="job-description">
+                    <li>Lead <strong>end-to-end Zendesk implementations</strong> for enterprise and fintech clients, architecting omnichannel ecosystems across email, chat, social, and self-service.</li>
+                    <li>Deploy multi-brand, multi-workflow Zendesk instances with <strong>triggers, automations, macros, SLA policies, and CSAT systems</strong> aligned to client KPIs.</li>
+                    <li>Build <strong>data pipelines and Zendesk Explore dashboards</strong> for real-time productivity, SLA, and satisfaction reporting.</li>
+                    <li>Direct multi-phase rollouts from workflow design through Help Center UX and AI bot deployment.</li>
+                    <li>Author technical documentation, SOPs, and admin enablement for scalability and knowledge transfer.</li>
+                </ul>
+            </div>
+
+            <!-- DeskXP -->
+            <div class="job-entry">
+                <div class="job-header">
+                    <div class="job-title-block">
+                        <h3>DeskXP</h3>
+                        <h4>Freelance Zendesk Administrator & CX Systems Consultant</h4>
+                        <div class="job-dates">January 2023 – Present</div>
+                        <div class="job-meta">Multi-Client Advisory & Implementation</div>
+                    </div>
+                    <div class="job-period">3+ years</div>
+                </div>
+                <ul class="job-description">
+                    <li>Serve as <strong>Zendesk Admin and systems consultant</strong> for e-commerce, fintech, and BPO clients, designing and optimizing Support, Guides, and Explore environments.</li>
+                    <li>Implemented <strong>custom workflows, triggers, macros, SLAs, automations, and multi-brand routing</strong> across Shopify, Magento, and proprietary CRM platforms.</li>
+                    <li>Developed Help Centers and AI chatbots that <strong>reduced ticket volume by up to 40%</strong> through improved self-service deflection.</li>
+                    <li>Integrated Zendesk with <strong>Shopify, Viber, WhatsApp, Google Workspace</strong> via APIs, webhooks, and Sunshine Conversations.</li>
+                    <li>Delivered admin documentation, training, and ongoing optimization for retained clients under DeskXP, an independent CX consultancy brand.</li>
+                </ul>
+            </div>
+
+            <!-- PalawanPay -->
+            <div class="job-entry">
+                <div class="job-header">
+                    <div class="job-title-block">
+                        <h3>PalawanPay (Fintech)</h3>
+                        <h4>Operations Lead – Customer Support</h4>
+                        <div class="job-dates">June 2021 – September 2025</div>
+                        <div class="job-meta">Leadership, Zendesk Build & Operations (20M+ users)</div>
+                    </div>
+                    <div class="job-period">4+ years</div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Key Results</h4>
+                    <div class="highlight-grid">
+                        <div class="highlight-item">
+                            <div class="highlight-metric">40–60%</div>
+                            Faster first-response times on priority queues
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-metric">₱5M</div>
+                            Annual savings from automation & optimization
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-metric">150+</div>
+                            Agents scaled without SLA degradation
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-metric">$200K</div>
+                            USD saved by building Zendesk in-house
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="job-description">
+                    <li>Led <strong>Customer Support team serving 20M+ users</strong>, managing omnichannel operations (email, chat, social) with focus on efficiency, SLA compliance, and CSAT uplift.</li>
+                    <li>Spearheaded <strong>Zendesk Suite deployment</strong> from zero to production: configured triggers, automations, macros, SLAs, and Help Center without external implementation partner.</li>
+                    <li>Built <strong>Zendesk Explore dashboards</strong> for real-time leadership visibility into FRT, AHT, CSAT, backlog health, and reopen rates.</li>
+                    <li>Managed day-to-day escalations and coached team leads on complex case handling, ensuring consistent quality and voice across channels.</li>
+                    <li>Collaborated with Product, Marketing, Engineering to streamline <strong>customer journey touchpoints</strong>, reduce ticket volume, and enhance UX.</li>
+                    <li>Owned <strong>feedback-to-action loop</strong>: analyzed CSAT/NPS survey data and VOC insights to drive continuous process improvements.</li>
+                    <li>Authored customer support SOPs, escalation protocols, and knowledge base articles for consistency and scale.</li>
+                </ul>
+            </div>
+
+            <!-- American Express -->
+            <div class="job-entry">
+                <div class="job-header">
+                    <div class="job-title-block">
+                        <h3>American Express Intl</h3>
+                        <h4>Customer Care Professional</h4>
+                        <div class="job-dates">March 2017 – May 2021</div>
+                        <div class="job-meta">Support Operations & Quality</div>
+                    </div>
+                    <div class="job-period">4+ years</div>
+                </div>
+                <ul class="job-description">
+                    <li>Delivered high-quality customer support, consistently exceeding KPI targets (CSAT, NPS, Handle Time) and compliance standards.</li>
+                    <li>Acted as Team Point of Contact and contributed to process improvements, driving operational efficiency and customer satisfaction gains.</li>
+                </ul>
+            </div>
+
+            <!-- Sutherland -->
+            <div class="job-entry">
+                <div class="job-header">
+                    <div class="job-title-block">
+                        <h3>Sutherland Global Services (PayPal)</h3>
+                        <h4>Product Trainer & Training Mentor</h4>
+                        <div class="job-dates">May 2016 – December 2016</div>
+                        <div class="job-meta">Onboarding & Enablement</div>
+                    </div>
+                    <div class="job-period">8 months</div>
+                </div>
+                <ul class="job-description">
+                    <li>Led new hire onboarding and training, managing classes through operations endorsement with high throughput and low attrition.</li>
+                    <li>Developed upskilling and refresher programs for tenured agents, directly improving quality and productivity targets.</li>
+                    <li>Designed training materials aligned with product strategy and business objectives.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="cv-section">
+            <h2 class="cv-section__title">Education</h2>
+            <div class="edu-entry">
+                <h3>Adamson University</h3>
+                <div class="degree">BS in Electronics and Communications Engineering</div>
+                <p>Manila, Philippines</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
