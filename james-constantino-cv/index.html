@@ -18,7 +18,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/site.css?v=223">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -46,6 +45,40 @@
       background:var(--navy);
       color:var(--text);
       min-height:100vh;
+    }
+
+    body.profile-page.no-site-header{
+      padding-top:0 !important;
+      margin-top:0 !important;
+    }
+
+    body.profile-page.no-site-header::before,
+    body.profile-page.no-site-header::after{
+      display:none !important;
+      content:none !important;
+    }
+
+    body.profile-page.no-site-header header,
+    body.profile-page.no-site-header .site-header,
+    body.profile-page.no-site-header .header,
+    body.profile-page.no-site-header .topbar,
+    body.profile-page.no-site-header .navbar,
+    body.profile-page.no-site-header .nav-shell,
+    body.profile-page.no-site-header .site-nav,
+    body.profile-page.no-site-header .nav-wrap,
+    body.profile-page.no-site-header .desktop-nav,
+    body.profile-page.no-site-header .mobile-nav,
+    body.profile-page.no-site-header .menu-toggle,
+    body.profile-page.no-site-header .site-header-spacer,
+    body.profile-page.no-site-header .header-spacer{
+      display:none !important;
+      visibility:hidden !important;
+      height:0 !important;
+      min-height:0 !important;
+      max-height:0 !important;
+      overflow:hidden !important;
+      opacity:0 !important;
+      pointer-events:none !important;
     }
 
     .container{
@@ -115,7 +148,7 @@
 
     .profile-hero{
       position:relative;
-      padding:112px 0 84px;
+      padding:84px 0 84px;
       overflow:hidden;
     }
 
@@ -842,12 +875,13 @@
     }
 
     @media (max-width: 920px){
-      .profile-hero{ padding:98px 0 68px; }
+      .profile-hero{ padding:28px 0 68px; }
       .profile-hero__grid,
       .difference-grid{
         grid-template-columns:1fr;
       }
-      .profile-hero__media{ order:-1; }
+      .profile-hero__content{ order:1; }
+      .profile-hero__media{ order:2; }
       .hero-stats{ grid-template-columns:1fr 1fr; }
       .cta-card{
         flex-direction:column;
@@ -887,7 +921,7 @@
   </noscript>
 </head>
 
-<body class="profile-page">
+<body class="profile-page no-site-header">
   <section class="profile-hero">
     <div class="container">
       <div class="section-shell">
@@ -1598,6 +1632,5 @@
   }
   </script>
 
-  <script src="../js/main.js?v=211" defer></script>
 </body>
 </html>
