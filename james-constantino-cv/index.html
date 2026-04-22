@@ -47,40 +47,6 @@
       min-height:100vh;
     }
 
-    body.profile-page.no-site-header{
-      padding-top:0 !important;
-      margin-top:0 !important;
-    }
-
-    body.profile-page.no-site-header::before,
-    body.profile-page.no-site-header::after{
-      display:none !important;
-      content:none !important;
-    }
-
-    body.profile-page.no-site-header header,
-    body.profile-page.no-site-header .site-header,
-    body.profile-page.no-site-header .header,
-    body.profile-page.no-site-header .topbar,
-    body.profile-page.no-site-header .navbar,
-    body.profile-page.no-site-header .nav-shell,
-    body.profile-page.no-site-header .site-nav,
-    body.profile-page.no-site-header .nav-wrap,
-    body.profile-page.no-site-header .desktop-nav,
-    body.profile-page.no-site-header .mobile-nav,
-    body.profile-page.no-site-header .menu-toggle,
-    body.profile-page.no-site-header .site-header-spacer,
-    body.profile-page.no-site-header .header-spacer{
-      display:none !important;
-      visibility:hidden !important;
-      height:0 !important;
-      min-height:0 !important;
-      max-height:0 !important;
-      overflow:hidden !important;
-      opacity:0 !important;
-      pointer-events:none !important;
-    }
-
     .container{
       width:100%;
       max-width:1280px;
@@ -148,7 +114,7 @@
 
     .profile-hero{
       position:relative;
-      padding:84px 0 84px;
+      padding:72px 0 84px;
       overflow:hidden;
     }
 
@@ -492,6 +458,43 @@
       white-space:nowrap;
     }
 
+    .client-proof{
+      margin:16px 0 18px;
+      padding:16px 16px 14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.025);
+    }
+
+    .client-proof__label{
+      margin:0 0 12px;
+      color:#9fc0db;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .client-proof__chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .client-proof__chips span{
+      display:inline-flex;
+      align-items:center;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      color:#e7f1f8;
+      font-size:.85rem;
+      font-weight:700;
+      line-height:1;
+    }
+
     .experience-list ul{
       margin:0;
       padding:0;
@@ -550,6 +553,59 @@
       text-transform:uppercase;
       letter-spacing:.08em;
       font-weight:700;
+    }
+
+    .brand-logos-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .brand-logo-card{
+      background:linear-gradient(180deg, rgba(17,31,42,.7) 0%, rgba(14,24,32,.85) 100%);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:110px;
+      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      overflow:hidden;
+    }
+
+    .brand-logo-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(29,185,84,.3);
+      box-shadow:0 12px 32px rgba(0,0,0,.24);
+    }
+
+    .brand-logo-card img{
+      max-height:60px;
+      max-width:80px;
+      object-fit:contain;
+      display:block;
+    }
+
+    @media (max-width: 1080px){
+      .brand-logos-grid{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    @media (max-width: 720px){
+      .brand-logos-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .brand-logo-card{
+        padding:14px 10px;
+        min-height:100px;
+      }
+      .brand-logo-card img{
+        max-height:54px;
+        max-width:72px;
+      }
     }
 
     .difference-grid{
@@ -875,7 +931,7 @@
     }
 
     @media (max-width: 920px){
-      .profile-hero{ padding:28px 0 68px; }
+      .profile-hero{ padding:56px 0 68px; }
       .profile-hero__grid,
       .difference-grid{
         grid-template-columns:1fr;
@@ -911,6 +967,9 @@
         flex-direction:column;
         align-items:flex-start;
       }
+      .client-proof{
+        padding:14px 12px 12px;
+      }
     }
   </style>
 
@@ -921,7 +980,7 @@
   </noscript>
 </head>
 
-<body class="profile-page no-site-header">
+<body>
   <section class="profile-hero">
     <div class="container">
       <div class="section-shell">
@@ -996,7 +1055,7 @@
           <div class="section-kicker">Professional Summary</div>
           <h2 class="section-title">A practical background in <span>support operations, systems and workflow</span>.</h2>
           <p class="section-sub">
-            I bring together platform implementation, process design, reporting discipline, and operational leadership. His work focuses on building customer support environments that are structured, measurable, and scalable — with cleaner workflows, stronger automation, and systems that support day-to-day execution effectively.
+            I bring together platform implementation, process design, reporting discipline, and operational leadership. My work focuses on building customer support environments that are structured, measurable, and scalable — with cleaner workflows, stronger automation, and systems that support day-to-day execution effectively.
           </p>
 
           <div class="capability-grid">
@@ -1076,8 +1135,49 @@
                 <div class="experience-period">3+ Years</div>
               </div>
 
+              <div class="client-proof">
+                <p class="client-proof__label">Selected client brands I've worked with</p>
+
+                <div class="brand-logos-grid">
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/boutique-de-sophie.png" alt="Boutique de Sophie">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/hannikleider.png" alt="Hanni Kleider">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/casasofia.png" alt="Casa di Sofia">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/doornmore.png" alt="US Doormore">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/palawanpay.png" alt="PalawanPay">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/unison.png" alt="Unison">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/sleeve-stars.png" alt="Sleeve Stars">
+                  </div>
+
+                  <div class="brand-logo-card">
+                    <img src="../assets/k2-industries.png" alt="K2 Industries">
+                  </div>
+
+                </div>
+              </div>
+
               <ul>
-                <li>Provides Zendesk administration and CX systems consulting for e-commerce, fintech, and support-driven organizations.</li>
+                <li>Provides Zendesk administration and CX systems consulting for e-commerce, fintech, and support-driven organizations, with direct experience supporting Shopify and Magento-based operations.</li>
+                <li>Delivered support workflow design, automation, routing, and platform improvements for eCommerce brands across fashion, lifestyle, home, and automotive categories.</li>
                 <li>Implements workflows, automations, macros, SLA structures, multi-brand routing, Help Center design, and support process improvements.</li>
                 <li>Delivers integrations involving Shopify, Magento, Viber, WhatsApp, Sunshine Conversations, Google Workspace, APIs, and webhooks.</li>
                 <li>Supports clients through implementation, optimization, documentation, and ongoing operational refinement under the DeskXP brand.</li>
@@ -1089,7 +1189,7 @@
                 <div>
                   <h3 class="experience-title">PalawanPay</h3>
                   <div class="experience-role">Operations Lead – Customer Support</div>
-                  <div class="experience-meta">June 2021 – September 2025 · Fintech Operations & Zendesk Build</div>
+                  <div class="experience-meta">June 2021 – September 2025 · Head of Customer Operations & Zendesk</div>
                 </div>
                 <div class="experience-period">4+ Years</div>
               </div>
@@ -1125,7 +1225,7 @@
             <article class="experience-card">
               <div class="experience-top">
                 <div>
-                  <h3 class="experience-title">American Express Intl</h3>
+                  <h3 class="experience-title">American Express International</h3>
                   <div class="experience-role">Customer Care Professional</div>
                   <div class="experience-meta">March 2017 – May 2021 · Support Operations & Service Quality</div>
                 </div>
@@ -1143,9 +1243,9 @@
                 <div>
                   <h3 class="experience-title">Sutherland Global Services (PayPal)</h3>
                   <div class="experience-role">Product Trainer & Training Mentor</div>
-                  <div class="experience-meta">May 2016 – December 2016 · Onboarding & Enablement</div>
+                  <div class="experience-meta">July 2014 – December 2016 · Onboarding & Enablement</div>
                 </div>
-                <div class="experience-period">8 Months</div>
+                <div class="experience-period">2+ Years</div>
               </div>
 
               <ul>
@@ -1631,6 +1731,5 @@
     }
   }
   </script>
-
 </body>
 </html>
